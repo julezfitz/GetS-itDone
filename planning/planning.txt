@@ -58,3 +58,16 @@ Expiry on listings (extended)
 Notifications for receiving a bid or having a bid accepted
 Review bidders and review listers 
 Tool to show average amount of successful bids for similar ads
+
+## Operational Questions
+
+- Would we like people to be able to search listings without an account?
+- What fields would we like in a user account? Country?  (Street address isn’t necessary and would help remove privacy concerns)
+- Should we have the area of a listing auto populate to their area, but allow the user to change it if they choose?
+- Should bidding be an optional thing, or should we allow posters to set a fixed price?
+- Should we conceal the names of bidders until a bid is accepted?
+- Should we have a default image for ads in which a user does not add one to maintain consistency in design?
+- Should we have some kind of badges feature as a stretch development. People could earn badges for jobs completed when they are ranked good and display them when they bid to show they are a trusted worker.
+- Sort by fields: date newest, oldest, suggested bid lowest, highest
+- Do we want bidders to see existing bids or are those private to the owner of the job?
+
