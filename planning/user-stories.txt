@@ -1,0 +1,8 @@
+Use Cases
+1.	User can log in and log out
+2.	User can view and update profile
+3.	User can create a new job listing
+4.	User can search listings
+5.	User can view a listing’s details and bid to complete a job
+6.	User can view, edit or delete personal listings
+7.	User can accept or decline a bid

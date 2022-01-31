@@ -1,0 +1,60 @@
+# Project: OddJobs (Temporary name)
+An app to view and post once off odd job listings. 
+Need your lawn mowed, gutters cleaned, house cleaned, help moving? Looking to make some money with your spare time? This is the app for you.
+- Post details of a job you need done, photos and a price you are willing to pay. 
+  - View and manage your personal listings. 
+  - Accept or decline bids and connect with successful bidders.
+- Search for, view and bid on jobs that need doing in your area.
+
+## Operational Considerations
+Pre-populate categories
+Are we expected to develop tests?
+
+## Features
+
+### Add listing
+Select drop down for category
+Automatically add your location to listings
+Listing photos
+Fields (title, description, price, images, category, location, booked(in db))
+
+### View and search listings
+Search by category
+Incorporate maps or listings near me(extended)
+Share listings (externally)
+
+### Respond to a listing
+Submit a bid
+
+extended features:
+Chat
+Ask a question - owner reply 
+
+### User 
+Login / Logout
+Basic profile
+My location
+Update profile
+View my listings 
+
+extended features: 
+View active, past listings
+Profile image
+Delete an account
+
+### My Listings
+View listings
+Delete listing 
+Edit listing
+View bids for individual listings
+Accept or decline a bid 
+Automatically mark as booked or not booked once a bid is accepted 
+Once a bid is accepted owners can access email for the individual to arrange details
+
+extended features:
+Expiry on listings (extended)
+
+## Other Extended Features 
+Notifications for receiving a bid or having a bid accepted
+Review bidders and review listers 
+Tool to show average amount of successful bids for similar ads
