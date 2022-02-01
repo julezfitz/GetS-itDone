@@ -56,4 +56,9 @@
   color: white;
   border-radius: 5px;
   text-decoration: none;
+  transition: 300ms ease;
+}
+
+.demo-links a:hover {
+  opacity: 0.5;
 }
