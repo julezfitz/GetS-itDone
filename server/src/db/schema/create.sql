@@ -35,7 +35,6 @@ CREATE TABLE listings (
     image_2 VARCHAR(255),
     image_3 VARCHAR(255),
     price NUMERIC NOT NULL,
-    booked BOOLEAN NOT NULL DEFAULT FALSE,
     city VARCHAR(255) NOT NULL,
     province VARCHAR(255) NOT NULL,
     postal_code VARCHAR(255) NOT NULL,
