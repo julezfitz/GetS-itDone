@@ -50,6 +50,7 @@ CREATE TABLE offers (
     listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
     bidder_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     accepted BOOLEAN NOT NULL DEFAULT FALSE,
+    pending BOOLEAN NOT NULL DEFAULT FALSE,
 );
 
 CREATE TABLE user_ratings (
@@ -60,4 +61,15 @@ CREATE TABLE user_ratings (
     rating NUMERIC NOT NULL,
     comment TEXT,
     date TIMERSTAMP NOT NULL default now()
+);
+
+CREATE TABLE notifications (
+    id SERIAL PRIMARY KEY NOT NULL,
+    message VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE user_notifications (
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE,
 );
