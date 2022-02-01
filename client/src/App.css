@@ -1,5 +1,10 @@
+#root {
+  height: 100%;
+}
+
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -35,4 +40,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.demo-links {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-links a {
+  background-color: rgb(98, 98, 227);
+  margin: 0 1rem;
+  padding: 1rem 2rem;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
 }

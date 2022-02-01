@@ -8,18 +8,17 @@ import Profile from "./pages/Profile";
 function App() {
 	return (
 		<div className='App'>
-
-			<div className='temp-links'>
-				<Link to={"/"}>Dashboard</Link>
-				<Link to={"/create"}>Create</Link>
-				<Link to={"/profile"}>Profile</Link>
+			<div className='demo-links'>
+				<Link to={"/"}> Dashboard </Link>
+				<Link to={"/create"}> Create </Link>
+				<Link to={"/profile"}> Profile </Link>
 			</div>
 
 			<main>
 				<Routes>
 					<Route path='/' element={<Dashboard />} />
-					<Route path='/' element={<Create />} />
-					<Route path='/' element={<Profile />} />
+					<Route path='/create' element={<Create />} />
+					<Route path='/profile' element={<Profile />} />
 				</Routes>
 			</main>
 		</div>

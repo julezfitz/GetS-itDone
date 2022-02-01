@@ -2,7 +2,7 @@ import React from 'react';
 
 function Create() {
   return <div>
-    <h1>Hello this is the create view</h1>
+    <h1>Hello this is the create component</h1>
   </div>;
 }
 
