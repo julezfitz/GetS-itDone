@@ -18,12 +18,12 @@ CREATE TABLE users (
   province VARCHAR(255) NOT NULL,
   postal_code VARCHAR(255) NOT NULL,
   country VARCHAR(255) NOT NULL,
-  image VARCHAR(255),
+  image VARCHAR(255)
 );
 
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY NOT NULL,
-  category VARCHAR(255) NOT NULL,
+  category VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE listings (
@@ -39,13 +39,13 @@ CREATE TABLE listings (
     city VARCHAR(255) NOT NULL,
     province VARCHAR(255) NOT NULL,
     postal_code VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE listing_categories (
     id SERIAL PRIMARY KEY NOT NULL,
     listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
-    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE
 );
 
 CREATE TABLE offers (
@@ -53,7 +53,7 @@ CREATE TABLE offers (
     listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
     bidder_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     accepted BOOLEAN NOT NULL DEFAULT FALSE,
-    pending BOOLEAN NOT NULL DEFAULT FALSE,
+    pending BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE user_ratings (
@@ -63,16 +63,16 @@ CREATE TABLE user_ratings (
     ratee_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     rating NUMERIC NOT NULL,
     comment TEXT,
-    date TIMERSTAMP NOT NULL default now()
+    date TIMESTAMP NOT NULL default now()
 );
 
 CREATE TABLE notifications (
     id SERIAL PRIMARY KEY NOT NULL,
-    message VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE user_notifications (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE,
+    notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE
 );
