@@ -1,4 +1,8 @@
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS listings CASCADE;
+DROP TABLE IF EXISTS listing_categories CASCADE;
+
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -11,4 +15,31 @@ CREATE TABLE users (
   postal_code VARCHAR(255) NOT NULL,
   country VARCHAR(255) NOT NULL,
   image VARCHAR(255),
+);
+
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY NOT NULL,
+  category VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE listings (
+    id SERIAL PRIMARY KEY NOT NULL,
+    creator_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    image_1 VARCHAR(255),
+    image_2 VARCHAR(255),
+    image_3 VARCHAR(255),
+    price NUMERIC NOT NULL,
+    booked BOOLEAN NOT NULL DEFAULT FALSE,
+    city VARCHAR(255) NOT NULL,
+    province VARCHAR(255) NOT NULL,
+    postal_code VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE listing_categories (
+    id SERIAL PRIMARY KEY NOT NULL,
+    listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
 );
