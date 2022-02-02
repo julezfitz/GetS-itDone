@@ -1,5 +1,6 @@
 import React from "react";
 import "./Application.scss";
+import { Routes, Route, Link } from "react-router-dom";
 
 export default function Application() {
   return (
@@ -17,6 +18,12 @@ export default function Application() {
           Learn React
         </a>
       </header>
+      <Routes>
+        <Route path="/"/>
+        <Route path="/create"/>
+        <Route path="/update/:id/"/>
+        <Route path="/update/:id/"/>
+      </Routes>
     </div>
   );
 }
