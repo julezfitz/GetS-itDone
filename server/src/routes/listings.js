@@ -163,7 +163,7 @@ module.exports.apiDocs = {
                             "individualListing": {
                                 "id": 1,
                                 "creatorId": 2,
-                                "title": "Mow My Lawn",
+                                "title": "Cut My Lawn",
                                 "description": "Looking for someone to mow my lawn this week",
                                 "created": "2022-01-01 05:01:37 -5:00",
                                 "image_1": "https://images.unsplash.com/image_1.jpg",
@@ -188,7 +188,7 @@ module.exports.apiDocs = {
                             "examples": {
                                 "id": 1,
                                 "creatorId": 2,
-                                "title": "Mow My Lawn",
+                                "title": "Cut My Lawn",
                                 "description": "Looking for someone to mow my lawn this week",
                                 "created": "2022-01-01 05:01:37 -5:00",
                                 "image_1": "https://images.unsplash.com/image_1.jpg",
