@@ -12,17 +12,17 @@ module.exports.apiDocs = {
                         "schema": {},
                         "examples": {
                             "individualUser": {
-                                "firstName": "Johnny", 
-                                "lastName": "Smith", 
-                                "email": "jsmith@email.com", 
-                                "password": "password", 
-                                "city": "Toronto", 
-                                "province": "Ontario", 
-                                "postalCode": "A5T3BF", 
-                                "country": "Canada", 
+                                "firstName": "Johnny",
+                                "lastName": "Smith",
+                                "email": "jsmith@email.com",
+                                "password": "password",
+                                "city": "Toronto",
+                                "province": "Ontario",
+                                "postalCode": "A5T3BF",
+                                "country": "Canada",
                                 "image": "https://images.unsplash.com/profile.svg"
                             }
-                        }    
+                        }
                     }
                 }
             },
@@ -43,10 +43,10 @@ module.exports.apiDocs = {
                         "schema": {},
                         "examples": {
                             "individualUserCredentials": {
-                                "email": "jsmith@email.com", 
-                                "password": "password", 
+                                "email": "jsmith@email.com",
+                                "password": "password",
                             }
-                        }    
+                        }
                     }
                 }
             },
@@ -58,19 +58,19 @@ module.exports.apiDocs = {
                             "schema": {},
                             "examples": {
                                 "individualUser": {
-                                    "firstName": "Johnny", 
-                                    "lastName": "Smith", 
-                                    "email": "jsmith@email.com", 
-                                    "password": "password", 
-                                    "city": "Toronto", 
-                                    "province": "Ontario", 
-                                    "postalCode": "A5T3BF", 
-                                    "country": "Canada", 
+                                    "firstName": "Johnny",
+                                    "lastName": "Smith",
+                                    "email": "jsmith@email.com",
+                                    "password": "password",
+                                    "city": "Toronto",
+                                    "province": "Ontario",
+                                    "postalCode": "A5T3BF",
+                                    "country": "Canada",
                                     "image": "https://images.unsplash.com/profile.svg"
                                 },
 
                             }
-                         }
+                        }
                     }
                 }
             }
@@ -79,18 +79,52 @@ module.exports.apiDocs = {
             "description": "Logout of a user account",
             "responses": {
                 204: {
-                  description: "Session terminated",
+                    description: "Session terminated",
                 },
             },
         }
     },
 
     "/user/:userId": {
+        "get": {
+            "description": "Get a user details",
+            "parameters": {
+                "pathParam": {
+                    "name": "userId",
+                    "in": "path",
+                    "description": "get user by id",
+                    "required": true
+                }
+            },
+            "200": {
+                "description": "An individual user's details.",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "examples": {
+                            "firstName": "Johnny",
+                            "lastName": "Smith",
+                            "email": "jsmith@email.com",
+                            "password": "password",
+                            "city": "Toronto",
+                            "province": "Ontario",
+                            "postalCode": "A5T3BF",
+                            "country": "Canada",
+                            "image": "https://images.unsplash.com/profile.svg",
+                            "ratings": {
+                                "totalRatings": 120,
+                                "averageRating": 4.5,
+                            }
+                        },
+                    }
+                }
+            }
+        },
         "put": {
             "description": "Update a user account",
             "parameters": {
                 "pathParam": {
-                    "name": "userId", 
+                    "name": "userId",
                     "in": "path",
                     "description": "update user by id",
                     "required": true
@@ -103,17 +137,17 @@ module.exports.apiDocs = {
                         "schema": {},
                         "examples": {
                             "individualUser": {
-                                "firstName": "John", 
-                                "lastName": "Smith", 
-                                "email": "jsmi@email.com", 
-                                "password": "password1", 
-                                "city": "Toronto", 
-                                "province": "Ontario", 
-                                "postalCode": "B5T3BF", 
-                                "country": "Canada", 
+                                "firstName": "John",
+                                "lastName": "Smith",
+                                "email": "jsmi@email.com",
+                                "password": "password1",
+                                "city": "Toronto",
+                                "province": "Ontario",
+                                "postalCode": "B5T3BF",
+                                "country": "Canada",
                                 "image": "https://images.unsplash.com/profile.svg"
                             }
-                        }    
+                        }
                     }
                 }
             },
@@ -125,19 +159,19 @@ module.exports.apiDocs = {
                             "schema": {},
                             "examples": {
                                 "individualUser": {
-                                    "firstName": "Johnny", 
-                                    "lastName": "Smith", 
-                                    "email": "jsmith@email.com", 
-                                    "password": "password", 
-                                    "city": "Toronto", 
-                                    "province": "Ontario", 
-                                    "postalCode": "A5T3BF", 
-                                    "country": "Canada", 
+                                    "firstName": "Johnny",
+                                    "lastName": "Smith",
+                                    "email": "jsmith@email.com",
+                                    "password": "password",
+                                    "city": "Toronto",
+                                    "province": "Ontario",
+                                    "postalCode": "A5T3BF",
+                                    "country": "Canada",
                                     "image": "https://images.unsplash.com/profile.svg"
                                 },
 
                             }
-                         }
+                        }
                     }
                 },
             }
