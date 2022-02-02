@@ -1,0 +1,27 @@
+# Routes
+
+## Main Resources Index Page
+Search - GET /search
+Search page - GET /search/:query
+
+Login - POST /login
+
+Registration page - GET /register
+Register - POST /register
+
+Update profile page - GET /profile
+Update profile - PUT /profile
+
+My resources page - GET /my-resources
+
+Add resource - POST /resources/
+Rate resource - POST/PUT  /resources/:resourceID/ratings
+Comment - POST /resources/:resourceID/comments
+
+Update resource - PUT /resources/:resourceid
+
+View resource - GET /resources/:resourceid
+
+Click URL - Render url in button on generating the page. No route needed
+
+Like/Unlike - POST/PUT  /resources/:resourceID/ratings - Use JS to make a request
