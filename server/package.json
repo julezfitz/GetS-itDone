@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.js",
-    "reset": "psql -U development -d getsitdone < src/db/schema/create.sql && psql -U development -d getsitdone < src/db/seeds/00-users.sql && psql -U development -d getsitdone < src/db/seeds/01-categories.sql && psql -U development -d getsitdone < src/db/seeds/02-listings.sql && psql -U development -d getsitdone < src/db/seeds/03-listing_categories.sql && psql -U development -d getsitdone < src/db/seeds/04-offers.sql && psql -U development -d getsitdone < src/db/seeds/05-user_ratings.sql",
+    "reset": "psql -U development -d getsitdone < src/db/schema/create.sql && psql -U development -d getsitdone < src/db/seeds/00-users.sql && psql -U development -d getsitdone < src/db/seeds/01-categories.sql && psql -U development -d getsitdone < src/db/seeds/02-listings.sql && psql -U development -d getsitdone < src/db/seeds/03-listing_categories.sql && psql -U development -d getsitdone < src/db/seeds/04-offers.sql && psql -U development -d getsitdone < src/db/seeds/05-user_ratings.sql && psql -U development -d getsitdone < src/db/seeds/06-notifications.sql",
     "shell": "echo $0"
   },
   "author": "",
