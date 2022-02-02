@@ -25,6 +25,16 @@ body,
 	}
 }
 
+.temp-page {
+	background-color: rgb(31, 31, 31);
+	color: white;
+	height: 100%;
+
+	h1 {
+		text-align: center;
+	}
+}
+
 .demo-links {
 	height: 250px;
 	display: flex;
