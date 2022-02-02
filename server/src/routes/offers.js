@@ -39,7 +39,25 @@ module.exports.apiDocs = {
         },
         "post": {
             "description": "Creates an offer to do a job.",
- 
+            "requestBodies": {
+                "description": "application model",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "examples": {
+                            "individualApplication": {
+                                "listingId": 1,
+                                "applicantId": 2,
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Application Created",
+                },
+            }
         },
         "delete": {
             "description": "Delete an offer to do a job",
