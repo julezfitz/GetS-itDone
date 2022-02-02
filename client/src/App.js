@@ -13,8 +13,7 @@ function App() {
 				<Link to={"/"}> Dashboard </Link>
 				<Link to={"/create"}> Create </Link>
 				<Link to={"/profile"}> Profile </Link>
-				<Link to={"/profile"}> Profile </Link>
-				<Link to={`/update/${2}`}>Update listing 2 </Link>
+				<Link to={`/update/${2}`}>Update listing 2</Link>
 			</div>
 
 			<main>
