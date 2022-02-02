@@ -30,7 +30,7 @@ export default function Application() {
 				<Link to={"/"}>Dashboard view</Link>
 				<Link to='/create'>Create view</Link>
 				<Link to='/profile'>Profile view</Link>
-				<Link to={`/update/${2}`}>Update view</Link>
+				<Link to={`/update/${2}`}>Update listing view</Link>
 			</div>
 			<Routes>
 				<Route path='/' element={<Dashboard />} />
