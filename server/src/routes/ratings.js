@@ -58,6 +58,7 @@ module.exports.apiDocs = {
                             "individualRating": {
                                 "raterId": 1,
                                 "rateeId": 2,
+                                "listingId": 2,
                                 "rating": 4, 
                                 "comments": "John was great to work with! Highly recommend", 
                             }
@@ -75,6 +76,7 @@ module.exports.apiDocs = {
                                 "individualRating": {
                                     "raterId": 1,
                                     "rateeId": 2,
+                                    "listingId": 2,
                                     "rating": 4, 
                                     "comments": "John was great to work with! Highly recommend",
                                     "date": "2022-02-01 05:01:37 -5:00"
