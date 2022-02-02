@@ -1,3 +1,9 @@
+html, body, #root, .App {
+  height: 100%;
+}
+
+
+
 .App {
   background-color: darkgray;
   box-shadow: 0px 4px 8px rgba(darkgray, 0.5);
