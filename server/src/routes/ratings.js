@@ -6,7 +6,7 @@ module.exports.apiDocs = {
             "description": "Return all ratings about an individual user from the system.",
             "parameters": {
                 "userParam": {
-                    "name": "ratee",
+                    "name": "ratee Id",
                     "in": "query",
                     "description": "get ratings for a user",
                     "required": true
