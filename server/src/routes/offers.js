@@ -5,7 +5,7 @@ module.exports.apiDocs = {
         "get": {
             "description": "Return all applications by an individual user from the system.",
             "parameters": {
-                "userParam": {
+                "applicantParam": {
                     "name": "applicant Id",
                     "in": "query",
                     "description": "get applications for a user",
@@ -37,5 +37,25 @@ module.exports.apiDocs = {
                 }
             }
         },
+        "post": {
+            "description": "Creates an offer to do a job.",
+ 
+        },
+        "delete": {
+            "description": "Delete an offer to do a job",
+            "parameters": {
+                "applicantParam": {
+                    "name": "applicant Id",
+                    "in": "query",
+                    "description": "delete offer for a listing by the applicant",
+                    "required": true
+                },
+            },
+            "responses": {
+                204: {
+                    description: "Offer retracted",
+                },
+            }, 
+        }
     }
 }
