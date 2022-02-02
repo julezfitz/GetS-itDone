@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import "./Application.scss";
 import { Routes, Route, Link } from "react-router-dom";
-import Create from "./pages/Create";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
-import Update from "./pages/Update";
-import Search from "./pages/Search";
+import {
+	Profile,
+	Search,
+	Dashboard,
+	UpdateListing,
+	Create,
+} from "./Pages/index";
 import NavBar from "./Navigation/Navbar";
 
 export default function Application() {
 	return (
 		<div className='App'>
-			<NavBar/>
+			<NavBar />
 			{/* <div className='demo-links'>
 				<Link to={"/"}>Dashboard view</Link>
 				<Link to='/create'>Create view</Link>
@@ -23,7 +25,7 @@ export default function Application() {
 				<Route path='/create' element={<Create />} />
 				<Route path='/profile' element={<Profile />} />
 				<Route path='/search' element={<Search />} />
-				<Route path='/update/:id' element={<Update />} />
+				<Route path='/update/:id' element={<UpdateListing />} />
 			</Routes>
 		</div>
 	);
