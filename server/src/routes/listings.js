@@ -23,6 +23,7 @@ module.exports.apiDocs = {
         "get": {
             "description": "Return all listings from the system. Narrows results by query string if one is provided.",
             "parameters": {
+                // search by location will need parameters - can use logged in user location, but to use browser geolocation for others would require google's api
                 "keywordsParam": {
                     "name": "keywords", 
                     "in": "query",
@@ -34,11 +35,17 @@ module.exports.apiDocs = {
                     "in": "query",
                     "description": "filter listings by category",
                     "required": false
+                },
+                "creatorParam": {
+                    "name": "creatorId",
+                    "in": "query",
+                    "description": "filter listings by creator id",
+                    "required": false
                 }
             },
             "responses": {
                 "200": {
-                    "description": "An individual listing.",
+                    "description": "An array of listings.",
                     "content": {
                         "application/json": {
                             "schema": {},
@@ -198,6 +205,14 @@ module.exports.apiDocs = {
                 },
             },
 
+        },
+        "delete": {
+            "description": "Deletes an individual listing",
+            "responses": {
+                204: {
+                  description: "Listing deleted",
+                },
+            },
         }
     }
 }
