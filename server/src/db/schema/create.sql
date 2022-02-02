@@ -38,7 +38,8 @@ CREATE TABLE listings (
     city VARCHAR(255) NOT NULL,
     province VARCHAR(255) NOT NULL,
     postal_code VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL
+    country VARCHAR(255) NOT NULL,
+    created TIMESTAMP NOT NULL default now()
 );
 
 CREATE TABLE listing_categories (
