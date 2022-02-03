@@ -41,37 +41,34 @@ module.exports = db => {
 
 	//User attempts to register
 	router.post("/user/register", (req, res) => {
+		const hasEmptyField = checkIfEmpty(req.body);
 		const {
 			firstName,
 			lastName,
 			email,
 			password,
+			password2,
 			city,
 			province,
 			postalCode,
 			country,
 			image,
-		} = req.body;
+		} = trimFields(req.body);
 
-		const hasEmptyField = checkIfEmpty(req.body);
-		
-
-		const trimmedFields = trimFields(req.body);
-		console.log(trimmedFields)
-		
+		const hashedPassword = bcrypt.hashSync(password, 12);
+		console.log(hashedPassword)
 
 		//Check if any fields are empty
 		if (hasEmptyField) {
 			registerErrors.errors.push({
 				message: "Please fill out all the fields.",
 			});
-
-			res.status(401).send(registerErrors);
+			res.send(registerErrors);
 			return;
 		}
 
-		//Check if user exists
-		db.query(
+		//Check if email exists
+		return db.query(
 			`
 				SELECT * FROM users
 				WHERE email = $1
@@ -84,14 +81,34 @@ module.exports = db => {
 				return;
 			}
 
-			db.query(
+			//If user does not exist, check to see if both password fields match
+			if (password !== password2) {
+				registerErrors.errors.push({ message: "Passwords do not match" });
+				res.send(registerErrors);
+				return;
+			}
+
+			//Pass - register user
+			return db.query(
 				`
 				INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
       	VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
       	RETURNING *
 			`,
-				[]
-			);
+				[
+					firstName,
+					lastName,
+					email,
+					hashedPassword,
+					city,
+					province,
+					postalCode,
+					country,
+					image,
+				]
+			)
+				.then(success => console.log(success))
+				.catch(err => console.log(err));
 		});
 	});
 
