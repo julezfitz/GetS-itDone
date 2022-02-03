@@ -1,13 +1,15 @@
 import Profile from "./Profile";
 import Search from "./Search";
-import Dashboard from "./Dashboard";
+import UserListings from "./UserListings";
+import UserOffers from "./UserOffers";
 import UpdateListing from "./UpdateListing";
 import Create from "./Create";
 
 export {
   Profile,
   Search,
-  Dashboard,
+  UserListings,
+  UserOffers,
   UpdateListing,
   Create
 }

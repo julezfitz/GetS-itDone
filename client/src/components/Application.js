@@ -4,10 +4,10 @@ import { Routes, Route, Link } from "react-router-dom";
 import {
 	Profile,
 	Search,
-	Dashboard,
+	UserOffers,
 	UpdateListing,
 	Create,
-} from "./Pages/index";
+} from "./Views/index";
 import NavBar from "./Navigation/Navbar";
 
 export default function Application() {
@@ -20,13 +20,15 @@ export default function Application() {
 				<Link to='/profile'>Profile view</Link>
 				<Link to={`/update/${2}`}>Update listing view</Link>
 			</div> */}
-			<Routes>
-				<Route path='/' element={<Dashboard />} />
-				<Route path='/create' element={<Create />} />
-				<Route path='/profile' element={<Profile />} />
-				<Route path='/search' element={<Search />} />
-				<Route path='/update/:id' element={<UpdateListing />} />
-			</Routes>
+			<main className="content-wrapper">
+				<Routes>
+					<Route path='/' element={<UserOffers />} />
+					<Route path='/create' element={<Create />} />
+					<Route path='/profile' element={<Profile />} />
+					<Route path='/search' element={<Search />} />
+					<Route path='/update/:id' element={<UpdateListing />} />
+				</Routes>
+			</main>
 		</div>
 	);
 }
