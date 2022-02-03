@@ -21,3 +21,6 @@ PGPORT=5432
 
 To reset the database:
 echo "npm run reset"
+
+## API Documentation
+echo "npm start" and go to http://localhost:8001/api-docs/#/

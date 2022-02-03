@@ -5,23 +5,22 @@ module.exports.apiDocs = {
     "/user/register": {
         "post": {
             "description": "Create a user account",
-            "requestBodies": {
+            "tags": ["users"],
+            "requestBody": {
                 "description": "user model",
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
-                            "individualUser": {
-                                "firstName": "Johnny",
-                                "lastName": "Smith",
-                                "email": "jsmith@email.com",
-                                "password": "password",
-                                "city": "Toronto",
-                                "province": "Ontario",
-                                "postalCode": "A5T3BF",
-                                "country": "Canada",
-                                "image": "https://images.unsplash.com/profile.svg"
-                            }
+                        "example": {
+                            "firstName": "Johnny",
+                            "lastName": "Smith",
+                            "email": "jsmith@email.com",
+                            "password": "password",
+                            "city": "Toronto",
+                            "province": "Ontario",
+                            "postalCode": "A5T3BF",
+                            "country": "Canada",
+                            "image": "https://images.unsplash.com/profile.svg"
                         }
                     }
                 }
@@ -36,16 +35,15 @@ module.exports.apiDocs = {
     "/user/session": {
         "post": {
             "description": "Login to a user account",
-            "requestBodies": {
+            "tags": ["users"],
+            "requestBody": {
                 "description": "user email and password",
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
-                            "individualUserCredentials": {
-                                "email": "jsmith@email.com",
-                                "password": "password",
-                            }
+                        "example": {
+                            "email": "jsmith@email.com",
+                            "password": "password"
                         }
                     }
                 }
@@ -56,19 +54,16 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {},
-                            "examples": {
-                                "individualUser": {
-                                    "firstName": "Johnny",
-                                    "lastName": "Smith",
-                                    "email": "jsmith@email.com",
-                                    "password": "password",
-                                    "city": "Toronto",
-                                    "province": "Ontario",
-                                    "postalCode": "A5T3BF",
-                                    "country": "Canada",
-                                    "image": "https://images.unsplash.com/profile.svg"
-                                },
-
+                            "example": {
+                                "firstName": "Johnny",
+                                "lastName": "Smith",
+                                "email": "jsmith@email.com",
+                                "password": "password",
+                                "city": "Toronto",
+                                "province": "Ontario",
+                                "postalCode": "A5T3BF",
+                                "country": "Canada",
+                                "image": "https://images.unsplash.com/profile.svg"
                             }
                         }
                     }
@@ -77,6 +72,7 @@ module.exports.apiDocs = {
         },
         "delete": {
             "description": "Logout of a user account",
+            "tags": ["users"],
             "responses": {
                 204: {
                     description: "Session terminated",
@@ -88,6 +84,7 @@ module.exports.apiDocs = {
     "/user/:userId": {
         "get": {
             "description": "Get a user details",
+            "tags": ["users"],
             "parameters": {
                 "pathParam": {
                     "name": "userId",
@@ -101,7 +98,7 @@ module.exports.apiDocs = {
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
+                        "example": {
                             "firstName": "Johnny",
                             "lastName": "Smith",
                             "email": "jsmith@email.com",
@@ -122,6 +119,7 @@ module.exports.apiDocs = {
         },
         "put": {
             "description": "Update a user account",
+            "tags": ["users"],
             "parameters": {
                 "pathParam": {
                     "name": "userId",
@@ -130,23 +128,21 @@ module.exports.apiDocs = {
                     "required": true
                 }
             },
-            "requestBodies": {
+            "requestBody": {
                 "description": "user model",
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
-                            "individualUser": {
-                                "firstName": "John",
-                                "lastName": "Smith",
-                                "email": "jsmi@email.com",
-                                "password": "password1",
-                                "city": "Toronto",
-                                "province": "Ontario",
-                                "postalCode": "B5T3BF",
-                                "country": "Canada",
-                                "image": "https://images.unsplash.com/profile.svg"
-                            }
+                        "example": {
+                            "firstName": "John",
+                            "lastName": "Smith",
+                            "email": "jsmi@email.com",
+                            "password": "password1",
+                            "city": "Toronto",
+                            "province": "Ontario",
+                            "postalCode": "B5T3BF",
+                            "country": "Canada",
+                            "image": "https://images.unsplash.com/profile.svg"
                         }
                     }
                 }
@@ -157,19 +153,16 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {},
-                            "examples": {
-                                "individualUser": {
-                                    "firstName": "Johnny",
-                                    "lastName": "Smith",
-                                    "email": "jsmith@email.com",
-                                    "password": "password",
-                                    "city": "Toronto",
-                                    "province": "Ontario",
-                                    "postalCode": "A5T3BF",
-                                    "country": "Canada",
-                                    "image": "https://images.unsplash.com/profile.svg"
-                                },
-
+                            "example": {
+                                "firstName": "Johnny",
+                                "lastName": "Smith",
+                                "email": "jsmith@email.com",
+                                "password": "password",
+                                "city": "Toronto",
+                                "province": "Ontario",
+                                "postalCode": "A5T3BF",
+                                "country": "Canada",
+                                "image": "https://images.unsplash.com/profile.svg"
                             }
                         }
                     }

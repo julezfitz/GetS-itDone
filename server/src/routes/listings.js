@@ -18,92 +18,105 @@ module.exports = db => {
 
 // API documentation for Open API below
 
+const exampleListing1 = {
+    "id": 1,
+    "creatorId": 2,
+    "title": "Mow My Lawn",
+    "description": "Looking for someone to mow my lawn this week",
+    "created": "2022-01-01 05:01:37 -5:00",
+    "image_1": "https://images.unsplash.com/image_1.jpg",
+    "image_2": "https://images.unsplash.com/image_2.png",
+    "image_3": "https://images.unsplash.com/image_3.svg",
+    "price": 200.99,
+    "city": "Toronto",
+    "province": "Ontario",
+    "postalCode": "A5T3BF",
+    "country": "Canada"
+};
+
+const exampleListing2 = {
+    "id": 2,
+    "creatorId": 1,
+    "title": "Cut Grass",
+    "description": "Looking for someone to cut grass",
+    "created": "2022-01-12 05:01:37 -5:00",
+    "image_1": "https://images.unsplash.com/image_1.jpg",
+    "price": 200.99,
+};
+
 module.exports.apiDocs = {
     "/listings": {
         "get": {
             "description": "Return all listings from the system. Narrows results by query string if one is provided.",
-            "parameters": {
+            "tags": ["listings"],
+            "parameters": [
                 // search by location will need parameters - can use logged in user location, but to use browser geolocation for others would require google's api
-                "keywordsParam": {
-                    "name": "keywords", 
+                {
+                    "name": "keywords",
                     "in": "query",
                     "description": "search listings by keywords",
+                    "schema": {
+                        "type": "string"
+                    },
                     "required": false
                 },
-                "categoryParam": {
+                {
                     "name": "category",
                     "in": "query",
                     "description": "filter listings by category",
                     "required": false
                 },
-                "creatorParam": {
+                {
                     "name": "creatorId",
                     "in": "query",
                     "description": "filter listings by creator id",
                     "required": false
-                }
-            },
+                },
+                {
+                    "name": "orderBy",
+                    "in": "query",
+                    "description": "what it will be ordered by (price, date)",
+                    "required": false
+                },
+                {
+                    "name": "sortOrder",
+                    "in": "query",
+                    "description": "ascending or descending order",
+                    "schema": {
+                        "type": "string",
+                        "enum": ["asc", "desc"]
+                    },
+                    "required": false
+                },
+            ],
             "responses": {
-                "200": {
+                200: {
                     "description": "An array of listings.",
                     "content": {
                         "application/json": {
-                            "schema": {},
-                            "examples": [
-                                {
-                                    "id": 1,
-                                    "creatorId": 2,
-                                    "title": "Mow My Lawn",
-                                    "description": "Looking for someone to mow my lawn this week",
-                                    "created": "2022-01-01 05:01:37 -5:00",
-                                    "image_1": "https://images.unsplash.com/image_1.jpg",
-                                    "price": 200.99,
-                                },
-                                {
-                                    "id": 2,
-                                    "creatorId": 1,
-                                    "title": "Cut Grass",
-                                    "description": "Looking for someone to cut grass",
-                                    "created": "2022-01-12 05:01:37 -5:00",
-                                    "image_1": "https://images.unsplash.com/image_1.jpg",
-                                    "price": 200.99,
-                                }
-                                
-                            ]
+                            "schema": {
+                                "type": "array"
+                            },
+                            "example": [exampleListing1, exampleListing2],
                         }
                     }
                 }
-            }
+            },
         },
         "post": {
             "description": "Create a listing",
-            "requestBodies": {
+            "tags": ["listings"],
+            "requestBody": {
                 "description": "listing model",
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
-                            "individualListing": {
-                                "id": 1,
-                                "creatorId": 2,
-                                "title": "Mow My Lawn",
-                                "description": "Looking for someone to mow my lawn this week",
-                                "created": "2022-01-01 05:01:37 -5:00",
-                                "image_1": "https://images.unsplash.com/image_1.jpg",
-                                "image_2": "https://images.unsplash.com/image_2.png",
-                                "image_3": "https://images.unsplash.com/image_3.svg",
-                                "price": 200.99,
-                                "city": "Toronto",
-                                "province": "Ontario",
-                                "postalCode": "A5T3BF",
-                                "country": "Canada"
-                            }
-                        }
+                        "example": exampleListing1
                     }
                 }
             },
             "responses": {
-                "201": {
+                201: {
                     "description": "Listing Created",
                 },
             }
@@ -120,33 +133,14 @@ module.exports.apiDocs = {
         ],
         "get": {
             "description": "Returns the details of an individual listing.",
+            "tags": ["listings"],
             "responses": {
-                "200": {
+                200: {
                     "description": "An individual listing.",
                     "content": {
                         "application/json": {
                             "schema": {},
-                            "examples": {
-                                "individualListing": {
-                                    "id": 1,
-                                    "creator": {
-                                        "id": 2,
-                                        "firstName": "Johnny",
-                                        "lastName": "Smith"
-                                    },
-                                    "title": "Mow My Lawn",
-                                    "description": "Looking for someone to mow my lawn this week",
-                                    "created": "2022-01-01 05:01:37 -5:00",
-                                    "image_1": "https://images.unsplash.com/image_1.jpg",
-                                    "image_2": "https://images.unsplash.com/image_2.png",
-                                    "image_3": "https://images.unsplash.com/image_3.svg",
-                                    "price": 100.99,
-                                    "city": "Toronto",
-                                    "province": "Ontario",
-                                    "postalCode": "A5T3BF",
-                                    "country": "Canada"
-                                }
-                            }
+                            "example": exampleListing1
                         }
                     }
                 }
@@ -154,52 +148,23 @@ module.exports.apiDocs = {
         },
         "put": {
             "description": "Update a listing",
-            "requestBodies": {
+            "tags": ["listings"],
+            "requestBody": {
                 "description": "listing model",
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
-                            "individualListing": {
-                                "id": 1,
-                                "creatorId": 2,
-                                "title": "Cut My Lawn",
-                                "description": "Looking for someone to mow my lawn this week",
-                                "created": "2022-01-01 05:01:37 -5:00",
-                                "image_1": "https://images.unsplash.com/image_1.jpg",
-                                "image_2": "https://images.unsplash.com/image_2.png",
-                                "image_3": "https://images.unsplash.com/image_3.svg",
-                                "price": 100.99,
-                                "city": "Toronto",
-                                "province": "Ontario",
-                                "postalCode": "A5T3BF",
-                                "country": "Canada"
-                            }
-                        }
+                        "example": { ...exampleListing1, title: "Cut my lawn" }
                     }
                 }
             },
             "responses": {
-                "200": {
+                200: {
                     "description": "Updated ok",
                     "content": {
                         "application/json": {
                             "schema": {},
-                            "examples": {
-                                "id": 1,
-                                "creatorId": 2,
-                                "title": "Cut My Lawn",
-                                "description": "Looking for someone to mow my lawn this week",
-                                "created": "2022-01-01 05:01:37 -5:00",
-                                "image_1": "https://images.unsplash.com/image_1.jpg",
-                                "image_2": "https://images.unsplash.com/image_2.png",
-                                "image_3": "https://images.unsplash.com/image_3.svg",
-                                "price": 100.99,
-                                "city": "Toronto",
-                                "province": "Ontario",
-                                "postalCode": "A5T3BF",
-                                "country": "Canada"
-                            }
+                            "example": { ...exampleListing1, title: "Cut my lawn" }
                         }
                     },
                 },
@@ -208,11 +173,12 @@ module.exports.apiDocs = {
         },
         "delete": {
             "description": "Deletes an individual listing",
+            "tags": ["listings"],
             "responses": {
                 204: {
-                  description: "Listing deleted",
+                    "description": "Listing deleted",
                 },
             },
         }
     }
-}
+};
