@@ -1,6 +1,7 @@
 
 const Express = require('express');
 const Passport = require("passport");
+const cors = require("cors");
 const App = Express();
 const BodyParser = require('body-parser');
 const PORT = 8080;
@@ -8,6 +9,7 @@ const PORT = 8080;
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
+App.use(cors());
 App.use(Express.static('public'));
 App.use(Passport.initialize());
 App.use(Passport.session());
