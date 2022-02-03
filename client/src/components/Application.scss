@@ -1,4 +1,4 @@
-// .App {
+.App {
 //   margin: auto;
 //   width: 100%;
 //   background-color: beige;
@@ -9,4 +9,27 @@
 //     flex-direction: row;
 //     justify-content: space-around;
 //   }
-// }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.button {
+  min-width: 100px;
+  padding: 16px 32px;
+  border-radius: 4px;
+  border: none;
+  background: #141414;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
