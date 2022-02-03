@@ -18,23 +18,23 @@ module.exports = db => {
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
 
-	
+		//If any field is empty, send error right away
 		if (!email || !password) {
 			loginErrors.errors.push({ message: "Please fill out the fields." });
 			res.send(loginErrors);
 			return;
 		}
 
+		//If both fields are filled out, begin passport auth
 		passport.authenticate("local", (err, user, info) => {
 			if (err) throw err;
-			
+
 			//If passport does not find user, send error response
 			if (!user) {
 				loginErrors.errors.push({ message: info.message });
 				res.send(loginErrors);
 				return;
 			} else {
-
 				//Passport found a user
 				req.logIn(user, err => {
 					if (err) throw err;
@@ -83,20 +83,21 @@ module.exports = db => {
 				[email]
 			)
 			.then(user => {
+				//If email is returned from db, send error message
 				if (user.rows.length) {
 					registerErrors.errors.push({ message: "E-mail already exists" });
 					res.send(registerErrors);
 					return;
 				}
 
-				//If user does not exist, check to see if both password fields match
+				//If user does not exist, check to see if password + passwordConfirmation match
 				if (password !== password2) {
 					registerErrors.errors.push({ message: "Passwords do not match" });
 					res.send(registerErrors);
 					return;
 				}
 
-				//Pass - register user
+				//Success - register user
 				return db
 					.query(
 						`
@@ -117,6 +118,7 @@ module.exports = db => {
 						]
 					)
 					.then(success => {
+						//If user has successfully been registered in db, send success msg to front end
 						res.send({
 							success: {
 								user: success.rows[0],
@@ -124,6 +126,7 @@ module.exports = db => {
 						});
 					})
 					.catch(err => {
+						//Catch any possible server/db errors and send response
 						registerErrors.errors.push({
 							message: "Server error. Please try again.",
 						});
