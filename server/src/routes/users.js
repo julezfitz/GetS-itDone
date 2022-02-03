@@ -28,13 +28,18 @@ module.exports = db => {
 		passport.authenticate("local", (err, user, info) => {
 			if (err) throw err;
 			
+			//If passport does not find user, send error response
 			if (!user) {
 				loginErrors.errors.push({ message: info.message });
 				res.send(loginErrors);
 				return;
 			} else {
+
+				//Passport found a user
 				req.logIn(user, err => {
 					if (err) throw err;
+
+					//Send successful auth status + message
 					res.status(200).send("Successfully Authenticated");
 				});
 			}
