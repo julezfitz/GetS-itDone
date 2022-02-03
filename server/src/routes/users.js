@@ -93,9 +93,9 @@ module.exports = db => {
 				return db
 					.query(
 						`
-				INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
-      	VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      	RETURNING *
+						INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
+      			VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      			RETURNING *
 			`,
 						[
 							firstName,
@@ -109,12 +109,18 @@ module.exports = db => {
 							image,
 						]
 					)
-					.then(success => console.log(success))
+					.then(success => {
+						res.send({
+							success: {
+								user: success.rows[0],
+							},
+						});
+					})
 					.catch(err => {
 						registerErrors.errors.push({
 							message: "Server error. Please try again.",
 						});
-						res.status(500).send(registerErrors);
+						console.log(err);
 					});
 			});
 	});
@@ -148,7 +154,45 @@ module.exports.apiDocs = {
 			},
 			responses: {
 				201: {
-					description: "User Created",
+					description: "Session Created",
+					content: {
+						"application/json": {
+							schema: {},
+							example: {
+								success: {
+									user: {
+										firstName: "Johnny",
+										lastName: "Smith",
+										email: "jsmith@email.com",
+										password: "password",
+										city: "Toronto",
+										province: "Ontario",
+										postalCode: "A5T3BF",
+										country: "Canada",
+										image: "https://images.unsplash.com/profile.svg",
+									},
+								},
+							},
+						},
+					},
+				},
+				401: {
+					description: "Unauthorized",
+					content: {
+						"application/json": {
+							schema: {},
+							example: {
+								errors: [
+									{
+										message: "Fields cannot be empty",
+									},
+									{
+										message: "Passwords do not match",
+									},
+								],
+							},
+						},
+					},
 				},
 			},
 		},
