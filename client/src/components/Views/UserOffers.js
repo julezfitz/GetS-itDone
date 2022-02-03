@@ -1,11 +1,12 @@
 import React from "react";
 
-function Dashboard() {
+function UserOffers() {
+
 	return (
-		<div className='dashboard-wrapper'>
+		<div className='userOffers-wrapper'>
 			<h1>Hello this is the dashboard component</h1>
 		</div>
 	);
 }
 
-export default Dashboard;
+export default UserOffers;
