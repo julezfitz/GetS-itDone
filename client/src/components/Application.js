@@ -21,13 +21,14 @@ export default function Application() {
 				lastName: "Smith",
 				email: "jsmith@email.com",
 				password: "password",
-				city: "",
+				city: "Montreal",
 				province: "Ontario",
 				postalCode: "A5T3BF",
 				country: "Canada",
 				image: "https://images.unsplash.com/profile.svg",
 			})
-			.then(res => console.log(res));
+			.then(res => console.log(res))
+			.catch(err => console.log(err))
 	}, []);
 
 	return (
