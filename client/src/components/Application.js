@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/scss/Application.scss";
 import { Routes, Route, Link } from "react-router-dom";
 import {
@@ -11,8 +11,17 @@ import {
 	Create,
 } from "./Views/index";
 import NavBar from "./Navigation/Navbar";
+import axios from "axios";
 
 export default function Application() {
+
+	useEffect(() => {
+		axios.post("http://localhost:8001/user/session", {
+			email: 'matthewparisien4@gmail.com',
+			password: 'password'
+		})
+	}, [])
+
 	return (
 		<div className='App'>
 			<NavBar />
