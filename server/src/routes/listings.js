@@ -56,23 +56,33 @@ module.exports = db => {
 
         const { creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
             country } = request.body;
+        
+        const listingUpdates = [
+            {"creator_id": creatorId},
+            {"title": title}, 
+            {"description": description},
+            {"image_1": image_1},
+            {"image_2": image_2}, 
+            {"image_3": image_3}, 
+            {"price": price}, 
+            {"city": city}, 
+            {"province": province}, 
+            {"postal_code": postalCode},
+            {"country": country}
+            ];
 
         let queryString = `UPDATE listings SET`;
 
-        title ? queryString += ` title = '${title}'` : "";
-        description ? queryString += ` description = '${description}'` : "";
-        image_1 ? queryString += ` image_1 = '${image_1}'` : "";
-        image_2 ? queryString += ` image_2 = '${image_2}'` : "";
-        image_3 ? queryString += ` image_3 = '${image_3}'` : "";
-        price ? queryString += ` price = '${price}'` : "";
-        city ? queryString += ` city = '${city}'` : "";
-        province ? queryString += ` province = '${province}'` : "";
-        postalCode ? queryString += ` postal_code = '${postalCode}'` : "";
-        country ? queryString += ` country = '${country}'` : "";
+        let queryArray = [];
 
+        listingUpdates.forEach((updateObj) => {
+            Object.keys(updateObj).forEach((key) => {
+                queryArray.push(` ${key} = '${updateObj[key]}'`)
+          });
+        });
+
+        queryString += queryArray.join(", ");
         queryString += ` WHERE id = ${request.params.listingId} RETURNING *;`
-
-        console.log(queryString);
 
         db.query(queryString).then((result) => {
             response.json(result.rows[0]);
