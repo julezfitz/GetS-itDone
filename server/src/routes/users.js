@@ -33,7 +33,7 @@ module.exports = db => {
 			} else {
 				req.logIn(user, err => {
 					if (err) throw err;
-					res.send("Successfully Authenticated");
+					res.status(200).send("Successfully Authenticated");
 				});
 			}
 		})(req, res, next);
@@ -56,7 +56,6 @@ module.exports = db => {
 		} = trimFields(req.body);
 
 		const hashedPassword = bcrypt.hashSync(password, 12);
-		console.log(hashedPassword)
 
 		//Check if any fields are empty
 		if (hasEmptyField) {
@@ -68,48 +67,56 @@ module.exports = db => {
 		}
 
 		//Check if email exists
-		return db.query(
-			`
+		return db
+			.query(
+				`
 				SELECT * FROM users
 				WHERE email = $1
 		`,
-			[email]
-		).then(user => {
-			if (user.rows.length) {
-				registerErrors.errors.push({ message: "E-mail already exists" });
-				res.send(registerErrors);
-				return;
-			}
+				[email]
+			)
+			.then(user => {
+				if (user.rows.length) {
+					registerErrors.errors.push({ message: "E-mail already exists" });
+					res.send(registerErrors);
+					return;
+				}
 
-			//If user does not exist, check to see if both password fields match
-			if (password !== password2) {
-				registerErrors.errors.push({ message: "Passwords do not match" });
-				res.send(registerErrors);
-				return;
-			}
+				//If user does not exist, check to see if both password fields match
+				if (password !== password2) {
+					registerErrors.errors.push({ message: "Passwords do not match" });
+					res.send(registerErrors);
+					return;
+				}
 
-			//Pass - register user
-			return db.query(
-				`
+				//Pass - register user
+				return db
+					.query(
+						`
 				INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
       	VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
       	RETURNING *
 			`,
-				[
-					firstName,
-					lastName,
-					email,
-					hashedPassword,
-					city,
-					province,
-					postalCode,
-					country,
-					image,
-				]
-			)
-				.then(success => console.log(success))
-				.catch(err => console.log(err));
-		});
+						[
+							firstName,
+							lastName,
+							email,
+							hashedPassword,
+							city,
+							province,
+							postalCode,
+							country,
+							image,
+						]
+					)
+					.then(success => console.log(success))
+					.catch(err => {
+						registerErrors.errors.push({
+							message: "Server error. Please try again.",
+						});
+						res.status(500).send(registerErrors);
+					});
+			});
 	});
 
 	return router;
