@@ -18,7 +18,7 @@ export default function Application() {
 	useEffect(() => {
 		axios.post("http://localhost:8001/user/session", {
 			email: 'matthewparisien4@gmail.com',
-			password: ''
+			password: 'thisispassword'
 		})
 		.then(res => console.log(res))
 	}, [])
