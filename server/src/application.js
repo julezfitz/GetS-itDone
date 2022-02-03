@@ -15,6 +15,7 @@ module.exports = function application(ENV) {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(require('./openapi-spec')));
 
   app.use("/", require("./routes/listings")(db))
+  app.use("/", require("./routes/categories")(db))
 
   app.close = function() {
     return db.end();
