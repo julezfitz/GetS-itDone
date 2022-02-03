@@ -1,3 +1,4 @@
+const Router = require("express").Router();
 
 // API documentation for Open API below
 
@@ -65,6 +66,17 @@ module.exports.apiDocs = {
                                 "country": "Canada",
                                 "image": "https://images.unsplash.com/profile.svg"
                             }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Unauthorized",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array"
+                            },
+                            "errors": authErrors
                         }
                     }
                 }
