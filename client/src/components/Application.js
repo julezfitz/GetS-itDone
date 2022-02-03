@@ -19,7 +19,7 @@ export default function Application() {
 			.post("http://localhost:8001/user/register", {
 				firstName: "Matt",
 				lastName: "Parisien",
-				email: "mattparisien@gmail.com",
+				email: "matthewsswwparisien@gmail.com",
 				password: "password",
 				password2: "password",
 				city: "Montreal",
