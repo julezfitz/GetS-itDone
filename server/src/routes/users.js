@@ -51,6 +51,7 @@ module.exports = db => {
 			country,
 			image,
 		} = req.body;
+		console.log(email);
 
 		const hasEmptyField = checkIfEmpty(req.body);
 
@@ -67,15 +68,22 @@ module.exports = db => {
 		//Check if user exists
 		db.query(
 			`
-			SELECT * FROM users
-			WHERE email = $1
+				SELECT * FROM users
+				WHERE email = $1
 		`,
 			[email]
-		).then(res => {
-			if (res.rows.length) {
+		).then(user => {
+			if (user.rows.length) {
 				registerErrors.errors.push({ message: "E-mail already exists" });
 				res.send(registerErrors);
+				return;
 			}
+
+			db.query`
+				INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
+      	VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      	RETURNING *
+			`;
 		});
 	});
 
