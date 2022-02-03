@@ -2,18 +2,35 @@ import React, { useState } from "react";
 
 import "./Application.scss";
 import Navbar from './Navigation/Navbar';
-// import Register from "./User/Register";
+import Register from "./User/Register";
+import Login from "./User/Login";
 
 export default function Application() {
-  // const [showRegister, setShowRegister] = useState(false)
+  const [showRegister, setShowRegister] = useState(false)
+  const [showLogin, setShowLogin] = useState(false);
 
-  // const openRegister = () => {
-  //   setShowRegister(prev => !prev);
-  // }
+
+  const openLogin = () => {
+    setShowLogin(prev => !prev);
+  };
+
+  const openRegister = () => {
+    setShowRegister(prev => !prev);
+  }
 
   return (
     <div className="app">
-      <Navbar />
+      <Navbar 
+        openRegister={openRegister} 
+        showRegister={showRegister}
+        setShowRegister={setShowRegister} 
+        openLogin={openLogin} 
+        showLogin={showLogin}
+        setShowLogin={setShowLogin}
+        userName="Bob" 
+      />
+      <Register showRegister={showRegister} setShowRegister={setShowRegister} />
+      <Login showLogin={showLogin} setShowLogin={setShowLogin} />
       {/* <div className="container">
         <button className="button" onClick={openRegister}>Register Modal</button>
         <Register showRegister={showRegister} setShowRegister={setShowRegister} />
