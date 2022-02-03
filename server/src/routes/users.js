@@ -54,13 +54,29 @@ module.exports = db => {
 
 		const hasEmptyField = checkIfEmpty(req.body);
 
+		//Check if any fields are empty
 		if (hasEmptyField) {
 			registerErrors.errors.push({
 				message: "Please fill out all the fields.",
 			});
-			res.send(registerErrors);
+
+			res.status(401).send(registerErrors);
 			return;
 		}
+
+		//Check if user exists
+		db.query(
+			`
+			SELECT * FROM users
+			WHERE email = $1
+		`,
+			[email]
+		).then(res => {
+			if (res.rows.length) {
+				registerErrors.errors.push({ message: "E-mail already exists" });
+				res.send(registerErrors);
+			}
+		});
 	});
 
 	return router;
