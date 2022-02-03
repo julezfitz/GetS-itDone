@@ -19,13 +19,13 @@ export default function Navbar(props) {
         <p>Get S*it Done</p>
       </ul>
       <ul className="search">
-          <Searchbar/>
-        </ul>
+        <Searchbar/>
+      </ul>
       <ul className="navbar-nav">
-        <NavItem icon="R">
-          <button className="button" onClick={openRegister}>Register Modal</button>
+        <div className="nav-item">
+          <button className="icon-button" onClick={openRegister}>R</button>
           <Register showRegister={showRegister} setShowRegister={setShowRegister} />
-        </NavItem>
+        </div>
         <NavItem icon="P">
           <DropdownMenu />
         </NavItem>

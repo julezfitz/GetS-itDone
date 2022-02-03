@@ -14,10 +14,10 @@ export default function Application() {
   return (
     <div className="app">
       <Navbar/>
-      <div className="container">
+      {/* <div className="container">
         <button className="button" onClick={openRegister}>Register Modal</button>
         <Register showRegister={showRegister} setShowRegister={setShowRegister} />
-      </div>
+      </div> */}
     </div>
   );
 }
