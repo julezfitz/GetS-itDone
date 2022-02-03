@@ -4,26 +4,28 @@ const passport = require("passport");
 
 // API documentation for Open API below
 
-const loginErrors = [
-	{
-		message: "Wrong password",
-	},
-	{
-		message: "Wrong email",
-	},
-];
+const loginErrors = [];
 
 module.exports = db => {
 	router.post("/user/session", (req, res) => {
-		res.send('hey!')
-		passport.authenticate("local", (err, use, info) => {
+		const { email, password } = req.body;
+
+		if (!email || !password) {
+			loginErrors.push({ message: "Please fill out the fields." });
+		}
+
+		passport.authenticate("local", (err, user, info) => {
 			if (err) throw err;
+			if (!user) {
+				console.log("hi!");
+				loginErrors.push({ message: "Wrong email and password combination" });
+				res.status(401).send(loginErrors);
+			}
 		});
 	});
 
 	router.get("/user/session", (req, res) => {
-		
-        res.send('hello!')
+		res.send("hello!");
 	});
 	return router;
 };
