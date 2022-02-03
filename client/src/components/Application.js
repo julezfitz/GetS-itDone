@@ -14,14 +14,21 @@ import NavBar from "./Navigation/Navbar";
 import axios from "axios";
 
 export default function Application() {
-
 	useEffect(() => {
-		axios.post("http://localhost:8001/user/session", {
-			email: 'matthewparisien4@gmail.com',
-			password: 'thisispassword'
-		})
-		.then(res => console.log(res))
-	}, [])
+		axios
+			.post("http://localhost:8001/user/register", {
+				firstName: "Johnny",
+				lastName: "Smith",
+				email: "jsmith@email.com",
+				password: "password",
+				city: "",
+				province: "Ontario",
+				postalCode: "A5T3BF",
+				country: "Canada",
+				image: "https://images.unsplash.com/profile.svg",
+			})
+			.then(res => console.log(res));
+	}, []);
 
 	return (
 		<div className='App'>

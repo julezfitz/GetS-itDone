@@ -1,16 +1,20 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 
 // API documentation for Open API below
 
 const loginErrors = {
 	errors: [],
 };
+const registerErrors = {
+	errors: [],
+};
 
 module.exports = db => {
+	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
-		console.log("in here!");
 		const { email, password } = req.body;
 
 		if (!email || !password) {
@@ -34,9 +38,31 @@ module.exports = db => {
 		})(req, res, next);
 	});
 
-	router.get("/user/session", (req, res) => {
-		res.send("hello!");
+	//User attempts to register
+	router.post("/user/register", (req, res) => {
+		const {
+			firstName,
+			lastName,
+			email,
+			password,
+			city,
+			province,
+			postalCode,
+			country,
+			image,
+		} = req.body;
+
+		const hasEmptyField = checkIfEmpty(req.body);
+
+		if (hasEmptyField) {
+			registerErrors.errors.push({
+				message: "Please fill out all the fields.",
+			});
+			res.send(registerErrors);
+			return;
+		}
 	});
+
 	return router;
 };
 
@@ -115,7 +141,11 @@ module.exports.apiDocs = {
 								type: "array",
 							},
 							example: {
-								errors: loginErrors.errors,
+								errors: [
+									{
+										message: "Please fill out the fields.",
+									},
+								],
 							},
 						},
 					},

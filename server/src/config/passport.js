@@ -1,7 +1,8 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
-module.exports = (passport, db) => {
+module.exports = (passport) => {
+	console.log('in here now')
 	passport.use(
 		new LocalStrategy((username, password, done) => {
 			//First match user by email
@@ -14,8 +15,8 @@ module.exports = (passport, db) => {
       `,
 				[username, password]
 			).then(res => {
+				console.log(res)
 				if (res.rows.length > 0) {
-					const user = res.rows[0];
 					bcrypt.compare(password, user.password, (err, isMatch) => {
 						if (err) throw err;
 						if (isMatch) {
