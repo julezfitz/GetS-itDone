@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
+const trimFields = require("../helpers/auth/trimFields");
 
 // API documentation for Open API below
 
@@ -51,9 +52,13 @@ module.exports = db => {
 			country,
 			image,
 		} = req.body;
-		console.log(email);
 
 		const hasEmptyField = checkIfEmpty(req.body);
+		
+
+		const trimmedFields = trimFields(req.body);
+		console.log(trimmedFields)
+		
 
 		//Check if any fields are empty
 		if (hasEmptyField) {
@@ -79,11 +84,14 @@ module.exports = db => {
 				return;
 			}
 
-			db.query`
+			db.query(
+				`
 				INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
       	VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
       	RETURNING *
-			`;
+			`,
+				[]
+			);
 		});
 	});
 
