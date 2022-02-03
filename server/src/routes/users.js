@@ -4,7 +4,7 @@ const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
 
-// API documentation for Open API below
+/***** AUTHENTICATION ROUTING *******/
 
 const loginErrors = {
 	errors: [],
@@ -137,6 +137,9 @@ module.exports = db => {
 
 	return router;
 };
+
+
+/***** OPENAPI DOCS *******/
 
 module.exports.apiDocs = {
 	"/user/register": {
