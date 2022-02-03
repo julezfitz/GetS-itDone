@@ -38,12 +38,44 @@ module.exports = db => {
         });
     });
 
+    router.get("/listings/:listingId", (request, response) => {
+        let queryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};` 
+        db.query(queryString).then((result) => {
+            response.json(result.rows[0]);
+        });
+    });
+
     router.delete("/listings/:listingId", (request, response) => {
-        console.log(request.params);
         let queryString = `DELETE FROM listings WHERE id = ${request.params.listingId};`
-        console.log(queryString);
         db.query(queryString).then(() => {
             response.json(`Listing deleted`);
+        });
+    });
+
+    router.put("/listings/:listingId", (request, response) => {
+
+        const { creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
+            country } = request.body;
+
+        let queryString = `UPDATE listings SET`;
+
+        title ? queryString += ` title = '${title}'` : "";
+        description ? queryString += ` description = '${description}'` : "";
+        image_1 ? queryString += ` image_1 = '${image_1}'` : "";
+        image_2 ? queryString += ` image_2 = '${image_2}'` : "";
+        image_3 ? queryString += ` image_3 = '${image_3}'` : "";
+        price ? queryString += ` price = '${price}'` : "";
+        city ? queryString += ` city = '${city}'` : "";
+        province ? queryString += ` province = '${province}'` : "";
+        postalCode ? queryString += ` postal_code = '${postalCode}'` : "";
+        country ? queryString += ` country = '${country}'` : "";
+
+        queryString += ` WHERE id = ${request.params.listingId} RETURNING *;`
+
+        console.log(queryString);
+
+        db.query(queryString).then((result) => {
+            response.json(result.rows[0]);
         });
     });
 
