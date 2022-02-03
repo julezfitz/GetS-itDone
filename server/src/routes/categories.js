@@ -1,3 +1,16 @@
+const router = require("express").Router();
+
+module.exports = db => {
+
+    router.get("/categories", (request, response) => {
+        db.query(`SELECT * FROM categories`).then(({ rows: categories }) => {
+            response.json(categories);
+        });
+    });
+
+    return router;
+};
+
 // API documentation for Open API below
 
 module.exports.apiDocs = {
@@ -13,12 +26,12 @@ module.exports.apiDocs = {
                             "schema": {},
                             "example": [
                                {
-                                    "categoryId": 1,
-                                    "categoryName": "Home Improvement" 
+                                    "id": 1,
+                                    "category": "Home Improvement" 
                                 },
                                 {
-                                    "categoryId": 2,
-                                    "categoryName": "Painting" 
+                                    "id": 2,
+                                    "category": "Painting" 
                                 },
                             ]
                         }
