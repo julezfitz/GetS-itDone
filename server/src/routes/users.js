@@ -80,8 +80,7 @@ module.exports.apiDocs = {
             },
         }
     },
-
-    "/user/:userId": {
+    "/user/{userId}": {
         "get": {
             "description": "Get a user details",
             "tags": ["users"],

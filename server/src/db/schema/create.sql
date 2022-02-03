@@ -41,6 +41,7 @@ CREATE TABLE listings (
     country VARCHAR(255) NOT NULL,
     created TIMESTAMP NOT NULL default now()
 );
+ALTER SEQUENCE listings_id_seq RESTART WITH 1000;
 
 CREATE TABLE listing_categories (
     id SERIAL PRIMARY KEY NOT NULL,
