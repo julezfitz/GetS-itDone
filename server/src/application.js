@@ -24,7 +24,6 @@ module.exports = function application(ENV) {
 	app.use("/", require("./routes/users")(db));
 
 	//Passport config
-
 	require("./config/passport")(passport, db);
 	app.use(passport.initialize());
 	app.use(passport.session());

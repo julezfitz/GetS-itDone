@@ -2,7 +2,6 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
 module.exports = (passport, db) => {
-	console.log("hi");
 	passport.use(
 		new LocalStrategy(
 			{
@@ -10,22 +9,23 @@ module.exports = (passport, db) => {
 				passwordField: "password",
 			},
 			(username, password, done) => {
-				//First match user by email
+				//First get user by email
 				db.query(
 					`
-        SELECT id, username, password
-        FROM users
-        WHERE username = $1
-        AND password = $2
-      `,
-					[username, password]
+        	SELECT id, email, password
+        	FROM users
+        	WHERE email = $1;
+      	`,
+					[username]
 				).then(res => {
-					console.log(res);
-					if (res.rows.length > 0) {
-						bcrypt.compare(password, user.password, (err, isMatch) => {
+					const user = res.rows;
+
+					//If an email is found, compare passwords
+					if (user.length > 0) {
+						bcrypt.compare(password, user[0].password, (err, isMatch) => {
 							if (err) throw err;
 							if (isMatch) {
-								return done(null, { id: user.id, email: user.email });
+								return done(null, { id: user[0].id, email: user[0].email });
 							} else {
 								return done(null, false, { message: "Incorrect password" });
 							}

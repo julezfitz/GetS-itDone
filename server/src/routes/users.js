@@ -18,8 +18,7 @@ module.exports = db => {
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
 
-		
-
+	
 		if (!email || !password) {
 			loginErrors.errors.push({ message: "Please fill out the fields." });
 			res.send(loginErrors);
@@ -27,10 +26,10 @@ module.exports = db => {
 		}
 
 		passport.authenticate("local", (err, user, info) => {
-			
 			if (err) throw err;
+			
 			if (!user) {
-				loginErrors.errors.push({ message: "User doesn't exist" });
+				loginErrors.errors.push({ message: info.message });
 				res.send(loginErrors);
 				return;
 			} else {
