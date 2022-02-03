@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2"
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.2",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
   }
 }
