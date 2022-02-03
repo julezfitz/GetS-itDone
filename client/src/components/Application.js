@@ -21,7 +21,7 @@ export default function Application() {
 				lastName: "Smith",
 				email: "jillian@carew.com",
 				password: "password",
-				city: "Montreal",
+				city: "Montreal    ",
 				province: "Ontario",
 				postalCode: "A5T3BF",
 				country: "Canada",
