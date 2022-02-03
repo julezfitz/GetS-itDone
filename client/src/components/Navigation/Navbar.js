@@ -8,17 +8,6 @@ import Login from "../User/Login";
 
 export default function Navbar(props) {
   
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-
-  const openRegister = () => {
-    setShowRegister(prev => !prev);
-  };
-
-  const openLogin = () => {
-    setShowLogin(prev => !prev);
-  };
-  
   return (
     <nav className="navbar">
       <ul className="site-name">
@@ -36,13 +25,13 @@ export default function Navbar(props) {
       :
         <ul className="navbar-nav">
           <div className="nav-item">
-            <button className="icon-button" onClick={openRegister}>Register</button>
-            <Register showRegister={showRegister} setShowRegister={setShowRegister} />
+            <button className="icon-button" onClick={props.openRegister}>Register</button>
+            {/* <Register showRegister={props.showRegister} setShowRegister={props.setShowRegister} /> */}
           </div>
-        <div className="nav-item">
-          <button className="icon-button" onClick={openLogin}>Login</button>
-          <Login showLogin={showLogin} setShowLogin={setShowLogin} />
-        </div>
+          <div className="nav-item">
+            <button className="icon-button" onClick={props.openLogin}>Login</button>
+            {/* <Login showLogin={props.showLogin} setShowLogin={props.setShowLogin} /> */}
+          </div>
         </ul> 
       }
     </nav>
