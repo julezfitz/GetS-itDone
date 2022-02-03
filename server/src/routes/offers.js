@@ -4,6 +4,7 @@ module.exports.apiDocs = {
     "/offers": {
         "get": {
             "description": "Return all applications by an individual user from the system.",
+            "tags": ["offers"],
             "parameters": {
                 "applicantParam": {
                     "name": "applicant Id",
@@ -18,7 +19,7 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {},
-                            "examples": [
+                            "example": [
                                {
                                    "listingId": 5,
                                    "title": "Walk my dog",
@@ -39,16 +40,15 @@ module.exports.apiDocs = {
         },
         "post": {
             "description": "Creates an offer to do a job.",
+            "tags": ["offers"],
             "requestBodies": {
                 "description": "application model",
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
-                            "individualApplication": {
-                                "listingId": 1,
-                                "applicantId": 2,
-                            }
+                        "example": {
+                            "listingId": 1,
+                            "applicantId": 2
                         }
                     }
                 }
@@ -61,6 +61,7 @@ module.exports.apiDocs = {
         },
         "delete": {
             "description": "Delete an offer to do a job",
+            "tags": ["offers"],
             "parameters": {
                 "applicantParam": {
                     "name": "applicant Id",

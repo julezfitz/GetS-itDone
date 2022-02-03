@@ -4,6 +4,7 @@ module.exports.apiDocs = {
     "/ratings": {
         "get": {
             "description": "Return all ratings about an individual user from the system.",
+            "tags": ["ratings"],
             "parameters": {
                 "userParam": {
                     "name": "ratee Id",
@@ -18,7 +19,7 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {},
-                            "examples": [
+                            "example": [
                                {
                                     "rater": {
                                         "id": 1,
@@ -49,19 +50,18 @@ module.exports.apiDocs = {
         },
         "post": {
             "description": "Rate a user",
-            "requestBodies": {
+            "tags": ["ratings"],
+            "requestBody": {
                 "description": "user model",
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "examples": {
-                            "individualRating": {
-                                "raterId": 1,
-                                "rateeId": 2,
-                                "listingId": 2,
-                                "rating": 4, 
-                                "comments": "John was great to work with! Highly recommend", 
-                            }
+                        "example": {
+                            "raterId": 1,
+                            "rateeId": 2,
+                            "listingId": 2,
+                            "rating": 4, 
+                            "comments": "John was great to work with! Highly recommend"
                         }    
                     }
                 }
@@ -72,16 +72,13 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {},
-                            "examples": {
-                                "individualRating": {
-                                    "raterId": 1,
-                                    "rateeId": 2,
-                                    "listingId": 2,
-                                    "rating": 4, 
-                                    "comments": "John was great to work with! Highly recommend",
-                                    "date": "2022-02-01 05:01:37 -5:00"
-                                },
-
+                            "example": {
+                                "raterId": 1,
+                                "rateeId": 2,
+                                "listingId": 2,
+                                "rating": 4, 
+                                "comments": "John was great to work with! Highly recommend",
+                                "date": "2022-02-01 05:01:37 -5:00"
                             }
                          }
                     }
