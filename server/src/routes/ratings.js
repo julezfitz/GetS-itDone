@@ -13,24 +13,44 @@ module.exports = db => {
             let ratingsArray = [];
 
             ratings.forEach((ratingObj) => {
-                    console.log(ratingObj);
-                    ratingsArray.push(
-                        {
-                            "rater": {
-                                "raterid": ratingObj.raterid,
-                                "firstName": ratingObj.first_name,
-                                "lastName": ratingObj.last_name,
-                            },
-                            "rateeId": ratingObj.ratee_id,
-                            "rating": ratingObj.rating,
-                            "comments": ratingObj.comment,
-                            "date": ratingObj.date
-                        }
-                    )
-          
+                ratingsArray.push(
+                    {
+                        "rater": {
+                            "raterid": ratingObj.raterid,
+                            "firstName": ratingObj.first_name,
+                            "lastName": ratingObj.last_name,
+                        },
+                        "rateeId": ratingObj.ratee_id,
+                        "rating": ratingObj.rating,
+                        "comment": ratingObj.comment,
+                        "date": ratingObj.date
+                    }
+                )
             });
 
             response.json(ratingsArray);
+        });
+    });
+
+    router.post("/ratings", (request, response) => {
+        const { raterId, rateeId, listingId, rating, comment } = request.body;
+        let numRating = parseInt(rating);
+
+        db.query(
+            `INSERT INTO user_ratings (rater_id, ratee_id, listing_id, rating, comment) 
+                VALUES ($1::integer, $2::integer, $3::integer, $4::integer, $5::text) RETURNING *;`,
+            [raterId, rateeId, listingId, numRating, comment]
+        ).then(({rows}) => {            
+            let postedRating = {
+                "raterId": rows[0].rater_id, 
+                "rateeId": rows[0].ratee_id, 
+                "listingId": rows[0].listing_id, 
+                "rating": rows[0].rating, 
+                "comment": rows[0].comment,
+                "date": rows[0].date
+            }
+            
+            response.json(postedRating);
         });
     });
 
@@ -66,7 +86,7 @@ module.exports.apiDocs = {
                                     },
                                     "rateeId": 2,
                                     "rating": 4,
-                                    "comments": "John was great to work with! Highly recommend",
+                                    "comment": "John was great to work with! Highly recommend",
                                     "date": "2022-03-01 05:01:37 -5:00"
                                 },
                                 {
@@ -77,7 +97,7 @@ module.exports.apiDocs = {
                                     },
                                     "rateeId": 2,
                                     "rating": 5,
-                                    "comments": "John was awesome",
+                                    "comment": "John was awesome",
                                     "date": "2022-02-01 05:01:37 -5:00"
                                 },
                             ]
@@ -99,7 +119,7 @@ module.exports.apiDocs = {
                             "rateeId": 2,
                             "listingId": 2,
                             "rating": 4,
-                            "comments": "John was great to work with! Highly recommend"
+                            "comment": "John was great to work with! Highly recommend"
                         }
                     }
                 }
@@ -115,7 +135,7 @@ module.exports.apiDocs = {
                                 "rateeId": 2,
                                 "listingId": 2,
                                 "rating": 4,
-                                "comments": "John was great to work with! Highly recommend",
+                                "comment": "John was great to work with! Highly recommend",
                                 "date": "2022-02-01 05:01:37 -5:00"
                             }
                         }
