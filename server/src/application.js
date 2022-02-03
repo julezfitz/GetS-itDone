@@ -16,6 +16,7 @@ module.exports = function application(ENV) {
 
   app.use("/", require("./routes/listings")(db))
   app.use("/", require("./routes/categories")(db))
+  app.use("/", require("./routes/ratings")(db))
 
   app.close = function() {
     return db.end();
