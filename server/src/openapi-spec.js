@@ -9,5 +9,6 @@ module.exports = {
     ...(require('./routes/users').apiDocs),
     ...(require('./routes/offers').apiDocs),
     ...(require('./routes/ratings').apiDocs),
+    ...(require('./routes/categories').apiDocs),
   }
 };
