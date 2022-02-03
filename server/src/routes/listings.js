@@ -4,12 +4,7 @@ module.exports = db => {
 
     router.get("/listings", (request, response) => {
         db.query(`SELECT * FROM listings`).then(({ rows: listings }) => {
-            response.json(
-                listings.reduce(
-                    (previous, current) => ({ ...previous, [current.id]: current }),
-                    {}
-                )
-            );
+            response.json(listings);
         });
     });
 
@@ -41,7 +36,13 @@ const exampleListing2 = {
     "description": "Looking for someone to cut grass",
     "created": "2022-01-12 05:01:37 -5:00",
     "image_1": "https://images.unsplash.com/image_1.jpg",
+    "image_2": null,
+    "image_3": null,
     "price": 200.99,
+    "city": "Toronto",
+    "province": "Ontario",
+    "postalCode": "A5T3BF",
+    "country": "Canada"
 };
 
 module.exports.apiDocs = {
