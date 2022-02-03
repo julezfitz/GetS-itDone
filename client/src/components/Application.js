@@ -17,11 +17,12 @@ export default function Application() {
 	useEffect(() => {
 		axios
 			.post("http://localhost:8001/user/register", {
-				firstName: "Johnny",
-				lastName: "Smith",
-				email: "jillian@carew.com",
+				firstName: "Matt",
+				lastName: "Parisien",
+				email: "mattparisien@gmail.com",
 				password: "password",
-				city: "Montreal    ",
+				password2: "password",
+				city: "Montreal",
 				province: "Ontario",
 				postalCode: "A5T3BF",
 				country: "Canada",
