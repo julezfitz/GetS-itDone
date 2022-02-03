@@ -16,17 +16,9 @@ import axios from "axios";
 export default function Application() {
 	useEffect(() => {
 		axios
-			.post("http://localhost:8001/user/register", {
-				firstName: "Matt",
-				lastName: "Parisien",
-				email: "matthewsswwparisien@gmail.com",
-				password: "password",
-				password2: "password",
-				city: "Montreal",
-				province: "Ontario",
-				postalCode: "A5T3BF",
-				country: "Canada",
-				image: "https://images.unsplash.com/profile.svg",
+			.post("http://localhost:8001/user/session", {
+				email: "matthewparisien4@gmail.com",
+				password: "chewing389"
 			})
 			.then(res => console.log(res))
 			.catch(err => console.log(err))

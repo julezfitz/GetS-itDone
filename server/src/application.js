@@ -10,22 +10,28 @@ const app = express();
 const db = require("./db");
 
 module.exports = function application(ENV) {
-  app.use(bodyparser.json());
+	app.use(bodyparser.json());
 
-  app.use(cors());
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(require('./openapi-spec')));
-  
-  app.use("/", require("./routes/listings")(db))
-  app.use("/", require("./routes/categories")(db))
-  app.use("/", require("./routes/users")(db))
+	app.use(cors());
+	app.use(
+		"/api-docs",
+		swaggerUi.serve,
+		swaggerUi.setup(require("./openapi-spec"))
+	);
 
-  //Passport config
+	app.use("/", require("./routes/listings")(db));
+	app.use("/", require("./routes/categories")(db));
+	app.use("/", require("./routes/users")(db));
 
+	//Passport config
 
+	require("./config/passport")(passport, db);
+	app.use(passport.initialize());
+	app.use(passport.session());
 
-  app.close = function() {
-    return db.end();
-  };
+	app.close = function () {
+		return db.end();
+	};
 
-  return app;
+	return app;
 };
