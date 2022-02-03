@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Application.scss";
+import "../styles/scss/Application.scss"
 import { Routes, Route, Link } from "react-router-dom";
 import {
 	Profile,
