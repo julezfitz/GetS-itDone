@@ -1,4 +1,48 @@
 import React, { useState } from "react";
+
+import "./Application.scss";
+import Navbar from './Navigation/Navbar';
+import Register from "./User/Register";
+import Login from "./User/Login";
+
+export default function Application() {
+  const [showRegister, setShowRegister] = useState(false)
+  const [showLogin, setShowLogin] = useState(false);
+
+
+  const openLogin = () => {
+    setShowLogin(prev => !prev);
+  };
+
+  const openRegister = () => {
+    setShowRegister(prev => !prev);
+  }
+
+  return (
+    <div className="app">
+      <Navbar 
+        openRegister={openRegister} 
+        showRegister={showRegister}
+        setShowRegister={setShowRegister} 
+        openLogin={openLogin} 
+        showLogin={showLogin}
+        setShowLogin={setShowLogin}
+        userName="Bob" 
+      />
+      <Register showRegister={showRegister} setShowRegister={setShowRegister} />
+      <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+      {/* <div className="container">
+        <button className="button" onClick={openRegister}>Register Modal</button>
+        <Register showRegister={showRegister} setShowRegister={setShowRegister} />
+      </div> */}
+    </div>
+  );
+}
+
+
+/*
+Matt's work below -- 
+
 import "../styles/scss/Application.scss";
 import { Routes, Route, Link } from "react-router-dom";
 import {
@@ -16,12 +60,12 @@ export default function Application() {
 	return (
 		<div className='App'>
 			<NavBar />
-			{/* <div className='demo-links'>
+			{ -- comment here -- <div className='demo-links'>
 				<Link to={"/"}>Dashboard view</Link>
 				<Link to='/create'>Create view</Link>
 				<Link to='/profile'>Profile view</Link>
 				<Link to={`/update/${2}`}>Update listing view</Link>
-			</div> */}
+			</div> }
 			<main className='content-wrapper'>
 				<Routes>
 					<Route path='/' element={<UserOffers />} />
@@ -36,3 +80,4 @@ export default function Application() {
 		</div>
 	);
 }
+*/
