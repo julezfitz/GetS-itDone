@@ -22,17 +22,12 @@ module.exports = function application(ENV) {
 	app.use("/", require("./routes/listings")(db));
 	app.use("/", require("./routes/categories")(db));
 	app.use("/", require("./routes/users")(db));
+  app.use("/", require("./routes/ratings")(db))
 
-<<<<<<< HEAD
 	//Passport config
 	require("./config/passport")(passport, db);
 	app.use(passport.initialize());
 	app.use(passport.session());
-=======
-  app.use("/", require("./routes/listings")(db))
-  app.use("/", require("./routes/categories")(db))
-  app.use("/", require("./routes/ratings")(db))
->>>>>>> 370250029257b0e7fc7c07868aaa76fc1618610b
 
 	app.close = function () {
 		return db.end();
