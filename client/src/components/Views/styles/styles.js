@@ -18,11 +18,11 @@ export const StyledHero = styled.section`
 	padding: 4rem;
 
 	.heading-wrapper {
-		width: 100%;
+		width: 500px;
 		padding: inherit;
 
 		h2 {
-			width: 40%;
+			width: 100%;
 			margin: 0;
 
 			.word:nth-of-type(1) {
@@ -94,14 +94,20 @@ export const StyledCurve = styled.div`
 	overflow: hidden;
 
 	.curve-inner {
+		width: 18rem;
+		height: 100%;
+		overflow: hidden;
+		position: absolute;
+		left: 250px;
+
 		&::before {
 			content: "";
 			height: 200%;
-			width: 600px;
+			width: 500px;
 			border: 1px solid white;
 			position: absolute;
 			top: 0;
-			left: 0;
+			left: -200px;
 			border-radius: 60%;
 		}
 	}
