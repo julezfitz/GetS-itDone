@@ -15,6 +15,23 @@ export const StyledHero = styled.section`
 	flex-direction: column;
 	overflow: hidden;
 	position: relative;
+  padding: 4rem;
+
+
+  .heading-wrapper  {
+    width: 100%;
+    padding: inherit;
+
+    h2 {
+      width: 40%;
+      margin: 0;
+
+      .word:nth-of-type(1) {
+        z-index: 99999;
+      }
+    }
+    
+  }
 
 	.line {
 		width: 80%;

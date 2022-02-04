@@ -5,11 +5,12 @@ import Line from "../../Line/Line";
 import LightLeak from "./LightLeak";
 import gsap from "gsap";
 import { introAnimation } from "./motion/animations";
-import HeroImage from "./HeroImage";
+import HeroImages from "./HeroImages";
 import Heading from "../../Heading/Heading";
 import SplitText from "gsap/SplitText";
 
 function HeroSection() {
+
 	const splitHeading = useRef(null);
 	const timeline = useRef(gsap.timeline());
 	const marqueeRefs = useRef([]);
@@ -27,7 +28,7 @@ function HeroSection() {
 		if (headingRef.current) {
 			if (!splitHeading.current) {
 				const find = gsap.utils.selector(headingRef.current);
-				const heading = find("h1");
+				const heading = find("h2");
 				splitHeading.current = new SplitText(heading, {
 					type: "words",
 					wordsClass: "word",
@@ -42,13 +43,13 @@ function HeroSection() {
 
 	return (
 		<StyledHero className='heroSection'>
-			<Heading size={"large"} color={"light"} ref={headingRef}>
+			<Heading size={"medium"} color={"light"} ref={headingRef}>
 				Powered by you.
 			</Heading>
 			<MarqueeBanner ref={addToRefs}>Get S*it Done</MarqueeBanner>
 
 			{/* <LightLeak /> */}
-			<HeroImage />
+			<HeroImages />
 		</StyledHero>
 	);
 }
