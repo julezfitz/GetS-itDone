@@ -1,11 +1,13 @@
 const toCamel = object => {
-	for (key in object) {
-		key.replace(/([-_][a-z])/gi, $1 => {
-			return $1.toUpperCase().replace("-", "").replace("_", "");
-		});
+	let keys = Object.keys(object);
+	
+	for (key of keys) {
+		key = key.split("")
 	}
 
-  console.log('object', object)
+	
+
+  console.log(keys)
 };
 
 module.exports = toCamel;
