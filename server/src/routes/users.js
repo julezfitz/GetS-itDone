@@ -149,8 +149,6 @@ module.exports = db => {
 			image,
 		} = req.body;
 
-		const userUpdates = [];
-
 		let queryString = [];
 		const queryParams = Object.values(req.body);
 
@@ -159,13 +157,20 @@ module.exports = db => {
 			queryString.push(`${key} = $${(i += 1)}`);
 		});
 
-		queryString = "UPDATE users SET " + queryString.join(", ");
+		queryString =
+			"UPDATE users SET " +
+			queryString.join(", ") +
+			` WHERE id = ${userId} RETURNING *;`;
 		console.log(queryString);
 
 		db.query(queryString, queryParams).then(res => {
 			if (!res.rows.length) {
-				console.log("hi");
+				res.status(404).send();
+				return;
 			}
+
+			const updatedUser = res.rows[0];
+			console.log(updatedUser);
 		});
 	});
 
