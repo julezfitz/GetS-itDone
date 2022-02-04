@@ -64,7 +64,7 @@ CREATE TABLE user_ratings (
     ratee_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     rating NUMERIC NOT NULL,
     comment TEXT,
-    date TIMESTAMP NOT NULL default now()
+    created TIMESTAMP NOT NULL default now()
 );
 
 CREATE TABLE notifications (
@@ -75,5 +75,7 @@ CREATE TABLE notifications (
 CREATE TABLE user_notifications (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    offer_id INTEGER REFERENCES offer(id) ON DELETE CASCADE,
+    created TIMESTAMP NOT NULL default now(),
     notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE
 );

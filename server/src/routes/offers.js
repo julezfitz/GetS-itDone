@@ -21,7 +21,7 @@ module.exports = db => {
                         "title": offerObj.title,
                         "price": offerObj.price,
                         "image_1": offerObj.image_1,
-                        "date": offerObj.created,
+                        "created": offerObj.created,
                         "pending": offerObj.pending,
                         "accepted": offerObj.accepted,
                         "offerId": offerObj.offerid
@@ -82,7 +82,7 @@ module.exports.apiDocs = {
                                     "title": "Walk my dog",
                                     "price": 50,
                                     "image_1": "https://images.unsplash.com/image_1.jpg",
-                                    "date": "2022-01-01 05:01:37 -5:00",
+                                    "created": "2022-01-01 05:01:37 -5:00",
                                     "pending": "false",
                                     "accepted": "false",
                                     "offerId": 1
@@ -92,7 +92,7 @@ module.exports.apiDocs = {
                                     "title": "Feed the cat",
                                     "price": 40,
                                     "image_1": "https://images.unsplash.com/image_2.jpg",
-                                    "date": "2022-02-01 05:01:37 -5:00",
+                                    "created": "2022-02-01 05:01:37 -5:00",
                                     "pending": "false",
                                     "accepted": "false",
                                     "offerId": 2
