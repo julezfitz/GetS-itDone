@@ -7,6 +7,7 @@ export const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 300ms ease;
 
   ${({ type, color }) => {
 		return type === "solid"
@@ -17,7 +18,13 @@ export const StyledButton = styled.button`
 			: `
         background: transparent;
         border: 1px solid ${color === "light" ? "white" : "black"};
-        color: ${color === "light" ? "black" : "white"};
+        color: ${color === "light" ? "white" : "black"};
+
+        &:hover {
+          border: 1px solid ${color === "light" ? "white" : "black"};
+          background-color: ${color === "light" ? "white" : "black"};
+          color: ${color === "light" ? "black" : "white"};
+        }
       `;
 	}}
 

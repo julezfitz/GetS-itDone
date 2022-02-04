@@ -53,8 +53,8 @@ function HeroSection() {
 				</Heading>
 
 				<Curve />
-				<Button type={"solid"} color={"light"}>
-					Start exploring
+				<Button type={"outline"} color={"light"}>
+					Get started for free
 				</Button>
 			</div>
 			{/* <LightLeak /> */}
