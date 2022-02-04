@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.17.2",
+    "http-errors": "^2.0.0",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
