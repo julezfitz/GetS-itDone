@@ -3,9 +3,10 @@ import styled from "styled-components";
 export const StyledHero = styled.section`
 	background-color: black;
 	color: white;
-	height: 80vw;
+  height: 50vw;
+	max-height: 100vh;
 	font-family: "Helvetica";
-	font-size: 15vw;
+	font-size: 10vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,4 +41,14 @@ export const StyledLeak = styled.div`
   z-index: 9999;
   border-radius: 50%;
   filter: blur(30px)
+`
+
+export const StyledHeroImage = styled.div`
+  width: 50vw;
+  position: absolute;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
 `

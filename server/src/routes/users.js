@@ -136,22 +136,6 @@ module.exports = db => {
 	});
 
 	//Get a user's info by id
-
-	// example response: {
-	// 	firstName: "Johnny",
-	// 	lastName: "Smith",
-	// 	email: "jsmith@email.com",
-	// 	password: "password",
-	// 	city: "Toronto",
-	// 	province: "Ontario",
-	// 	postalCode: "A5T3BF",
-	// 	country: "Canada",
-	// 	image: "https://images.unsplash.com/profile.svg",
-	// 	ratings: {
-	// 		totalRatings: 120,
-	// 		averageRating: 4.5,
-	// 	},
-	// },
 	router.get("/user/:userId", (req, res) => {
 		const { userId } = req.params;
 
