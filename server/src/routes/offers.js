@@ -33,6 +33,18 @@ module.exports = db => {
         });
     });
 
+    router.post("/offers", (request, response) => {
+        const { listingId, applicantId } = request.body;
+
+        db.query(
+            `INSERT INTO offers (listing_id, bidder_id) 
+                VALUES ($1::integer, $2::integer);`,
+            [listingId, applicantId]
+        ).then(() => {            
+            response.json(`Application Created`);
+        });
+    });
+
     router.delete("/offers", (request, response) => {
         const { applicantId, listingId } = request.query;
 
@@ -96,15 +108,13 @@ module.exports.apiDocs = {
             "tags": ["offers"],
             "requestBodies": {
                 "description": "application model",
-                "content": {
-                    "application/json": {
+                "content": [{
                         "schema": {},
                         "example": {
                             "listingId": 1,
                             "applicantId": 2
                         }
-                    }
-                }
+                }]
             },
             "responses": {
                 "201": {
