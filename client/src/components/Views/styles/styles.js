@@ -10,10 +10,13 @@ export const StyledHero = styled.section`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  overflow: hidden;
+  position: relative;
 `;
 
 export const StyledMarquee = styled.div`
 	padding: 3rem 0;
+  overflow: hidden;
 `;
 
 export const StyledLoggedOutHome = styled.div`
@@ -22,11 +25,13 @@ export const StyledLoggedOutHome = styled.div`
 `
 
 export const StyledLeak = styled.div`
-  height: 300px;
+  height: 400px;
   width: 400px;
   position: absolute;
   top: 0;
   left: 0;
   background-color: orange;
   z-index: 9999;
+  border-radius: 50%;
+  filter: blur(30px)
 `
