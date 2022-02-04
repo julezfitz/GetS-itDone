@@ -9,6 +9,7 @@ import HeroImages from "./HeroImages";
 import Heading from "../../Heading/Heading";
 import SplitText from "gsap/SplitText";
 import Curve from "./Curve";
+import Button from "../../Button/Button";
 
 function HeroSection() {
 	const splitHeading = useRef(null);
@@ -46,11 +47,15 @@ function HeroSection() {
 			<MarqueeBanner ref={addToRefs}>
 				<HeroImages />
 			</MarqueeBanner>
-			<div className='content-wrapper' style={{width: "100%"}}>
+			<div className='content-wrapper' style={{ width: "100%" }}>
 				<Heading size={"medium"} color={"light"} ref={headingRef}>
 					Powered by you.
 				</Heading>
+
 				<Curve />
+				<Button type={"solid"} color={"light"}>
+					Start exploring
+				</Button>
 			</div>
 			{/* <LightLeak /> */}
 		</StyledHero>
