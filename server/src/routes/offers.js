@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+//may need another get for retrieving offers on a single listing
+
 module.exports = db => {
 
     router.get("/offers", (request, response) => {
@@ -30,6 +32,16 @@ module.exports = db => {
             response.json(offersArray);
         });
     });
+
+    router.delete("/offers", (request, response) => {
+        const { applicantId, listingId } = request.query;
+
+        let queryString = `DELETE FROM offers WHERE bidder_id = ${applicantId} AND listing_id = ${listingId};`
+        db.query(queryString).then(() => {
+            response.json(`Offer retracted`);
+        });
+    });
+
     return router;
 }
 
@@ -103,14 +115,20 @@ module.exports.apiDocs = {
         "delete": {
             "description": "Delete an offer to do a job",
             "tags": ["offers"],
-            "parameters": {
-                "applicantParam": {
-                    "name": "applicant Id",
+            "parameters": [
+                {
+                    "name": "applicantId",
                     "in": "query",
                     "description": "delete offer for a listing by the applicant",
                     "required": true
                 },
-            },
+                {
+                    "name": "listingId",
+                    "in": "query",
+                    "description": "delete offer for a listing by the applicant",
+                    "required": true
+                },
+            ],
             "responses": {
                 204: {
                     description: "Offer retracted",
