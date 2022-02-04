@@ -73,4 +73,5 @@ export default function Application() {
 			</main>
 		</div>
 	);
+	*/
 }
