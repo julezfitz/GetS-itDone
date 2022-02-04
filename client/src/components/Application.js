@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Application.scss";
 import Navbar from "./Navigation/Navbar";
 import Register from "./User/Register";
@@ -18,6 +18,24 @@ export default function Application() {
 		setShowRegister(prev => !prev);
 	};
 
+/*
+Matt's work below -- 
+
+import "../styles/scss/Application.scss";
+import { Routes, Route, Link } from "react-router-dom";
+import {
+	Profile,
+	Search,
+	UserOffers,
+	UserListings,
+	SingleListing,
+	UpdateListing,
+	Create,
+} from "./Views/index";
+import NavBar from "./Navigation/Navbar";
+import axios from "axios";
+
+export default function Application() {
 	useEffect(() => {
 		axios
 			.get("http://localhost:8001/user/2")
