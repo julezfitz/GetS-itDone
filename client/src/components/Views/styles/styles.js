@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
 export const StyledHero = styled.section`
-  height: 50vw;
-`
+	background-color: black;
+  color: white;
+	height: 50vw;
+	font-family: "Helvetica";
+	font-size: 15vw;
+`;

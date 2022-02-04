@@ -1,9 +1,9 @@
 import Marquee from "react-fast-marquee";
 
-function MarqueeBanner() {
+function MarqueeBanner({children, direction}) {
   return (
-    <Marquee>
-      This is some marquee text
+    <Marquee gradient={false}>
+      {children}
     </Marquee>
   );
 }
