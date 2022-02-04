@@ -5,7 +5,7 @@ import { device } from "../../../styles/devices/devices";
 export const StyledHero = styled.section`
 	background-color: black;
 	color: white;
-	height: 50vw;
+	height: 100vh;
 	max-height: 100vh;
 	font-family: "Helvetica";
 	font-size: 10vw;
