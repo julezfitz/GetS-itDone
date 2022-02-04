@@ -1,15 +1,12 @@
 import React from "react";
-import floatingCharacter from "../../../assets/images/floating-character.png";
 import { StyledHero, StyledHeroImage } from "../styles/styles";
 
-function HeroImage() {
+function HeroImage({ src }) {
+	console.log(src)
+
 	return (
-		<StyledHeroImage className="floating-image-container">
-			<img
-				src={floatingCharacter}
-				alt='floating-character'
-				className='floating-image'
-			></img>
+		<StyledHeroImage className='floating-image-container'>
+			<img src={src} alt='floating-character' className='floating-image'></img>
 		</StyledHeroImage>
 	);
 }
