@@ -176,7 +176,7 @@ module.exports = db => {
 				[userId]
 			).then(ratingInfo => {
 				user.rows[0]["ratings"] = ratingInfo.rows[0];
-				const finalUserObject = toCamel(user.rows[0])
+				const finalUserObject = user.rows[0];
 				res.send({ user: user.rows[0] });
 			});
 		});
