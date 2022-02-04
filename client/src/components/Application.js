@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
-=======
-import React, { useState } from "react";
 import "./Application.scss";
 import Navbar from './Navigation/Navbar';
 import Register from "./User/Register";
@@ -54,7 +51,6 @@ export default function Application() {
 /*
 Matt's work below -- 
 
->>>>>>> 370250029257b0e7fc7c07868aaa76fc1618610b
 import "../styles/scss/Application.scss";
 import { Routes, Route, Link } from "react-router-dom";
 import {

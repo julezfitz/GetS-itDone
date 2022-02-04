@@ -14,8 +14,8 @@
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  //display: grid;
+  //grid-template-columns: 1fr 1fr;
   position: relative;
   z-index: 10;
   border-radius: 10px;
@@ -30,4 +30,36 @@
   height: 32px;
   padding: 0;
   z-index: 10;
+}
+
+.form {
+  margin-top: 80px;
+
+  &--title {
+    margin-left: 300px;
+  }
+
+  &--info {
+    margin-left: 60px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &--email {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  &--password {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
