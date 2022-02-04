@@ -42,6 +42,7 @@ export default function Application() {
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	}, []);
+	*/
 
 	return (
 		<div>
@@ -73,5 +74,5 @@ export default function Application() {
 			</main>
 		</div>
 	);
-	*/
+	
 }
