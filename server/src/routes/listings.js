@@ -1,10 +1,91 @@
+const { query } = require("express");
+
 const router = require("express").Router();
 
 module.exports = db => {
 
     router.get("/listings", (request, response) => {
-        db.query(`SELECT * FROM listings`).then(({ rows: listings }) => {
+        const { keywords, category, creatorId, orderBy, sortOrder } = request.query;
+
+        let queryString = `SELECT * FROM listings`;
+
+        creatorId ? (queryString += ` WHERE creator_id = ${creatorId}`) : "";
+
+        category ? (queryString += ` JOIN listing_categories ON listings.id = listing_categories.listing_id 
+        WHERE listing_categories.category_id = ${category}`) : "";
+
+        keywords ? (queryString += ` WHERE LOWER(title) LIKE LOWER('%${keywords}%')`) : "";
+        orderBy ? (queryString += ` ORDER BY ${orderBy}`) : "";
+        sortOrder ? (queryString += ` ${sortOrder}`) : "";
+
+        db.query(queryString += `;`).then(({ rows: listings }) => {
             response.json(listings);
+        });
+    });
+
+    router.post("/listings", (request, response) => {
+        const { creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
+            country } = request.body;
+
+        db.query(
+            `INSERT INTO listings (creator_id, title, description, image_1, image_2, image_3, price, city, 
+                    province, postal_code, country) VALUES ($1::integer, $2::text, $3::text, $4::text, $5::text, 
+                        $6::text, $7, $8::text, $9::text, $10::text, $11::text);`,
+            [creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
+                country]
+        ).then(() => {
+            response.json(`Listing Created`);
+        });
+    });
+
+    router.get("/listings/:listingId", (request, response) => {
+        let queryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};` 
+        db.query(queryString).then((result) => {
+            response.json(result.rows[0]);
+        });
+    });
+
+    router.delete("/listings/:listingId", (request, response) => {
+        let queryString = `DELETE FROM listings WHERE id = ${request.params.listingId};`
+        db.query(queryString).then(() => {
+            response.json(`Listing deleted`);
+        });
+    });
+
+    router.put("/listings/:listingId", (request, response) => {
+
+        const { creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
+            country } = request.body;
+        
+        const listingUpdates = [
+            {"creator_id": creatorId},
+            {"title": title}, 
+            {"description": description},
+            {"image_1": image_1},
+            {"image_2": image_2}, 
+            {"image_3": image_3}, 
+            {"price": price}, 
+            {"city": city}, 
+            {"province": province}, 
+            {"postal_code": postalCode},
+            {"country": country}
+            ];
+
+        let queryString = `UPDATE listings SET`;
+
+        let queryArray = [];
+
+        listingUpdates.forEach((updateObj) => {
+            Object.keys(updateObj).forEach((key) => {
+                queryArray.push(` ${key} = '${updateObj[key]}'`)
+          });
+        });
+
+        queryString += queryArray.join(", ");
+        queryString += ` WHERE id = ${request.params.listingId} RETURNING *;`
+
+        db.query(queryString).then((result) => {
+            response.json(result.rows[0]);
         });
     });
 
@@ -112,7 +193,7 @@ module.exports.apiDocs = {
                 "content": {
                     "application/json": {
                         "schema": {},
-                        "example": exampleListing1
+                        "example": { ...exampleListing1 }
                     }
                 }
             },
@@ -123,11 +204,14 @@ module.exports.apiDocs = {
             }
         }
     },
-    "/listings/:listingId": {
+    "/listings/{listingId}": {
         "parameters": [
             {
                 "name": "listingId",
                 "in": "path",
+                "schema": {
+                    "type": "integer"
+                },
                 "required": true,
                 "description": "listing ID of the individual listing"
             }
