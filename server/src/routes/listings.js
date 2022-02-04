@@ -92,7 +92,7 @@ module.exports = db => {
     router.get("/listings/:listingId/offers", (request, response) => {
         let listingQueryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};`
         let offersQueryString = `SELECT offers.id as offerId, offers.bidder_id as bidderid, offers.accepted, offers.pending, users.first_name as firstName,
-        users.last_name as lastName, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
+        users.last_name as lastName, users.email, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
         FROM offers
         JOIN users ON offers.bidder_id = users.id
         JOIN user_ratings ON users.id = user_ratings.ratee_id
@@ -118,6 +118,7 @@ module.exports = db => {
                         "bidderId": ratingObj.bidderid,
                         "firstName": ratingObj.firstname,
                         "lastName": ratingObj.lastname,
+                        "email": ratingObj.email,
                         "averageRating": averageRating,
                         "ratingCount": ratingCount,
                         "pending": ratingObj.pending,
@@ -336,6 +337,7 @@ module.exports.apiDocs = {
                                         "bidderId": 2,
                                         "firstName": "Bill",
                                         "lastName": "Thorne",
+                                        "email": "bthorne@email.com",
                                         "averageRating": 4.5,
                                         "ratingCount": 50,
                                         "pending": "false",
@@ -346,6 +348,7 @@ module.exports.apiDocs = {
                                         "bidderId": 3,
                                         "firstName": "Jill",
                                         "lastName": "Fardy",
+                                        "email": "jfardy@email.com",
                                         "averageRating": 4,
                                         "ratingCount": 60,
                                         "pending": "false",
