@@ -10,5 +10,6 @@ module.exports = {
     ...(require('./routes/offers').apiDocs),
     ...(require('./routes/ratings').apiDocs),
     ...(require('./routes/categories').apiDocs),
+    ...(require('./routes/notifications').apiDocs),
   }
 };

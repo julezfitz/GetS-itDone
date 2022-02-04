@@ -1,35 +1,35 @@
 const router = require("express").Router();
 
-//may need another get for retrieving offers on a single listing
-
 module.exports = db => {
 
     router.get("/notifications", (request, response) => {
-        const { bidderId } = request.query;
-        let queryString = `SELECT offers.accepted, offers.pending, offers.id as offerId, listings.id as listingId, listings.title, 
-        listings.image_1, listings.price, listings.created FROM offers
-        JOIN listings ON offers.listing_id = listings.id
-        WHERE bidder_id = ${bidderId};`
+        const { userId } = request.query;
+        let queryString = `SELECT user_notifications.viewed, user_notifications.created, 
+        notifications.notification_message, user_notifications.offer_id, offers.listing_id
+        FROM user_notifications
+        JOIN notifications ON user_notifications.notification_id = notifications.id
+        JOIN offers ON user_notifications.offer_id = offers.id
+        WHERE user_notifications.user_id = ${userId};`
 
-        db.query(queryString).then(({ rows: offers }) => {
-            let offersArray = [];
+        db.query(queryString).then(({ rows: notifications }) => {
 
-            offers.forEach((offerObj) => {
-                offersArray.push(
+            let notificationsArray = [];
+
+            notifications.forEach((notificationObj) => {
+                if(!notificationObj.viewed){
+                notificationsArray.push(
                     {
-                        "listingId": offerObj.listingid,
-                        "title": offerObj.title,
-                        "price": offerObj.price,
-                        "image_1": offerObj.image_1,
-                        "created": offerObj.created,
-                        "pending": offerObj.pending,
-                        "accepted": offerObj.accepted,
-                        "offerId": offerObj.offerid
+                        "notificationMessage": notificationObj.notification_message,
+                        "viewed": notificationObj.viewed,
+                        "offerId": notificationObj.offer_id,
+                        "listingId": notificationObj.listing_id,
+                        "created": notificationObj.created,
                     }
                 )
+                }
             });
 
-            response.json(offersArray);
+            response.json(notificationsArray);
         });
     });
 return router;

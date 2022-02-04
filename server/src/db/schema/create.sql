@@ -69,13 +69,13 @@ CREATE TABLE user_ratings (
 
 CREATE TABLE notifications (
     id SERIAL PRIMARY KEY NOT NULL,
-    message VARCHAR(255) NOT NULL
+    notification_message VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE user_notifications (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    offer_id INTEGER REFERENCES offer(id) ON DELETE CASCADE,
+    offer_id INTEGER REFERENCES offers(id) ON DELETE CASCADE,
     notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE, 
     created TIMESTAMP NOT NULL default now(),
     viewed BOOLEAN NOT NULL DEFAULT FALSE
