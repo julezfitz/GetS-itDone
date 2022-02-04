@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-
 import "./Application.scss";
 import Navbar from './Navigation/Navbar';
 import Register from "./User/Register";
 import Login from "./User/Login";
+import SearchList from './Search/SearchList';
 
 export default function Application() {
   const [showRegister, setShowRegister] = useState(false)
@@ -19,22 +19,30 @@ export default function Application() {
   }
 
   return (
-    <div className="app">
-      <Navbar 
-        openRegister={openRegister} 
-        showRegister={showRegister}
-        setShowRegister={setShowRegister} 
-        openLogin={openLogin} 
-        showLogin={showLogin}
-        setShowLogin={setShowLogin}
-        userName="Bob" 
-      />
-      <Register showRegister={showRegister} setShowRegister={setShowRegister} />
-      <Login showLogin={showLogin} setShowLogin={setShowLogin} />
-      {/* <div className="container">
-        <button className="button" onClick={openRegister}>Register Modal</button>
+    <div>
+      <section className="app-nav">
+        <Navbar 
+          openRegister={openRegister} 
+          showRegister={showRegister}
+          setShowRegister={setShowRegister} 
+          openLogin={openLogin} 
+          showLogin={showLogin}
+          setShowLogin={setShowLogin} 
+        />
         <Register showRegister={showRegister} setShowRegister={setShowRegister} />
-      </div> */}
+        <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+      </section>
+      <main>
+        <section className="main">
+          <p className="main__text">All results for: Home</p>
+          <hr className="main__x-separator main--centered" />
+          <div>
+            <span className="main__text">Category:</span>
+            <span className="main__text">Sort By: Date</span>
+          </div>
+          <SearchList />
+        </section>
+      </main>
     </div>
   );
 }
