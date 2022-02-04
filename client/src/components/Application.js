@@ -23,7 +23,7 @@ export default function Application() {
 	useEffect(() => {
 		axios
 			.put(`http://localhost:8001/user/${2}`, {
-				firstName: "Johnny",
+				firstName: "Matt",
 				lastName: "Smith",
 				email: "jsmith@email.com",
 				password: "password",
