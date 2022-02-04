@@ -16,6 +16,7 @@ module.exports = db => {
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
+		
 
 		//If any field is empty, send error right away
 		if (!email || !password) {
@@ -26,6 +27,7 @@ module.exports = db => {
 
 		//If both fields are filled out, begin passport auth
 		passport.authenticate("local", (err, user, info) => {
+			
 			if (err) throw err;
 
 			//If passport does not find user, send error response
@@ -35,6 +37,7 @@ module.exports = db => {
 				return;
 			} else {
 				//Passport found a user
+				console.log('in here!')
 				req.logIn(user, err => {
 					if (err) throw err;
 
@@ -62,7 +65,6 @@ module.exports = db => {
 		} = trimFields(req.body);
 
 		const hashedPassword = bcrypt.hashSync(password, 12);
-
 		//Check if any fields are empty
 		if (hasEmptyField) {
 			registerErrors.errors.push({
@@ -134,6 +136,11 @@ module.exports = db => {
 			});
 	});
 
+	//Get a user's info by id
+	router.get("/user/:userId", (req, res) => {
+		const { userId } = req.params;
+	});
+
 	//Update user by Id
 	router.put("/user/:userId", (req, res) => {
 		const { userId } = req.params;
@@ -165,7 +172,7 @@ module.exports = db => {
 
 		db.query(queryString, queryParams).then(user => {
 			if (!user.rows.length) {
-				res.status(404).send();
+				res.status(404).send("User does not exist");
 				return;
 			}
 
@@ -198,6 +205,7 @@ module.exports.apiDocs = {
 							lastName: "Smith",
 							email: "jsmith@email.com",
 							password: "password",
+							password2: "password2",
 							city: "Toronto",
 							province: "Ontario",
 							postalCode: "A5T3BF",
