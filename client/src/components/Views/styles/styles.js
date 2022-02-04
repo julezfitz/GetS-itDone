@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
 export const StyledHero = styled.section`
@@ -15,9 +16,9 @@ export const StyledHero = styled.section`
 	overflow: hidden;
 	position: relative;
 
-  .line {
-    width: 80%;
-  }
+	.line {
+		width: 80%;
+	}
 
 	@media ${device.laptopL} {
 		font-size: 10rem;
@@ -54,9 +55,20 @@ export const StyledLeak = styled.div`
 	filter: blur(30px);
 `;
 
+export const BounceAnimation = keyframes`
+  from {
+    transform: translateY(-5%)
+  }
+
+  to {
+    transform: translateY(5%)
+  }
+`;
+
 export const StyledHeroImage = styled.div`
 	width: 50vw;
 	position: absolute;
+	animation: ${BounceAnimation} 2s ease alternate-reverse infinite;
 
 	img {
 		height: 100%;
