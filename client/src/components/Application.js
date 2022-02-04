@@ -5,6 +5,7 @@ import Register from "./User/Register";
 import Login from "./User/Login";
 import SearchList from "./Search/SearchList";
 import axios from "axios";
+import Routing from "./Routing";
 
 export default function Application() {
 	const [showRegister, setShowRegister] = useState(false);
@@ -62,6 +63,7 @@ export default function Application() {
 				<Login showLogin={showLogin} setShowLogin={setShowLogin} />
 			</section>
 			<main>
+				<Routing/>
 				<section className='main'>
 					<p className='main__text'>All results for: Home</p>
 					<hr className='main__x-separator main--centered' />

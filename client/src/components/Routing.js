@@ -1,5 +1,14 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import {
+	Profile,
+	Search,
+	UserOffers,
+	UserListings,
+	SingleListing,
+	UpdateListing,
+	Create,
+} from "./Views/index";
 
 function Routing() {
 	return (
