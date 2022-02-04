@@ -17,6 +17,12 @@ export const StyledHero = styled.section`
 export const StyledMarquee = styled.div`
 	padding: 3rem 0;
   overflow: hidden;
+
+  .marquee-wrapper__inner {
+    transform: translateY(100%);
+    opacity: 0;
+    
+  }
 `;
 
 export const StyledLoggedOutHome = styled.div`
