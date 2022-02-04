@@ -5,7 +5,8 @@ module.exports = db => {
     router.get("/notifications", (request, response) => {
         const { userId } = request.query;
         let queryString = `SELECT user_notifications.viewed, user_notifications.created, 
-        notifications.notification_message, user_notifications.offer_id, offers.listing_id
+        notifications.notification_message, user_notifications.offer_id, user_notifications.id as notification_id,
+        offers.listing_id
         FROM user_notifications
         JOIN notifications ON user_notifications.notification_id = notifications.id
         JOIN offers ON user_notifications.offer_id = offers.id
@@ -24,6 +25,7 @@ module.exports = db => {
                             "offerId": notificationObj.offer_id,
                             "listingId": notificationObj.listing_id,
                             "created": notificationObj.created,
+                            "notificationId": notificationObj.notification_id
                         }
                     )
                 }
@@ -42,6 +44,13 @@ module.exports = db => {
             [userId, notificationId, offerId]
         ).then(() => {
             response.json(`Notification created`);
+        });
+    });
+
+    router.put("/notifications/:notificationId", (request, response) => {
+        let queryString = `UPDATE user_notifications SET viewed = true WHERE id = ${request.params.notificationId}`;
+        db.query(queryString).then(() => {
+            response.json(`Notification marked as viewed`);
         });
     });
 
@@ -73,14 +82,16 @@ module.exports.apiDocs = {
                                     "viewed": "true",
                                     "offerId": 2,
                                     "listingId": 2,
-                                    "created": "2022-03-01 05:01:37 -5:00"
+                                    "created": "2022-03-01 05:01:37 -5:00",
+                                    "notificationId": 1
                                 },
                                 {
                                     "notificationMessage": "You have a new offer!",
                                     "viewed": "false",
                                     "offerId": 3,
                                     "listingId": 3,
-                                    "created": "2022-03-01 05:01:37 -5:00"
+                                    "created": "2022-03-01 05:01:37 -5:00",
+                                    "notificationId": 2
                                 },
                             ]
                         }
@@ -115,6 +126,28 @@ module.exports.apiDocs = {
             "responses": {
                 "201": {
                     "description": "Notification created",
+                },
+            }
+        },
+    },
+    "/notifications/{notificationId}": {
+        "parameters": [
+            {
+                "name": "notificationId",
+                "in": "path",
+                "schema": {
+                    "type": "integer"
+                },
+                "required": true,
+                "description": "notification Id of the individual notification"
+            }
+        ],
+        "put": {
+            "description": "Updates a notification's viewed status.",
+            "tags": ["notifications"],
+            "responses": {
+                "200": {
+                    "description": "Notification marked as viewed",
                 },
             }
         },
