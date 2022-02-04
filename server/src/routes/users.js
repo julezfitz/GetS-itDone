@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
+const toCamel = require("../helpers/auth/toCamel");
 const createError = require("http-errors");
 
 const loginErrors = {
@@ -175,6 +176,7 @@ module.exports = db => {
 				[userId]
 			).then(ratingInfo => {
 				user.rows[0]["ratings"] = ratingInfo.rows[0];
+				const finalUserObject = toCamel(user.rows[0])
 				res.send({ user: user.rows[0] });
 			});
 		});
