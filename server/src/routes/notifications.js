@@ -16,16 +16,16 @@ module.exports = db => {
             let notificationsArray = [];
 
             notifications.forEach((notificationObj) => {
-                if(!notificationObj.viewed){
-                notificationsArray.push(
-                    {
-                        "notificationMessage": notificationObj.notification_message,
-                        "viewed": notificationObj.viewed,
-                        "offerId": notificationObj.offer_id,
-                        "listingId": notificationObj.listing_id,
-                        "created": notificationObj.created,
-                    }
-                )
+                if (!notificationObj.viewed) {
+                    notificationsArray.push(
+                        {
+                            "notificationMessage": notificationObj.notification_message,
+                            "viewed": notificationObj.viewed,
+                            "offerId": notificationObj.offer_id,
+                            "listingId": notificationObj.listing_id,
+                            "created": notificationObj.created,
+                        }
+                    )
                 }
             });
 
@@ -40,12 +40,12 @@ module.exports = db => {
             `INSERT INTO user_notifications (user_id, offer_id, notification_id) 
                 VALUES ($1::integer, $2::integer, $3::integer);`,
             [userId, notificationId, offerId]
-        ).then(() => {            
+        ).then(() => {
             response.json(`Notification created`);
         });
     });
 
-return router;
+    return router;
 }
 
 // API documentation for Open API below
@@ -53,7 +53,7 @@ return router;
 module.exports.apiDocs = {
     "/notifications": {
         "get": {
-            "description": "Return notifications for a user.",
+            "description": "Return unviewed notifications for a user.",
             "tags": ["notifications"],
             "parameters": [{
                 "name": "userId",
@@ -73,14 +73,14 @@ module.exports.apiDocs = {
                                     "viewed": "true",
                                     "offerId": 2,
                                     "listingId": 2,
-                                    "created": "2022-03-01 05:01:37 -5:00"                                     
+                                    "created": "2022-03-01 05:01:37 -5:00"
                                 },
                                 {
                                     "notificationMessage": "You have a new offer!",
                                     "viewed": "false",
                                     "offerId": 3,
                                     "listingId": 3,
-                                    "created": "2022-03-01 05:01:37 -5:00"                                     
+                                    "created": "2022-03-01 05:01:37 -5:00"
                                 },
                             ]
                         }
@@ -94,24 +94,24 @@ module.exports.apiDocs = {
             "tags": ["notifications"],
             "parameters": [
                 {
-                "name": "userId",
-                "in": "query",
-                "description": "Id of user to receive the notification",
-                "required": true
-            },
-            {
-                "name": "notificationId",
-                "in": "query",
-                "description": "1 for decline, 2 for accept, 3 for new offer",
-                "required": true
-            },
-            {
-                "name": "offerId",
-                "in": "query",
-                "description": "Offer id associated with the notification",
-                "required": true
-            }
-        ],
+                    "name": "userId",
+                    "in": "query",
+                    "description": "Id of user to receive the notification",
+                    "required": true
+                },
+                {
+                    "name": "notificationId",
+                    "in": "query",
+                    "description": "1 for decline, 2 for accept, 3 for new offer",
+                    "required": true
+                },
+                {
+                    "name": "offerId",
+                    "in": "query",
+                    "description": "Offer id associated with the notification",
+                    "required": true
+                }
+            ],
             "responses": {
                 "201": {
                     "description": "Notification created",
