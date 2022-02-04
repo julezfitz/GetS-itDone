@@ -16,7 +16,6 @@ module.exports = db => {
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
-		
 
 		//If any field is empty, send error right away
 		if (!email || !password) {
@@ -27,7 +26,6 @@ module.exports = db => {
 
 		//If both fields are filled out, begin passport auth
 		passport.authenticate("local", (err, user, info) => {
-			
 			if (err) throw err;
 
 			//If passport does not find user, send error response
@@ -37,7 +35,7 @@ module.exports = db => {
 				return;
 			} else {
 				//Passport found a user
-				console.log('in here!')
+				console.log("in here!");
 				req.logIn(user, err => {
 					if (err) throw err;
 
@@ -138,7 +136,6 @@ module.exports = db => {
 
 	//Get a user's info by id
 
-
 	// example response: {
 	// 	firstName: "Johnny",
 	// 	lastName: "Smith",
@@ -157,28 +154,31 @@ module.exports = db => {
 	router.get("/user/:userId", (req, res) => {
 		const { userId } = req.params;
 
-		db.query(`
+		db.query(
+			`
 			SELECT * FROM users
 			WHERE users.id = $1
-		`, [userId])
-		.then(user => {
+		`,
+			[userId]
+		).then(user => {
 			if (!user.rows.length) {
-				res.status(404).send('User not found')
+				res.status(404).send("User not found");
+				return;
 			}
-			db.query(`
+			db.query(
+				`
 				SELECT COUNT(ratee_id) AS totalratings,
 				ROUND(AVG(rating)) AS averagerating
 				FROM user_ratings
 				WHERE ratee_id = $1;
-			`, [userId])
-			.then(ratingInfo => {
-				console.log(ratingInfo.rows)
-			})
-		})
-
+			`,
+				[userId]
+			).then(ratingInfo => {
+				user.rows[0]["ratings"] = ratingInfo.rows[0];
+				res.send({ user: user.rows[0] });
+			});
+		});
 	});
-
-
 
 	//Update user by Id
 	router.put("/user/:userId", (req, res) => {
