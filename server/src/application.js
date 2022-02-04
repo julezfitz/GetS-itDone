@@ -24,6 +24,7 @@ module.exports = function application(ENV) {
 	app.use("/", require("./routes/users")(db));
   app.use("/", require("./routes/ratings")(db))
   app.use("/", require("./routes/offers")(db))
+  app.use("/", require("./routes/notifications")(db))
 
 	//Passport config
 	require("./config/passport")(passport, db);
