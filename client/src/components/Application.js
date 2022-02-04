@@ -1,12 +1,10 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-=======
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Application.scss";
 import Navbar from './Navigation/Navbar';
 import Register from "./User/Register";
 import Login from "./User/Login";
 import SearchList from './Search/SearchList';
+import axios from "axios";
 
 export default function Application() {
   const [showRegister, setShowRegister] = useState(false)
@@ -20,6 +18,13 @@ export default function Application() {
   const openRegister = () => {
     setShowRegister(prev => !prev);
   }
+
+	useEffect(() => {
+		axios.put(`http://localhost:8001/user/${2}`, {
+			email: 'hello@bored.com'
+		})
+		.then(res => console.log(res))
+	}, [])
 
   return (
     <div>
@@ -51,56 +56,4 @@ export default function Application() {
 }
 
 
-/*
-Matt's work below -- 
 
->>>>>>> 370250029257b0e7fc7c07868aaa76fc1618610b
-import "../styles/scss/Application.scss";
-import { Routes, Route, Link } from "react-router-dom";
-import {
-	Profile,
-	Search,
-	UserOffers,
-	UserListings,
-	SingleListing,
-	UpdateListing,
-	Create,
-} from "./Views/index";
-import NavBar from "./Navigation/Navbar";
-import axios from "axios";
-
-export default function Application() {
-	useEffect(() => {
-		axios
-			.post("http://localhost:8001/user/session", {
-				email: "matthewssparisien@gmail.com",
-				password: "chewing389"
-			})
-			.then(res => console.log(res))
-			.catch(err => console.log(err))
-	}, []);
-
-	return (
-		<div className='App'>
-			<NavBar />
-			{ -- comment here -- <div className='demo-links'>
-				<Link to={"/"}>Dashboard view</Link>
-				<Link to='/create'>Create view</Link>
-				<Link to='/profile'>Profile view</Link>
-				<Link to={`/update/${2}`}>Update listing view</Link>
-			</div> }
-			<main className='content-wrapper'>
-				<Routes>
-					<Route path='/' element={<UserOffers />} />
-					<Route path='/create' element={<Create />} />
-					<Route path='/profile' element={<Profile />} />
-					<Route path='/search' element={<Search />} />
-					<Route path='/listings' element={<UserListings />} />
-					<Route path='/listings/:id' element={<UpdateListing />} />
-					<Route path='/update/:id' element={<SingleListing />} />
-				</Routes>
-			</main>
-		</div>
-	);
-}
-*/
