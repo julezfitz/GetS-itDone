@@ -32,6 +32,19 @@ module.exports = db => {
             response.json(notificationsArray);
         });
     });
+
+    router.post("/notifications", (request, response) => {
+        const { userId, notificationId, offerId } = request.query;
+
+        db.query(
+            `INSERT INTO user_notifications (user_id, offer_id, notification_id) 
+                VALUES ($1::integer, $2::integer, $3::integer);`,
+            [userId, notificationId, offerId]
+        ).then(() => {            
+            response.json(`Notification created`);
+        });
+    });
+
 return router;
 }
 
@@ -74,6 +87,36 @@ module.exports.apiDocs = {
                     }
                 }
             }
-        }
+        },
+
+        "post": {
+            "description": "Creates a new notification.",
+            "tags": ["notifications"],
+            "parameters": [
+                {
+                "name": "userId",
+                "in": "query",
+                "description": "Id of user to receive the notification",
+                "required": true
+            },
+            {
+                "name": "notificationId",
+                "in": "query",
+                "description": "1 for decline, 2 for accept, 3 for new offer",
+                "required": true
+            },
+            {
+                "name": "offerId",
+                "in": "query",
+                "description": "Offer id associated with the notification",
+                "required": true
+            }
+        ],
+            "responses": {
+                "201": {
+                    "description": "Notification created",
+                },
+            }
+        },
     }
 }
