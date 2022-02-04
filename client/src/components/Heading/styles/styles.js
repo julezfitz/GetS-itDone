@@ -1,9 +1,17 @@
 import styled from "styled-components";
 
 export const StyledHeading = styled.div`
-  h1 {
-    font-size: 10rem;
-  };
+
+  color: ${({color}) => {
+    return (
+      color === 'light' ? 'white' : 'black'
+    )
+  }};
+
+  .heading-large {
+    font-size: 8rem
+  }
+
   h2 {
     font-size: 4rem;
   };
