@@ -137,9 +137,48 @@ module.exports = db => {
 	});
 
 	//Get a user's info by id
+
+
+	// example response: {
+	// 	firstName: "Johnny",
+	// 	lastName: "Smith",
+	// 	email: "jsmith@email.com",
+	// 	password: "password",
+	// 	city: "Toronto",
+	// 	province: "Ontario",
+	// 	postalCode: "A5T3BF",
+	// 	country: "Canada",
+	// 	image: "https://images.unsplash.com/profile.svg",
+	// 	ratings: {
+	// 		totalRatings: 120,
+	// 		averageRating: 4.5,
+	// 	},
+	// },
 	router.get("/user/:userId", (req, res) => {
 		const { userId } = req.params;
+
+		db.query(`
+			SELECT * FROM users
+			WHERE users.id = $1
+		`, [userId])
+		.then(user => {
+			if (!user.rows.length) {
+				res.status(404).send('User not found')
+			}
+			db.query(`
+				SELECT COUNT(ratee_id) AS totalratings,
+				ROUND(AVG(rating)) AS averagerating
+				FROM user_ratings
+				WHERE ratee_id = $1;
+			`, [userId])
+			.then(ratingInfo => {
+				console.log(ratingInfo.rows)
+			})
+		})
+
 	});
+
+
 
 	//Update user by Id
 	router.put("/user/:userId", (req, res) => {

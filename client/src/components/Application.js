@@ -20,10 +20,7 @@ export default function Application() {
 
 	useEffect(() => {
 		axios
-			.post("http://localhost:8001/user/session", {
-				email: "matthewparisien4@gmail.com",
-				password: "chewing3sds89"
-			})
+			.get("http://localhost:8001/user/2")
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	}, []);
