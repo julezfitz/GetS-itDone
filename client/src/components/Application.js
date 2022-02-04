@@ -17,23 +17,15 @@ export default function Application() {
 	const openRegister = () => {
 		setShowRegister(prev => !prev);
 	};
-	
-
 
 	useEffect(() => {
 		axios
-			.put(`http://localhost:8001/user/${2}`, {
-				firstName: "Matt",
-				lastName: "Smith",
-				email: "jsmith@email.com",
-				password: "password",
-				city: "Toronto",
-				province: "Ontario",
-				postalCode: "A5T3BF",
-				country: "Canada",
-				image: "https://images.unsplash.com/profile.svg",
+			.post("http://localhost:8001/user/session", {
+				email: "matthewparisien4@gmail.com",
+				password: "chewing3sds89"
 			})
-			.then(res => console.log(res));
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
 	}, []);
 
 	return (
