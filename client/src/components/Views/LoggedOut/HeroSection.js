@@ -5,6 +5,7 @@ import Line from "../../Line/Line";
 import LightLeak from "./LightLeak";
 import gsap from "gsap";
 import { introAnimation } from "./motion/animations";
+import HeroImage from "./HeroImage";
 
 function HeroSection() {
 	const timeline = useRef(gsap.timeline());
@@ -32,6 +33,7 @@ function HeroSection() {
 			</MarqueeBanner>
 			<Line />
 			{/* <LightLeak /> */}
+      <HeroImage/>
 		</StyledHero>
 	);
 }
