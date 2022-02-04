@@ -5,7 +5,7 @@ import { device } from "../../../styles/devices/devices";
 export const StyledHero = styled.section`
 	background-color: black;
 	color: white;
-	height: 100vh;
+	height: 80vh;
 	max-height: 100vh;
 	font-family: "Helvetica";
 	font-size: 10vw;
@@ -15,13 +15,13 @@ export const StyledHero = styled.section`
 	flex-direction: column;
 	overflow: hidden;
 	position: relative;
-	padding: 4rem;
 
 	.heading-wrapper {
-		width: 500px;
+		width: auto;
 		padding: inherit;
+		margin: 5rem 0;
 
-		h2 {
+		h1 {
 			width: 100%;
 			margin: 0;
 
@@ -44,10 +44,7 @@ export const StyledHero = styled.section`
 `;
 
 export const StyledMarquee = styled.div`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	width: 100%;
 	overflow: hidden;
 `;
 
