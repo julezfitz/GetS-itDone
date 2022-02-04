@@ -76,6 +76,7 @@ CREATE TABLE user_notifications (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     offer_id INTEGER REFERENCES offer(id) ON DELETE CASCADE,
+    notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE, 
     created TIMESTAMP NOT NULL default now(),
-    notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE
+    viewed BOOLEAN NOT NULL DEFAULT FALSE
 );
