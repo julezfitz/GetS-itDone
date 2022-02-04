@@ -5,7 +5,8 @@ import MarqueeBanner from './MarqueeBanner';
 function HeroSection() {
   return (
     <StyledHero className="heroSection">
-      <MarqueeBanner/>
+      <MarqueeBanner>Get S*it Done</MarqueeBanner>
+      <MarqueeBanner>The Right Way</MarqueeBanner>
     </StyledHero>
   );
 }
