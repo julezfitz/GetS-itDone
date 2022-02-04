@@ -44,10 +44,13 @@ function HeroSection() {
 
 	return (
 		<StyledHero className='heroSection'>
-			<MarqueeBanner ref={addToRefs}>
-				<HeroImages />
-			</MarqueeBanner>
-			<div className='content-wrapper' style={{ width: "100%" }}>
+			<Heading color="light" size="large">
+				GET SHIT DONE.
+			</Heading>
+			
+			<Button type='outline' color='light'>Join for free</Button>
+			<Line />
+			{/* <div className='content-wrapper' style={{ width: "100%" }}>
 				<Heading size={"medium"} color={"light"} ref={headingRef}>
 					Powered by you.
 				</Heading>
@@ -56,7 +59,7 @@ function HeroSection() {
 				<Button type={"outline"} color={"light"}>
 					Get started for free
 				</Button>
-			</div>
+			</div> */}
 			{/* <LightLeak /> */}
 		</StyledHero>
 	);
