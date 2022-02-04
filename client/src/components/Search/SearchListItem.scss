@@ -1,0 +1,54 @@
+@import "../../styles/mixins";
+@import "../../styles/variables.scss";
+
+.search-list {
+  &__item {
+    @include fade;
+
+    margin-left: 70px;
+    margin-top: 20px;
+    margin-right: 70px;
+    color: white;
+    border: solid 2px white;
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    &-details {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    &-description {
+      display: flex;
+      flex-direction: column;
+      margin-left: 60px;
+    }
+
+    &-price {
+      margin-right: 60px;
+    }
+
+    &:hover {
+      background-color: #ee5253;
+      cursor: pointer;
+      color: $dark-background;
+    }
+
+    &--selected {
+      background-color: darken($white, 5%);
+      color: $dark-background;
+
+      &:hover {
+        background-color: darken($white, 5%);
+      }
+    }
+
+    &--full {
+      opacity: $inactive-opacity;
+    }
+  }
+}
