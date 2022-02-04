@@ -5,7 +5,7 @@ module.exports = db => {
     router.get("/ratings", (request, response) => {
         const { rateeId } = request.query;
         let queryString = `SELECT user_ratings.ratee_id, user_ratings.rating, user_ratings.comment, 
-        user_ratings.date, users.id AS raterId, users.first_name, users.last_name FROM user_ratings
+        user_ratings.created, users.id AS raterId, users.first_name, users.last_name FROM user_ratings
         JOIN users ON user_ratings.rater_id = users.id
         WHERE ratee_id = ${rateeId};`
 
@@ -23,7 +23,7 @@ module.exports = db => {
                         "rateeId": ratingObj.ratee_id,
                         "rating": ratingObj.rating,
                         "comment": ratingObj.comment,
-                        "date": ratingObj.date
+                        "created": ratingObj.created
                     }
                 )
             });
@@ -47,7 +47,7 @@ module.exports = db => {
                 "listingId": rows[0].listing_id, 
                 "rating": rows[0].rating, 
                 "comment": rows[0].comment,
-                "date": rows[0].date
+                "created": rows[0].created
             }
             
             response.json(postedRating);
@@ -87,7 +87,7 @@ module.exports.apiDocs = {
                                     "rateeId": 2,
                                     "rating": 4,
                                     "comment": "John was great to work with! Highly recommend",
-                                    "date": "2022-03-01 05:01:37 -5:00"
+                                    "created": "2022-03-01 05:01:37 -5:00"
                                 },
                                 {
                                     "rater": {
@@ -98,7 +98,7 @@ module.exports.apiDocs = {
                                     "rateeId": 2,
                                     "rating": 5,
                                     "comment": "John was awesome",
-                                    "date": "2022-02-01 05:01:37 -5:00"
+                                    "created": "2022-02-01 05:01:37 -5:00"
                                 },
                             ]
                         }
@@ -136,7 +136,7 @@ module.exports.apiDocs = {
                                 "listingId": 2,
                                 "rating": 4,
                                 "comment": "John was great to work with! Highly recommend",
-                                "date": "2022-02-01 05:01:37 -5:00"
+                                "created": "2022-02-01 05:01:37 -5:00"
                             }
                         }
                     }
