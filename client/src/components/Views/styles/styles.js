@@ -20,3 +20,13 @@ export const StyledLoggedOutHome = styled.div`
   height: 100%;
   background-color: black;
 `
+
+export const StyledLeak = styled.div`
+  height: 300px;
+  width: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: orange;
+  z-index: 9999;
+`
