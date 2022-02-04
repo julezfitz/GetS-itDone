@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+import React, { useState, useEffect } from "react";
+=======
 import React, { useState } from "react";
 import "./Application.scss";
 import Navbar from './Navigation/Navbar';
@@ -51,6 +54,7 @@ export default function Application() {
 /*
 Matt's work below -- 
 
+>>>>>>> 370250029257b0e7fc7c07868aaa76fc1618610b
 import "../styles/scss/Application.scss";
 import { Routes, Route, Link } from "react-router-dom";
 import {
@@ -63,8 +67,19 @@ import {
 	Create,
 } from "./Views/index";
 import NavBar from "./Navigation/Navbar";
+import axios from "axios";
 
 export default function Application() {
+	useEffect(() => {
+		axios
+			.post("http://localhost:8001/user/session", {
+				email: "matthewssparisien@gmail.com",
+				password: "chewing389"
+			})
+			.then(res => console.log(res))
+			.catch(err => console.log(err))
+	}, []);
+
 	return (
 		<div className='App'>
 			<NavBar />
