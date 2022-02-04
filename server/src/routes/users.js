@@ -135,26 +135,39 @@ module.exports = db => {
 	});
 
 	//Update user by Id
-	router.put('/user/:userId', (req, res) => {
-
+	router.put("/user/:userId", (req, res) => {
 		const { userId } = req.params;
-		console.log(req.body);
-		return;
+		const {
+			firstName,
+			lastName,
+			email,
+			password,
+			city,
+			province,
+			postalCode,
+			country,
+			image,
+		} = req.body;
 
-		db.query`
-			SELECT * FROM users
-			WHERE id = $1
-		`, [userId]
-		.then(res => {
+		const userUpdates = [];
+
+		let queryString = [];
+		const queryParams = Object.values(req.body);
+
+		Object.keys(req.body).forEach((key, i) => {
+			key = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+			queryString.push(`${key} = $${(i += 1)}`);
+		});
+
+		queryString = "UPDATE users SET " + queryString.join(", ");
+		console.log(queryString);
+
+		db.query(queryString, queryParams).then(res => {
 			if (!res.rows.length) {
-				return;
+				console.log("hi");
 			}
-
-
-		})
-	})
-	
-
+		});
+	});
 
 	return router;
 };
