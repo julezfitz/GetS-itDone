@@ -8,9 +8,9 @@ import { introAnimation } from "./motion/animations";
 import HeroImages from "./HeroImages";
 import Heading from "../../Heading/Heading";
 import SplitText from "gsap/SplitText";
+import Curve from "./Curve";
 
 function HeroSection() {
-
 	const splitHeading = useRef(null);
 	const timeline = useRef(gsap.timeline());
 	const marqueeRefs = useRef([]);
@@ -43,13 +43,16 @@ function HeroSection() {
 
 	return (
 		<StyledHero className='heroSection'>
-			<Heading size={"medium"} color={"light"} ref={headingRef}>
-				Powered by you.
-			</Heading>
-			<MarqueeBanner ref={addToRefs}>Get S*it Done</MarqueeBanner>
-
+			<MarqueeBanner ref={addToRefs}>
+				<HeroImages />
+			</MarqueeBanner>
+			<div className='content-wrapper' style={{width: "100%"}}>
+				<Heading size={"medium"} color={"light"} ref={headingRef}>
+					Powered by you.
+				</Heading>
+				<Curve />
+			</div>
 			{/* <LightLeak /> */}
-			<HeroImages />
 		</StyledHero>
 	);
 }

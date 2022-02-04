@@ -15,23 +15,21 @@ export const StyledHero = styled.section`
 	flex-direction: column;
 	overflow: hidden;
 	position: relative;
-  padding: 4rem;
+	padding: 4rem;
 
+	.heading-wrapper {
+		width: 100%;
+		padding: inherit;
 
-  .heading-wrapper  {
-    width: 100%;
-    padding: inherit;
+		h2 {
+			width: 40%;
+			margin: 0;
 
-    h2 {
-      width: 40%;
-      margin: 0;
-
-      .word:nth-of-type(1) {
-        z-index: 99999;
-      }
-    }
-    
-  }
+			.word:nth-of-type(1) {
+				z-index: 99999;
+			}
+		}
+	}
 
 	.line {
 		width: 80%;
@@ -46,13 +44,11 @@ export const StyledHero = styled.section`
 `;
 
 export const StyledMarquee = styled.div`
-	padding: 3rem 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	overflow: hidden;
-
-	.marquee-wrapper__inner {
-		transform: translateY(100%);
-		opacity: 0;
-	}
 `;
 
 export const StyledLoggedOutHome = styled.div`
@@ -84,11 +80,29 @@ export const BounceAnimation = keyframes`
 
 export const StyledHeroImage = styled.div`
 	width: 50vw;
-	position: absolute;
-	animation: ${BounceAnimation} 2s ease alternate-reverse infinite;
 
 	img {
 		height: 100%;
 		width: 100%;
+	}
+`;
+
+export const StyledCurve = styled.div`
+	width: 100%;
+	height: 500px;
+	position: relative;
+	overflow: hidden;
+
+	.curve-inner {
+		&::before {
+			content: "";
+			height: 200%;
+			width: 600px;
+			border: 1px solid white;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-radius: 60%;
+		}
 	}
 `;
