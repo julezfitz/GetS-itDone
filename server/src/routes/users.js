@@ -163,14 +163,18 @@ module.exports = db => {
 			` WHERE id = ${userId} RETURNING *;`;
 		console.log(queryString);
 
-		db.query(queryString, queryParams).then(res => {
-			if (!res.rows.length) {
+		db.query(queryString, queryParams).then(user => {
+			if (!user.rows.length) {
 				res.status(404).send();
 				return;
 			}
 
-			const updatedUser = res.rows[0];
-			console.log(updatedUser);
+			const updatedUser = user.rows[0];
+			res.send({
+				success: {
+					updatedUser: updatedUser,
+				},
+			});
 		});
 	});
 
@@ -387,15 +391,19 @@ module.exports.apiDocs = {
 						"application/json": {
 							schema: {},
 							example: {
-								firstName: "Johnny",
-								lastName: "Smith",
-								email: "jsmith@email.com",
-								password: "password",
-								city: "Toronto",
-								province: "Ontario",
-								postalCode: "A5T3BF",
-								country: "Canada",
-								image: "https://images.unsplash.com/profile.svg",
+								success: {
+									updatedUser: {
+										firstName: "Johnny",
+										lastName: "Smith",
+										email: "jsmith@email.com",
+										password: "password",
+										city: "Toronto",
+										province: "Ontario",
+										postalCode: "A5T3BF",
+										country: "Canada",
+										image: "https://images.unsplash.com/profile.svg",
+									},
+								},
 							},
 						},
 					},
