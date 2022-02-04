@@ -95,19 +95,19 @@ export const StyledCurve = styled.div`
 
 	.curve-inner {
 		width: 18rem;
-		height: 100%;
+		height: 70%;
 		overflow: hidden;
 		position: absolute;
-		left: 250px;
+		left: 400px;
 
 		&::before {
 			content: "";
-			height: 200%;
+			height: 190%;
 			width: 500px;
 			border: 1px solid white;
 			position: absolute;
 			top: 0;
-			left: -200px;
+			left: -100%;
 			border-radius: 60%;
 		}
 	}
