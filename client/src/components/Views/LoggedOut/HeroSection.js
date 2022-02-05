@@ -42,6 +42,7 @@ function HeroSection() {
 	return (
 		<StyledHero className='heroSection'>
 			<Suspense fallback={null}>
+				<color attach='background' args={["#223261"]} />
 				<Blob />
 			</Suspense>
 			{/* <Heading color="light" size="large">

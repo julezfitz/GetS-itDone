@@ -41,8 +41,8 @@ function Scene() {
 				bumpScale={0.005}
 				clearcoat={1}
 				clearcoatRoughness={0.1}
-				radius={1.3}
-				distort={0.4}
+				radius={1.2}
+				distort={0.3}
 			>
 				<GradientTexture
 					stops={gradientStops}
