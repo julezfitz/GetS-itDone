@@ -41,7 +41,7 @@ module.exports = db => {
                     if (err) throw err;
 
                     //Send successful auth status + message
-                    res.status(200).send("Successfully Authenticated");
+                    res.status(201).send("Successfully Authenticated");
                 });
             }
         })(req, res, next);
@@ -228,6 +228,49 @@ module.exports = db => {
     return router;
 };
 
+const userObjProperties = {
+    "firstName": {
+        "type": "string",
+        "description": "First name."
+    },
+    "lastName": {
+        "type": "string",
+        "description": "Last name."
+    },
+    "email": {
+        "type": "string",
+        "description": "Email."
+    },
+    "password": {
+        "type": "string",
+        "description": "Password."
+    },
+    "password2": {
+        "type": "string",
+        "description": "Validate password."
+    },
+    "city": {
+        "type": "string",
+        "description": "City."
+    },
+    "province": {
+        "type": "string",
+        "description": "Province."
+    },
+    "postalCode": {
+        "type": "string",
+        "description": "Postal code."
+    },
+    "country": {
+        "type": "string",
+        "description": "Country."
+    },
+    "image": {
+        "type": "string",
+        "description": "Image."
+    }
+}
+
 /***** OPENAPI DOCS *******/
 
 module.exports.apiDocs = {
@@ -242,49 +285,12 @@ module.exports.apiDocs = {
                         schema: {
                             "type": "object",
                             "required": ["firstName", "lastName", "email", "password", "password2", "city", "province", "postalCode", "country"],
-                            "properties": {
-                                "firstName": {
-                                    "type": "string",
-                                    "description": "First name."
-                                },
-                                "lastName": {
-                                    "type": "string",
-                                    "description": "Last name."
-                                },
-                                "email": {
-                                    "type": "string",
-                                    "description": "Email."
-                                },
-                                "password": {
-                                    "type": "string",
-                                    "description": "Password."
-                                },
-                                "password2": {
-                                    "type": "string",
-                                    "description": "Validate password."
-                                },
-                                "city": {
-                                    "type": "string",
-                                    "description": "City."
-                                },
-                                "province": {
-                                    "type": "string",
-                                    "description": "Province."
-                                },
-                                "postalCode": {
-                                    "type": "string",
-                                    "description": "Postal code."
-                                },
-                                "country": {
-                                    "type": "string",
-                                    "description": "Country."
-                                },
-                            }
+                            "properties": userObjProperties
                         },
                         example: {
                             firstName: "Johnny",
                             lastName: "Smith",
-                            email: "jsmith@email.com",
+                            email: "jmsmith@email.com",
                             password: "password",
                             password2: "password",
                             city: "Toronto",
@@ -301,13 +307,29 @@ module.exports.apiDocs = {
                     description: "Session Created",
                     content: {
                         "application/json": {
-                            schema: {},
+                            schema: {
+                                "type": "object",
+                                "description": "Single user object.",
+                                "properties": {
+                                    "success": {
+                                        "type": "object",
+                                        "properties": {
+                                            "user": {
+                                                ...userObjProperties, "id": {
+                                                    "type": "integer",
+                                                },
+                                            },
+                                        }
+                                    }
+                                }
+                            },
                             example: {
                                 success: {
                                     user: {
+                                        id: 1,
                                         firstName: "Johnny",
                                         lastName: "Smith",
-                                        email: "jsmith@email.com",
+                                        email: "jmsmith@email.com",
                                         password: "password",
                                         city: "Toronto",
                                         province: "Ontario",
@@ -349,7 +371,20 @@ module.exports.apiDocs = {
                 description: "user email and password",
                 content: {
                     "application/json": {
-                        schema: {},
+                        schema: {
+                            "type": "object",
+                            "description": "Email and password",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "required": true,
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "required": true,
+                                },
+                            }
+                        },
                         example: {
                             email: "jsmith@email.com",
                             password: "password",
@@ -360,22 +395,6 @@ module.exports.apiDocs = {
             responses: {
                 201: {
                     description: "Session Created",
-                    content: {
-                        "application/json": {
-                            schema: {},
-                            example: {
-                                firstName: "Johnny",
-                                lastName: "Smith",
-                                email: "jsmith@email.com",
-                                password: "password",
-                                city: "Toronto",
-                                province: "Ontario",
-                                postalCode: "A5T3BF",
-                                country: "Canada",
-                                image: "https://images.unsplash.com/profile.svg",
-                            },
-                        },
-                    },
                 },
                 401: {
                     description: "Unauthorized",
@@ -415,6 +434,9 @@ module.exports.apiDocs = {
                 {
                     name: "userId",
                     in: "path",
+                    schema: {
+                        "type": "integer"
+                    },
                     description: "get user by id",
                     required: true,
                 },
@@ -424,21 +446,25 @@ module.exports.apiDocs = {
                     description: "An individual user's details.",
                     content: {
                         "application/json": {
-                            schema: {},
+                            schema: {
+                                "type": "object",
+                            },
                             example: {
-                                firstName: "Johnny",
-                                lastName: "Smith",
-                                email: "jsmith@email.com",
-                                password: "password",
-                                city: "Toronto",
-                                province: "Ontario",
-                                postalCode: "A5T3BF",
-                                country: "Canada",
-                                image: "https://images.unsplash.com/profile.svg",
-                                ratings: {
-                                    totalRatings: 120,
-                                    averageRating: 4.5,
-                                },
+                                user: {
+                                    firstName: "Johnny",
+                                    lastName: "Smith",
+                                    email: "jsmith@email.com",
+                                    password: "password",
+                                    city: "Toronto",
+                                    province: "Ontario",
+                                    postalCode: "A5T3BF",
+                                    country: "Canada",
+                                    image: "https://images.unsplash.com/profile.svg",
+                                    ratings: {
+                                        totalRatings: 120,
+                                        averageRating: 4.5,
+                                    },
+                                }
                             },
                         },
                     },
@@ -452,6 +478,9 @@ module.exports.apiDocs = {
                 {
                     name: "userId",
                     in: "path",
+                    schema: {
+                        "type": "integer"
+                    },
                     description: "update user by id",
                     required: true,
                 },
@@ -460,7 +489,10 @@ module.exports.apiDocs = {
                 description: "user model",
                 content: {
                     "application/json": {
-                        schema: {},
+                        schema: {
+                            "type": "object",
+                            "properties": userObjProperties
+                        },
                         example: {
                             firstName: "John",
                             lastName: "Smith",
@@ -480,17 +512,37 @@ module.exports.apiDocs = {
                     description: "User updated",
                     content: {
                         "application/json": {
-                            schema: {},
+                            schema: {
+                                "type": "object",
+                                "description": "Single user object.",
+                                "properties": {
+                                    "success": {
+                                        "type": "object",
+                                        "properties": {
+                                            "updatedUser": {
+                                                ...userObjProperties, "id": {
+                                                    "type": "integer",
+                                                },
+                                            },
+                                        }
+                                    }
+                                }
+                            },
                             example: {
-                                firstName: "Johnny",
-                                lastName: "Smith",
-                                email: "jsmith@email.com",
-                                password: "password",
-                                city: "Toronto",
-                                province: "Ontario",
-                                postalCode: "A5T3BF",
-                                country: "Canada",
-                                image: "https://images.unsplash.com/profile.svg",
+                                "success": {
+                                    "updatedUser": {
+                                        id: 1,
+                                        firstName: "Johnny",
+                                        lastName: "Smith",
+                                        email: "jsmith@email.com",
+                                        password: "password",
+                                        city: "Toronto",
+                                        province: "Ontario",
+                                        postalCode: "A5T3BF",
+                                        country: "Canada",
+                                        image: "https://images.unsplash.com/profile.svg",
+                                    }
+                                }
                             },
                         },
                     },
