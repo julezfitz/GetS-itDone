@@ -37,20 +37,20 @@ function Scene() {
 				ref={setMaterial}
 				envMap={envMap}
 				bumpMap={bumpMap}
-				color={"white"}
-				roughness={0.1}
+				color={"purple"}
+				roughness={0.5}
 				metalness={0.9}
 				bumpScale={0.005}
 				clearcoat={1}
-				clearcoatRoughness={1}
-				radius={1}
+				clearcoatRoughness={0.1}
+				radius={1.3}
 				distort={0.4}
 			>
-				<GradientTexture
+				{/* <GradientTexture
 					stops={gradientStops}
 					colors={gradientColors}
 					size={1024}
-				/>
+				/> */}
 			</MeshDistortMaterial>
 			{material && <Instances material={material} />}
 		</>
