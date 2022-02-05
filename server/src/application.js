@@ -3,6 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const express = require("express");
 const bodyparser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const swaggerUi = require("swagger-ui-express");
 const passport = require("passport");
@@ -19,6 +20,21 @@ module.exports = function application(ENV) {
 			origin: ["http://localhost:3000", "http://localhost:3001"],
 			methods: ["GET", "POST", "PUT", "DELETE"],
 			credentials: true,
+		})
+	);
+
+	app.use(cookieParser());
+
+	app.use(
+		session({
+			key: "user",
+			secret: "tester",
+			resave: false,
+			saveUninitialized: true,
+			cookie: {
+				//24h
+				expires: 60 * 60 * 24,
+			},
 		})
 	);
 

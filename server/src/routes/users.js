@@ -49,6 +49,7 @@ module.exports = db => {
 
 	//User attempts to register
 	router.post("/user/register", (req, res) => {
+
 		const hasEmptyField = checkIfEmpty(req.body);
 		const {
 			firstName,
@@ -64,6 +65,7 @@ module.exports = db => {
 		} = trimFields(req.body);
 
 		const hashedPassword = bcrypt.hashSync(password, 12);
+		
 		//Check if any fields are empty
 		if (hasEmptyField) {
 			registerErrors.errors.push({
@@ -130,7 +132,7 @@ module.exports = db => {
 						registerErrors.errors.push({
 							message: "Server error. Please try again.",
 						});
-						console.log(err);
+						
 					});
 			});
 	});
