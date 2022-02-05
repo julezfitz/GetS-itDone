@@ -2,9 +2,18 @@ import styled from "styled-components";
 import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
-export const heroBgColor = '#223261';
-export const blobColor = "#7F7CD5";
-export const blobGradient = []
+const heroBgColor = '#223261';
+const blobColor = "#7F7CD5";
+const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"]
+const blobGradientStops = [0, 0.3, 0.6, 1]
+
+export const blobConfig = {
+	heroBgColor,
+	blobGradientColors,
+	blobGradientStops
+}
+
+
 
 export const StyledHero = styled.section`
 	background-color: ${heroBgColor};

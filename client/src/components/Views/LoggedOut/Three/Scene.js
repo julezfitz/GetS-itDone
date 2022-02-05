@@ -1,33 +1,12 @@
-import React, { Suspense } from "react";
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import {
-	EffectComposer,
-	DepthOfField,
-	Bloom,
-	Noise,
-	Vignette,
-} from "@react-three/postprocessing";
-import { MeshDistanceMaterial } from "three";
+import React from "react";
 import { useState } from "react";
-import {
-	Html,
-	Icosahedron,
-	useTexture,
-	useCubeTexture,
-	MeshDistortMaterial,
-} from "@react-three/drei";
+import { useTexture, MeshDistortMaterial } from "@react-three/drei";
 import { Instances } from "./Model";
 import { GradientTexture } from "@react-three/drei";
-import { blobColor } from "../../styles/styles";
+import { blobConfig } from "../../styles/styles";
 
 function Scene() {
-	// const gltf = useLoader(GLTFLoader, "/scene.gltf");
-
-	const gradientStops = [0, 0.3, 0.6, 1];
-	const gradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
+	const { blobGradientColors, blobGradientStops } = blobConfig;
 
 	const bumpMap = useTexture("/Scifi_Panels_02_ambientocclusion.jpg");
 	const envMap = "";
@@ -47,8 +26,8 @@ function Scene() {
 				distort={0.3}
 			>
 				<GradientTexture
-					stops={gradientStops}
-					colors={gradientColors}
+					stops={blobGradientStops}
+					colors={blobGradientColors}
 					size={1024}
 				/>
 			</MeshDistortMaterial>

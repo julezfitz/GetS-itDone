@@ -28,8 +28,6 @@ function Blob() {
 				depth: false,
 			}}
 		>
-			{/* <OrbitControls makeDefault /> */}
-
 			<Lights />
 			<Suspense fallback={null}>
 				<Scene />
@@ -39,9 +37,6 @@ function Blob() {
 					path={"/"}
 				/>
 			</Suspense>
-			<EffectComposer multisampling={0} disableNormalPass={true}>
-				{/* <Noise opacity={0.025} /> */}
-			</EffectComposer>
 		</Canvas>
 	);
 }
