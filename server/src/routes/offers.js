@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const createNotification = require("../helpers/createNotification");
 
 //may need another get for retrieving offers on a single listing
 
@@ -49,15 +50,33 @@ module.exports = db => {
     router.put("/offers", (request, response) => {
         const { offerId } = request.query;
         const queryString1 = `UPDATE offers SET accepted = true, pending = false WHERE id = ${offerId} RETURNING *;`;
+        let acceptedOffer;
+        // each notification will need userId, notificationId, offerId
 
         //set all other offers to not accepted and set pending to false
         db.query(queryString1).then((result) => {
             let listingId = (result.rows[0]).listing_id;
+            acceptedOffer = result.rows[0];
+
             return db.query(`UPDATE offers 
             SET accepted = false, pending = false 
-            WHERE listing_id = ${listingId} AND id <> ${offerId};`);
-        }).then(() => {
-            response.status(204).json(`Offer accepted. All other offers declined.`);
+            WHERE listing_id = ${listingId} AND id <> ${offerId} RETURNING *;`);
+        }).then((result) => {
+
+            let acceptedAndRejectedOffers = {
+                "acceptedOffer": acceptedOffer,
+                "rejectedOffers": result.rows
+            };
+           
+           //creates a notification for the person who's offer was accepted
+            createNotification(db, acceptedAndRejectedOffers.acceptedOffer.bidder_id, 2, acceptedAndRejectedOffers.acceptedOffer.id);
+
+            //loop through rejected offers and add a notification for each to the database
+            for(offer in acceptedAndRejectedOffers.rejectedOffers) {
+                createNotification(db, offer.bidder_id, 1, offer.id);
+            }
+            
+            response.status(200).json(`Offer accepted. All other offers declined.`);
         })
     });
 
