@@ -19,6 +19,14 @@ export const StyledHero = styled.section`
 	overflow: hidden;
 	position: relative;
 
+	.text-content {
+		width: 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
 
 	.heading-wrapper {
 		width: auto;
