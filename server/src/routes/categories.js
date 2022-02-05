@@ -23,7 +23,9 @@ module.exports.apiDocs = {
                     "description": "An array of categories.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "array"
+                            },
                             "example": [
                                {
                                     "id": 1,

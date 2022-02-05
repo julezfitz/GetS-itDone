@@ -98,7 +98,7 @@ module.exports = db => {
         JOIN user_ratings ON users.id = user_ratings.ratee_id
         WHERE offers.listing_id = ${request.params.listingId}
         GROUP BY offers.id, users.first_name, users.last_name;`
-        
+
         let listingObject;
 
         db.query(listingQueryString).then((result) => {
@@ -127,7 +127,7 @@ module.exports = db => {
                 )
             });
 
-            listingObject = {...listingObject, "offers": ratingsArray};
+            listingObject = { ...listingObject, "offers": ratingsArray };
             response.json(listingObject);
         })
     });
@@ -167,6 +167,58 @@ const exampleListing2 = {
     "province": "Ontario",
     "postalCode": "A5T3BF",
     "country": "Canada"
+};
+
+const listingSchema = {
+    "type": "object",
+    "required": [ "creatorId", "title", "description", "price", "city", "province", "postalCode", "country" ],
+    "properties": {
+        "creatorId": {
+            "type": "integer",
+            "description": "The creator ID."
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the listing."
+          },
+          "description": {
+            "type": "string",
+            "description": "The listing description."
+          },
+          "image_1": {
+            "type": "string",
+            "description": "Listing image 1."
+          },
+          "image_2": {
+            "type": "string",
+            "description": "Listing image 2."
+          },
+          "image_3": {
+            "type": "string",
+            "description": "Listing image 3."
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0,
+            "description": "The listing price."
+          },
+          "city": {
+            "type": "string",
+            "description": "The listing city."
+          },
+          "province": {
+            "type": "string",
+            "description": "The listing province."
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "The listing postal code."
+          },
+          "country": {
+            "type": "string",
+            "description": "The listing country."
+          }
+    }
 };
 
 module.exports.apiDocs = {
@@ -244,9 +296,7 @@ module.exports.apiDocs = {
                 "description": "listing model",
                 "content": {
                     "application/json": {
-                        "schema": {
-                            "type": "object"
-                        },
+                        "schema": listingSchema,
                         "example": { ...exampleListing1 }
                     }
                 }
@@ -278,7 +328,9 @@ module.exports.apiDocs = {
                     "description": "An individual listing.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "object"
+                            },
                             "example": exampleListing1
                         }
                     }
@@ -292,7 +344,7 @@ module.exports.apiDocs = {
                 "description": "listing model",
                 "content": {
                     "application/json": {
-                        "schema": {},
+                        "schema": {...listingSchema, "required": []},
                         "example": { ...exampleListing1, title: "Cut my lawn" }
                     }
                 }
@@ -302,7 +354,9 @@ module.exports.apiDocs = {
                     "description": "Updated ok",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "object"
+                            },
                             "example": { ...exampleListing1, title: "Cut my lawn" }
                         }
                     },
@@ -340,7 +394,9 @@ module.exports.apiDocs = {
                     "description": "An individual listing with its offers.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "object"
+                            },
                             "example": {
                                 ...exampleListing1, "offers": [
                                     {
