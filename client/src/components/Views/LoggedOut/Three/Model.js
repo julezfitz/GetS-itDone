@@ -34,7 +34,7 @@ function Model({ material }) {
 	});
 	return (
 		<Icosahedron
-			args={[1, 4]}
+			args={[1,10]}
 			ref={main}
 			material={material}
 			position={[0, 0, 0]}
