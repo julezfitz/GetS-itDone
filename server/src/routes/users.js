@@ -3,25 +3,30 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
-const toCamel = require("../helpers/auth/toCamel");
-const createError = require("http-errors");
 
-const loginErrors = {
-	errors: [],
+const authResponse = {
+	authentication: {
+		isAuthenticated: false,
+		user: null,
+		errors: [],
+	},
 };
+
 const registerErrors = {
 	errors: [],
 };
 
 module.exports = db => {
+
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
+		let errors = authResponse.authentication.errors;
 
 		//If any field is empty, send error right away
 		if (!email || !password) {
-			loginErrors.errors.push({ message: "Please fill out the fields." });
-			res.send(loginErrors);
+			errors.push({ message: "Please fill out the fields." });
+			res.send(authResponse);
 			return;
 		}
 
@@ -31,20 +36,44 @@ module.exports = db => {
 
 			//If passport does not find user, send error response
 			if (!user) {
-				loginErrors.errors.push({ message: info.message });
-				res.send(loginErrors);
+				errors.push({ message: info.message });
+				res.send(authResponse);
 				return;
 			} else {
 				//Passport found a user
-				console.log("in here!");
+
 				req.logIn(user, err => {
 					if (err) throw err;
 
-					//Send successful auth status + message
-					res.status(200).send("Successfully Authenticated");
+					//Send successful auth status + clear errors
+					authResponse.authentication.isAuthenticated = true;
+					authResponse.authentication.errors = [];
+
+					res.status(200).send(authResponse);
+					req.session["user"] = user;
 				});
 			}
 		})(req, res, next);
+	});
+
+	//User attempts to log out
+	router.post("/user/logout", (req, res) => {
+		req.session.destroy();
+		res.status(200).send({ message: "Logout successful"})
+	})
+
+
+	//Check to see if a user is logged in
+	router.get("/user/session", (req, res) => {
+		authResponse = { isAuthenticated: false, user: null };
+		if (!req.session.user) {
+			res.send(authResponse);
+			return;
+		}
+
+		authResponse.isAuthenticated = true;
+		authResponse.isAuthenticated = req.session.user;
+		res.send(authResponse);
 	});
 
 	//User attempts to register
@@ -64,6 +93,7 @@ module.exports = db => {
 		} = trimFields(req.body);
 
 		const hashedPassword = bcrypt.hashSync(password, 12);
+
 		//Check if any fields are empty
 		if (hasEmptyField) {
 			registerErrors.errors.push({
@@ -101,11 +131,12 @@ module.exports = db => {
 				return db
 					.query(
 						`
-						INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
-      			VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+						INSERT INTO users(id, first_name, last_name, email, password, city, province, postal_code, country, image)
+      			VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       			RETURNING *
 			`,
 						[
+							21,
 							firstName,
 							lastName,
 							email,
@@ -119,6 +150,11 @@ module.exports = db => {
 					)
 					.then(success => {
 						//If user has successfully been registered in db, send success msg to front end
+						req.session["user"] = {
+							id: success.rows[0].id,
+							email: success.rows[0].email,
+						};
+
 						res.send({
 							success: {
 								user: success.rows[0],
@@ -131,27 +167,11 @@ module.exports = db => {
 							message: "Server error. Please try again.",
 						});
 						console.log(err);
+						res.send(registerErrors);
 					});
 			});
 	});
 
-	//Get a user's info by id
-
-	// example response: {
-	// 	firstName: "Johnny",
-	// 	lastName: "Smith",
-	// 	email: "jsmith@email.com",
-	// 	password: "password",
-	// 	city: "Toronto",
-	// 	province: "Ontario",
-	// 	postalCode: "A5T3BF",
-	// 	country: "Canada",
-	// 	image: "https://images.unsplash.com/profile.svg",
-	// 	ratings: {
-	// 		totalRatings: 120,
-	// 		averageRating: 4.5,
-	// 	},
-	// },
 	router.get("/user/:userId", (req, res) => {
 		const { userId } = req.params;
 
@@ -224,7 +244,6 @@ module.exports = db => {
 			});
 		});
 	});
-
 	return router;
 };
 
@@ -300,6 +319,7 @@ module.exports.apiDocs = {
 			},
 		},
 	},
+
 	"/user/session": {
 		post: {
 			description: "Login to a user account",
@@ -355,7 +375,10 @@ module.exports.apiDocs = {
 				},
 			},
 		},
-		delete: {
+	},
+	
+	"/user/logout": {
+		post: {
 			description: "Logout of a user account",
 			tags: ["users"],
 			responses: {
