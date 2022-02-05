@@ -1,0 +1,11 @@
+Model Information:
+* title:	Head Of Michelangelo's David, Optimised
+* source:	https://sketchfab.com/3d-models/head-of-michelangelos-david-optimised-d29af50360624e5e9b1855666475380d
+* author:	Thomas Flynn (https://sketchfab.com/nebulousflynn)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Head Of Michelangelo's David, Optimised" (https://sketchfab.com/3d-models/head-of-michelangelos-david-optimised-d29af50360624e5e9b1855666475380d) by Thomas Flynn (https://sketchfab.com/nebulousflynn) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
