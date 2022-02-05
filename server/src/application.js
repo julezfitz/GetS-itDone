@@ -17,7 +17,11 @@ module.exports = function application(ENV) {
 	//Configure cors to allow for front end to access cookies
 	app.use(
 		cors({
-			origin: ["http://localhost:3000", "http://localhost:3001"],
+			origin: [
+				"http://localhost:3000",
+				"http://localhost:3001",
+				"http://localhost:3002",
+			],
 			methods: ["GET", "POST", "PUT", "DELETE"],
 			credentials: true,
 		})
