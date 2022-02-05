@@ -239,13 +239,54 @@ module.exports.apiDocs = {
                 description: "user model",
                 content: {
                     "application/json": {
-                        schema: {},
+                        schema: {
+                            "type": "object",
+                            "required": ["firstName", "lastName", "email", "password", "password2", "city", "province", "postalCode", "country"],
+                            "properties": {
+                                "firstName": {
+                                    "type": "string",
+                                    "description": "First name."
+                                },
+                                "lastName": {
+                                    "type": "string",
+                                    "description": "Last name."
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "description": "Email."
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "description": "Password."
+                                },
+                                "password2": {
+                                    "type": "string",
+                                    "description": "Validate password."
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "description": "City."
+                                },
+                                "province": {
+                                    "type": "string",
+                                    "description": "Province."
+                                },
+                                "postalCode": {
+                                    "type": "string",
+                                    "description": "Postal code."
+                                },
+                                "country": {
+                                    "type": "string",
+                                    "description": "Country."
+                                },
+                            }
+                        },
                         example: {
                             firstName: "Johnny",
                             lastName: "Smith",
                             email: "jsmith@email.com",
                             password: "password",
-                            password2: "password2",
+                            password2: "password",
                             city: "Toronto",
                             province: "Ontario",
                             postalCode: "A5T3BF",

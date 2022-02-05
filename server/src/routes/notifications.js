@@ -76,7 +76,31 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "array"
+                                "type": "array",
+                                "description": "Array of notifications.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "notificationMessage": {
+                                            "type": "string",
+                                        },
+                                        "viewed": {
+                                            "type": "boolean",
+                                        },
+                                        "offerId": {
+                                            "type": "integer",
+                                        },
+                                        "listingId": {
+                                            "type": "integer",
+                                        },
+                                        "notificationId": {
+                                            "type": "integer",
+                                        },
+                                        "created": {
+                                            "type": "string",
+                                        },
+                                    }
+                                }
                             },
                             "example": [
                                 {
