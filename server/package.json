@@ -12,11 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-    "bcrypt": "^5.0.1",
-=======
     "cookie-parser": "^1.4.6",
->>>>>>> 51a9d389db39864f49a52d18b0408b28ce8676ec
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.17.2",
