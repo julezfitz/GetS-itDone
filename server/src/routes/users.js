@@ -17,7 +17,6 @@ const registerErrors = {
 };
 
 module.exports = db => {
-	
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
