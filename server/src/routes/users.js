@@ -17,6 +17,7 @@ const registerErrors = {
 };
 
 module.exports = db => {
+
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
@@ -54,6 +55,13 @@ module.exports = db => {
 			}
 		})(req, res, next);
 	});
+
+	//User attempts to log out
+	router.post("/user/logout", (req, res) => {
+		req.session.destroy();
+		res.status(200).send({ message: "Logout successful"})
+	})
+
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
@@ -311,7 +319,7 @@ module.exports.apiDocs = {
 			},
 		},
 	},
-	
+
 	"/user/session": {
 		post: {
 			description: "Login to a user account",
