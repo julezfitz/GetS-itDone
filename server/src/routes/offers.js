@@ -77,7 +77,37 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "array"
+                                "type": "array",
+                                "description": "Array of offers made by a single user.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                        },
+                                        "pending": {
+                                            "type": "boolean",
+                                        },
+                                        "accepted": {
+                                            "type": "boolean",
+                                        },
+                                        "listingId": {
+                                            "type": "integer",
+                                        },
+                                        "offerId": {
+                                            "type": "integer",
+                                        },
+                                        "price": {
+                                            "type": "number",
+                                        },
+                                        "created": {
+                                            "type": "string",
+                                        },
+                                        "image_1": {
+                                            "type": "string",
+                                        },
+                                    }
+                                }
                             },
                             "example": [
                                 {
