@@ -26,8 +26,10 @@ export const StyledHeading = styled.div`
 	}};
 
 	.heading-large {
-		font-size: 8rem;
+		font-size: 10.5rem;
 	}
+
+
 
 	h2 {
 		font-size: 7rem;
