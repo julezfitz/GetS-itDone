@@ -19,7 +19,7 @@ export default function Application() {
 		setShowRegister(prev => !prev);
 	};
 
-/*
+	/*
 Matt's work below -- 
 
 import "../styles/scss/Application.scss";
@@ -45,6 +45,15 @@ export default function Application() {
 	}, []);
 	*/
 
+	useEffect(() => {
+		axios.post("http://localhost:8001/user/session", {
+			email: "caroshannon350@gmail.com",
+			password: "chewing389"
+		})
+		.then(res => console.log(res))
+		.catch(err => console.log(err))
+	}, []);
+
 	return (
 		<div>
 			<section className='app-nav'>
@@ -63,7 +72,7 @@ export default function Application() {
 				<Login showLogin={showLogin} setShowLogin={setShowLogin} />
 			</section>
 			<main>
-				<Routing/>
+				<Routing />
 				<section className='main'>
 					<p className='main__text'>All results for: Home</p>
 					<hr className='main__x-separator main--centered' />
@@ -76,5 +85,4 @@ export default function Application() {
 			</main>
 		</div>
 	);
-	
 }
