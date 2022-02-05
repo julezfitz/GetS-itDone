@@ -3,16 +3,47 @@ import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import {
+	EffectComposer,
+	DepthOfField,
+	Bloom,
+	Noise,
+	Vignette,
+} from "@react-three/postprocessing";
+import { MeshDistanceMaterial } from "three";
+import { useState } from "react";
+import {
+	Html,
+	Icosahedron,
+	useTexture,
+	useCubeTexture,
+	MeshDistortMaterial,
+} from "@react-three/drei";
+import { Instances } from "./Model";
 
 function Scene() {
-	const gltf = useLoader(GLTFLoader, "/scene.gltf");
+	// const gltf = useLoader(GLTFLoader, "/scene.gltf");
+
+	const bumpMap = '';
+	const envMap = '';
+	const [material, setMaterial] = useState(null);
 	return (
-		<Canvas camera={{ position: [0, -40, 20] }}>
-			<OrbitControls makeDefault />
-			<directionalLight position={[10, 10, 5]} intensity={2} />
-			<directionalLight position={[-10, -10, -5]} intensity={1} />
-			<primitive position={[0, 0, 0]} object={gltf.scene} scale={0.04}/>
-		</Canvas>
+		<>
+			<MeshDistortMaterial
+				ref={setMaterial}
+				envMap={envMap}
+				bumpMap={bumpMap}
+				color={"#010101"}
+				roughness={0.1}
+				metalness={1.3}
+				bumpScale={0.005}
+				clearcoat={1}
+				clearcoatRoughness={1}
+				radius={1}
+				distort={0.4}
+			/>
+			{material && <Instances material={material} />}
+		</>
 	);
 }
 
