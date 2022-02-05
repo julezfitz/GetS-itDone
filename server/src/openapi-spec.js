@@ -2,7 +2,8 @@ module.exports = {
   openapi: "3.0.0",
   info: {
     "title": "GetsItDone API",
-    "description": "..."
+    "description": "...",
+    "version": "0.0.1",
   },
   "paths": {
     ...(require('./routes/listings').apiDocs),

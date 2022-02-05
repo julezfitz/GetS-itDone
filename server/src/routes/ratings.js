@@ -50,7 +50,7 @@ module.exports = db => {
                 "created": rows[0].created
             }
             
-            response.json(postedRating);
+            response.status(201).json(postedRating);
         });
     });
 

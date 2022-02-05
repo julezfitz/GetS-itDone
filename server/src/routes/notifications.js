@@ -43,14 +43,14 @@ module.exports = db => {
                 VALUES ($1::integer, $2::integer, $3::integer);`,
             [userId, notificationId, offerId]
         ).then(() => {
-            response.json(`Notification created`);
+            response.status(201).json(`Notification created`);
         });
     });
 
     router.put("/notifications/:notificationId", (request, response) => {
         let queryString = `UPDATE user_notifications SET viewed = true WHERE id = ${request.params.notificationId}`;
         db.query(queryString).then(() => {
-            response.json(`Notification marked as viewed`);
+            response.status(204).json(`Notification marked as viewed`);
         });
     });
 
