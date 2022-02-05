@@ -39,7 +39,7 @@ module.exports = db => {
     });
 
     router.get("/listings/:listingId", (request, response) => {
-        let queryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};` 
+        let queryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};`
         db.query(queryString).then((result) => {
             response.json(result.rows[0]);
         });
@@ -56,20 +56,20 @@ module.exports = db => {
 
         const { creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
             country } = request.body;
-        
+
         const listingUpdates = [
-            {"creator_id": creatorId},
-            {"title": title}, 
-            {"description": description},
-            {"image_1": image_1},
-            {"image_2": image_2}, 
-            {"image_3": image_3}, 
-            {"price": price}, 
-            {"city": city}, 
-            {"province": province}, 
-            {"postal_code": postalCode},
-            {"country": country}
-            ];
+            { "creator_id": creatorId },
+            { "title": title },
+            { "description": description },
+            { "image_1": image_1 },
+            { "image_2": image_2 },
+            { "image_3": image_3 },
+            { "price": price },
+            { "city": city },
+            { "province": province },
+            { "postal_code": postalCode },
+            { "country": country }
+        ];
 
         let queryString = `UPDATE listings SET`;
 
@@ -78,7 +78,7 @@ module.exports = db => {
         listingUpdates.forEach((updateObj) => {
             Object.keys(updateObj).forEach((key) => {
                 queryArray.push(` ${key} = '${updateObj[key]}'`)
-          });
+            });
         });
 
         queryString += queryArray.join(", ");
@@ -87,6 +87,48 @@ module.exports = db => {
         db.query(queryString).then((result) => {
             response.json(result.rows[0]);
         });
+    });
+
+    router.get("/listings/:listingId/offers", (request, response) => {
+        let listingQueryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};`
+        let offersQueryString = `SELECT offers.id as offerId, offers.bidder_id as bidderid, offers.accepted, offers.pending, users.first_name as firstName,
+        users.last_name as lastName, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
+        FROM offers
+        JOIN users ON offers.bidder_id = users.id
+        JOIN user_ratings ON users.id = user_ratings.ratee_id
+        WHERE offers.listing_id = ${request.params.listingId}
+        GROUP BY offers.id, users.first_name, users.last_name;`
+        
+        let listingObject;
+
+        db.query(listingQueryString).then((result) => {
+            listingObject = result.rows[0];
+            return db.query(offersQueryString);
+        }).then((result) => {
+
+            let ratingsArray = [];
+
+            (result.rows).forEach((ratingObj) => {
+                let averageRating = parseInt(ratingObj.averagerating);
+                let ratingCount = parseInt(ratingObj.ratingcount);
+
+                ratingsArray.push(
+                    {
+                        "offerId": ratingObj.offerid,
+                        "bidderId": ratingObj.bidderid,
+                        "firstName": ratingObj.firstname,
+                        "lastName": ratingObj.lastname,
+                        "averageRating": averageRating,
+                        "ratingCount": ratingCount,
+                        "pending": ratingObj.pending,
+                        "accepted": ratingObj.accepted
+                    }
+                )
+            });
+
+            listingObject = {...listingObject, "offers": ratingsArray};
+            response.json(listingObject);
+        })
     });
 
     return router;
@@ -265,5 +307,56 @@ module.exports.apiDocs = {
                 },
             },
         }
-    }
+    },
+    "/listings/{listingId}/offers": {
+        "parameters": [
+            {
+                "name": "listingId",
+                "in": "path",
+                "schema": {
+                    "type": "integer"
+                },
+                "required": true,
+                "description": "listing ID of the individual listing"
+            }
+        ],
+        "get": {
+            "description": "Returns the details of an individual listing along with its associated offers.",
+            "tags": ["listings"],
+            "responses": {
+                200: {
+                    "description": "An individual listing with its offers.",
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "example": {
+                                ...exampleListing1, "offers": [
+                                    {
+                                        "offerId": 4,
+                                        "bidderId": 2,
+                                        "firstName": "Bill",
+                                        "lastName": "Thorne",
+                                        "averageRating": 4.5,
+                                        "ratingCount": 50,
+                                        "pending": "false",
+                                        "accepted": "false",
+                                    },
+                                    {
+                                        "offerId": 5,
+                                        "bidderId": 3,
+                                        "firstName": "Jill",
+                                        "lastName": "Fardy",
+                                        "averageRating": 4,
+                                        "ratingCount": 60,
+                                        "pending": "false",
+                                        "accepted": "false",
+                                    },
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
 };
