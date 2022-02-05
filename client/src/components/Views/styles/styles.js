@@ -32,25 +32,44 @@ export const StyledHero = styled.section`
 	overflow: hidden;
 	position: relative;
 
-	.text-content {
+	.text-content-wrapper {
 		width: 100%;
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-	}
+		height: 100%;
 
-	.heading-wrapper {
-		width: auto;
-		padding: inherit;
-		margin: 5rem 0;
+		.text-content-inner {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			position: relative;
+			height: 100%;
+		}
 
-		h1 {
-			width: 100%;
-			margin: 0;
+		.hero-bottom-cta {
+			width: 10rem;
+			height: 10rem;
+			background-color: blue;
+			position: absolute;
+			bottom: 0;
+			
+		}
 
-			.word:nth-of-type(1) {
-				z-index: 99999;
+		.heading-wrapper {
+			width: auto;
+			padding: inherit;
+			margin: 5rem 0;
+
+			h1 {
+				width: 100%;
+				margin: 0;
+
+				.word:nth-of-type(1) {
+					z-index: 99999;
+				}
 			}
 		}
 	}

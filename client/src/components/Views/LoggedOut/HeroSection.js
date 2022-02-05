@@ -5,10 +5,11 @@ import { introAnimation } from "./motion/animations";
 
 import SplitText from "gsap/SplitText";
 import { Suspense } from "react";
-import Button from "../../Button/Button";
+
 import Blob from "./Three/Blob";
-import MarqueeBanner from "./MarqueeBanner";
-import Heading from "../../Heading/Heading";
+import TextOverlay from "./TextOverlay";
+
+
 
 function HeroSection() {
 	const splitHeading = useRef(null);
@@ -43,17 +44,12 @@ function HeroSection() {
 
 	return (
 		<StyledHero className='heroSection'>
-			<Suspense fallback={null}>
+			<Suspense fallback={<div>Blob loading...</div>}>
 				<color attach='background' args={["#223261"]} />
 				<Blob />
 			</Suspense>
-			<div className='text-content'>
-				<MarqueeBanner>
-					<Heading size='large' color='light'>
-						Get it done
-					</Heading>
-				</MarqueeBanner>
-			</div>
+			<TextOverlay/>
+			
 		</StyledHero>
 	);
 }
