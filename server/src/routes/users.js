@@ -311,6 +311,7 @@ module.exports.apiDocs = {
 			},
 		},
 	},
+	
 	"/user/session": {
 		post: {
 			description: "Login to a user account",
@@ -366,6 +367,9 @@ module.exports.apiDocs = {
 				},
 			},
 		},
+	},
+	
+	"/user/logout": {
 		post: {
 			description: "Logout of a user account",
 			tags: ["users"],
