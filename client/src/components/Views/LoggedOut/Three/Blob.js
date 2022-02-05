@@ -13,6 +13,7 @@ import {
 	Vignette,
 } from "@react-three/postprocessing";
 import { Environment } from "@react-three/drei";
+import { heroBgColor } from "../../styles/styles";
 
 function Blob() {
 	return (
@@ -20,13 +21,8 @@ function Blob() {
 			className='blob-canvas'
 			camera={{ position: [0, -40, 20] }}
 			colorManagement
-			onCreated={({ gl, scene }) => {
-				gl.toneMapping = THREE.ACESFilmicToneMapping;
-				gl.outputEncoding = THREE.sRGBEncoding;
-			}}
 			gl={{
 				powerPreference: "high-performance",
-				alpha: false,
 				antialias: false,
 				stencil: false,
 				depth: false,
@@ -34,8 +30,7 @@ function Blob() {
 		>
 			{/* <OrbitControls makeDefault /> */}
 
-			<color attach='background' args={["blue"]} />
-			<Lights/>
+			<Lights />
 			<Suspense fallback={null}>
 				<Scene />
 				<Environment
