@@ -7,6 +7,7 @@ const trimFields = require("../helpers/auth/trimFields");
 const authResponse = {
 	authentication: {
 		isAuthenticated: false,
+		user: null,
 		errors: [],
 	},
 };
@@ -18,9 +19,16 @@ const registerErrors = {
 module.exports = db => {
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
+		if (req.session.user) {
+			console.log(req.session.user)
+			authResponse.authentication.isAuthenticated = true;
+			authResponse.authentication.user = req.session.user;
+			res.send(authResponse);
+			return;
+		}
+
 		const { email, password } = req.body;
 		let errors = authResponse.authentication.errors;
-		
 
 		//If any field is empty, send error right away
 		if (!email || !password) {
@@ -50,7 +58,6 @@ module.exports = db => {
 
 					res.status(200).send(authResponse);
 					req.session["user"] = user;
-					console.log(req.session);
 				});
 			}
 		})(req, res, next);
@@ -130,8 +137,11 @@ module.exports = db => {
 					)
 					.then(success => {
 						//If user has successfully been registered in db, send success msg to front end
-						req.session["user"] = success.rows[0];
-						console.log(req.session);
+						req.session["user"] = {
+							id: success.rows[0].id,
+							email: success.rows[0].email,
+						};
+
 						res.send({
 							success: {
 								user: success.rows[0],
@@ -351,7 +361,7 @@ module.exports.apiDocs = {
 				},
 			},
 		},
-		delete: {
+		post: {
 			description: "Logout of a user account",
 			tags: ["users"],
 			responses: {

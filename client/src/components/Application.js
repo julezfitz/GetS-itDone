@@ -45,6 +45,8 @@ export default function Application() {
 	}, []);
 	*/
 
+	axios.defaults.withCredentials = true;
+
 	useEffect(() => {
 		axios.post("http://localhost:8001/user/session", {
 			email: "caroshannon350@gmail.com",
