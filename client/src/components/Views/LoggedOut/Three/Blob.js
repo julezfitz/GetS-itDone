@@ -33,11 +33,11 @@ function Blob() {
 			<Lights />
 			<Suspense fallback={null}>
 				<Scene />
-				{/* <Environment
+				<Environment
 					background={false}
 					files={"large_corridor_4k.hdr"}
 					path={"/"}
-				/> */}
+				/>
 			</Suspense>
 			<EffectComposer multisampling={0} disableNormalPass={true}>
 				{/* <Noise opacity={0.025} /> */}
