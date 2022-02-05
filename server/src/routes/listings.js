@@ -97,7 +97,7 @@ module.exports = db => {
         JOIN users ON offers.bidder_id = users.id
         JOIN user_ratings ON users.id = user_ratings.ratee_id
         WHERE offers.listing_id = ${request.params.listingId}
-        GROUP BY offers.id, users.first_name, users.last_name;`
+        GROUP BY offers.id, users.first_name, users.last_name, users.email;`
 
         let listingObject;
 
@@ -171,53 +171,53 @@ const exampleListing2 = {
 
 const listingSchema = {
     "type": "object",
-    "required": [ "creatorId", "title", "description", "price", "city", "province", "postalCode", "country" ],
+    "required": ["creatorId", "title", "description", "price", "city", "province", "postalCode", "country"],
     "properties": {
         "creatorId": {
             "type": "integer",
             "description": "The creator ID."
-          },
-          "title": {
+        },
+        "title": {
             "type": "string",
             "description": "The title of the listing."
-          },
-          "description": {
+        },
+        "description": {
             "type": "string",
             "description": "The listing description."
-          },
-          "image_1": {
+        },
+        "image_1": {
             "type": "string",
             "description": "Listing image 1."
-          },
-          "image_2": {
+        },
+        "image_2": {
             "type": "string",
             "description": "Listing image 2."
-          },
-          "image_3": {
+        },
+        "image_3": {
             "type": "string",
             "description": "Listing image 3."
-          },
-          "price": {
+        },
+        "price": {
             "type": "number",
             "minimum": 0,
             "description": "The listing price."
-          },
-          "city": {
+        },
+        "city": {
             "type": "string",
             "description": "The listing city."
-          },
-          "province": {
+        },
+        "province": {
             "type": "string",
             "description": "The listing province."
-          },
-          "postalCode": {
+        },
+        "postalCode": {
             "type": "string",
             "description": "The listing postal code."
-          },
-          "country": {
+        },
+        "country": {
             "type": "string",
             "description": "The listing country."
-          }
+        }
     }
 };
 
@@ -281,7 +281,8 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "array"
+                                "type": "array",
+                                "items": listingSchema
                             },
                             "example": [exampleListing1, exampleListing2],
                         }
@@ -328,9 +329,7 @@ module.exports.apiDocs = {
                     "description": "An individual listing.",
                     "content": {
                         "application/json": {
-                            "schema": {
-                                "type": "object"
-                            },
+                            "schema": listingSchema,
                             "example": exampleListing1
                         }
                     }
@@ -344,7 +343,7 @@ module.exports.apiDocs = {
                 "description": "listing model",
                 "content": {
                     "application/json": {
-                        "schema": {...listingSchema, "required": []},
+                        "schema": { ...listingSchema, "required": [] },
                         "example": { ...exampleListing1, title: "Cut my lawn" }
                     }
                 }
@@ -354,9 +353,7 @@ module.exports.apiDocs = {
                     "description": "Updated ok",
                     "content": {
                         "application/json": {
-                            "schema": {
-                                "type": "object"
-                            },
+                            "schema": listingSchema,
                             "example": { ...exampleListing1, title: "Cut my lawn" }
                         }
                     },
@@ -395,7 +392,46 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object"
+                                "type": "object",
+                                "required": ["creatorId", "title", "description", "price", "city", "province", "postalCode", "country"],
+                                "properties": {
+                                    ...listingSchema.properties,  "offers": {
+                                        "type": "array",
+                                        "description": "Array of offers.",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "offerId": {
+                                                    "type": "integer",
+                                                },
+                                                "bidderId": {
+                                                    "type": "integer",
+                                                },
+                                                "firstName": {
+                                                    "type": "string",
+                                                },
+                                                "lastName": {
+                                                    "type": "string",
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                },
+                                                "averageRating": {
+                                                    "type": "number",
+                                                },
+                                                "ratingCount": {
+                                                    "type": "integer",
+                                                },
+                                                "pending": {
+                                                    "type": "boolean",
+                                                },
+                                                "accepted": {
+                                                    "type": "boolean",
+                                                },
+                                            }
+                                        }
+                                    }
+                                }
                             },
                             "example": {
                                 ...exampleListing1, "offers": [
