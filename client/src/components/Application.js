@@ -48,10 +48,7 @@ export default function Application() {
 	axios.defaults.withCredentials = true;
 
 	useEffect(() => {
-		axios.post("http://localhost:8001/user/session", {
-			email: "caroshannon350@gmail.com",
-			password: "chewing389"
-		})
+		axios.post("http://localhost:8001/user/logout")
 		.then(res => console.log(res))
 		.catch(err => console.log(err))
 	}, []);
