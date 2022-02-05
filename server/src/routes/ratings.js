@@ -40,16 +40,16 @@ module.exports = db => {
             `INSERT INTO user_ratings (rater_id, ratee_id, listing_id, rating, comment) 
                 VALUES ($1::integer, $2::integer, $3::integer, $4::integer, $5::text) RETURNING *;`,
             [raterId, rateeId, listingId, numRating, comment]
-        ).then(({rows}) => {            
+        ).then(({ rows }) => {
             let postedRating = {
-                "raterId": rows[0].rater_id, 
-                "rateeId": rows[0].ratee_id, 
-                "listingId": rows[0].listing_id, 
-                "rating": rows[0].rating, 
+                "raterId": rows[0].rater_id,
+                "rateeId": rows[0].ratee_id,
+                "listingId": rows[0].listing_id,
+                "rating": rows[0].rating,
                 "comment": rows[0].comment,
                 "created": rows[0].created
             }
-            
+
             response.status(201).json(postedRating);
         });
     });
@@ -57,6 +57,19 @@ module.exports = db => {
     return router;
 }
 
+const ratingObjectProperties = {
+    "rateeId": {
+        "type": "integer",
+    },
+    "rating": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5
+    },
+    "comment": {
+        "type": "string",
+    },
+};
 
 // API documentation for Open API below
 
@@ -78,7 +91,20 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "array"
+                                "type": "array",
+                                "description": "Array of ratings of a single user.",
+                                "items": {
+                                    "type": "object",
+                                    "description": "Single rating object",
+                                    "properties": {
+                                        ...ratingObjectProperties, "rater": {
+                                            "type": "object",
+                                        },
+                                        "created": {
+                                            "type": "string",
+                                        },
+                                    }
+                                }
                             },
                             "example": [
                                 {
@@ -120,28 +146,12 @@ module.exports.apiDocs = {
                             "type": "object",
                             "required": ["raterId", "rateeId", "listingId", "rating"],
                             "properties": {
+                                ...ratingObjectProperties, "listingId": {
+                                    "type": "integer",
+                                },
                                 "raterId": {
                                     "type": "integer",
-                                    "description": "The rater's ID."
-                                },
-                                "rateeId": {
-                                    "type": "integer",
-                                    "description": "The person who is being rated's ID."
-                                },
-                                "listingId": {
-                                    "type": "integer",
-                                    "description": "The listing ID."
-                                },
-                                "rating": {
-                                    "type": "integer",
-                                    "minimum": 1,
-                                    "maximum": 5,
-                                    "description": "Rating from 1 to 5."
-                                },
-                                "comment": {
-                                    "type": "string",
-                                    "description": "Review comments."
-                                },
+                                }
                             }
                         },
                         "example": {
@@ -160,7 +170,19 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object"
+                                "type": "object",
+                                "description": "Single rating object",
+                                "properties": {
+                                    ...ratingObjectProperties, "created": {
+                                        "type": "string",
+                                    },
+                                    "listingId": {
+                                        "type": "integer",
+                                    },
+                                    "raterId": {
+                                        "type": "integer",
+                                    }
+                                }
                             },
                             "example": {
                                 "raterId": 1,
