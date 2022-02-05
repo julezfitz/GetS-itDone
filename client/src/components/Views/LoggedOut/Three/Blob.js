@@ -28,7 +28,7 @@ function Blob() {
 			{/* <OrbitControls makeDefault /> */}
 			<directionalLight position={[10, 10, 5]} intensity={0.2} />
 			<directionalLight position={[-10, -10, -5]} intensity={2} />
-			<ambientLight intensity={0.9} />
+			<ambientLight intensity={6} />
 
 			<Suspense fallback={null}>
 				<Scene />

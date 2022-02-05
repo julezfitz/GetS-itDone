@@ -28,9 +28,7 @@ function Scene() {
 	const gradientStops = [0, 0.3, 0.6, 1];
 	const gradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
 
-	const bumpMap = useTexture(
-		"/textures/TexturesCom_Plastic_SpaceBlanketFolds.sbsar"
-	);
+	const bumpMap = useTexture("/textures/Scifi_Panels_02_ambientocclusion.jpg");
 	const envMap = "";
 	const [material, setMaterial] = useState(null);
 	return (
@@ -41,7 +39,7 @@ function Scene() {
 				bumpMap={bumpMap}
 				color={"white"}
 				roughness={0.1}
-				metalness={0.3}
+				metalness={0.9}
 				bumpScale={0.005}
 				clearcoat={1}
 				clearcoatRoughness={1}
