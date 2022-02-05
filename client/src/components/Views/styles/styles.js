@@ -3,7 +3,7 @@ import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
 export const StyledHero = styled.section`
-	background-color: black;
+	background-color: white;
 	color: white;
 	height: 80vh;
 	max-height: 100vh;
