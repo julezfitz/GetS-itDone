@@ -172,10 +172,6 @@ module.exports = db => {
 			});
 	});
 
-<<<<<<< HEAD
-	//Get a user's info by id
-=======
->>>>>>> 51a9d389db39864f49a52d18b0408b28ce8676ec
 	router.get("/user/:userId", (req, res) => {
 		const { userId } = req.params;
 
