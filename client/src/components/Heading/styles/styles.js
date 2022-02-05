@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Kobe from "../../../assets/fonts/Kobe.woff";
+import Beatrice from "../../../assets/fonts/Beatrice.otf";
 
 export const StyledHeading = styled.div`
 	@font-face {
@@ -8,9 +9,15 @@ export const StyledHeading = styled.div`
 		font-weight: lighter;
 	}
 
+	@font-face {
+		font-family: "Beatrice";
+		src: url(${Beatrice});
+		font-weight: lighter;
+	}
+
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
-	font-family: "Haas";
+	font-family: "Beatrice";
 	font-weight: lighter;
 	width: 100%;
 	display: flex;

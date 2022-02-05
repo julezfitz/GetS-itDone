@@ -7,6 +7,8 @@ import SplitText from "gsap/SplitText";
 import { Suspense } from "react";
 import Button from "../../Button/Button";
 import Blob from "./Three/Blob";
+import MarqueeBanner from "./MarqueeBanner";
+import Heading from "../../Heading/Heading";
 
 function HeroSection() {
 	const splitHeading = useRef(null);
@@ -45,23 +47,11 @@ function HeroSection() {
 				<color attach='background' args={["#223261"]} />
 				<Blob />
 			</Suspense>
-			{/* <Heading color="light" size="large">
-				GET SHIT DONE.
-			</Heading>
-			
-			<Button type='outline' color='light'>Join for free</Button>
-			<Line /> */}
-			{/* <div className='content-wrapper' style={{ width: "100%" }}>
-				<Heading size={"medium"} color={"light"} ref={headingRef}>
-					Powered by you.
-				</Heading>
-
-				<Curve />
-				<Button type={"outline"} color={"light"}>
-					Get started for free
-				</Button>
-			</div> */}
-			{/* <LightLeak /> */}
+			<div className='text-content'>
+				<MarqueeBanner>
+					<Heading size="large">Get shit done.</Heading>
+				</MarqueeBanner>
+			</div>
 		</StyledHero>
 	);
 }
