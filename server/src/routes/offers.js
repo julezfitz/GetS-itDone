@@ -40,7 +40,7 @@ module.exports = db => {
             `INSERT INTO offers (listing_id, bidder_id) 
                 VALUES ($1::integer, $2::integer);`,
             [listingId, applicantId]
-        ).then(() => {            
+        ).then(() => {
             response.status(201).json(`Application Created`);
         });
     });
@@ -66,6 +66,7 @@ module.exports.apiDocs = {
             "tags": ["offers"],
             "parameters": [{
                 "name": "bidderId",
+                "type": "integer",
                 "in": "query",
                 "description": "get applications for a user",
                 "required": true
@@ -75,7 +76,9 @@ module.exports.apiDocs = {
                     "description": "An array of applications.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "array"
+                            },
                             "example": [
                                 {
                                     "listingId": 5,
@@ -109,11 +112,24 @@ module.exports.apiDocs = {
             "requestBodies": {
                 "description": "application model",
                 "content": [{
-                        "schema": {},
-                        "example": {
-                            "listingId": 1,
-                            "applicantId": 2
+                    "schema": {
+                        "type": "object",
+                        "required": ["listingId", "bidderId"],
+                        "properties": {
+                            "listingId": {
+                                "type": "integer",
+                                "description": "The listing ID."
+                            },
+                            "bidderId": {
+                                "type": "integer",
+                                "description": "The applicant ID."
+                            },
                         }
+                    },
+                    "example": {
+                        "listingId": 1,
+                        "applicantId": 2
+                    }
                 }]
             },
             "responses": {
@@ -128,12 +144,14 @@ module.exports.apiDocs = {
             "parameters": [
                 {
                     "name": "applicantId",
+                    "type": "integer",
                     "in": "query",
                     "description": "delete offer for a listing by the applicant",
                     "required": true
                 },
                 {
                     "name": "listingId",
+                    "type": "integer",
                     "in": "query",
                     "description": "delete offer for a listing by the applicant",
                     "required": true
