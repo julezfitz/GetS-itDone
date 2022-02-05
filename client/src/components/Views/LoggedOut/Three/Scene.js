@@ -28,16 +28,14 @@ function Scene() {
 	const gradientStops = [0, 0.3, 0.6, 1];
 	const gradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
 
-	const bumpMap = useTexture("/textures/Scifi_Panels_02_ambientocclusion.jpg");
-	const envMap = "";
+	// const bumpMap = useTexture("/textures/Scifi_Panels_02_ambientocclusion.jpg");
+	const envMap = '';
 	const [material, setMaterial] = useState(null);
 	return (
 		<>
 			<MeshDistortMaterial
 				ref={setMaterial}
-				envMap={envMap}
-				bumpMap={bumpMap}
-				color={"purple"}
+				color={"white"}
 				roughness={0.5}
 				metalness={0.9}
 				bumpScale={0.005}
@@ -46,11 +44,11 @@ function Scene() {
 				radius={1.3}
 				distort={0.4}
 			>
-				{/* <GradientTexture
+				<GradientTexture
 					stops={gradientStops}
 					colors={gradientColors}
 					size={1024}
-				/> */}
+				/>
 			</MeshDistortMaterial>
 			{material && <Instances material={material} />}
 		</>
