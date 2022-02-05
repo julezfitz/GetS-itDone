@@ -34,7 +34,7 @@ module.exports = db => {
             [creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
                 country]
         ).then(() => {
-            response.json(`Listing Created`);
+            response.status(201).json(`Listing Created`);
         });
     });
 
@@ -48,7 +48,7 @@ module.exports = db => {
     router.delete("/listings/:listingId", (request, response) => {
         let queryString = `DELETE FROM listings WHERE id = ${request.params.listingId};`
         db.query(queryString).then(() => {
-            response.json(`Listing deleted`);
+            response.status(204).json(`Listing deleted`);
         });
     });
 
@@ -189,18 +189,27 @@ module.exports.apiDocs = {
                     "name": "category",
                     "in": "query",
                     "description": "filter listings by category",
+                    "schema": {
+                        "type": "string"
+                    },
                     "required": false
                 },
                 {
                     "name": "creatorId",
                     "in": "query",
                     "description": "filter listings by creator id",
+                    "schema": {
+                        "type": "integer"
+                    },
                     "required": false
                 },
                 {
                     "name": "orderBy",
                     "in": "query",
                     "description": "what it will be ordered by (price, date)",
+                    "schema": {
+                        "type": "string"
+                    },
                     "required": false
                 },
                 {
@@ -235,7 +244,9 @@ module.exports.apiDocs = {
                 "description": "listing model",
                 "content": {
                     "application/json": {
-                        "schema": {},
+                        "schema": {
+                            "type": "object"
+                        },
                         "example": { ...exampleListing1 }
                     }
                 }

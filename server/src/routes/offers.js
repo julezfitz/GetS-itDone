@@ -41,7 +41,7 @@ module.exports = db => {
                 VALUES ($1::integer, $2::integer);`,
             [listingId, applicantId]
         ).then(() => {            
-            response.json(`Application Created`);
+            response.status(201).json(`Application Created`);
         });
     });
 
@@ -50,7 +50,7 @@ module.exports = db => {
 
         let queryString = `DELETE FROM offers WHERE bidder_id = ${applicantId} AND listing_id = ${listingId};`
         db.query(queryString).then(() => {
-            response.json(`Offer retracted`);
+            response.status(204).json(`Offer retracted`);
         });
     });
 
