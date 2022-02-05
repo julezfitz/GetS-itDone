@@ -21,7 +21,7 @@ export const blobConfig = {
 export const StyledHero = styled.section`
 	background-color: ${heroBgColor};
 	color: white;
-	height: 80vh;
+	height: 93vh;
 	max-height: 100vh;
 	font-family: "Helvetica";
 	font-size: 10vw;
