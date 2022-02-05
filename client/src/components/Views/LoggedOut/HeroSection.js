@@ -6,7 +6,7 @@ import { introAnimation } from "./motion/animations";
 import SplitText from "gsap/SplitText";
 import { Suspense } from "react";
 import Button from "../../Button/Button";
-import Scene from "./Three/Scene";
+import Blob from "./Three/Blob";
 
 function HeroSection() {
 	const splitHeading = useRef(null);
@@ -42,7 +42,7 @@ function HeroSection() {
 	return (
 		<StyledHero className='heroSection'>
 			<Suspense fallback={null}>
-				<Scene />
+				<Blob />
 			</Suspense>
 			{/* <Heading color="light" size="large">
 				GET SHIT DONE.
