@@ -45,14 +45,6 @@ export default function Application() {
 	}, []);
 	*/
 
-	axios.defaults.withCredentials = true;
-
-	useEffect(() => {
-		axios.post("http://localhost:8001/user/logout")
-		.then(res => console.log(res))
-		.catch(err => console.log(err))
-	}, []);
-
 	return (
 		<div>
 			<section className='app-nav'>
