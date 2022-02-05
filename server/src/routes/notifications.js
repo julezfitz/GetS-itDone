@@ -75,7 +75,9 @@ module.exports.apiDocs = {
                     "description": "An array of notifications.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "array"
+                            },
                             "example": [
                                 {
                                     "notificationMessage": "Your offer has been declined.",
@@ -106,18 +108,21 @@ module.exports.apiDocs = {
             "parameters": [
                 {
                     "name": "userId",
+                    "type": "integer",
                     "in": "query",
                     "description": "Id of user to receive the notification",
                     "required": true
                 },
                 {
                     "name": "notificationId",
+                    "type": "integer",
                     "in": "query",
                     "description": "1 for decline, 2 for accept, 3 for new offer",
                     "required": true
                 },
                 {
                     "name": "offerId",
+                    "type": "integer",
                     "in": "query",
                     "description": "Offer id associated with the notification",
                     "required": true
