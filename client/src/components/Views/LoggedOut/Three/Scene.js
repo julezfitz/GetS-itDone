@@ -9,8 +9,8 @@ function Scene() {
 	const { blobGradientColors, blobGradientStops } = blobConfig;
 
 	const bumpMap = useTexture("/Scifi_Panels_02_ambientocclusion.jpg");
-	const envMap = "";
 	const [material, setMaterial] = useState(null);
+	
 	return (
 		<>
 			<MeshDistortMaterial
