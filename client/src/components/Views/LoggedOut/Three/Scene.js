@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useTexture, MeshDistortMaterial } from "@react-three/drei";
-import { Instances } from "./Model";
+import { Model } from "./Model";
 import { GradientTexture } from "@react-three/drei";
 import { blobConfig } from "../../styles/styles";
 
@@ -31,7 +31,7 @@ function Scene() {
 					size={1024}
 				/>
 			</MeshDistortMaterial>
-			{material && <Instances material={material} />}
+			{material && <Model material={material} />}
 		</>
 	);
 }
