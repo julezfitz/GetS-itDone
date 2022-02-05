@@ -1,4 +1,3 @@
-import React from "react";
 import * as THREE from "three";
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -39,6 +38,7 @@ function Model({ material }) {
 			ref={main}
 			material={material}
 			position={[0, 0, 0]}
+			scale={20}
 		/>
 	);
 }
@@ -71,7 +71,7 @@ function Instances({ material }) {
 	return (
 		<>
 			<Model material={material} />
-			{initialPositions.map((pos, i) => (
+			{/* {initialPositions.map((pos, i) => (
 				<Icosahedron
 					args={[1, 4]}
 					position={[pos[0], pos[1], pos[2]]}
@@ -79,7 +79,7 @@ function Instances({ material }) {
 					key={i}
 					ref={ref => (sphereRefs[i] = ref)}
 				/>
-			))}
+			))} */}
 		</>
 	);
 }
