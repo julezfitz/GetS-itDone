@@ -14,7 +14,7 @@ function TextOverlay() {
 					</Heading>
 				</MarqueeBanner>
 
-				<Button type='outline' color='light' className="hero-cta">
+				<Button type='outline' color='light' className='hero-cta'>
 					Start now for free
 				</Button>
 			</div>
