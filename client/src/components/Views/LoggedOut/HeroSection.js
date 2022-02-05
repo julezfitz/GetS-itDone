@@ -42,7 +42,7 @@ function HeroSection() {
 	return (
 		<StyledHero className='heroSection'>
 			<Suspense fallback={null}>
-			<Scene />
+				<Scene />
 			</Suspense>
 			{/* <Heading color="light" size="large">
 				GET SHIT DONE.
