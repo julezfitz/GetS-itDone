@@ -33,9 +33,9 @@ function Scene() {
 				ref={setMaterial}
 				envMap={envMap}
 				bumpMap={bumpMap}
-				color={"#010101"}
+				color={"orange"}
 				roughness={0.1}
-				metalness={1.3}
+				metalness={0.3}
 				bumpScale={0.005}
 				clearcoat={1}
 				clearcoatRoughness={1}
