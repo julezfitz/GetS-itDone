@@ -2,18 +2,21 @@ import styled from "styled-components";
 import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
-const heroBgColor = '#223261';
+//Hero blob config
+
+const heroBgColor = "#223261";
 const blobColor = "#7F7CD5";
-const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"]
-const blobGradientStops = [0, 0.3, 0.6, 1]
+const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
+const blobGradientStops = [0, 0.3, 0.6, 1];
 
 export const blobConfig = {
 	heroBgColor,
+	blobColor,
 	blobGradientColors,
-	blobGradientStops
-}
+	blobGradientStops,
+};
 
-
+//Page styles
 
 export const StyledHero = styled.section`
 	background-color: ${heroBgColor};
@@ -36,7 +39,6 @@ export const StyledHero = styled.section`
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-
 
 	.heading-wrapper {
 		width: auto;
