@@ -1,15 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import { StyledHero } from "../styles/styles";
-import MarqueeBanner from "./MarqueeBanner";
-import Line from "../../Line/Line";
-import LightLeak from "./LightLeak";
 import gsap from "gsap";
 import { introAnimation } from "./motion/animations";
-import HeroImages from "./HeroImages";
-import Heading from "../../Heading/Heading";
+
 import SplitText from "gsap/SplitText";
-import Curve from "./Curve";
+import { Suspense } from "react";
 import Button from "../../Button/Button";
+import Scene from "./Three/Scene";
 
 function HeroSection() {
 	const splitHeading = useRef(null);
@@ -44,12 +41,15 @@ function HeroSection() {
 
 	return (
 		<StyledHero className='heroSection'>
-			<Heading color="light" size="large">
+			<Suspense fallback={null}>
+			<Scene />
+			</Suspense>
+			{/* <Heading color="light" size="large">
 				GET SHIT DONE.
 			</Heading>
 			
 			<Button type='outline' color='light'>Join for free</Button>
-			<Line />
+			<Line /> */}
 			{/* <div className='content-wrapper' style={{ width: "100%" }}>
 				<Heading size={"medium"} color={"light"} ref={headingRef}>
 					Powered by you.
