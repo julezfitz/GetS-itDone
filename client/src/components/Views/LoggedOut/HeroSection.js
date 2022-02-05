@@ -49,7 +49,9 @@ function HeroSection() {
 			</Suspense>
 			<div className='text-content'>
 				<MarqueeBanner>
-					<Heading size="large">Get shit done.</Heading>
+					<Heading size='large' color='light'>
+						Get it done
+					</Heading>
 				</MarqueeBanner>
 			</div>
 		</StyledHero>

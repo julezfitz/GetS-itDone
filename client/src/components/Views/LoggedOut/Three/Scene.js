@@ -29,27 +29,28 @@ function Scene() {
 	const gradientStops = [0, 0.3, 0.6, 1];
 	const gradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
 
-	// const bumpMap = useTexture("/textures/Scifi_Panels_02_ambientocclusion.jpg");
-	const envMap = '';
+	const bumpMap = useTexture("/Scifi_Panels_02_ambientocclusion.jpg");
+	const envMap = "";
 	const [material, setMaterial] = useState(null);
 	return (
 		<>
 			<MeshDistortMaterial
 				ref={setMaterial}
-				color={blobColor}
+				// color={blobColor}
+				bumpMap={bumpMap}
 				roughness={0.5}
-				metalness={0.1}
-				bumpScale={0.005}
-				
-				
+				metalness={0.9}
+				bumpScale={0.009}
 				radius={1.2}
+				clearcoat={0.9}
+				clearcoatRoughness={0.1}
 				distort={0.3}
 			>
-				{/* <GradientTexture
+				<GradientTexture
 					stops={gradientStops}
 					colors={gradientColors}
 					size={1024}
-				/> */}
+				/>
 			</MeshDistortMaterial>
 			{material && <Instances material={material} />}
 		</>
