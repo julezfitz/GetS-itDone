@@ -5,7 +5,7 @@ import { device } from "../../../styles/devices/devices";
 export const heroBgColor = '#223261';
 
 export const StyledHero = styled.section`
-	background-color: #223261;
+	background-color: ${heroBgColor};
 	color: white;
 	height: 80vh;
 	max-height: 100vh;
