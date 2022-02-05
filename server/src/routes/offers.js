@@ -45,6 +45,22 @@ module.exports = db => {
         });
     });
 
+    //put route to change an offer to accepted and update pending on that and all other offers
+    router.put("/offers", (request, response) => {
+        const { offerId } = request.query;
+        const queryString1 = `UPDATE offers SET accepted = true, pending = false WHERE id = ${offerId} RETURNING *;`;
+
+        //set all other offers to not accepted and set pending to false
+        db.query(queryString1).then((result) => {
+            let listingId = (result.rows[0]).listing_id;
+            return db.query(`UPDATE offers 
+            SET accepted = false, pending = false 
+            WHERE listing_id = ${listingId} AND id <> ${offerId};`);
+        }).then(() => {
+            response.status(204).json(`Offer accepted. All other offers declined.`);
+        })
+    });
+
     router.delete("/offers", (request, response) => {
         const { applicantId, listingId } = request.query;
 
@@ -167,6 +183,24 @@ module.exports.apiDocs = {
                     "description": "Application Created",
                 },
             }
+        },
+        "put": {
+            "description": "Accept an offer and update status of all other pending offers on that job",
+            "tags": ["offers"],
+            "parameters": [
+                {
+                    "name": "offerId",
+                    "type": "integer",
+                    "in": "query",
+                    "description": "accept offer by offer ID",
+                    "required": true
+                },
+            ],
+            "responses": {
+                204: {
+                    "description": "Offer accepted. All other offers declined.",
+                },
+            },
         },
         "delete": {
             "description": "Delete an offer to do a job",

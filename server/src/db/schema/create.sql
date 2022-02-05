@@ -55,7 +55,7 @@ CREATE TABLE offers (
     listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
     bidder_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     accepted BOOLEAN NOT NULL DEFAULT FALSE,
-    pending BOOLEAN NOT NULL DEFAULT FALSE
+    pending BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE user_ratings (
