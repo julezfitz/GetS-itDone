@@ -8,7 +8,7 @@ import { blobConfig } from "../../styles/styles";
 function Scene() {
 	const { blobGradientColors, blobGradientStops } = blobConfig;
 
-	const bumpMap = useTexture("/Scifi_Panels_02_ambientocclusion.jpg");
+	const bumpMap = useTexture("rubber.png");
 	const [material, setMaterial] = useState(null);
 	
 	return (
@@ -17,9 +17,9 @@ function Scene() {
 				ref={setMaterial}
 				// color={blobColor}
 				bumpMap={bumpMap}
-				roughness={0.5}
+				roughness={0.9}
 				metalness={0.9}
-				bumpScale={0.009}
+				bumpScale={0.02}
 				radius={1.2}
 				clearcoat={0.9}
 				clearcoatRoughness={0.1}
