@@ -21,6 +21,7 @@ import {
 } from "@react-three/drei";
 import { Instances } from "./Model";
 import { GradientTexture } from "@react-three/drei";
+import { blobColor } from "../../styles/styles";
 
 function Scene() {
 	// const gltf = useLoader(GLTFLoader, "/scene.gltf");
@@ -35,20 +36,20 @@ function Scene() {
 		<>
 			<MeshDistortMaterial
 				ref={setMaterial}
-				color={"white"}
+				color={blobColor}
 				roughness={0.5}
-				metalness={0.9}
+				metalness={0.1}
 				bumpScale={0.005}
-				clearcoat={1}
-				clearcoatRoughness={0.1}
+				
+				
 				radius={1.2}
 				distort={0.3}
 			>
-				<GradientTexture
+				{/* <GradientTexture
 					stops={gradientStops}
 					colors={gradientColors}
 					size={1024}
-				/>
+				/> */}
 			</MeshDistortMaterial>
 			{material && <Instances material={material} />}
 		</>

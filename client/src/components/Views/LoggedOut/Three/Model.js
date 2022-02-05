@@ -1,20 +1,7 @@
 import * as THREE from "three";
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import {
-	EffectComposer,
-	DepthOfField,
-	Bloom,
-	Noise,
-	Vignette,
-} from "@react-three/postprocessing";
-import {
-	Html,
-	Icosahedron,
-	useTexture,
-	useCubeTexture,
-	MeshDistortMaterial,
-} from "@react-three/drei";
+import { Icosahedron } from "@react-three/drei";
 
 function Model({ material }) {
 	const main = useRef();
@@ -34,20 +21,18 @@ function Model({ material }) {
 	});
 	return (
 		<Icosahedron
-			args={[1,10]}
+			args={[1, 10]}
 			ref={main}
 			material={material}
 			position={[0, 0, 0]}
 			scale={20}
-			color="white"
 		/>
 	);
 }
 
 function Instances({ material }) {
-	// we use this array ref to store the spheres after creating them
 	const [sphereRefs] = useState(() => []);
-	// we use this array to initialize the background spheres
+
 	const initialPositions = [
 		[-4, 20, -12],
 		[-10, 12, -4],
@@ -60,7 +45,6 @@ function Instances({ material }) {
 	];
 	// smaller spheres movement
 	useFrame(() => {
-		// animate each sphere in the array
 		sphereRefs.forEach(el => {
 			el.position.y += 0.02;
 			if (el.position.y > 19) el.position.y = -18;

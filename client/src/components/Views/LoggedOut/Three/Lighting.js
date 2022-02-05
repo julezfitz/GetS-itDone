@@ -1,9 +1,15 @@
 export function Lights({ brightness, color }) {
 	return (
 		<>
-			<directionalLight position={[10, 4, 6]} intensity={0.8} />
-			<directionalLight position={[-10, -10, -5]} intensity={0.8} />
-			<ambientLight intensity={3} />
+			<pointLight position={[0, -40, 20]} intensity={1.3} />
+			<directionalLight
+				position={[-180, 20, 20]}
+				intensity={1}
+				color='#3AC9C9'				
+				castShadow
+			/>
+
+			{/* <ambientLight intensity={0.2} /> */}
 		</>
 	);
 }
