@@ -4,6 +4,13 @@ import { Suspense } from "react";
 import Scene from "./Scene";
 import { OrbitControls } from "@react-three/drei";
 import { KeyLight } from "./Lighting";
+import {
+	EffectComposer,
+	DepthOfField,
+	Bloom,
+	Noise,
+	Vignette,
+} from "@react-three/postprocessing";
 
 function Blob() {
 	return (
@@ -26,6 +33,10 @@ function Blob() {
 			<Suspense fallback={null}>
 				<Scene />
 			</Suspense>
+			<EffectComposer multisampling={0} disableNormalPass={true}>
+				<Noise opacity={0.025} />
+				<Vignette eskil={false} offset={0.1} darkness={1.1} />
+			</EffectComposer>
 		</Canvas>
 	);
 }
