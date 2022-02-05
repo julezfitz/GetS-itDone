@@ -3,6 +3,7 @@ import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
 export const heroBgColor = '#223261';
+export const blobColor = "#7F7CD5";
 
 export const StyledHero = styled.section`
 	background-color: ${heroBgColor};
