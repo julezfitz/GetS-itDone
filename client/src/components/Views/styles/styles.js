@@ -4,7 +4,7 @@ import { device } from "../../../styles/devices/devices";
 
 //Hero blob config
 
-const heroBgColor = "#223261";
+const heroBgColor = "#232323";
 const blobColor = "#7F7CD5";
 const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
 const blobGradientStops = [0, 0.3, 0.6, 1];
@@ -47,23 +47,12 @@ export const StyledHero = styled.section`
 			flex-direction: column;
 			position: relative;
 			height: 100%;
-		}
-
-		.hero-bottom-cta {
-			width: 10rem;
-			height: 10rem;
-			position: absolute;
-			bottom: 0;
-			display: flex;
 
 			button {
-				width: 100%;
-				height: 100%;
-				padding: 0;
-				background: transparent;
-				border: 0px;
-				overflow: visible;
-				position: relative;
+				
+				position: absolute;
+				bottom: 0;
+				margin-bottom: 4rem;
 
 				.circle-text {
 					overflow: visible;

@@ -2,6 +2,7 @@ import React from "react";
 import MarqueeBanner from "./MarqueeBanner";
 import Heading from "../../Heading/Heading";
 import { Arrow, CircleText } from "./Vector/vector";
+import Button from "../../Button/Button";
 
 function TextOverlay() {
 	return (
@@ -12,12 +13,10 @@ function TextOverlay() {
 						Get it done
 					</Heading>
 				</MarqueeBanner>
-				<div className='hero-bottom-cta'>
-					<button>
-						<Arrow />
-            <CircleText/>
-					</button>
-				</div>
+
+				<Button type='outline' color='light' className="hero-cta">
+					Start now for free
+				</Button>
 			</div>
 		</div>
 	);
