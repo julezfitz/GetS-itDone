@@ -39,6 +39,7 @@ function Model({ material }) {
 			material={material}
 			position={[0, 0, 0]}
 			scale={20}
+			color="white"
 		/>
 	);
 }

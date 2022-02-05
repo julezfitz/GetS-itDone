@@ -25,7 +25,12 @@ import { GradientTexture } from "@react-three/drei";
 function Scene() {
 	// const gltf = useLoader(GLTFLoader, "/scene.gltf");
 
-	const bumpMap = "";
+	const gradientStops = [0, 0.3, 0.6, 1];
+	const gradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
+
+	const bumpMap = useTexture(
+		"/textures/TexturesCom_Plastic_SpaceBlanketFolds.sbsar"
+	);
 	const envMap = "";
 	const [material, setMaterial] = useState(null);
 	return (
@@ -34,7 +39,7 @@ function Scene() {
 				ref={setMaterial}
 				envMap={envMap}
 				bumpMap={bumpMap}
-				color={"orange"}
+				color={"white"}
 				roughness={0.1}
 				metalness={0.3}
 				bumpScale={0.005}
@@ -44,8 +49,8 @@ function Scene() {
 				distort={0.4}
 			>
 				<GradientTexture
-					stops={[0, 1]}
-					colors={["aquamarine", "hotpink"]}
+					stops={gradientStops}
+					colors={gradientColors}
 					size={1024}
 				/>
 			</MeshDistortMaterial>
