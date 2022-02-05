@@ -52,10 +52,33 @@ export const StyledHero = styled.section`
 		.hero-bottom-cta {
 			width: 10rem;
 			height: 10rem;
-			background-color: blue;
 			position: absolute;
 			bottom: 0;
-			
+			display: flex;
+
+			button {
+				width: 100%;
+				height: 100%;
+				padding: 0;
+				background: transparent;
+				border: 0px;
+				overflow: visible;
+				position: relative;
+
+				.circle-text {
+					overflow: visible;
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					left: 50%;
+					top: 50%;
+					transform: translate(-54%, -50%);
+
+					path {
+						fill: white;
+					}
+				}
+			}
 		}
 
 		.heading-wrapper {

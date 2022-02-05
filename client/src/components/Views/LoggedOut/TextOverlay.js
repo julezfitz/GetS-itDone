@@ -1,6 +1,7 @@
 import React from "react";
 import MarqueeBanner from "./MarqueeBanner";
 import Heading from "../../Heading/Heading";
+import { Arrow, CircleText } from "./Vector/vector";
 
 function TextOverlay() {
 	return (
@@ -11,7 +12,12 @@ function TextOverlay() {
 						Get it done
 					</Heading>
 				</MarqueeBanner>
-				<div className='hero-bottom-cta'></div>
+				<div className='hero-bottom-cta'>
+					<button>
+						<Arrow />
+            <CircleText/>
+					</button>
+				</div>
 			</div>
 		</div>
 	);
