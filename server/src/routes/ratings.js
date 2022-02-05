@@ -67,6 +67,7 @@ module.exports.apiDocs = {
             "tags": ["ratings"],
             "parameters": [{
                 "name": "rateeId",
+                "type": "integer",
                 "in": "query",
                 "description": "get ratings for a user",
                 "required": true
@@ -76,7 +77,9 @@ module.exports.apiDocs = {
                     "description": "An array of ratings.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "array"
+                            },
                             "example": [
                                 {
                                     "rater": {
@@ -113,7 +116,34 @@ module.exports.apiDocs = {
                 "description": "user model",
                 "content": {
                     "application/json": {
-                        "schema": {},
+                        "schema": {
+                            "type": "object",
+                            "required": ["raterId", "rateeId", "listingId", "rating"],
+                            "properties": {
+                                "raterId": {
+                                    "type": "integer",
+                                    "description": "The rater's ID."
+                                },
+                                "rateeId": {
+                                    "type": "integer",
+                                    "description": "The person who is being rated's ID."
+                                },
+                                "listingId": {
+                                    "type": "integer",
+                                    "description": "The listing ID."
+                                },
+                                "rating": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 5,
+                                    "description": "Rating from 1 to 5."
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "Review comments."
+                                },
+                            }
+                        },
                         "example": {
                             "raterId": 1,
                             "rateeId": 2,
@@ -129,7 +159,9 @@ module.exports.apiDocs = {
                     "description": "Rating Created",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "object"
+                            },
                             "example": {
                                 "raterId": 1,
                                 "rateeId": 2,
