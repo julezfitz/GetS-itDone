@@ -72,7 +72,7 @@ function Instances({ material }) {
 	return (
 		<>
 			<Model material={material} />
-			{/* {initialPositions.map((pos, i) => (
+			{initialPositions.map((pos, i) => (
 				<Icosahedron
 					args={[1, 4]}
 					position={[pos[0], pos[1], pos[2]]}
@@ -80,7 +80,7 @@ function Instances({ material }) {
 					key={i}
 					ref={ref => (sphereRefs[i] = ref)}
 				/>
-			))} */}
+			))}
 		</>
 	);
 }

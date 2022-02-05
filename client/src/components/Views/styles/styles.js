@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
+export const heroBgColor = '#223261';
+
 export const StyledHero = styled.section`
-	background-color: black;
+	background-color: #223261;
 	color: white;
 	height: 80vh;
 	max-height: 100vh;
@@ -15,6 +17,7 @@ export const StyledHero = styled.section`
 	flex-direction: column;
 	overflow: hidden;
 	position: relative;
+
 
 	.heading-wrapper {
 		width: auto;
@@ -50,7 +53,7 @@ export const StyledMarquee = styled.div`
 
 export const StyledLoggedOutHome = styled.div`
 	height: 100%;
-	background-color: black;
+	background-color: white;
 `;
 
 export const StyledLeak = styled.div`
