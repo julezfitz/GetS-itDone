@@ -17,16 +17,9 @@ const registerErrors = {
 };
 
 module.exports = db => {
+	
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
-		if (req.session.user) {
-			console.log(req.session.user)
-			authResponse.authentication.isAuthenticated = true;
-			authResponse.authentication.user = req.session.user;
-			res.send(authResponse);
-			return;
-		}
-
 		const { email, password } = req.body;
 		let errors = authResponse.authentication.errors;
 
@@ -61,6 +54,19 @@ module.exports = db => {
 				});
 			}
 		})(req, res, next);
+	});
+
+	//Check to see if a user is logged in
+	router.get("/user/session", (req, res) => {
+		authResponse = { isAuthenticated: false, user: null };
+		if (!req.session.user) {
+			res.send(authResponse);
+			return;
+		}
+
+		authResponse.isAuthenticated = true;
+		authResponse.isAuthenticated = req.session.user;
+		res.send(authResponse);
 	});
 
 	//User attempts to register
