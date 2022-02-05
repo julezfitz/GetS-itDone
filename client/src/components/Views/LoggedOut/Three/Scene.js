@@ -20,12 +20,13 @@ import {
 	MeshDistortMaterial,
 } from "@react-three/drei";
 import { Instances } from "./Model";
+import { GradientTexture } from "@react-three/drei";
 
 function Scene() {
 	// const gltf = useLoader(GLTFLoader, "/scene.gltf");
 
-	const bumpMap = '';
-	const envMap = '';
+	const bumpMap = "";
+	const envMap = "";
 	const [material, setMaterial] = useState(null);
 	return (
 		<>
@@ -41,7 +42,13 @@ function Scene() {
 				clearcoatRoughness={1}
 				radius={1}
 				distort={0.4}
-			/>
+			>
+				<GradientTexture
+					stops={[0, 1]}
+					colors={["aquamarine", "hotpink"]}
+					size={1024}
+				/>
+			</MeshDistortMaterial>
 			{material && <Instances material={material} />}
 		</>
 	);
