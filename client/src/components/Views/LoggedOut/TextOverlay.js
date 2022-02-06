@@ -6,10 +6,12 @@ import Button from "../../Button/Button";
 import SplitText from "gsap/SplitText";
 import gsap from "gsap";
 import $ from "jquery";
+import { textIntroAnimation } from "./motion/animations";
 
 function TextOverlay() {
 	const headingRef = useRef(null);
 	const splitRef = useRef(null);
+	const animationRef = useRef(gsap.timeline());
 
 	useEffect(() => {
 		if (headingRef.current && !splitRef.current) {
@@ -18,10 +20,11 @@ function TextOverlay() {
 				linesClass: "line",
 			});
 
-			console.log(splitRef.current.lines)
 			$(splitRef.current.lines).forEach(line => {
 				$(line).wrap("<div class='line-wrapper'></div>");
-			})
+			});
+
+			// textIntroAnimation(animationRef.current, splitRef.current.lines);
 		}
 	}, [headingRef]);
 

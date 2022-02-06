@@ -1,5 +1,5 @@
-export const introAnimation = (timeline, marqueeRefs) => {
-  timeline.to(marqueeRefs, {
+export const textIntroAnimation = (timeline, lineRefs) => {
+  timeline.to(lineRefs, {
     y: 0,
     opacity: 1,
     stagger: 0.2,

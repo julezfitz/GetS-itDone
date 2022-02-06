@@ -8,6 +8,7 @@ import { Suspense } from "react";
 
 import Blob from "./Three/Blob";
 import TextOverlay from "./TextOverlay";
+import { ZeroFactor } from "three";
 
 function HeroSection() {
 	const splitHeading = useRef(null);
@@ -26,19 +27,24 @@ function HeroSection() {
 	};
 
 	useEffect(() => {
-		window.addEventListener("mousemove", e => {
+		const handleMouseMove = (e) => {
 			setMouseCoords({
 				mouseX: e.pageX,
 				mouseY: e.pageY,
 			});
-			console.log(mouseCoords);
-		});
+		};
+
+		window.addEventListener("mousemove", handleMouseMove);
+
+		return () => {
+			window.removeEventListener("mousemove", handleMouseMove);
+		};
 	}, []);
 
 	return (
 		<StyledHero className='heroSection'>
 			<Suspense fallback={<div>Blob loading...</div>}>
-				<Blob mouseCoords={mouseCoords}/>
+				<Blob mouseCoords={mouseCoords} />
 			</Suspense>
 			<TextOverlay />
 		</StyledHero>
