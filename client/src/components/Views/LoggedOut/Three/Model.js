@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+
 import { Icosahedron } from "@react-three/drei";
+
 
 function Model({ material }) {
 	const main = useRef();
