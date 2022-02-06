@@ -35,15 +35,24 @@ module.exports = db => {
     });
 
     router.post("/offers", (request, response) => {
-        const { listingId, applicantId } = request.body;
+        const { listingId, bidderId } = request.body;
+        let offerId;
 
         db.query(
             `INSERT INTO offers (listing_id, bidder_id) 
-                VALUES ($1::integer, $2::integer);`,
-            [listingId, applicantId]
-        ).then(() => {
+                VALUES ($1::integer, $2::integer) RETURNING *;`,
+            [listingId, bidderId]
+        ).then((result) => {
+            offerId = result.rows[0].id;
+
+            return db.query(`SELECT creator_id FROM listings WHERE id = ${result.rows[0].listing_id};`);
+        }).then((result) => {
+            const listingCreatorId = result.rows[0].creator_id;
+
+            //create a new notification to let the lister know they have a new offer
+            createNotification(db, listingCreatorId, 3, offerId);
             response.status(201).json(`Application Created`);
-        });
+        })
     });
 
     //put route to change an offer to accepted and update pending on that and all other offers
@@ -62,20 +71,16 @@ module.exports = db => {
             SET accepted = false, pending = false 
             WHERE listing_id = ${listingId} AND id <> ${offerId} RETURNING *;`);
         }).then((result) => {
+            let rejectedOffers = result.rows;
 
-            let acceptedAndRejectedOffers = {
-                "acceptedOffer": acceptedOffer,
-                "rejectedOffers": result.rows
-            };
-           
-           //creates a notification for the person who's offer was accepted
-            createNotification(db, acceptedAndRejectedOffers.acceptedOffer.bidder_id, 2, acceptedAndRejectedOffers.acceptedOffer.id);
+            //creates a notification for the person who's offer was accepted            
+            createNotification(db, acceptedOffer.bidder_id, 2, acceptedOffer.id);
 
             //loop through rejected offers and add a notification for each to the database
-            for(offer in acceptedAndRejectedOffers.rejectedOffers) {
-                createNotification(db, offer.bidder_id, 1, offer.id);
+            for (offer in rejectedOffers) {
+                createNotification(db, rejectedOffers[offer].bidder_id, 1, rejectedOffers[offer].id);
             }
-            
+
             response.status(200).json(`Offer accepted. All other offers declined.`);
         })
     });
@@ -174,28 +179,30 @@ module.exports.apiDocs = {
         "post": {
             "description": "Creates an offer to do a job.",
             "tags": ["offers"],
-            "requestBodies": {
+            "requestBody": {
                 "description": "application model",
-                "content": [{
-                    "schema": {
-                        "type": "object",
-                        "required": ["listingId", "bidderId"],
-                        "properties": {
-                            "listingId": {
-                                "type": "integer",
-                                "description": "The listing ID."
-                            },
-                            "bidderId": {
-                                "type": "integer",
-                                "description": "The applicant ID."
-                            },
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": ["listingId", "bidderId"],
+                            "properties": {
+                                "listingId": {
+                                    "type": "integer",
+                                    "description": "The listing ID."
+                                },
+                                "bidderId": {
+                                    "type": "integer",
+                                    "description": "The applicant ID."
+                                },
+                            }
+                        },
+                        "example": {
+                            "listingId": 1,
+                            "bidderId": 2
                         }
-                    },
-                    "example": {
-                        "listingId": 1,
-                        "applicantId": 2
                     }
-                }]
+                }
             },
             "responses": {
                 "201": {
