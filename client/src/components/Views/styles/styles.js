@@ -78,7 +78,7 @@ export const StyledHero = styled.section`
 					overflow: hidden;
 
 					.line {
-						transform: translateY(-100%);
+						transform: translateY(100%);
 						opacity: 0;
 					}
 				}

@@ -19,14 +19,15 @@ function TextOverlay() {
 				type: "lines",
 				linesClass: "line",
 			});
-
-			$(splitRef.current.lines).forEach(line => {
-				$(line).wrap("<div class='line-wrapper'></div>");
-			});
-
-			// textIntroAnimation(animationRef.current, splitRef.current.lines);
 		}
-	}, [headingRef]);
+
+		if (splitRef.current) {
+			splitRef.current.lines.forEach(line => {
+				$(line).wrap("<div class='line-wrapper'></div>");
+				textIntroAnimation(animationRef.current, splitRef.current.lines);
+			});
+		}
+	}, [headingRef, splitRef]);
 
 	return (
 		<div className='text-content-wrapper'>
