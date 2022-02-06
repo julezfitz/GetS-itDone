@@ -73,6 +73,9 @@ export const StyledHero = styled.section`
 				justify-content: center;
 				margin: 0;
 				width: 50vw;
+				@media ${device.laptopL} {
+					width: 700px;
+				}
 
 				h2 {
 					width: auto;
