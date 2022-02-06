@@ -73,6 +73,16 @@ export const StyledHero = styled.section`
 				justify-content: center;
 				margin: 0;
 				width: 50vw;
+
+				.line-wrapper {
+					overflow: hidden;
+
+					.line {
+						transform: translateY(-100%);
+						opacity: 0;
+					}
+				}
+
 				@media ${device.laptopL} {
 					width: 700px;
 				}
