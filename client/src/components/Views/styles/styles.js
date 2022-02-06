@@ -17,8 +17,8 @@ export const blobConfig = {
 };
 
 //Bubble button config
-const ctaWidth = "14rem";
-const ctaHeight = "14rem";
+const ctaWidth = "12rem";
+const ctaHeight = "12rem";
 const accentColor = "#EBFF08";
 const transition = "300ms ease";
 
@@ -196,10 +196,10 @@ export const StyledCallToAction = styled.div`
 		position: relative;
 
 		&:hover .hero-cta--text {
-			color: white;
+			color: ${heroBgColor};
 		}
 
-		&:hover #hero-bubble-cta {
+		&:hover #hero-bubble-cta polygon {
 			fill: ${accentColor};
 		}
 
@@ -218,7 +218,6 @@ export const StyledCallToAction = styled.div`
 		fill: none;
 		width: 100%;
 		height: 100%;
-		
 
 		polygon {
 			transition: ${transition};
