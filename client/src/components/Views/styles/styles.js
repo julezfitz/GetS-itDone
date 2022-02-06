@@ -8,6 +8,7 @@ const heroBgColor = "#232323";
 const blobColor = "#7F7CD5";
 const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
 const blobGradientStops = [0, 0.3, 0.6, 1];
+const heropadding = "0 4rem";
 
 export const blobConfig = {
 	heroBgColor,
@@ -31,8 +32,18 @@ export const StyledHero = styled.section`
 	flex-direction: column;
 	overflow: hidden;
 	position: relative;
+	padding: ${heropadding};
 
-	.blob-canvas::after {
+	.blob-canvas {
+		position: absolute !important;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		height: 100%;
+	}
+
+	&::after {
 		content: "";
 		position: absolute;
 		top: 0;
@@ -40,16 +51,13 @@ export const StyledHero = styled.section`
 		width: 100%;
 		height: 100%;
 		background-color: black;
-
-		opacity: 0.1;
+		z-index: 0;
+		opacity: 0.2;
 	}
 
 	.text-content-wrapper {
+		z-index: 1;
 		width: 100%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
 		height: 100%;
 
 		.text-content-inner {

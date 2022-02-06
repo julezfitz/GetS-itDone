@@ -44,6 +44,7 @@ function HeroSection() {
 
 	return (
 		<StyledHero className='heroSection'>
+			
 			<Suspense fallback={<div>Blob loading...</div>}>
 				<Blob />
 			</Suspense>
