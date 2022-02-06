@@ -1,5 +1,4 @@
 module.exports = (db, userId, notificationId, offerId) => {
-    console.log ([userId, notificationId, offerId]);
     console.log('notification created');
     return db.query(
         `INSERT INTO user_notifications (user_id, notification_id, offer_id) 
