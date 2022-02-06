@@ -8,14 +8,12 @@ function TextOverlay() {
 	return (
 		<div className='text-content-wrapper'>
 			<div className='text-content-inner'>
-				<MarqueeBanner>
-					<Heading size='large' color='light'>
-						Get it done
-					</Heading>
-				</MarqueeBanner>
+				<Heading size='medium' color='light'>
+					We are a people-powered ecosystem. By you, for you.
+				</Heading>
 
 				<Button type='outline' color='light' className='hero-cta'>
-					Start now for free
+					Get started for free.
 				</Button>
 			</div>
 		</div>

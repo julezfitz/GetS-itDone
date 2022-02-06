@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "gsap": "file:gsap-bonus.tgz",
+    "normalize.css": "^8.0.1",
     "postprocessing": "^6.23.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

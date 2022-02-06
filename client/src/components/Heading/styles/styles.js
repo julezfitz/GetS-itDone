@@ -1,23 +1,20 @@
 import styled from "styled-components";
 import Kobe from "../../../assets/fonts/Kobe.woff";
 import Beatrice from "../../../assets/fonts/Beatrice.otf";
+import Opposit from "../../../assets/fonts/opposit.otf";
 
 export const StyledHeading = styled.div`
-	@font-face {
-		font-family: "Haas";
-		src: url(${Kobe});
-		font-weight: lighter;
-	}
+
 
 	@font-face {
-		font-family: "Beatrice";
-		src: url(${Beatrice});
+		font-family: "Opposit";
+		src: url(${Opposit});
 		font-weight: lighter;
 	}
 
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
-	font-family: "Beatrice";
+	font-family: "Opposit";
 	font-weight: lighter;
 	width: 100%;
 	display: flex;
@@ -30,6 +27,9 @@ export const StyledHeading = styled.div`
 	}
 
 
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: lighter;
+	}
 
 	h2 {
 		font-size: 7rem;

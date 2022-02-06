@@ -45,7 +45,6 @@ function HeroSection() {
 	return (
 		<StyledHero className='heroSection'>
 			<Suspense fallback={<div>Blob loading...</div>}>
-				<color attach='background' args={["#223261"]} />
 				<Blob />
 			</Suspense>
 			<TextOverlay/>
