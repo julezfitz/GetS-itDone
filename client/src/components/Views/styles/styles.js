@@ -3,7 +3,6 @@ import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
 //Hero blob config
-
 const heroBgColor = "#232323";
 const blobColor = "#7F7CD5";
 const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
@@ -16,6 +15,12 @@ export const blobConfig = {
 	blobGradientColors,
 	blobGradientStops,
 };
+
+//Bubble button config
+const ctaWidth = "14rem";
+const ctaHeight = "14rem";
+const accentColor = "#EBFF08";
+const transition = "300ms ease";
 
 //Page styles
 
@@ -41,7 +46,6 @@ export const StyledHero = styled.section`
 		transform: translate(-50%, -50%);
 		width: 100%;
 		height: 100%;
-		
 	}
 
 	&::after {
@@ -176,37 +180,51 @@ export const BounceAnimation = keyframes`
   }
 `;
 
-export const StyledHeroImage = styled.div`
-	width: 50vw;
+export const StyledCallToAction = styled.div`
+	height: ${ctaHeight};
+	width: ${ctaWidth};
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin-bottom: 4rem;
 
-	img {
-		height: 100%;
+	button {
+		background: transparent;
 		width: 100%;
-	}
-`;
+		height: 100%;
+		border: 0px;
+		position: relative;
 
-export const StyledCurve = styled.div`
-	width: 100%;
-	height: 500px;
-	position: relative;
-	overflow: hidden;
+		&:hover .hero-cta--text {
+			color: white;
+		}
 
-	.curve-inner {
-		width: 18rem;
-		height: 70%;
-		overflow: hidden;
-		position: absolute;
-		left: 400px;
+		&:hover #hero-bubble-cta {
+			fill: ${accentColor};
+		}
 
-		&::before {
-			content: "";
-			height: 190%;
-			width: 500px;
-			border: 1px solid white;
+		.hero-cta--text {
 			position: absolute;
-			top: 0;
-			left: -100%;
-			border-radius: 60%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 0.9rem;
+			color: ${accentColor};
+			transition: ${transition};
+		}
+	}
+
+	#hero-bubble-cta {
+		fill: none;
+		width: 100%;
+		height: 100%;
+		
+
+		polygon {
+			transition: ${transition};
+			fill: transparent;
+			stroke: ${accentColor};
+			stroke-width: 1px;
 		}
 	}
 `;
