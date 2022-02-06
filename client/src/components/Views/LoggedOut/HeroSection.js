@@ -19,6 +19,7 @@ function HeroSection() {
 		mouseX: 0,
 		mouseY: 0,
 	});
+	const [isBlobLoaded, setBlobLoaded] = useState(false);
 
 	const addToRefs = el => {
 		if (el && !marqueeRefs.current.includes(el)) {
@@ -27,7 +28,11 @@ function HeroSection() {
 	};
 
 	useEffect(() => {
-		const handleMouseMove = (e) => {
+		setTimeout(() => {
+			setBlobLoaded(true);
+		}, 2000);
+
+		const handleMouseMove = e => {
 			setMouseCoords({
 				mouseX: e.pageX,
 				mouseY: e.pageY,
@@ -45,8 +50,8 @@ function HeroSection() {
 		<StyledHero className='heroSection'>
 			<Suspense fallback={<div>Blob loading...</div>}>
 				<Blob mouseCoords={mouseCoords} />
+				{isBlobLoaded && <TextOverlay />}
 			</Suspense>
-			<TextOverlay />
 		</StyledHero>
 	);
 }
