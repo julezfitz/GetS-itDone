@@ -35,6 +35,7 @@ module.exports = db => {
         });
     });
 
+    //This route may end up being redundant because creation is being handled through helper createNotifications.js
     router.post("/notifications", (request, response) => {
         const { userId, notificationId, offerId } = request.query;
 
