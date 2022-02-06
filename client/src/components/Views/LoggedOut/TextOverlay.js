@@ -1,8 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import MarqueeBanner from "./MarqueeBanner";
 import Heading from "../../Heading/Heading";
-import { Arrow, CircleText } from "./Vector/vector";
-import Button from "../../Button/Button";
 import SplitText from "gsap/SplitText";
 import gsap from "gsap";
 import $ from "jquery";

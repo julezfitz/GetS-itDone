@@ -9,7 +9,9 @@ export function Lights({ brightness, color }) {
 	return (
 		<>
 			<pointLight position={[140, 0, 130]} intensity={2} />
-			<ambientLight intensity={3} />
+			<spotLight position={[-100, 0, -60]} intensity={3} color="blue"/>
+			<spotLight position={[0, 60, 0]} intensity={3} color="pink"/>
+			<ambientLight intensity={1} />
 		</>
 	);
 }

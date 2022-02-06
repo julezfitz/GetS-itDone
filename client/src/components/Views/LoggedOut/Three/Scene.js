@@ -23,7 +23,7 @@ function Scene({mouseCoords}) {
 				radius={1.2}
 				clearcoat={0.9}
 				clearcoatRoughness={0.1}
-				distort={0.3}
+				distort={0.5}
 			>
 				<GradientTexture
 					stops={blobGradientStops}
