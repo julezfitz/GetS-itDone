@@ -32,6 +32,18 @@ export const StyledHero = styled.section`
 	overflow: hidden;
 	position: relative;
 
+	.blob-canvas::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: black;
+
+		opacity: 0.1;
+	}
+
 	.text-content-wrapper {
 		width: 100%;
 		position: absolute;
@@ -41,17 +53,29 @@ export const StyledHero = styled.section`
 		height: 100%;
 
 		.text-content-inner {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-direction: column;
 			position: relative;
 			height: 100%;
 
+			display: flex;
+			justify-content: end;
+
+			.heading-wrapper {
+				align-items: center;
+				justify-content: center;
+				margin: 0;
+				width: 50vw;
+
+				h2 {
+					width: auto;
+					margin: 0;
+				}
+			}
+
 			button {
-				
 				position: absolute;
 				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
 				margin-bottom: 4rem;
 
 				.circle-text {
