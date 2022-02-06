@@ -17,8 +17,8 @@ export const blobConfig = {
 };
 
 //Bubble button config
-const ctaWidth = "12rem";
-const ctaHeight = "12rem";
+const ctaWidth = "10rem";
+const ctaHeight = "10rem";
 const accentColor = "#EBFF08";
 const transition = "300ms ease";
 
@@ -102,7 +102,6 @@ export const StyledHero = styled.section`
 				bottom: 0;
 				left: 50%;
 				transform: translateX(-50%);
-				margin-bottom: 4rem;
 
 				.circle-text {
 					overflow: visible;

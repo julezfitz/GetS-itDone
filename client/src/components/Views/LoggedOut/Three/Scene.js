@@ -8,7 +8,7 @@ import { blobConfig } from "../../styles/styles";
 function Scene({mouseCoords}) {
 	const { blobGradientColors, blobGradientStops } = blobConfig;
 
-	const bumpMap = useTexture("rubber.png");
+	const bumpMap = useTexture("scifi.jpg");
 	const [material, setMaterial] = useState(null);
 	
 	return (
