@@ -5,7 +5,7 @@ import { Model } from "./Model";
 import { GradientTexture } from "@react-three/drei";
 import { blobConfig } from "../../styles/styles";
 
-function Scene() {
+function Scene({mouseCoords}) {
 	const { blobGradientColors, blobGradientStops } = blobConfig;
 
 	const bumpMap = useTexture("rubber.png");
@@ -31,7 +31,7 @@ function Scene() {
 					size={1024}
 				/>
 			</MeshDistortMaterial>
-			{material && <Model material={material} />}
+			{material && <Model material={material} mouseCoords={mouseCoords}/>}
 		</>
 	);
 }
