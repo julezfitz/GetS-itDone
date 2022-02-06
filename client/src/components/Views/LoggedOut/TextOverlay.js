@@ -7,6 +7,7 @@ import SplitText from "gsap/SplitText";
 import gsap from "gsap";
 import $ from "jquery";
 import { textIntroAnimation } from "./motion/animations";
+import Cta from "./Cta";
 
 function TextOverlay() {
 	const headingRef = useRef(null);
@@ -36,9 +37,7 @@ function TextOverlay() {
 					A people-powered ecosystem. By you, for you.
 				</Heading>
 
-				<Button type='outline' color='light' className='hero-cta'>
-					Get started for free.
-				</Button>
+				<Cta/>
 			</div>
 		</div>
 	);
