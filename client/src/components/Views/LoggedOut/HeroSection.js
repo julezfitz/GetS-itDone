@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { StyledHero } from "../styles/styles";
 import gsap from "gsap";
 import { introAnimation } from "./motion/animations";
@@ -9,13 +9,15 @@ import { Suspense } from "react";
 import Blob from "./Three/Blob";
 import TextOverlay from "./TextOverlay";
 
-
-
 function HeroSection() {
 	const splitHeading = useRef(null);
 	const timeline = useRef(gsap.timeline());
 	const marqueeRefs = useRef([]);
 	const headingRef = useRef(null);
+	const [mouseCoords, setMouseCoords] = useState({
+		mouseX: 0,
+		mouseY: 0,
+	});
 
 	const addToRefs = el => {
 		if (el && !marqueeRefs.current.includes(el)) {
@@ -24,32 +26,21 @@ function HeroSection() {
 	};
 
 	useEffect(() => {
-		gsap.registerPlugin(SplitText);
-
-		if (headingRef.current) {
-			if (!splitHeading.current) {
-				const find = gsap.utils.selector(headingRef.current);
-				const heading = find("h2");
-				splitHeading.current = new SplitText(heading, {
-					type: "words",
-					wordsClass: "word",
-				});
-			}
-		}
-
-		if (marqueeRefs.current.length >= 2) {
-			introAnimation(timeline.current, marqueeRefs.current);
-		}
-	}, [marqueeRefs, headingRef]);
+		window.addEventListener("mousemove", e => {
+			setMouseCoords({
+				mouseX: e.pageX,
+				mouseY: e.pageY,
+			});
+			console.log(mouseCoords);
+		});
+	}, []);
 
 	return (
 		<StyledHero className='heroSection'>
-			
 			<Suspense fallback={<div>Blob loading...</div>}>
-				<Blob />
+				<Blob mouseCoords={mouseCoords}/>
 			</Suspense>
-			<TextOverlay/>
-			
+			<TextOverlay />
 		</StyledHero>
 	);
 }

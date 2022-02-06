@@ -6,7 +6,7 @@ import Scene from "./Scene";
 import { Lights } from "./Lighting";
 import { Environment } from "@react-three/drei";
 
-function Blob() {
+function Blob({ mouseCoords }) {
 	return (
 		<Canvas
 			className='blob-canvas'
@@ -21,7 +21,7 @@ function Blob() {
 		>
 			<Lights />
 			<Suspense fallback={null}>
-				<Scene />
+				<Scene mouseCoords={mouseCoords} />
 				<Environment
 					background={false}
 					files={"large_corridor_4k.hdr"}
