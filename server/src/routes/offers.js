@@ -55,40 +55,58 @@ module.exports = db => {
         })
     });
 
-    //put route to change an offer to accepted and update pending on that and all other offers
-    router.put("/offers", (request, response) => {
-        const { offerId } = request.query;
-        const queryString1 = `UPDATE offers SET accepted = true, pending = false WHERE id = ${offerId} RETURNING *;`;
-        let acceptedOffer;
-        // each notification will need userId, notificationId, offerId
+    //put route to change an offer to rejected
+    router.put("/offers/:offerId", (request, response) => {
+        const offerId = parseInt(request.params.offerId);
+        const { accepted } = request.body;
 
-        //set all other offers to not accepted and set pending to false
-        db.query(queryString1).then((result) => {
-            let listingId = (result.rows[0]).listing_id;
-            acceptedOffer = result.rows[0];
+        //if accepted is false (offer rejected)
+        if (!accepted) {
+            const queryString1 = `UPDATE offers SET accepted = false, pending = false WHERE id = ${offerId} RETURNING *;`;
+            let rejectedOffer;
 
-            return db.query(`UPDATE offers 
-            SET accepted = false, pending = false 
+            //set all other offers to not accepted and set pending to false
+            db.query(queryString1).then((result) => {
+                rejectedOffer = result.rows[0];
+                //creates a notification for the person who's offer was rejected            
+                return createNotification(db, rejectedOffer.bidder_id, 1, rejectedOffer.id);
+            }).then(() => {
+                response.status(200).json(`Offer rejected.`);
+            })
+
+            //if accepted is true (offer accepted)
+        } else {
+            //change the offer to accepted
+            const queryString1 = `UPDATE offers SET accepted = true, pending = false WHERE id = ${offerId} RETURNING *;`;
+            let acceptedOffer;
+
+            db.query(queryString1).then((result) => {
+                let listingId = (result.rows[0]).listing_id;
+                acceptedOffer = result.rows[0];
+
+                //set all other offers to not accepted and set pending to false
+                return db.query(`UPDATE offers SET accepted = false, pending = false 
             WHERE listing_id = ${listingId} AND id <> ${offerId} RETURNING *;`);
-        }).then((result) => {
-            let rejectedOffers = result.rows;
+            }).then((result) => {
+                let rejectedOffers = result.rows;
 
-            //creates a notification for the person who's offer was accepted            
-            createNotification(db, acceptedOffer.bidder_id, 2, acceptedOffer.id);
+                //creates a notification for the person who's offer was accepted            
+                createNotification(db, acceptedOffer.bidder_id, 2, acceptedOffer.id);
 
-            //loop through rejected offers and add a notification for each to the database
-            for (offer in rejectedOffers) {
-                createNotification(db, rejectedOffers[offer].bidder_id, 1, rejectedOffers[offer].id);
-            }
+                //loop through rejected offers and create a notification for each
+                for (offer in rejectedOffers) {
+                    createNotification(db, rejectedOffers[offer].bidder_id, 1, rejectedOffers[offer].id);
+                }
 
-            response.status(200).json(`Offer accepted. All other offers declined.`);
-        })
+                response.status(200).json(`Offer accepted. All other offers declined.`);
+            })
+        }
     });
 
-    router.delete("/offers", (request, response) => {
-        const { applicantId, listingId } = request.query;
+    router.delete("/offers/:offerId", (request, response) => {
+        const offerId = parseInt(request.params.offerId);
 
-        let queryString = `DELETE FROM offers WHERE bidder_id = ${applicantId} AND listing_id = ${listingId};`
+        let queryString = `DELETE FROM offers WHERE id = ${offerId};`
         db.query(queryString).then(() => {
             response.status(204).json(`Offer retracted`);
         });
@@ -210,21 +228,48 @@ module.exports.apiDocs = {
                 },
             }
         },
+    },
+    "/offers/{offerId}": {
         "put": {
             "description": "Accept an offer and update status of all other pending offers on that job",
             "tags": ["offers"],
             "parameters": [
                 {
                     "name": "offerId",
-                    "type": "integer",
-                    "in": "query",
+                    "in": "path",
+                    "schema": {
+                        "type": "integer"
+                    },
                     "description": "accept offer by offer ID",
                     "required": true
                 },
             ],
+            "requestBody": {
+                "description": "accepted = true or false",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": ["accepted"],
+                            "properties": {
+                                "accepted": {
+                                    "type": "boolean",
+                                    "description": "'true' to accept an offer, 'false' to reject it"
+                                }
+                            }
+                        },
+                        "example": {
+                            "accepted": false,
+                        }
+                    }
+                }
+            },
             "responses": {
                 204: {
                     "description": "Offer accepted. All other offers declined.",
+                },
+                204: {
+                    "description": "Offer rejected.",
                 },
             },
         },
@@ -233,17 +278,12 @@ module.exports.apiDocs = {
             "tags": ["offers"],
             "parameters": [
                 {
-                    "name": "applicantId",
-                    "type": "integer",
-                    "in": "query",
-                    "description": "delete offer for a listing by the applicant",
-                    "required": true
-                },
-                {
-                    "name": "listingId",
-                    "type": "integer",
-                    "in": "query",
-                    "description": "delete offer for a listing by the applicant",
+                    "name": "offerId",
+                    "in": "path",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "description": "delete/retract by offer ID",
                     "required": true
                 },
             ],
