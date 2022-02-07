@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const createNotification = require("../helpers/createNotification");
 
 //may need another get for retrieving offers on a single listing
 
@@ -21,7 +22,7 @@ module.exports = db => {
                         "title": offerObj.title,
                         "price": offerObj.price,
                         "image_1": offerObj.image_1,
-                        "date": offerObj.created,
+                        "created": offerObj.created,
                         "pending": offerObj.pending,
                         "accepted": offerObj.accepted,
                         "offerId": offerObj.offerid
@@ -34,15 +35,54 @@ module.exports = db => {
     });
 
     router.post("/offers", (request, response) => {
-        const { listingId, applicantId } = request.body;
+        const { listingId, bidderId } = request.body;
+        let offerId;
 
         db.query(
             `INSERT INTO offers (listing_id, bidder_id) 
-                VALUES ($1::integer, $2::integer);`,
-            [listingId, applicantId]
-        ).then(() => {            
-            response.json(`Application Created`);
-        });
+                VALUES ($1::integer, $2::integer) RETURNING *;`,
+            [listingId, bidderId]
+        ).then((result) => {
+            offerId = result.rows[0].id;
+
+            return db.query(`SELECT creator_id FROM listings WHERE id = ${result.rows[0].listing_id};`);
+        }).then((result) => {
+            const listingCreatorId = result.rows[0].creator_id;
+
+            //create a new notification to let the lister know they have a new offer
+            createNotification(db, listingCreatorId, 3, offerId);
+            response.status(201).json(`Application Created`);
+        })
+    });
+
+    //put route to change an offer to accepted and update pending on that and all other offers
+    router.put("/offers", (request, response) => {
+        const { offerId } = request.query;
+        const queryString1 = `UPDATE offers SET accepted = true, pending = false WHERE id = ${offerId} RETURNING *;`;
+        let acceptedOffer;
+        // each notification will need userId, notificationId, offerId
+
+        //set all other offers to not accepted and set pending to false
+        db.query(queryString1).then((result) => {
+            let listingId = (result.rows[0]).listing_id;
+            acceptedOffer = result.rows[0];
+
+            return db.query(`UPDATE offers 
+            SET accepted = false, pending = false 
+            WHERE listing_id = ${listingId} AND id <> ${offerId} RETURNING *;`);
+        }).then((result) => {
+            let rejectedOffers = result.rows;
+
+            //creates a notification for the person who's offer was accepted            
+            createNotification(db, acceptedOffer.bidder_id, 2, acceptedOffer.id);
+
+            //loop through rejected offers and add a notification for each to the database
+            for (offer in rejectedOffers) {
+                createNotification(db, rejectedOffers[offer].bidder_id, 1, rejectedOffers[offer].id);
+            }
+
+            response.status(200).json(`Offer accepted. All other offers declined.`);
+        })
     });
 
     router.delete("/offers", (request, response) => {
@@ -50,7 +90,7 @@ module.exports = db => {
 
         let queryString = `DELETE FROM offers WHERE bidder_id = ${applicantId} AND listing_id = ${listingId};`
         db.query(queryString).then(() => {
-            response.json(`Offer retracted`);
+            response.status(204).json(`Offer retracted`);
         });
     });
 
@@ -66,6 +106,7 @@ module.exports.apiDocs = {
             "tags": ["offers"],
             "parameters": [{
                 "name": "bidderId",
+                "type": "integer",
                 "in": "query",
                 "description": "get applications for a user",
                 "required": true
@@ -75,14 +116,46 @@ module.exports.apiDocs = {
                     "description": "An array of applications.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "array",
+                                "description": "Array of offers made by a single user.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                        },
+                                        "pending": {
+                                            "type": "boolean",
+                                        },
+                                        "accepted": {
+                                            "type": "boolean",
+                                        },
+                                        "listingId": {
+                                            "type": "integer",
+                                        },
+                                        "offerId": {
+                                            "type": "integer",
+                                        },
+                                        "price": {
+                                            "type": "number",
+                                        },
+                                        "created": {
+                                            "type": "string",
+                                        },
+                                        "image_1": {
+                                            "type": "string",
+                                        },
+                                    }
+                                }
+                            },
                             "example": [
                                 {
                                     "listingId": 5,
                                     "title": "Walk my dog",
                                     "price": 50,
                                     "image_1": "https://images.unsplash.com/image_1.jpg",
-                                    "date": "2022-01-01 05:01:37 -5:00",
+                                    "created": "2022-01-01 05:01:37 -5:00",
                                     "pending": "false",
                                     "accepted": "false",
                                     "offerId": 1
@@ -92,7 +165,7 @@ module.exports.apiDocs = {
                                     "title": "Feed the cat",
                                     "price": 40,
                                     "image_1": "https://images.unsplash.com/image_2.jpg",
-                                    "date": "2022-02-01 05:01:37 -5:00",
+                                    "created": "2022-02-01 05:01:37 -5:00",
                                     "pending": "false",
                                     "accepted": "false",
                                     "offerId": 2
@@ -106,15 +179,30 @@ module.exports.apiDocs = {
         "post": {
             "description": "Creates an offer to do a job.",
             "tags": ["offers"],
-            "requestBodies": {
+            "requestBody": {
                 "description": "application model",
-                "content": [{
-                        "schema": {},
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": ["listingId", "bidderId"],
+                            "properties": {
+                                "listingId": {
+                                    "type": "integer",
+                                    "description": "The listing ID."
+                                },
+                                "bidderId": {
+                                    "type": "integer",
+                                    "description": "The applicant ID."
+                                },
+                            }
+                        },
                         "example": {
                             "listingId": 1,
-                            "applicantId": 2
+                            "bidderId": 2
                         }
-                }]
+                    }
+                }
             },
             "responses": {
                 "201": {
@@ -122,18 +210,38 @@ module.exports.apiDocs = {
                 },
             }
         },
+        "put": {
+            "description": "Accept an offer and update status of all other pending offers on that job",
+            "tags": ["offers"],
+            "parameters": [
+                {
+                    "name": "offerId",
+                    "type": "integer",
+                    "in": "query",
+                    "description": "accept offer by offer ID",
+                    "required": true
+                },
+            ],
+            "responses": {
+                204: {
+                    "description": "Offer accepted. All other offers declined.",
+                },
+            },
+        },
         "delete": {
             "description": "Delete an offer to do a job",
             "tags": ["offers"],
             "parameters": [
                 {
                     "name": "applicantId",
+                    "type": "integer",
                     "in": "query",
                     "description": "delete offer for a listing by the applicant",
                     "required": true
                 },
                 {
                     "name": "listingId",
+                    "type": "integer",
                     "in": "query",
                     "description": "delete offer for a listing by the applicant",
                     "required": true

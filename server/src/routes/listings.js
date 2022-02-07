@@ -34,7 +34,7 @@ module.exports = db => {
             [creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
                 country]
         ).then(() => {
-            response.json(`Listing Created`);
+            response.status(201).json(`Listing Created`);
         });
     });
 
@@ -48,7 +48,7 @@ module.exports = db => {
     router.delete("/listings/:listingId", (request, response) => {
         let queryString = `DELETE FROM listings WHERE id = ${request.params.listingId};`
         db.query(queryString).then(() => {
-            response.json(`Listing deleted`);
+            response.status(204).json(`Listing deleted`);
         });
     });
 
@@ -92,13 +92,13 @@ module.exports = db => {
     router.get("/listings/:listingId/offers", (request, response) => {
         let listingQueryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};`
         let offersQueryString = `SELECT offers.id as offerId, offers.bidder_id as bidderid, offers.accepted, offers.pending, users.first_name as firstName,
-        users.last_name as lastName, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
+        users.last_name as lastName, users.email, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
         FROM offers
         JOIN users ON offers.bidder_id = users.id
         JOIN user_ratings ON users.id = user_ratings.ratee_id
         WHERE offers.listing_id = ${request.params.listingId}
-        GROUP BY offers.id, users.first_name, users.last_name;`
-        
+        GROUP BY offers.id, users.first_name, users.last_name, users.email;`
+
         let listingObject;
 
         db.query(listingQueryString).then((result) => {
@@ -118,6 +118,7 @@ module.exports = db => {
                         "bidderId": ratingObj.bidderid,
                         "firstName": ratingObj.firstname,
                         "lastName": ratingObj.lastname,
+                        "email": ratingObj.email,
                         "averageRating": averageRating,
                         "ratingCount": ratingCount,
                         "pending": ratingObj.pending,
@@ -126,7 +127,7 @@ module.exports = db => {
                 )
             });
 
-            listingObject = {...listingObject, "offers": ratingsArray};
+            listingObject = { ...listingObject, "offers": ratingsArray };
             response.json(listingObject);
         })
     });
@@ -168,6 +169,58 @@ const exampleListing2 = {
     "country": "Canada"
 };
 
+const listingSchema = {
+    "type": "object",
+    "required": ["creatorId", "title", "description", "price", "city", "province", "postalCode", "country"],
+    "properties": {
+        "creatorId": {
+            "type": "integer",
+            "description": "The creator ID."
+        },
+        "title": {
+            "type": "string",
+            "description": "The title of the listing."
+        },
+        "description": {
+            "type": "string",
+            "description": "The listing description."
+        },
+        "image_1": {
+            "type": "string",
+            "description": "Listing image 1."
+        },
+        "image_2": {
+            "type": "string",
+            "description": "Listing image 2."
+        },
+        "image_3": {
+            "type": "string",
+            "description": "Listing image 3."
+        },
+        "price": {
+            "type": "number",
+            "minimum": 0,
+            "description": "The listing price."
+        },
+        "city": {
+            "type": "string",
+            "description": "The listing city."
+        },
+        "province": {
+            "type": "string",
+            "description": "The listing province."
+        },
+        "postalCode": {
+            "type": "string",
+            "description": "The listing postal code."
+        },
+        "country": {
+            "type": "string",
+            "description": "The listing country."
+        }
+    }
+};
+
 module.exports.apiDocs = {
     "/listings": {
         "get": {
@@ -188,18 +241,27 @@ module.exports.apiDocs = {
                     "name": "category",
                     "in": "query",
                     "description": "filter listings by category",
+                    "schema": {
+                        "type": "string"
+                    },
                     "required": false
                 },
                 {
                     "name": "creatorId",
                     "in": "query",
                     "description": "filter listings by creator id",
+                    "schema": {
+                        "type": "integer"
+                    },
                     "required": false
                 },
                 {
                     "name": "orderBy",
                     "in": "query",
                     "description": "what it will be ordered by (price, date)",
+                    "schema": {
+                        "type": "string"
+                    },
                     "required": false
                 },
                 {
@@ -219,7 +281,8 @@ module.exports.apiDocs = {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "array"
+                                "type": "array",
+                                "items": listingSchema
                             },
                             "example": [exampleListing1, exampleListing2],
                         }
@@ -234,7 +297,7 @@ module.exports.apiDocs = {
                 "description": "listing model",
                 "content": {
                     "application/json": {
-                        "schema": {},
+                        "schema": listingSchema,
                         "example": { ...exampleListing1 }
                     }
                 }
@@ -266,7 +329,7 @@ module.exports.apiDocs = {
                     "description": "An individual listing.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": listingSchema,
                             "example": exampleListing1
                         }
                     }
@@ -280,7 +343,7 @@ module.exports.apiDocs = {
                 "description": "listing model",
                 "content": {
                     "application/json": {
-                        "schema": {},
+                        "schema": { ...listingSchema, "required": [] },
                         "example": { ...exampleListing1, title: "Cut my lawn" }
                     }
                 }
@@ -290,7 +353,7 @@ module.exports.apiDocs = {
                     "description": "Updated ok",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": listingSchema,
                             "example": { ...exampleListing1, title: "Cut my lawn" }
                         }
                     },
@@ -328,7 +391,48 @@ module.exports.apiDocs = {
                     "description": "An individual listing with its offers.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "object",
+                                "required": ["creatorId", "title", "description", "price", "city", "province", "postalCode", "country"],
+                                "properties": {
+                                    ...listingSchema.properties,  "offers": {
+                                        "type": "array",
+                                        "description": "Array of offers.",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "offerId": {
+                                                    "type": "integer",
+                                                },
+                                                "bidderId": {
+                                                    "type": "integer",
+                                                },
+                                                "firstName": {
+                                                    "type": "string",
+                                                },
+                                                "lastName": {
+                                                    "type": "string",
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                },
+                                                "averageRating": {
+                                                    "type": "number",
+                                                },
+                                                "ratingCount": {
+                                                    "type": "integer",
+                                                },
+                                                "pending": {
+                                                    "type": "boolean",
+                                                },
+                                                "accepted": {
+                                                    "type": "boolean",
+                                                },
+                                            }
+                                        }
+                                    }
+                                }
+                            },
                             "example": {
                                 ...exampleListing1, "offers": [
                                     {
@@ -336,6 +440,7 @@ module.exports.apiDocs = {
                                         "bidderId": 2,
                                         "firstName": "Bill",
                                         "lastName": "Thorne",
+                                        "email": "bthorne@email.com",
                                         "averageRating": 4.5,
                                         "ratingCount": 50,
                                         "pending": "false",
@@ -346,6 +451,7 @@ module.exports.apiDocs = {
                                         "bidderId": 3,
                                         "firstName": "Jill",
                                         "lastName": "Fardy",
+                                        "email": "jfardy@email.com",
                                         "averageRating": 4,
                                         "ratingCount": 60,
                                         "pending": "false",

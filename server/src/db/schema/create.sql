@@ -20,6 +20,7 @@ CREATE TABLE users (
   country VARCHAR(255) NOT NULL,
   image VARCHAR(255)
 );
+ALTER SEQUENCE users_id_seq RESTART WITH 1000;
 
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -54,7 +55,7 @@ CREATE TABLE offers (
     listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
     bidder_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     accepted BOOLEAN NOT NULL DEFAULT FALSE,
-    pending BOOLEAN NOT NULL DEFAULT FALSE
+    pending BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE user_ratings (
@@ -64,16 +65,19 @@ CREATE TABLE user_ratings (
     ratee_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     rating NUMERIC NOT NULL,
     comment TEXT,
-    date TIMESTAMP NOT NULL default now()
+    created TIMESTAMP NOT NULL default now()
 );
 
 CREATE TABLE notifications (
     id SERIAL PRIMARY KEY NOT NULL,
-    message VARCHAR(255) NOT NULL
+    notification_message VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE user_notifications (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE
+    offer_id INTEGER REFERENCES offers(id) ON DELETE CASCADE,
+    notification_id INTEGER REFERENCES notifications(id) ON DELETE CASCADE, 
+    created TIMESTAMP NOT NULL default now(),
+    viewed BOOLEAN NOT NULL DEFAULT FALSE
 );

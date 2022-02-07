@@ -23,15 +23,28 @@ module.exports.apiDocs = {
                     "description": "An array of categories.",
                     "content": {
                         "application/json": {
-                            "schema": {},
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
                             "example": [
-                               {
+                                {
                                     "id": 1,
-                                    "category": "Home Improvement" 
+                                    "category": "Home Improvement"
                                 },
                                 {
                                     "id": 2,
-                                    "category": "Painting" 
+                                    "category": "Painting"
                                 },
                             ]
                         }
@@ -39,6 +52,6 @@ module.exports.apiDocs = {
                 }
             }
         }
-     
+
     }
 }
