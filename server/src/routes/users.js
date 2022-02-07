@@ -30,6 +30,7 @@ module.exports = db => {
 
 		//If both fields are filled out, begin passport auth
 		passport.authenticate("local", (err, user, info) => {
+			console.log('in here!')
 			if (err) throw err;
 
 			//If passport does not find user, send error response
