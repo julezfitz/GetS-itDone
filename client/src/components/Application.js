@@ -17,6 +17,7 @@ export default function Application() {
 	};
 
 	const openRegister = () => {
+		console.log('hi!')
 		setShowRegister(prev => !prev);
 	};
 
