@@ -39,7 +39,8 @@ export default function LoginModal({ open, handleClose }) {
 				.then(response => {
 					const errors = response.data.authentication.errors;
 					const isAuthenticated = response.data.authentication.isAuthenticated;
-					isAuthenticated && toggleLoggedIn(true);
+					const userDetails = response.data.authentication.user;
+					isAuthenticated && toggleLoggedIn(userDetails);
 					errors.length >= 0 && setErrors(errors);
 				})
 				.catch(err => {
