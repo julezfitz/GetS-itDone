@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navigation/Navbar";
 import SearchList from "./Search/SearchList";
+import MyListings from './Listings/MyListings';
 import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
@@ -80,7 +81,8 @@ export default function Application() {
 						<span>Category:</span>
 						<span>Sort By: Date</span>
 					</div>
-					<SearchList />
+					{/* <SearchList /> */}
+					<MyListings />
 				</section>
 			</div>
 		</UserContext.Provider>
