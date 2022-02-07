@@ -12,21 +12,26 @@ module.exports = (passport, db) => {
 				//First get user by email
 				db.query(
 					`
-        	SELECT id, email, password
+        	SELECT id, email, first_name, last_name, password
         	FROM users
         	WHERE email = $1;
       	`,
 					[username]
 				).then(res => {
 					const user = res.rows;
-					console.log("ho");
+
 					//If an email is found, compare passwords
 					if (user.length > 0) {
 						bcrypt.compare(password, user[0].password, (err, isMatch) => {
 							if (err) throw err;
 
 							if (isMatch) {
-								return done(null, { id: user[0].id, email: user[0].email });
+								return done(null, {
+									id: user[0].id,
+									email: user[0].email,
+									firstName: user[0]["first_name"],
+									lastName: user[0]["last_name"],
+								});
 							} else {
 								return done(null, false, { message: "Incorrect password" });
 							}

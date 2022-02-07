@@ -30,7 +30,6 @@ module.exports = db => {
 
 		//If both fields are filled out, begin passport auth
 		passport.authenticate("local", (err, user, info) => {
-			console.log('in here!')
 			if (err) throw err;
 
 			//If passport does not find user, send error response
@@ -48,8 +47,10 @@ module.exports = db => {
 					authResponse.authentication.isAuthenticated = true;
 					authResponse.authentication.errors = [];
 
-					res.status(200).send(authResponse);
+					res.send(authResponse);
+
 					req.session["user"] = user;
+					console.log(req.session);
 				});
 			}
 		})(req, res, next);
@@ -63,15 +64,16 @@ module.exports = db => {
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
-		authResponse = { isAuthenticated: false, user: null };
+		const authResponse = { isAuthenticated: false, user: null };
 		if (!req.session.user) {
 			res.send(authResponse);
 			return;
 		}
 
 		authResponse.isAuthenticated = true;
-		authResponse.isAuthenticated = req.session.user;
+		authResponse.user = req.session.user;
 		res.send(authResponse);
+		return;
 	});
 
 	//User attempts to register
