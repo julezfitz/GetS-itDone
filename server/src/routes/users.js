@@ -4,14 +4,6 @@ const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
 
-const authResponse = {
-	authentication: {
-		isAuthenticated: false,
-		user: null,
-		errors: [],
-	},
-};
-
 const registerErrors = {
 	errors: [],
 };
@@ -20,6 +12,13 @@ module.exports = db => {
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
+		const authResponse = {
+			authentication: {
+				isAuthenticated: false,
+				user: null,
+				errors: [],
+			},
+		};
 		let errors = authResponse.authentication.errors;
 
 		//If any field is empty, send error right away
@@ -43,13 +42,13 @@ module.exports = db => {
 
 				req.logIn(user, err => {
 					if (err) throw err;
-
 					//Send successful auth status + clear errors
 					authResponse.authentication.isAuthenticated = true;
 					authResponse.authentication.errors = [];
-
-					res.status(200).send(authResponse);
+					authResponse.authentication.user = user;
 					req.session["user"] = user;
+					res.send(authResponse);
+					return;
 				});
 			}
 		})(req, res, next);
@@ -63,15 +62,16 @@ module.exports = db => {
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
-		authResponse = { isAuthenticated: false, user: null };
+		const authResponse = { isAuthenticated: false, user: null };
 		if (!req.session.user) {
 			res.send(authResponse);
 			return;
 		}
 
 		authResponse.isAuthenticated = true;
-		authResponse.isAuthenticated = req.session.user;
+		authResponse.user = req.session.user;
 		res.send(authResponse);
+		return;
 	});
 
 	//User attempts to register
@@ -448,6 +448,15 @@ module.exports.apiDocs = {
 			responses: {
 				204: {
 					description: "Session terminated",
+				},
+			},
+		},
+		get: {
+			description: "Return a user's information if logged in",
+			tags: ["users"],
+			responses: {
+				204: {
+					description: "Session exists",
 				},
 			},
 		},
