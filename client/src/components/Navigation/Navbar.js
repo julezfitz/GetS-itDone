@@ -73,7 +73,7 @@ export default function ResponsiveAppBar() {
 	const [newListingOpen, setNewListingOpen] = React.useState(false);
 	const [newRatingOpen, setNewRatingOpen] = React.useState(false);
 
-	const { isLoggedIn } = useContext(UserContext);
+	const { isLoggedIn, userDetails } = useContext(UserContext);
 
 	const handleRegisterOpen = () => setRegisterOpen(true);
 	const handleRegisterClose = () => setRegisterOpen(false);
@@ -222,7 +222,7 @@ export default function ResponsiveAppBar() {
 								<Tooltip title='Open settings'>
 									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 										<Avatar
-											alt='Remy Sharp'
+											alt={userDetails.firstName}
 											src='/static/images/avatar/2.jpg'
 										/>
 									</IconButton>

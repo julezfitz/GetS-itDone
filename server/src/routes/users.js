@@ -42,15 +42,13 @@ module.exports = db => {
 
 				req.logIn(user, err => {
 					if (err) throw err;
-
 					//Send successful auth status + clear errors
 					authResponse.authentication.isAuthenticated = true;
 					authResponse.authentication.errors = [];
-
-					res.send(authResponse);
-
+					authResponse.authentication.user = user;
 					req.session["user"] = user;
-					console.log(req.session);
+					res.send(authResponse);
+					return;
 				});
 			}
 		})(req, res, next);
@@ -450,6 +448,15 @@ module.exports.apiDocs = {
 			responses: {
 				204: {
 					description: "Session terminated",
+				},
+			},
+		},
+		get: {
+			description: "Return a user's information if logged in",
+			tags: ["users"],
+			responses: {
+				204: {
+					description: "Session exists",
 				},
 			},
 		},

@@ -16,39 +16,56 @@ export default function Application() {
 		},
 	});
 
-	const toggleLoggedIn = () => {
+	const toggleLoggedIn = userDetails => {
 		setGlobalState(prev => ({
 			...prev,
-			user: { isLoggedIn: !globalState.user.isLoggedIn },
+			user: {
+				isLoggedIn: !globalState.user.isLoggedIn,
+				details: userDetails,
+			},
 		}));
 	};
 
 	const userControls = {
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
+		userDetails: globalState.user.details,
 	};
 
 	// // ********************
-	// const [state, dispatch] = useReducer(reducer, {
-	// 	day: "Monday",
-	// 	days: [],
-	// 	appointments: {},
-	// 	interviewers: {},
-	//   });
-	
+	//Julie working out how to make calls to db to set state for multiple things
+	// const [categories, setCategories] = useState({
+	//   status: "loading",
+	//   data: null,
+	//   errors: null
+	// });
+
 	// useEffect(() => {
-	// 	axios.get(`http://localhost:8001/user/session`, {
-	// 		params: {
-	// 			email: , 
-	// 			password: 
-	// 		}
-	// 	}).then(result => {
-	// 		console.log(result);
-	// 		dispatch({
-	// 		});
-	// 	});// // 
+	// 	axios.get(`http://localhost:8001/categories`).then(result => {
+	//     setDataInfo({
+	//     status: "fetched",
+	//     data: result.data,
+	//     error: null
+	//   });
+	// 	}).catch((err) => {
+	//   console.error('Failed to fetch remote data: ', err);
+	//   return setCategories({
+	//     status: "error",
+	//     data: null,
+	//     error: err
+	//   });;// //
 	// }, []);
 	// ********************
+	useEffect(() => {
+		axios.get(`http://localhost:8001/user/session`).then(res => console.log);
+	}, []);
+
+	useEffect(() => {
+		axios
+			.get(`http://localhost:8001/user/session`)
+			.then(res => console.log("ok", res))
+			.catch(err => console.log(err));
+	}, []);
 
 	return (
 		<UserContext.Provider value={userControls}>
