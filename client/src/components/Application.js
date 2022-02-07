@@ -4,48 +4,85 @@ import SearchList from "./Search/SearchList";
 import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
+import { createContext } from "react";
+
+export const UserContext = createContext();
 
 export default function Application() {
-	/*
-Matt's work below -- 
+	const [globalState, setGlobalState] = useState({
+		user: {
+			isLoggedIn: false,
+			details: {},
+		},
+	});
 
-import "../styles/scss/Application.scss";
-import { Routes, Route, Link } from "react-router-dom";
-import {
-	Profile,
-	Search,
-	UserOffers,
-	UserListings,
-	SingleListing,
-	UpdateListing,
-	Create,
-} from "./Views/index";
-import NavBar from "./Navigation/Navbar";
-import axios from "axios";
+	const toggleLoggedIn = userDetails => {
+		setGlobalState(prev => ({
+			...prev,
+			user: {
+				isLoggedIn: !globalState.user.isLoggedIn,
+				details: userDetails,
+			},
+		}));
+	};
 
-export default function Application() {
+	const userControls = {
+		toggleLoggedIn,
+		isLoggedIn: globalState.user.isLoggedIn,
+		userDetails: globalState.user.details,
+	};
+
+	// // ********************
+	//Julie working out how to make calls to db to set state for multiple things
+	// const [categories, setCategories] = useState({
+	//   status: "loading",
+	//   data: null,
+	//   errors: null
+	// });
+
+	// useEffect(() => {
+	// 	axios.get(`http://localhost:8001/categories`).then(result => {
+	//     setDataInfo({
+	//     status: "fetched",
+	//     data: result.data,
+	//     error: null
+	//   });
+	// 	}).catch((err) => {
+	//   console.error('Failed to fetch remote data: ', err);
+	//   return setCategories({
+	//     status: "error",
+	//     data: null,
+	//     error: err
+	//   });;// //
+	// }, []);
+	// ********************
+	useEffect(() => {
+		axios.get(`http://localhost:8001/user/session`).then(res => console.log);
+	}, []);
+
 	useEffect(() => {
 		axios
-			.get("http://localhost:8001/user/2")
-			.then(res => console.log(res))
+			.get(`http://localhost:8001/user/session`)
+			.then(res => console.log("ok", res))
 			.catch(err => console.log(err));
 	}, []);
-	*/
 
 	return (
-		<div>
-			<section>
-				<Navbar />
-			</section>
-			<section>
-				<Routing />
-				<p className='main__text'>All results for: Home</p>
-				<div>
-					<span>Category:</span>
-					<span>Sort By: Date</span>
-				</div>
-				<SearchList />
-			</section>
-		</div>
+		<UserContext.Provider value={userControls}>
+			<div>
+				<section>
+					<Navbar />
+				</section>
+				<section>
+					<Routing />
+					<p className='main__text'>All results for: Home</p>
+					<div>
+						<span>Category:</span>
+						<span>Sort By: Date</span>
+					</div>
+					<SearchList />
+				</section>
+			</div>
+		</UserContext.Provider>
 	);
 }
