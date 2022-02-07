@@ -1,9 +1,8 @@
 const toCamel = object => {
 	let keys = Object.keys(object);
-	
-	for (key of keys) {
+	keys.forEach(key => {
 		key = key.split("")
-	}
+	})
 
 	
 
