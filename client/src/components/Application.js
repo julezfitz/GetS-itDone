@@ -12,6 +12,7 @@ export default function Application() {
 	const [globalState, setGlobalState] = useState({
 		user: {
 			isLoggedIn: false,
+			details: {},
 		},
 	});
 
@@ -26,6 +27,28 @@ export default function Application() {
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 	};
+
+	// // ********************
+	// const [state, dispatch] = useReducer(reducer, {
+	// 	day: "Monday",
+	// 	days: [],
+	// 	appointments: {},
+	// 	interviewers: {},
+	//   });
+	
+	// useEffect(() => {
+	// 	axios.get(`http://localhost:8001/user/session`, {
+	// 		params: {
+	// 			email: , 
+	// 			password: 
+	// 		}
+	// 	}).then(result => {
+	// 		console.log(result);
+	// 		dispatch({
+	// 		});
+	// 	});// // 
+	// }, []);
+	// ********************
 
 	return (
 		<UserContext.Provider value={userControls}>
