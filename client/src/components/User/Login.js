@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 const style = {
 	position: "absolute",
@@ -21,14 +23,29 @@ export default function LoginModal({ open, handleClose }) {
 		email: "",
 		password: "",
 	});
-  const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
-		
+		if (loading) {
+			axios
+				.post("http://localhost:8001/user/session", {
+					email: value.email,
+					password: value.password,
+				})
+				.then(response => {
+					const errors = response.data.authentication.errors;
+					const isAuthenticated = response.data.authentication.isAuthenticated;
 
-	}, [value]);
+					isAuthenticated && setLoggedIn(true);
+					errors.length > 0 && setError(errors);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
+	}, [loading, loggedIn, error]);
 
 	const handleChange = e => {
 		const textFieldName = e.target.name;
@@ -37,6 +54,10 @@ export default function LoginModal({ open, handleClose }) {
 			...prev,
 			[textFieldName]: e.target.value,
 		}));
+	};
+
+	const handleSubmit = () => {
+		setLoading(!loading);
 	};
 
 	return (
@@ -77,6 +98,14 @@ export default function LoginModal({ open, handleClose }) {
 									onChange={handleChange}
 								/>
 							</div>
+							<Button
+								color='primary'
+								fullWidth
+								variant='contained'
+								onClick={handleSubmit}
+							>
+								Log in
+							</Button>
 						</Box>
 					</Typography>
 				</Box>
