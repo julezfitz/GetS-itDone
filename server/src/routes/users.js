@@ -4,14 +4,6 @@ const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
 
-const authResponse = {
-	authentication: {
-		isAuthenticated: false,
-		user: null,
-		errors: [],
-	},
-};
-
 const registerErrors = {
 	errors: [],
 };
@@ -20,6 +12,13 @@ module.exports = db => {
 	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
+		const authResponse = {
+			authentication: {
+				isAuthenticated: false,
+				user: null,
+				errors: [],
+			},
+		};
 		let errors = authResponse.authentication.errors;
 
 		//If any field is empty, send error right away

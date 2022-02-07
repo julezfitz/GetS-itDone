@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Button } from "@mui/material";
+import { Button, Alert } from "@mui/material";
 import axios from "axios";
 
 const style = {
@@ -25,7 +25,7 @@ export default function LoginModal({ open, handleClose }) {
 	});
 	const [loading, setLoading] = useState(false);
 	const [loggedIn, setLoggedIn] = useState(false);
-	const [error, setError] = useState(false);
+	const [errors, setErrors] = useState(false);
 
 	useEffect(() => {
 		if (loading) {
@@ -36,28 +36,27 @@ export default function LoginModal({ open, handleClose }) {
 				})
 				.then(response => {
 					const errors = response.data.authentication.errors;
-					const isAuthenticated = response.data.authentication.isAuthenticated;
 
+					const isAuthenticated = response.data.authentication.isAuthenticated;
 					isAuthenticated && setLoggedIn(true);
-					errors.length > 0 && setError(errors);
+					errors.length >= 0 && setErrors(errors);
 				})
 				.catch(err => {
 					console.log(err);
-				});
+				})
+				.finally(setLoading(false));
 		}
-	}, [loading, loggedIn, error]);
+	}, [loading, loggedIn, errors]);
 
 	const handleChange = e => {
+		setErrors(false);
 		const textFieldName = e.target.name;
+		console.log(textFieldName);
 
 		setValue(prev => ({
 			...prev,
 			[textFieldName]: e.target.value,
 		}));
-	};
-
-	const handleSubmit = () => {
-		setLoading(!loading);
 	};
 
 	return (
@@ -94,6 +93,7 @@ export default function LoginModal({ open, handleClose }) {
 									label='Password'
 									type='password'
 									autoComplete='current-password'
+									name='password'
 									value={value.password}
 									onChange={handleChange}
 								/>
@@ -102,10 +102,14 @@ export default function LoginModal({ open, handleClose }) {
 								color='primary'
 								fullWidth
 								variant='contained'
-								onClick={handleSubmit}
+								onClick={() => setLoading(true)}
 							>
-								Log in
+								{loading ? "Loading..." : "Log in"}
 							</Button>
+							{errors &&
+								errors.map(err => {
+									return <Alert severity='error'>{err.message}</Alert>;
+								})}
 						</Box>
 					</Typography>
 				</Box>
