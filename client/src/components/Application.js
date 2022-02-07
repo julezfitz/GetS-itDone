@@ -4,48 +4,45 @@ import SearchList from "./Search/SearchList";
 import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
+import { createContext } from "react";
+
+export const UserContext = createContext();
 
 export default function Application() {
-	/*
-Matt's work below -- 
+	const [globalState, setGlobalState] = useState({
+		user: {
+			isLoggedIn: false,
+		},
+	});
 
-import "../styles/scss/Application.scss";
-import { Routes, Route, Link } from "react-router-dom";
-import {
-	Profile,
-	Search,
-	UserOffers,
-	UserListings,
-	SingleListing,
-	UpdateListing,
-	Create,
-} from "./Views/index";
-import NavBar from "./Navigation/Navbar";
-import axios from "axios";
+	const toggleLoggedIn = () => {
+		setGlobalState(prev => ({
+			...prev,
+			user: { isLoggedIn: !globalState.user.isLoggedIn },
+		}));
+	};
 
-export default function Application() {
-	useEffect(() => {
-		axios
-			.get("http://localhost:8001/user/2")
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
-	}, []);
-	*/
+	const userControls = {
+		toggleLoggedIn,
+		isLoggedIn: globalState.user.isLoggedIn,
+	};
 
 	return (
-		<div>
-			<section>
-				<Navbar />
-			</section>
-			<section>
-				<Routing />
-				<p className='main__text'>All results for: Home</p>
-				<div>
-					<span>Category:</span>
-					<span>Sort By: Date</span>
-				</div>
-				<SearchList />
-			</section>
-		</div>
+		<UserContext.Provider value={userControls}>
+			<div>
+				<section>
+					<Navbar />
+				</section>
+				<section>
+					<Routing />
+					<p className='main__text'>All results for: Home</p>
+					<div>
+						<span>Category:</span>
+						<span>Sort By: Date</span>
+					</div>
+					<SearchList />
+				</section>
+			</div>
+		</UserContext.Provider>
 	);
 }

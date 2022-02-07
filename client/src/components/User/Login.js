@@ -1,10 +1,11 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button, Alert } from "@mui/material";
 import axios from "axios";
+import { UserContext } from "../Application";
 
 const style = {
 	position: "absolute",
@@ -19,6 +20,9 @@ const style = {
 };
 
 export default function LoginModal({ open, handleClose }) {
+
+	const { toggledLoggedIn, isLoggedIn } = useContext(UserContext);
+
 	const [value, setValue] = useState({
 		email: "",
 		password: "",
@@ -28,6 +32,7 @@ export default function LoginModal({ open, handleClose }) {
 	const [errors, setErrors] = useState(false);
 
 	useEffect(() => {
+		console.log('hi', isLoggedIn);
 		if (loading) {
 			axios
 				.post("http://localhost:8001/user/session", {
@@ -97,6 +102,7 @@ export default function LoginModal({ open, handleClose }) {
 									value={value.password}
 									onChange={handleChange}
 								/>
+								{/* <p>{user.isLoggedIn}</p> */}
 							</div>
 							<Button
 								color='primary'
