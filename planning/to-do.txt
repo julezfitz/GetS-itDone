@@ -1,0 +1,5 @@
+Back End Tasks
+- Authentication and access control for end-points that allow anyone to use them (secure private routes)
+- Map out which routes are needed for which views - Checking that they have all the information they need.
+- If there is validation logic missing // validation that is not input validation
+- Refactor api docs into docs directory
