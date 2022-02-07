@@ -9,7 +9,7 @@ const swaggerUi = require("swagger-ui-express");
 const passport = require("passport");
 const app = express();
 const OpenApiValidator = require("express-openapi-validator");
-
+const cookieSession = require("cookie-session");
 const db = require("./db");
 
 module.exports = function application(ENV) {
@@ -23,7 +23,6 @@ module.exports = function application(ENV) {
 				"http://localhost:3001",
 				"http://localhost:3002",
 			],
-			methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
 			credentials: true,
 		})
 	);
@@ -31,15 +30,10 @@ module.exports = function application(ENV) {
 	app.use(cookieParser());
 
 	app.use(
-		session({
-			key: "user",
-			secret: "keyboard cat",
-			resave: false,
-			saveUninitialized: false,
-			cookie: {
-				maxAge: 1000,
-				httpOnly: true,
-			},
+		cookieSession({
+			name: "userSession",
+			keys: ["hello", "world"],
+			maxAge: 24 * 60 * 60 * 1000,
 		})
 	);
 

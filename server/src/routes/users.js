@@ -56,7 +56,7 @@ module.exports = db => {
 
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
-		req.session.destroy();
+		req.session = null;
 		res.status(200).send({ message: "Logout successful" });
 	});
 
