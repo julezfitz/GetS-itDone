@@ -7,6 +7,7 @@ import Register from "../User/Register";
 import Login from "../User/Login";
 
 export default function Navbar(props) {
+
   
   return (
     <nav className="navbar">
