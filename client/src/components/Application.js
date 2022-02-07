@@ -6,6 +6,7 @@ import Login from "./User/Login";
 import SearchList from "./Search/SearchList";
 import axios from "axios";
 import Routing from "./Routing";
+import "normalize.css";
 
 export default function Application() {
 	const [showRegister, setShowRegister] = useState(false);
