@@ -1,58 +1,54 @@
-import React from "react";
-import "./SearchListItem.scss";
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import ButtonBase from "@mui/material/ButtonBase";
 
-export default function SearchListItem(props) {
+const Img = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "100%",
+  maxHeight: "100%",
+});
+
+export default function SearchListItem() {
   return (
-    // <li onClick={() => props.setDay(props.name)} className={searchClass} data-testid="search-item">
-    //   <h2 className="text--regular">{props.name}</h2> 
-    //   <h3 className="text--light">{formatSpots(props.spots)}</h3>
-    // </li>
-    <>
-      <li className="text--regular search-list__item">
-          <div className="text--regular search-list__item-details">
-            <img className="text--regular search-list__item-listingImg" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80" alt="Home" width="60" height="50"></img>
-            <div className="text--regular search-list__item-description">
-              <h3>Clean My Home</h3>
-              <p>This listing is for you to clean my house. This is a test. Not a real listing.</p>
-              <p>Date: February 3, 2022</p>
-            </div>
-          </div>
-          <p className="text--regular search-list__item-price">$500</p>
-      </li>
-      <li className="text--regular search-list__item">
-          <div className="text--regular search-list__item-details">
-            <img className="text--regular search-list__item-listingImg" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80" alt="Home" width="60" height="50"></img>
-            <div className="text--regular search-list__item-description">
-            <h3>Clean My Home</h3>
-              <p>This listing is for you to clean my house. This is a test. Not a real listing.</p>
-              <p>Date: February 2, 2022</p>
-            </div>
-          </div>
-          <p className="text--regular search-list__item-price">$750</p>
-      </li>
-      <li className="text--regular search-list__item">
-          <div className="text--regular search-list__item-details">
-            <img className="text--regular search-list__item-listingImg" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80" alt="Home" width="60" height="50"></img>
-            <div className="text--regular search-list__item-description">
-            <h3>Clean My Home</h3>
-              <p>This listing is for you to clean my house. This is a test. Not a real listing.</p>
-              <p>Date: February 1, 2022</p>
-            </div>
-          </div>
-          <p className="text--regular search-list__item-price">$1,000</p>
-      </li>
-      <li className="text--regular search-list__item">
-          <div className="text--regular search-list__item-details">
-            <img className="text--regular search-list__item-listingImg" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80" alt="Home" width="60" height="50"></img>
-            <div className="text--regular search-list__item-description">
-            <h3>Clean My Home</h3>
-              <p>This listing is for you to clean my house. This is a test. Not a real listing.</p>
-              <p>Date: January 31, 2022</p>
-            </div>
-          </div>
-          <p className="text--regular search-list__item-price">$1,500</p>
-      </li>
-    </>
+    <Paper sx={{ p: 2, flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item>
+          <ButtonBase sx={{ width: 128, height: 128 }}>
+            <Img
+              alt="complex"
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1773&q=80"
+            />
+          </ButtonBase>
+        </Grid>
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+              <Typography gutterBottom variant="subtitle1" component="div">
+                Clean My Yard
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                I know it'll be challenging but I'd like someone to come and
+                clean up my beach. I will also need you to rake the beach so
+                that it is even.
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="body2" color="text.secondary">
+                Date: February 4, 2022
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" component="div">
+              $500.00
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }
-

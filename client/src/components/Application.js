@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Application.scss";
 import Navbar from "./Navigation/Navbar";
-import Register from "./User/Register";
-import Login from "./User/Login";
 import SearchList from "./Search/SearchList";
 import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
 
 export default function Application() {
-	const [showRegister, setShowRegister] = useState(false);
-	const [showLogin, setShowLogin] = useState(false);
-
-	const openLogin = () => {
-		setShowLogin(prev => !prev);
-	};
-
-	const openRegister = () => {
-		console.log('hi!')
-		setShowRegister(prev => !prev);
-	};
-
 	/*
 Matt's work below -- 
 
@@ -49,33 +34,18 @@ export default function Application() {
 
 	return (
 		<div>
-			<section className='app-nav'>
-				<Navbar
-					openRegister={openRegister}
-					showRegister={showRegister}
-					setShowRegister={setShowRegister}
-					openLogin={openLogin}
-					showLogin={showLogin}
-					setShowLogin={setShowLogin}
-				/>
-				<Register
-					showRegister={showRegister}
-					setShowRegister={setShowRegister}
-				/>
-				<Login showLogin={showLogin} setShowLogin={setShowLogin} />
+			<section>
+				<Navbar />
 			</section>
-			<main>
+			<section>
 				<Routing />
-				<section className='main'>
-					<p className='main__text'>All results for: Home</p>
-					<hr className='main__x-separator main--centered' />
-					<div>
-						<span className='main__text'>Category:</span>
-						<span className='main__text'>Sort By: Date</span>
-					</div>
-					<SearchList />
-				</section>
-			</main>
+				<p className='main__text'>All results for: Home</p>
+				<div>
+					<span>Category:</span>
+					<span>Sort By: Date</span>
+				</div>
+				<SearchList />
+			</section>
 		</div>
 	);
 }
