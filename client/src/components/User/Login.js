@@ -20,19 +20,20 @@ const style = {
 };
 
 export default function LoginModal({ open, handleClose }) {
-
-	const { toggledLoggedIn, isLoggedIn } = useContext(UserContext);
+	
+	const { toggleLoggedIn, isLoggedIn } = useContext(UserContext);
 
 	const [value, setValue] = useState({
 		email: "",
 		password: "",
 	});
 	const [loading, setLoading] = useState(false);
-	const [loggedIn, setLoggedIn] = useState(false);
 	const [errors, setErrors] = useState(false);
 
 	useEffect(() => {
-		console.log('hi', isLoggedIn);
+
+		console.log(isLoggedIn);
+
 		if (loading) {
 			axios
 				.post("http://localhost:8001/user/session", {
@@ -43,7 +44,7 @@ export default function LoginModal({ open, handleClose }) {
 					const errors = response.data.authentication.errors;
 
 					const isAuthenticated = response.data.authentication.isAuthenticated;
-					isAuthenticated && setLoggedIn(true);
+					isAuthenticated && toggleLoggedIn(true);
 					errors.length >= 0 && setErrors(errors);
 				})
 				.catch(err => {
@@ -51,7 +52,7 @@ export default function LoginModal({ open, handleClose }) {
 				})
 				.finally(setLoading(false));
 		}
-	}, [loading, loggedIn, errors]);
+	}, [loading, isLoggedIn, errors]);
 
 	const handleChange = e => {
 		setErrors(false);
