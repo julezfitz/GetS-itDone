@@ -5,6 +5,7 @@ import UserOffers from "./UserOffers";
 import Create from "./Create";
 import UpdateListing from "./UpateListing";
 import SingleListing from "./SingleListing";
+import LoggedOutHome from "./LoggedOut/LoggedOut";
 
 export {
   Profile,
@@ -13,5 +14,6 @@ export {
   UserOffers,
   UpdateListing,
   SingleListing,
-  Create
+  Create,
+  LoggedOutHome
 }

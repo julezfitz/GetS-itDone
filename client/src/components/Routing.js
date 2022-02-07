@@ -8,13 +8,14 @@ import {
 	SingleListing,
 	UpdateListing,
 	Create,
+	LoggedOutHome,
 } from "./Views/index";
 
 function Routing() {
 	return (
 		<>
 			<Routes>
-				<Route path='/' element={<UserOffers />} />
+				<Route path='/' element={<LoggedOutHome />} />
 				<Route path='/create' element={<Create />} />
 				<Route path='/profile' element={<Profile />} />
 				<Route path='/search' element={<Search />} />
