@@ -19,16 +19,21 @@ module.exports = (passport, db) => {
 					[username]
 				).then(res => {
 					const user = res.rows;
-
+					console.log("ho");
 					//If an email is found, compare passwords
 					if (user.length > 0) {
 						bcrypt.compare(password, user[0].password, (err, isMatch) => {
 							if (err) throw err;
+
 							if (isMatch) {
 								return done(null, { id: user[0].id, email: user[0].email });
 							} else {
 								return done(null, false, { message: "Incorrect password" });
 							}
+						});
+					} else {
+						return done(null, false, {
+							message: "No account is registered with that e-mail address",
 						});
 					}
 				});
