@@ -8,9 +8,7 @@ import { createContext } from "react";
 
 export const UserContext = createContext();
 
-
 export default function Application() {
-
 	//Do not remove - allows axios to receive cookies
 	axios.defaults.withCredentials = true;
 
@@ -61,15 +59,22 @@ export default function Application() {
 	//   });;// //
 	// }, []);
 	// ********************
-	useEffect(() => {
-		axios.get(`http://localhost:8001/user/session`).then(res => console.log);
-	}, []);
+	// useEffect(() => {
+	// 	axios.get(`http://localhost:8001/user/session`).then(res => console.log);
+	// }, []);
 
 	useEffect(() => {
 		if (!globalState.user.isLoggedIn) {
 			axios
 				.get(`http://localhost:8001/user/session`)
-				.then(res => console.log("ok", res))
+				.then(
+					res =>
+						res.data.isAuthenticated &&
+						setGlobalState(prev => ({
+							...prev,
+							user: { isLoggedIn: true, details: res.data.user },
+						}))
+				)
 				.catch(err => console.log(err));
 		}
 	}, []);
