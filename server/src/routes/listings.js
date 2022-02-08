@@ -5,6 +5,7 @@ const router = require("express").Router();
 module.exports = db => {
 
     router.get("/listings", (request, response) => {
+        console.log("in listings route");
         const { keywords, category, creatorId, orderBy, sortOrder } = request.query;
 
         let queryString = `SELECT * FROM listings`;
@@ -21,7 +22,7 @@ module.exports = db => {
         keywords ? (queryString += ` WHERE LOWER(title) LIKE LOWER('%${keywords}%')`) : "";
         orderBy ? (queryString += ` ORDER BY ${orderBy}`) : "";
         sortOrder ? (queryString += ` ${sortOrder}`) : "";
-
+            console.log(queryString);
         db.query(queryString += `;`).then(({ rows: listings }) => {
             response.json(listings);
         });
