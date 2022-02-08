@@ -20,10 +20,29 @@ import RegisterModal from "../User/Register";
 import LoginModal from "../User/Login";
 import NewListingModal from "../Listings/New";
 import NewRatingModal from "../Ratings/NewRating";
+import { Link } from "react-router-dom";
 import { UserContext } from "../Application";
 
 const pages = ["Register", "Login"];
-const settings = ["My Profile", "My Listings", "My Offers", "Logout"];
+
+const settings = [
+	{
+		title: "My Profile",
+		path: "/profile",
+	},
+	{
+		title: "My Listings",
+		path: "/listings",
+	},
+	{
+		title: "My Offers",
+		path: "/offers",
+	},
+	{
+		title: "Log Out",
+		path: "/",
+	},
+];
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -245,7 +264,11 @@ export default function ResponsiveAppBar() {
 								>
 									{settings.map(setting => (
 										<MenuItem key={setting} onClick={handleCloseUserMenu}>
-											<Typography textAlign='center'>{setting}</Typography>
+											<Link to={"/"} className='menuLink'>
+												<Typography textAlign='center'>
+													{setting.title}
+												</Typography>
+											</Link>
 										</MenuItem>
 									))}
 								</Menu>
