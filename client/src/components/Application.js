@@ -52,11 +52,18 @@ export default function Application() {
 		}
 	}, []);
 
+	const [search, setSearch] = useState("")
+
+	const handleSearch = function (e) {
+		console.log(e.target.value);
+		setSearch(e.target.value);
+	}
+
 	return (
 		<UserContext.Provider value={userControls}>
 			<div>
 				<section>
-					<Navbar />
+					<Navbar onSearch={handleSearch} />
 				</section>
 				<section>
 					<Routing />
@@ -65,7 +72,7 @@ export default function Application() {
 						<span>Category:</span>
 						<span>Sort By: Date</span>
 					</div>
-					{/* <SearchList /> */}
+					<SearchList keywords={search}/>
 					<MyListings />
 				</section>
 			</div>
