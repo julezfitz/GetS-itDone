@@ -14,13 +14,7 @@ function Routing({ keywords }) {
 			<Routes>
 				<Route
 					path='/'
-					element={
-						isLoggedIn ? (
-							<SearchList keywords={keywords} />
-						) : (
-							() => <LoggedOutHome />
-						)
-					}
+					element={isLoggedIn ? <SearchList /> : <LoggedOutHome />}
 				/>
 
 				{/* <Route
@@ -35,6 +29,11 @@ function Routing({ keywords }) {
 
 				<Route
 					path='/offers'
+					element={isLoggedIn ? <OffersList /> : () => <Navigate to='/' />}
+				/>
+
+				<Route
+					path='/listings/:id'
 					element={isLoggedIn ? <OffersList /> : () => <Navigate to='/' />}
 				/>
 			</Routes>
