@@ -56,8 +56,13 @@ module.exports = db => {
 
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
+		const response = {
+			authentication: {
+				isLoggedOut: true
+			}
+		}
 		req.session = null;
-		res.status(200).send({ message: "Logout successful" });
+		res.status(200).send(response);
 	});
 
 	//Check to see if a user is logged in
@@ -457,6 +462,42 @@ module.exports.apiDocs = {
 			responses: {
 				204: {
 					description: "Session exists",
+				},
+			},
+		},
+	},
+	"/user/logout": {
+		post: {
+			description: "Log out of a user account",
+			tags: ["users"],
+			requestBody: {
+				description: "user email and password",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							description: "Email and password",
+							properties: {
+								email: {
+									type: "string",
+									required: true,
+								},
+								password: {
+									type: "string",
+									required: true,
+								},
+							},
+						},
+						example: {
+							email: "jsmith@email.com",
+							password: "password",
+						},
+					},
+				},
+			},
+			responses: {
+				201: {
+					description: "Session Terminated",
 				},
 			},
 		},
