@@ -65,7 +65,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-export default function ResponsiveAppBar() {
+export default function ResponsiveAppBar(props) {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const [registerOpen, setRegisterOpen] = React.useState(false);
@@ -166,6 +166,8 @@ export default function ResponsiveAppBar() {
 						<StyledInputBase
 							placeholder='Search…'
 							inputProps={{ "aria-label": "search" }}
+							//could use a button here so that we can make it onSubmit
+							onChange={props.onSearch}
 						/>
 					</Search>
 					<Box sx={{ flexGrow: 1 }} />

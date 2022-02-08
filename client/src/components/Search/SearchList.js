@@ -11,29 +11,20 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function SearchList({keywords}) {
+export default function SearchList({ keywords }) {
   const [listings, setListings] = useState([]);
-  useEffect((() => {
-    axios.get(`http://localhost:8001/listings/keywords=${keywords}`).then((result) => {
-      return setListings(result.data);
-    })
-  }))
 
-  //loop through listings to create individual listings
+  useEffect((() => {
+    axios.get(`http://localhost:8001/listings/?keywords=${keywords}`).then((result) => {
+      setListings(result.data);
+    })
+  }), [keywords])
+
   return (
-          <Item>
-            <ListingDetails>
-              <SearchListItem />
-            </ListingDetails>
-            <ListingDetails>
-              <SearchListItem />
-            </ListingDetails>
-            <ListingDetails>
-              <SearchListItem />
-            </ListingDetails>
-            <ListingDetails>
-              <SearchListItem />
-            </ListingDetails>
-          </Item>
+    <Item>
+      {listings.map((listing) => {
+        return <ListingDetails><SearchListItem listing={listing} /></ListingDetails>
+      })}
+    </Item>
   );
 }
