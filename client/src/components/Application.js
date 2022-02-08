@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navigation/Navbar";
 import SearchList from "./Search/SearchList";
-import MyListings from './Listings/MyListings';
+import MyListings from "./Listings/MyListings";
 import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
@@ -21,7 +21,6 @@ export default function Application() {
 	});
 
 	const toggleLoggedIn = userDetails => {
-		console.log(globalState.user.isLoggedIn);
 		setGlobalState(prev => ({
 			...prev,
 			user: {
@@ -37,29 +36,6 @@ export default function Application() {
 		userDetails: globalState.user.details,
 	};
 
-	// // ********************
-	//Julie working out how to make calls to db to set state for multiple things
-	// const [categories, setCategories] = useState({
-	//   status: "loading",
-	//   data: null,
-	//   errors: null
-	// });
-
-	// useEffect(() => {
-	// 	axios.get(`http://localhost:8001/categories`).then(result => {
-	//     setDataInfo({
-	//     status: "fetched",
-	//     data: result.data,
-	//     error: null
-	//   });
-	// 	}).catch((err) => {
-	//   console.error('Failed to fetch remote data: ', err);
-	//   return setCategories({
-	//     status: "error",
-	//     data: null,
-	//     error: err
-	//   });;// //
-	// }, []);
 	// ********************
 	// useEffect(() => {
 	// 	axios.get(`http://localhost:8001/user/session`).then(res => console.log);
@@ -75,11 +51,18 @@ export default function Application() {
 		}
 	}, []);
 
+	const [search, setSearch] = useState("")
+
+	const handleSearch = function (e) {
+		console.log(e.target.value);
+		setSearch(e.target.value);
+	}
+
 	return (
 		<UserContext.Provider value={userControls}>
 			<div>
 				<section>
-					<Navbar />
+					<Navbar onSearch={handleSearch} />
 				</section>
 				<section>
 					<Routing />
@@ -88,7 +71,7 @@ export default function Application() {
 						<span>Category:</span>
 						<span>Sort By: Date</span>
 					</div>
-					{/* <SearchList /> */}
+					<SearchList keywords={search}/>
 					<MyListings />
 				</section>
 			</div>

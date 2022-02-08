@@ -20,10 +20,30 @@ import RegisterModal from "../User/Register";
 import LoginModal from "../User/Login";
 import NewListingModal from "../Listings/New";
 import NewRatingModal from "../Ratings/NewRating";
+import { Link } from "react-router-dom";
 import { UserContext } from "../Application";
+import UserMenu from "./UserMenu";
 
 const pages = ["Register", "Login"];
-const settings = ["My Profile", "My Listings", "My Offers", "Logout"];
+
+const settings = [
+	{
+		title: "My Profile",
+		path: "/profile",
+	},
+	{
+		title: "My Listings",
+		path: "/listings",
+	},
+	{
+		title: "My Offers",
+		path: "/offers",
+	},
+	{
+		title: "Log Out",
+		path: "/",
+	},
+];
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -65,7 +85,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-export default function ResponsiveAppBar() {
+export default function ResponsiveAppBar(props) {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const [registerOpen, setRegisterOpen] = React.useState(false);
@@ -73,7 +93,7 @@ export default function ResponsiveAppBar() {
 	const [newListingOpen, setNewListingOpen] = React.useState(false);
 	const [newRatingOpen, setNewRatingOpen] = React.useState(false);
 
-	const { isLoggedIn, userDetails } = useContext(UserContext);
+	const { isLoggedIn, userDetails, toggleLoggedIn } = useContext(UserContext);
 
 	const handleRegisterOpen = () => setRegisterOpen(true);
 	const handleRegisterClose = () => setRegisterOpen(false);
@@ -166,6 +186,8 @@ export default function ResponsiveAppBar() {
 						<StyledInputBase
 							placeholder='Search…'
 							inputProps={{ "aria-label": "search" }}
+							//could use a button here so that we can make it onSubmit
+							onChange={props.onSearch}
 						/>
 					</Search>
 					<Box sx={{ flexGrow: 1 }} />
@@ -227,28 +249,12 @@ export default function ResponsiveAppBar() {
 										/>
 									</IconButton>
 								</Tooltip>
-								<Menu
-									sx={{ mt: "45px" }}
-									id='menu-appbar'
-									anchorEl={anchorElUser}
-									anchorOrigin={{
-										vertical: "top",
-										horizontal: "right",
-									}}
-									keepMounted
-									transformOrigin={{
-										vertical: "top",
-										horizontal: "right",
-									}}
-									open={Boolean(anchorElUser)}
-									onClose={handleCloseUserMenu}
-								>
-									{settings.map(setting => (
-										<MenuItem key={setting} onClick={handleCloseUserMenu}>
-											<Typography textAlign='center'>{setting}</Typography>
-										</MenuItem>
-									))}
-								</Menu>
+								<UserMenu
+									settings={settings}
+									handleCloseUserMenu={handleCloseUserMenu}
+									anchorElUser={anchorElUser}
+									toggleLoggedIn={toggleLoggedIn}
+								/>
 							</Box>
 						</>
 					) : (
