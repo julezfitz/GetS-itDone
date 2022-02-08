@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import {Button} from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -66,6 +67,9 @@ export default function RegisterModal({ open, handleClose }) {
                   autoComplete="current-password"
                 />
               </div>
+              <Button size="large" variant="contained" fullWidth>
+                  Create Account
+              </Button>
             </Box>
           </Typography>
         </Box>
