@@ -5,8 +5,9 @@ import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import ButtonBase from "@mui/material/ButtonBase";
 
-export default function OffersListItem() {
-  
+export default function OffersListItem(props) {
+//to do on this page - add rating count and hyperlink it to the ratings view
+
   return (
     <Grid container spacing={2}>
       <Grid item></Grid>
@@ -14,10 +15,10 @@ export default function OffersListItem() {
         <Grid item xs container direction="column">
           <Grid item xs>
             <Typography gutterBottom variant="subtitle1" component="div">
-              John Smith
+           {props.offer.firstName} {props.offer.lastName}
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <Rating name="user-rating" size="small" value={4} readOnly />
+              <Rating name="user-rating" size="small" value={props.offer.averageRating} readOnly />
             </Typography>
           </Grid>
           <Grid item>

@@ -126,14 +126,16 @@ export default function ResponsiveAppBar(props) {
 		<AppBar position='fixed'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					<Typography
-						variant='h6'
-						noWrap
-						component='div'
-						sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-					>
-						Get S*it Done
-					</Typography>
+					<Link to={"/"}>
+						<Typography
+							variant='h6'
+							noWrap
+							component='div'
+							sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+						>
+							Get S*it Done
+						</Typography>
+					</Link>
 
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
 						<IconButton
@@ -191,38 +193,43 @@ export default function ResponsiveAppBar(props) {
 						/>
 					</Search>
 					<Box sx={{ flexGrow: 1 }} />
-					<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
-						<>
-							<Button
-								key='CreateNewListing'
-								onClick={handleNewListingOpen}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
-								Create New Listing
-							</Button>
-							<NewListingModal
-								open={newListingOpen}
-								handleClose={handleNewListingClose}
-							/>
-						</>
-					</Box>
-					<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
-						<>
-							<Button
-								key='NewRating'
-								onClick={handleNewRatingOpen}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
-								New Rating
-							</Button>
-							<NewRatingModal
-								open={newRatingOpen}
-								handleClose={handleNewRatingClose}
-							/>
-						</>
-					</Box>
+
 					{isLoggedIn ? (
 						<>
+							<Box
+								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
+							>
+								<>
+									<Button
+										key='CreateNewListing'
+										onClick={handleNewListingOpen}
+										sx={{ my: 2, color: "white", display: "block" }}
+									>
+										Create New Listing
+									</Button>
+									<NewListingModal
+										open={newListingOpen}
+										handleClose={handleNewListingClose}
+									/>
+								</>
+							</Box>
+							<Box
+								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
+							>
+								<>
+									<Button
+										key='NewRating'
+										onClick={handleNewRatingOpen}
+										sx={{ my: 2, color: "white", display: "block" }}
+									>
+										New Rating
+									</Button>
+									<NewRatingModal
+										open={newRatingOpen}
+										handleClose={handleNewRatingClose}
+									/>
+								</>
+							</Box>
 							<Box
 								sx={{
 									maxWidth: "150px",
