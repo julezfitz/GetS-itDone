@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
+
 import {
 	Profile,
 	Search,
@@ -12,6 +13,7 @@ import {
 } from "./Views/index";
 import { UserContext } from "./Application";
 import SearchList from "./Search/SearchList";
+import MyListings from "./Listings/MyListings";
 
 function Routing() {
 	const { isLoggedIn } = useContext(UserContext);
@@ -23,12 +25,16 @@ function Routing() {
 					path='/'
 					element={isLoggedIn ? <SearchList /> : <LoggedOutHome />}
 				/>
-				<Route path='/create' element={<Create />} />
-				<Route path='/profile' element={<Profile />} />
+
+				<Route
+					path='/profile'
+					element={isLoggedIn ? <Profile /> : <Navigate to='/' />}
+				/>
 				<Route path='/search' element={<Search />} />
-				<Route path='/listings' element={<UserListings />} />
-				<Route path='/listings/:id' element={<UpdateListing />} />
-				<Route path='/update/:id' element={<SingleListing />} />
+				<Route
+					path='/listings'
+					element={isLoggedIn ? <MyListings /> : <Navigate to='/' />}
+				/>
 			</Routes>
 		</>
 	);
