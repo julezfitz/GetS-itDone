@@ -18,7 +18,7 @@ export default function CategoryList() {
     axios.get(`http://localhost:8001/categories`).then((result) => {
       return setCategories(result.data);
     })
-  }))
+  }), [])
 
   //loop through categories to create category list
 
@@ -33,10 +33,9 @@ export default function CategoryList() {
           label="Category"
           onChange={handleChange}
         >
-          <MenuItem value={10}>House Work</MenuItem>
-          <MenuItem value={10}>Yard Work</MenuItem>
-          <MenuItem value={10}>Grocery Shopping</MenuItem>
-          <MenuItem value={30}>Other</MenuItem>
+          {categories.map((category) => {
+            return <MenuItem value={category.id}>{category.category}</MenuItem>
+          })}
         </Select>
       </FormControl>
     </Box>
