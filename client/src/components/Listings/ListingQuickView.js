@@ -4,10 +4,12 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { Divider } from "@mui/material";
 
-export default function ListingQuickView({ children }) {
+export default function ListingQuickView(props) {
   const [state, setState] = React.useState({
     right: false,
   });
+
+  console.log(props.listing);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -21,10 +23,10 @@ export default function ListingQuickView({ children }) {
         <Item>
           <h3>Details</h3>
           <Divider />
-          <h3>Title: Clean My Yard</h3>
+          <h3>Title: {props.listing.title}</h3>
           <h3>Category: Yard Work</h3>
-          <h3>Amount: $500.00</h3>
-          <h3>Date: February 4, 2022</h3>
+          <h3>Amount: {props.listing.price}</h3>
+          <h3>Date: {props.listing.created}</h3>
         </Item>
       </Stack>
     </div>

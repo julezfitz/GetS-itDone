@@ -54,7 +54,6 @@ export default function Application() {
 	const [search, setSearch] = useState("")
 
 	const handleSearch = function (e) {
-		console.log(e.target.value);
 		setSearch(e.target.value);
 	}
 
