@@ -1,19 +1,12 @@
-import React, { useContext } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import {
-	Profile,
-	Search,
-	UserOffers,
-	UserListings,
-	SingleListing,
-	UpdateListing,
-	Create,
-	LoggedOutHome,
-} from "./Views/index";
+import React, { useContext, useEffect, useState } from "react";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
+import LoggedOutHome from "./LoggedOut/Landing/LoggedOut";
 import { UserContext } from "./Application";
 import SearchList from "./Search/SearchList";
+import MyListings from "./Listings/MyListings";
+import OffersList from "./Offers/OffersList";
 
-function Routing() {
+function Routing({ keywords }) {
 	const { isLoggedIn } = useContext(UserContext);
 
 	return (
@@ -23,12 +16,26 @@ function Routing() {
 					path='/'
 					element={isLoggedIn ? <SearchList /> : <LoggedOutHome />}
 				/>
-				<Route path='/create' element={<Create />} />
-				<Route path='/profile' element={<Profile />} />
-				<Route path='/search' element={<Search />} />
-				<Route path='/listings' element={<UserListings />} />
-				<Route path='/listings/:id' element={<UpdateListing />} />
-				<Route path='/update/:id' element={<SingleListing />} />
+
+				{/* <Route
+					path='/profile'
+					element={isLoggedIn ? <Profile /> : <Navigate to='/' />}
+				/> */}
+
+				<Route
+					path='/listings'
+					element={isLoggedIn ? <MyListings /> : () => <Navigate to='/' />}
+				/>
+
+				<Route
+					path='/offers'
+					element={isLoggedIn ? <OffersList /> : () => <Navigate to='/' />}
+				/>
+
+				<Route
+					path='/listings/:id'
+					element={isLoggedIn ? <OffersList /> : () => <Navigate to='/' />}
+				/>
 			</Routes>
 		</>
 	);
