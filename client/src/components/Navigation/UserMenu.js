@@ -9,8 +9,7 @@ const MENULINKSTYLES = {
 	height: "100%",
 	width: "100%",
 	textAlign: "left",
-	padding: "0.6rem 2rem"
-
+	padding: "0.6rem 2rem",
 };
 
 function UserMenu({
@@ -52,7 +51,11 @@ function UserMenu({
 			onClose={handleCloseUserMenu}
 		>
 			{settings.map((setting, i) => (
-				<MenuItem key={i} onClick={handleCloseUserMenu} sx={{padding: 0}}>
+				<MenuItem
+					key={i}
+					onClick={handleCloseUserMenu}
+					sx={{ padding: 0, "& p": { textAlign: "left" } }}
+				>
 					<Link
 						key={i}
 						to={setting.path}
