@@ -22,6 +22,8 @@ import NewListingModal from "../Listings/New";
 import NewRatingModal from "../Ratings/NewRating";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Application";
+import { handleLogOut } from "./helpers/handleLogOut";
+import UserMenu from "./helpers/UserMenu";
 
 const pages = ["Register", "Login"];
 
@@ -92,7 +94,7 @@ export default function ResponsiveAppBar() {
 	const [newListingOpen, setNewListingOpen] = React.useState(false);
 	const [newRatingOpen, setNewRatingOpen] = React.useState(false);
 
-	const { isLoggedIn, userDetails } = useContext(UserContext);
+	const { isLoggedIn, userDetails, toggleLoggedIn } = useContext(UserContext);
 
 	const handleRegisterOpen = () => setRegisterOpen(true);
 	const handleRegisterClose = () => setRegisterOpen(false);
@@ -246,32 +248,7 @@ export default function ResponsiveAppBar() {
 										/>
 									</IconButton>
 								</Tooltip>
-								<Menu
-									sx={{ mt: "45px" }}
-									id='menu-appbar'
-									anchorEl={anchorElUser}
-									anchorOrigin={{
-										vertical: "top",
-										horizontal: "right",
-									}}
-									keepMounted
-									transformOrigin={{
-										vertical: "top",
-										horizontal: "right",
-									}}
-									open={Boolean(anchorElUser)}
-									onClose={handleCloseUserMenu}
-								>
-									{settings.map(setting => (
-										<MenuItem key={setting} onClick={handleCloseUserMenu}>
-											<Link to={setting.path} className='menuLink'>
-												<Typography textAlign='center'>
-													{setting.title}
-												</Typography>
-											</Link>
-										</MenuItem>
-									))}
-								</Menu>
+								<UserMenu settings={settings} />
 							</Box>
 						</>
 					) : (
