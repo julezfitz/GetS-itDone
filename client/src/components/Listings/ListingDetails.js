@@ -5,7 +5,8 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 
-export default function ListingDetails({ children }) {
+export default function ListingDetails(props) {
+  //probably need to do an api call here to get all the details -- Julie
   const [state, setState] = React.useState({
     right: false,
   });
@@ -35,7 +36,7 @@ export default function ListingDetails({ children }) {
             style={{ cursor: "pointer" }}
             onClick={toggleDrawer(anchor, true)}
           >
-            {children}
+            {props.children}
           </div>
           <Drawer
             anchor={anchor}
@@ -44,14 +45,14 @@ export default function ListingDetails({ children }) {
             PaperProps={{ style: { top: "70px" } }}
           >
             <Stack spacing={2}>
-              <h1>Clean My Yard</h1>
+              <h1>{props.listing.title}</h1>
               <Item>
                 <h3>Amount Offered: $500.00</h3>
               </Item>
               <Item>
                 {/* <img
               sx={{ maxWidth: '25%', maxHeight: '25%' }}
-              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1773&q=80"
+              src={props.listing.image_1}
               alt="beachPicture"
               loading="lazy"
             /> */}
@@ -63,11 +64,9 @@ export default function ListingDetails({ children }) {
                 <h4>Poster: John Smith</h4>
                 <h3>Description</h3>
                 <p>
-                  I know it'll be challenging but I'd like someone to come and
-                  clean up my beach. I will also need you to rake the beach so
-                  that it is even.
+                {props.listing.description}
                 </p>
-                <h4>Date Listed: February 4, 2022</h4>
+                <h4>{props.listing.created}</h4>
               </Item>
             </Stack>
           </Drawer>
