@@ -56,8 +56,13 @@ module.exports = db => {
 
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
+		const response = {
+			authentication: {
+				isLoggedOut: true
+			}
+		}
 		req.session = null;
-		res.status(200).send({ message: "Logout successful" });
+		res.status(200).send(response);
 	});
 
 	//Check to see if a user is logged in
@@ -494,7 +499,6 @@ module.exports.apiDocs = {
 				201: {
 					description: "Session Terminated",
 				},
-			
 			},
 		},
 	},

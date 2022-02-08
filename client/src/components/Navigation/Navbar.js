@@ -252,6 +252,7 @@ export default function ResponsiveAppBar() {
 									settings={settings}
 									handleCloseUserMenu={handleCloseUserMenu}
 									anchorElUser={anchorElUser}
+									toggleLoggedIn={toggleLoggedIn}
 								/>
 							</Box>
 						</>

@@ -3,14 +3,22 @@ import { Menu, MenuItem, MenuList, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function UserMenu({ settings, anchorElUser, handleCloseUserMenu }) {
+function UserMenu({
+	settings,
+	anchorElUser,
+	handleCloseUserMenu,
+	toggleLoggedIn,
+}) {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		if (loading) {
+			console.log("in here!");
 			axios
-				.post("http://localhost:8001/user/logout")
-				.then(res => console.log(res))
+				.post("http://localhost:8001/user/logout", {})
+				.then(
+					res => res.data.authentication.isLoggedOut && toggleLoggedIn(null)
+				)
 				.catch(err => console.log(err));
 		}
 	}, [loading]);
