@@ -461,6 +461,43 @@ module.exports.apiDocs = {
 			},
 		},
 	},
+	"/user/logout": {
+		post: {
+			description: "Log out of a user account",
+			tags: ["users"],
+			requestBody: {
+				description: "user email and password",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							description: "Email and password",
+							properties: {
+								email: {
+									type: "string",
+									required: true,
+								},
+								password: {
+									type: "string",
+									required: true,
+								},
+							},
+						},
+						example: {
+							email: "jsmith@email.com",
+							password: "password",
+						},
+					},
+				},
+			},
+			responses: {
+				201: {
+					description: "Session Terminated",
+				},
+			
+			},
+		},
+	},
 
 	"/user/{userId}": {
 		get: {
