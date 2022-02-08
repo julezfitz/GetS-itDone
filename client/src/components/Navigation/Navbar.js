@@ -191,38 +191,43 @@ export default function ResponsiveAppBar(props) {
 						/>
 					</Search>
 					<Box sx={{ flexGrow: 1 }} />
-					<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
-						<>
-							<Button
-								key='CreateNewListing'
-								onClick={handleNewListingOpen}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
-								Create New Listing
-							</Button>
-							<NewListingModal
-								open={newListingOpen}
-								handleClose={handleNewListingClose}
-							/>
-						</>
-					</Box>
-					<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
-						<>
-							<Button
-								key='NewRating'
-								onClick={handleNewRatingOpen}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
-								New Rating
-							</Button>
-							<NewRatingModal
-								open={newRatingOpen}
-								handleClose={handleNewRatingClose}
-							/>
-						</>
-					</Box>
+
 					{isLoggedIn ? (
 						<>
+							<Box
+								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
+							>
+								<>
+									<Button
+										key='CreateNewListing'
+										onClick={handleNewListingOpen}
+										sx={{ my: 2, color: "white", display: "block" }}
+									>
+										Create New Listing
+									</Button>
+									<NewListingModal
+										open={newListingOpen}
+										handleClose={handleNewListingClose}
+									/>
+								</>
+							</Box>
+							<Box
+								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
+							>
+								<>
+									<Button
+										key='NewRating'
+										onClick={handleNewRatingOpen}
+										sx={{ my: 2, color: "white", display: "block" }}
+									>
+										New Rating
+									</Button>
+									<NewRatingModal
+										open={newRatingOpen}
+										handleClose={handleNewRatingClose}
+									/>
+								</>
+							</Box>
 							<Box
 								sx={{
 									maxWidth: "150px",
