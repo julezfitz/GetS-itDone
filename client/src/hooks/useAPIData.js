@@ -43,6 +43,7 @@ export default function useAPIData(props) {
     const [state, dispatch] = useReducer(reducer, {
         categories: [],
         listings: [],
+        currentListing: {},
         notifications: [],
         offers: [],
         ratings: [],
@@ -63,7 +64,6 @@ export default function useAPIData(props) {
         //     orderBy: "", 
         //     sortOrder: "" 
         // }
-
         let queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
 
         return axios.get(`http://localhost:8001/listings/${queryString}`)
@@ -72,7 +72,21 @@ export default function useAPIData(props) {
             })
     }
 
+    const createListing = function (listing) {
+        return axios.post(`http://localhost:8001/listings/`, { listing })
+          .then(result => {
+            dispatch({ type: "SET_LISTING", currentListing: result.data })
+          })
+      }
 
+
+    let returnedStateVals = {
+        state: state,
+        getListings: getListings,
+        createListing: createListing
+      }
+    
+      return returnedStateVals;
 
     // const [categories, setCategories] = useState({
     //     categories: [],
