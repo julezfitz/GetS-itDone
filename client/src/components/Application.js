@@ -10,6 +10,9 @@ import { createContext } from "react";
 export const UserContext = createContext();
 
 export default function Application() {
+	//Do not remove - allows axios to receive cookies
+	axios.defaults.withCredentials = true;
+
 	const [globalState, setGlobalState] = useState({
 		user: {
 			isLoggedIn: false,
@@ -18,6 +21,7 @@ export default function Application() {
 	});
 
 	const toggleLoggedIn = userDetails => {
+		console.log(globalState.user.isLoggedIn);
 		setGlobalState(prev => ({
 			...prev,
 			user: {
@@ -57,15 +61,18 @@ export default function Application() {
 	//   });;// //
 	// }, []);
 	// ********************
-	useEffect(() => {
-		axios.get(`http://localhost:8001/user/session`).then(res => console.log);
-	}, []);
+	// useEffect(() => {
+	// 	axios.get(`http://localhost:8001/user/session`).then(res => console.log);
+	// }, []);
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:8001/user/session`)
-			.then(res => console.log("ok", res))
-			.catch(err => console.log(err));
+		//Initial check to see if a cookie is set, change user state according to response
+		if (!globalState.user.isLoggedIn) {
+			axios
+				.get(`http://localhost:8001/user/session`)
+				.then(res => res.data.isAuthenticated && toggleLoggedIn(res.data.user))
+				.catch(err => console.log(err));
+		}
 	}, []);
 
 	return (
