@@ -20,6 +20,7 @@ export default function Application() {
 	});
 
 	const toggleLoggedIn = userDetails => {
+		console.log(globalState.user.isLoggedIn);
 		setGlobalState(prev => ({
 			...prev,
 			user: {
@@ -64,17 +65,11 @@ export default function Application() {
 	// }, []);
 
 	useEffect(() => {
+		//Initial check to see if a cookie is set, change user state according to response
 		if (!globalState.user.isLoggedIn) {
 			axios
 				.get(`http://localhost:8001/user/session`)
-				.then(
-					res =>
-						res.data.isAuthenticated &&
-						setGlobalState(prev => ({
-							...prev,
-							user: { isLoggedIn: true, details: res.data.user },
-						}))
-				)
+				.then(res => res.data.isAuthenticated && toggleLoggedIn(res.data.user))
 				.catch(err => console.log(err));
 		}
 	}, []);
