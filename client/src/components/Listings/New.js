@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import CategoryList from "../Categories/CategoryList";
 
 const style = {
   position: "absolute",
@@ -16,9 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function RegisterModal({ open, handleClose }) {
-  const [firstName, setFirstName] = useState("");
-
+export default function NewListingModal({ open, handleClose }) {
   return (
     <div>
       <Modal
@@ -29,7 +28,7 @@ export default function RegisterModal({ open, handleClose }) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Register an Account
+            Create New Listing
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box
@@ -39,31 +38,23 @@ export default function RegisterModal({ open, handleClose }) {
               autoComplete="off"
             >
               <div>
+                <TextField required id="outlined-required" label="Title" />
+                <CategoryList />
                 <TextField
                   required
                   id="outlined-required"
-                  label="First Name"
-                  value={firstName}
-                  onChange={(event) => setFirstName(event.target.value)}
+                  label="Description"
                 />
-                <TextField required id="outlined-required" label="Last Name" />
-                <TextField required id="outlined-required" label="Email" />
-                <TextField required id="outlined-required" label="City/Town" />
-                <TextField required id="outlined-required" label="Postal Code" />
-                <TextField required id="outlined-required" label="Country" />
+                <TextField required id="outlined-password-input" label="City" />
                 <TextField
                   required
                   id="outlined-password-input"
-                  label="Password"
-                  type="password"
-                  autoComplete="current-password"
+                  label="Postal Code"
                 />
                 <TextField
                   required
                   id="outlined-password-input"
-                  label="Password Confirmation"
-                  type="password"
-                  autoComplete="current-password"
+                  label="Price"
                 />
               </div>
             </Box>

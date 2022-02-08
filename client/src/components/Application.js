@@ -1,80 +1,97 @@
 import React, { useState, useEffect } from "react";
-import "./Application.scss";
 import Navbar from "./Navigation/Navbar";
-import Register from "./User/Register";
-import Login from "./User/Login";
 import SearchList from "./Search/SearchList";
+import MyListings from './Listings/MyListings';
 import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
+import { createContext } from "react";
+
+export const UserContext = createContext();
 
 export default function Application() {
-	const [showRegister, setShowRegister] = useState(false);
-	const [showLogin, setShowLogin] = useState(false);
+	//Do not remove - allows axios to receive cookies
+	axios.defaults.withCredentials = true;
 
-	const openLogin = () => {
-		setShowLogin(prev => !prev);
+	const [globalState, setGlobalState] = useState({
+		user: {
+			isLoggedIn: false,
+			details: {},
+		},
+	});
+
+	const toggleLoggedIn = userDetails => {
+		console.log(globalState.user.isLoggedIn);
+		setGlobalState(prev => ({
+			...prev,
+			user: {
+				isLoggedIn: !globalState.user.isLoggedIn,
+				details: userDetails,
+			},
+		}));
 	};
 
-	const openRegister = () => {
-		setShowRegister(prev => !prev);
+	const userControls = {
+		toggleLoggedIn,
+		isLoggedIn: globalState.user.isLoggedIn,
+		userDetails: globalState.user.details,
 	};
 
-	/*
-Matt's work below -- 
+	// // ********************
+	//Julie working out how to make calls to db to set state for multiple things
+	// const [categories, setCategories] = useState({
+	//   status: "loading",
+	//   data: null,
+	//   errors: null
+	// });
 
-import "../styles/scss/Application.scss";
-import { Routes, Route, Link } from "react-router-dom";
-import {
-	Profile,
-	Search,
-	UserOffers,
-	UserListings,
-	SingleListing,
-	UpdateListing,
-	Create,
-} from "./Views/index";
-import NavBar from "./Navigation/Navbar";
-import axios from "axios";
+	// useEffect(() => {
+	// 	axios.get(`http://localhost:8001/categories`).then(result => {
+	//     setDataInfo({
+	//     status: "fetched",
+	//     data: result.data,
+	//     error: null
+	//   });
+	// 	}).catch((err) => {
+	//   console.error('Failed to fetch remote data: ', err);
+	//   return setCategories({
+	//     status: "error",
+	//     data: null,
+	//     error: err
+	//   });;// //
+	// }, []);
+	// ********************
+	// useEffect(() => {
+	// 	axios.get(`http://localhost:8001/user/session`).then(res => console.log);
+	// }, []);
 
-export default function Application() {
 	useEffect(() => {
-		axios
-			.get("http://localhost:8001/user/2")
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
+		//Initial check to see if a cookie is set, change user state according to response
+		if (!globalState.user.isLoggedIn) {
+			axios
+				.get(`http://localhost:8001/user/session`)
+				.then(res => res.data.isAuthenticated && toggleLoggedIn(res.data.user))
+				.catch(err => console.log(err));
+		}
 	}, []);
-	*/
 
 	return (
-		<div>
-			<section className='app-nav'>
-				<Navbar
-					openRegister={openRegister}
-					showRegister={showRegister}
-					setShowRegister={setShowRegister}
-					openLogin={openLogin}
-					showLogin={showLogin}
-					setShowLogin={setShowLogin}
-				/>
-				<Register
-					showRegister={showRegister}
-					setShowRegister={setShowRegister}
-				/>
-				<Login showLogin={showLogin} setShowLogin={setShowLogin} />
-			</section>
-			<main>
-				<Routing />
-				<section className='main'>
-					<p className='main__text'>All results for: Home</p>
-					<hr className='main__x-separator main--centered' />
-					<div>
-						<span className='main__text'>Category:</span>
-						<span className='main__text'>Sort By: Date</span>
-					</div>
-					<SearchList />
+		<UserContext.Provider value={userControls}>
+			<div>
+				<section>
+					<Navbar />
 				</section>
-			</main>
-		</div>
+				<section>
+					<Routing />
+					<p className='main__text'>All results for: Home</p>
+					<div>
+						<span>Category:</span>
+						<span>Sort By: Date</span>
+					</div>
+					{/* <SearchList /> */}
+					<MyListings />
+				</section>
+			</div>
+		</UserContext.Provider>
 	);
 }
