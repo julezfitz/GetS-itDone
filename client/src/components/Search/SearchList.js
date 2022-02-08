@@ -23,7 +23,7 @@ export default function SearchList({ keywords }) {
   return (
     <Item>
       {listings.map((listing) => {
-        return <ListingDetails><SearchListItem listing={listing} /></ListingDetails>
+        return <ListingDetails listing={listing}><SearchListItem listing={listing} /></ListingDetails>
       })}
     </Item>
   );

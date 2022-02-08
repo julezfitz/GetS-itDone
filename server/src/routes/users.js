@@ -58,9 +58,9 @@ module.exports = db => {
 	router.post("/user/logout", (req, res) => {
 		const response = {
 			authentication: {
-				isLoggedOut: true
-			}
-		}
+				isLoggedOut: true,
+			},
+		};
 		req.session = null;
 		res.status(200).send(response);
 	});
