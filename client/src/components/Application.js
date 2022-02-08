@@ -7,6 +7,7 @@ import Routing from "./Routing";
 import "normalize.css";
 import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
+import { Box } from "@mui/material";
 
 export const UserContext = createContext();
 
@@ -66,7 +67,7 @@ export default function Application() {
 			<section>
 				<Navbar onSearch={handleSearch} />
 			</section>
-			<main className='main-content' style={{ paddingTop: "4.2rem" }}>
+			<Box component={"main"}>
 				<section>
 					<Routing keywords={search} />
 					<p className='main__text'>All results for: Home</p>
@@ -76,7 +77,7 @@ export default function Application() {
 					</div>
 					<SearchList keywords={search} />
 				</section>
-			</main>
+			</Box>
 		</UserContext.Provider>
 	);
 }
