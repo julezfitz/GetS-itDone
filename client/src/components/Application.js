@@ -37,29 +37,6 @@ export default function Application() {
 		userDetails: globalState.user.details,
 	};
 
-	// // ********************
-	//Julie working out how to make calls to db to set state for multiple things
-	// const [categories, setCategories] = useState({
-	//   status: "loading",
-	//   data: null,
-	//   errors: null
-	// });
-
-	// useEffect(() => {
-	// 	axios.get(`http://localhost:8001/categories`).then(result => {
-	//     setDataInfo({
-	//     status: "fetched",
-	//     data: result.data,
-	//     error: null
-	//   });
-	// 	}).catch((err) => {
-	//   console.error('Failed to fetch remote data: ', err);
-	//   return setCategories({
-	//     status: "error",
-	//     data: null,
-	//     error: err
-	//   });;// //
-	// }, []);
 	// ********************
 	// useEffect(() => {
 	// 	axios.get(`http://localhost:8001/user/session`).then(res => console.log);
