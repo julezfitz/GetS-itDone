@@ -67,7 +67,8 @@ export default function Application() {
 			<section>
 				<Navbar onSearch={handleSearch} />
 			</section>
-			<Box component={"main"}>
+			<main className={`content-wrapper`}>
+				<Box className="content-inner">
 				<section>
 					<Routing keywords={search} />
 					<p className='main__text'>All results for: Home</p>
@@ -77,7 +78,8 @@ export default function Application() {
 					</div>
 					<SearchList keywords={search} />
 				</section>
-			</Box>
+				</Box>
+			</main>
 		</UserContext.Provider>
 	);
 }
