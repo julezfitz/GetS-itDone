@@ -27,6 +27,8 @@ export default function MyListings() {
     })
   }), [userDetails])
 
+  console.log(listings);
+
   const [listing, setListing] = useState("")
 
 	const handleListingChange = function () {

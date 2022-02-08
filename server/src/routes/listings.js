@@ -9,7 +9,11 @@ module.exports = db => {
 
         let queryString = `SELECT * FROM listings`;
 
-        creatorId ? (queryString += ` WHERE creator_id = ${creatorId}`) : "";
+        if(creatorId) {
+            queryString = `SELECT listings.*, categories.category FROM listings
+        JOIN listing_categories ON (listings.id = listing_categories.listing_id)
+        JOIN categories ON (categories.id = listing_categories.category_id) 
+        WHERE listings.creator_id = ${creatorId}`}
 
         category ? (queryString += ` JOIN listing_categories ON listings.id = listing_categories.listing_id 
         WHERE listing_categories.category_id = ${category}`) : "";
