@@ -3,6 +3,16 @@ import { Menu, MenuItem, MenuList, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+const MENULINKSTYLES = {
+	textDecoration: "none",
+	color: "inherit",
+	height: "100%",
+	width: "100%",
+	textAlign: "left",
+	padding: "0.6rem 2rem"
+
+};
+
 function UserMenu({
 	settings,
 	anchorElUser,
@@ -19,7 +29,8 @@ function UserMenu({
 				.then(
 					res => res.data.authentication.isLoggedOut && toggleLoggedIn(null)
 				)
-				.catch(err => console.log(err));
+				.catch(err => console.log(err))
+				.finally(setLoading(false));
 		}
 	}, [loading]);
 
@@ -41,12 +52,12 @@ function UserMenu({
 			onClose={handleCloseUserMenu}
 		>
 			{settings.map((setting, i) => (
-				<MenuItem key={i} onClick={handleCloseUserMenu}>
+				<MenuItem key={i} onClick={handleCloseUserMenu} sx={{padding: 0}}>
 					<Link
 						key={i}
 						to={setting.path}
 						className='menuLink'
-						style={{ textDecoration: "none", color: "inherit" }}
+						style={MENULINKSTYLES}
 						onClick={() =>
 							setting.title === "Log Out" ? setLoading(true) : ""
 						}

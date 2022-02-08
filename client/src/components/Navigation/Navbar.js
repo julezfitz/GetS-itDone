@@ -22,8 +22,7 @@ import NewListingModal from "../Listings/New";
 import NewRatingModal from "../Ratings/NewRating";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Application";
-import { handleLogOut } from "./helpers/handleLogOut";
-import UserMenu from "./helpers/UserMenu";
+import UserMenu from "./UserMenu";
 
 const pages = ["Register", "Login"];
 
