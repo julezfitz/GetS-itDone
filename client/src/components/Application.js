@@ -6,6 +6,9 @@ import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
 import { createContext } from "react";
+import { GlobalStyles } from "../styles/globalStyles";
+import { Box } from "@mui/material";
+import ListingDetails from "./Listings/ListingDetails";
 
 export const UserContext = createContext();
 
@@ -51,29 +54,32 @@ export default function Application() {
 		}
 	}, []);
 
-	const [search, setSearch] = useState("")
+	const [search, setSearch] = useState("");
 
 	const handleSearch = function (e) {
 		setSearch(e.target.value);
-	}
+	};
 
 	return (
 		<UserContext.Provider value={userControls}>
-			<div>
-				<section>
-					<Navbar onSearch={handleSearch} />
-				</section>
-				<section>
-					<Routing />
-					<p className='main__text'>All results for: Home</p>
-					<div>
-						<span>Category:</span>
-						<span>Sort By: Date</span>
-					</div>
-					<SearchList keywords={search}/>
-					<MyListings />
-				</section>
-			</div>
+			<GlobalStyles />
+
+			<section>
+				<Navbar onSearch={handleSearch} />
+			</section>
+			<main className={`content-wrapper`}>
+				<Box className='content-inner'>
+					<section>
+						<Routing keywords={search} />
+						<p className='main__text'>All results for: Home</p>
+						<div>
+							<span>Category:</span>
+							<span>Sort By: Date</span>
+						</div>
+						<SearchList keywords={search} />
+					</section>
+				</Box>
+			</main>
 		</UserContext.Provider>
 	);
 }
