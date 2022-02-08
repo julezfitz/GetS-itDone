@@ -248,7 +248,11 @@ export default function ResponsiveAppBar() {
 										/>
 									</IconButton>
 								</Tooltip>
-								<UserMenu settings={settings} />
+								<UserMenu
+									settings={settings}
+									handleCloseUserMenu={handleCloseUserMenu}
+									anchorElUser={anchorElUser}
+								/>
 							</Box>
 						</>
 					) : (

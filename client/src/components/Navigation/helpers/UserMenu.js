@@ -1,7 +1,20 @@
-import React from "react";
-import { Menu, MenuItem, MenuList } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Menu, MenuItem, MenuList, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-function UserMenu({ settings }) {
+function UserMenu({ settings, anchorElUser, handleCloseUserMenu }) {
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		if (loading) {
+			axios
+				.post("http://localhost:8001/user/logout")
+				.then(res => console.log(res))
+				.catch(err => console.log(err));
+		}
+	}, [loading]);
+
 	return (
 		<Menu
 			sx={{ mt: "45px" }}
@@ -27,7 +40,7 @@ function UserMenu({ settings }) {
 						className='menuLink'
 						style={{ textDecoration: "none", color: "inherit" }}
 						onClick={() =>
-							setting.title === "Log Out" ? handleLogOut(toggleLoggedIn) : ""
+							setting.title === "Log Out" ? setLoading(true) : ""
 						}
 					>
 						<Typography textAlign='center'>{setting.title}</Typography>
