@@ -264,7 +264,7 @@ export default function ResponsiveAppBar() {
 								>
 									{settings.map(setting => (
 										<MenuItem key={setting} onClick={handleCloseUserMenu}>
-											<Link to={"/"} className='menuLink'>
+											<Link to={setting.path} className='menuLink'>
 												<Typography textAlign='center'>
 													{setting.title}
 												</Typography>
