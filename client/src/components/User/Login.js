@@ -19,6 +19,8 @@ const style = {
 	p: 4,
 };
 
+const ELEMENTSPACING = "1rem";
+
 export default function LoginModal({ open, handleClose }) {
 	const { toggleLoggedIn, isLoggedIn } = useContext(UserContext);
 
@@ -31,6 +33,7 @@ export default function LoginModal({ open, handleClose }) {
 
 	useEffect(() => {
 		if (loading) {
+			console.log("in here!!!");
 			axios
 				.post("http://localhost:8001/user/session", {
 					email: value.email,
@@ -61,6 +64,11 @@ export default function LoginModal({ open, handleClose }) {
 		}));
 	};
 
+	const handleSubmit = e => {
+		e.preventDefault();
+		setLoading(true);
+	};
+
 	return (
 		<div>
 			<Modal
@@ -79,40 +87,43 @@ export default function LoginModal({ open, handleClose }) {
 							sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
 							noValidate
 							autoComplete='off'
+							onSubmit={handleSubmit}
 						>
-							<div>
-								<TextField
-									required
-									id='outlined-required'
-									label='Email'
-									name='email'
-									value={value.email}
-									onChange={handleChange}
-								/>
-								<TextField
-									required
-									id='outlined-password-input'
-									label='Password'
-									type='password'
-									autoComplete='current-password'
-									name='password'
-									value={value.password}
-									onChange={handleChange}
-								/>
-								{/* <p>{user.isLoggedIn}</p> */}
-							</div>
+							<TextField
+								fullWidth
+								required
+								id='outlined-required'
+								label='Email'
+								name='email'
+								value={value.email}
+								onChange={handleChange}
+							/>
+							<TextField
+								fullWidth
+								required
+								id='outlined-password-input'
+								label='Password'
+								type='password'
+								autoComplete='current-password'
+								name='password'
+								value={value.password}
+								onChange={handleChange}
+							/>
+							{/* <p>{user.isLoggedIn}</p> */}
+
 							<Button
+								type='submit'
 								color='primary'
 								fullWidth
 								variant='contained'
-								onClick={() => setLoading(true)}
+								sx={{ marginTop: ELEMENTSPACING }}
 							>
 								{loading ? "Loading..." : "Log in"}
 							</Button>
 							{errors &&
 								errors.map(err => {
 									return (
-										<Alert severity='error' sx={{ marginTop: "1rem" }}>
+										<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
 											{err.message}
 										</Alert>
 									);
