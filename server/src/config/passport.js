@@ -12,7 +12,7 @@ module.exports = (passport, db) => {
 				//First get user by email
 				db.query(
 					`
-        	SELECT id, email, first_name, last_name, password
+        	SELECT id, email, first_name, last_name, password, city
         	FROM users
         	WHERE email = $1;
       	`,
@@ -31,6 +31,7 @@ module.exports = (passport, db) => {
 									email: user[0].email,
 									firstName: user[0]["first_name"],
 									lastName: user[0]["last_name"],
+									city: user[0]["city"],
 								});
 							} else {
 								return done(null, false, { message: "Incorrect password" });
