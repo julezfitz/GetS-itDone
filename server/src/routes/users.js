@@ -58,9 +58,9 @@ module.exports = db => {
 	router.post("/user/logout", (req, res) => {
 		const response = {
 			authentication: {
-				isLoggedOut: true
-			}
-		}
+				isLoggedOut: true,
+			},
+		};
 		req.session = null;
 		res.status(200).send(response);
 	});
@@ -81,6 +81,14 @@ module.exports = db => {
 
 	//User attempts to register
 	router.post("/user/register", (req, res) => {
+		const response = {
+			registration: {
+				isRegistered: false,
+				errors: [],
+				user: null,
+			},
+		};
+
 		const hasEmptyField = checkIfEmpty(req.body);
 		const {
 			firstName,
@@ -99,10 +107,10 @@ module.exports = db => {
 
 		//Check if any fields are empty
 		if (hasEmptyField) {
-			registerErrors.errors.push({
+			response.registration.errors.push({
 				message: "Please fill out all the fields.",
 			});
-			res.send(registerErrors);
+			res.send(response);
 			return;
 		}
 
@@ -118,15 +126,19 @@ module.exports = db => {
 			.then(user => {
 				//If email is returned from db, send error message
 				if (user.rows.length) {
-					registerErrors.errors.push({ message: "E-mail already exists" });
-					res.send(registerErrors);
+					response.registration.errors.push({
+						message: "E-mail already exists",
+					});
+					res.send(response);
 					return;
 				}
 
 				//If user does not exist, check to see if password + passwordConfirmation match
 				if (password !== passwordConfirmation) {
-					registerErrors.errors.push({ message: "Passwords do not match" });
-					res.send(registerErrors);
+					response.registration.errors.push({
+						message: "Passwords do not match",
+					});
+					res.send(response);
 					return;
 				}
 
@@ -156,19 +168,15 @@ module.exports = db => {
 							email: success.rows[0].email,
 						};
 
-						res.send({
-							success: {
-								user: success.rows[0],
-							},
-						});
+						response.registration.user = success.rows[0];
 					})
 					.catch(err => {
 						//Catch any possible server/db errors and send response
-						registerErrors.errors.push({
+						response.registration.errors.push({
 							message: "Server error. Please try again.",
 						});
 						console.log(err);
-						res.send(registerErrors);
+						res.send(response);
 					});
 			});
 	});
@@ -286,10 +294,6 @@ const userObjProperties = {
 		type: "string",
 		description: "Country.",
 	},
-	image: {
-		type: "string",
-		description: "Image.",
-	},
 };
 
 /***** OPENAPI DOCS *******/
@@ -305,17 +309,6 @@ module.exports.apiDocs = {
 					"application/json": {
 						schema: {
 							type: "object",
-							required: [
-								"firstName",
-								"lastName",
-								"email",
-								"password",
-								"password2",
-								"city",
-								"province",
-								"postalCode",
-								"country",
-							],
 							properties: userObjProperties,
 						},
 						example: {
