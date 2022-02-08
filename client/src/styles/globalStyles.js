@@ -8,6 +8,12 @@ export const GlobalStyles = createGlobalStyle`
   };
 
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+
   main {
     .content-inner {
       height: 100%;
