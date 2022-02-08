@@ -6,6 +6,7 @@ import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
 import { createContext } from "react";
+import { GlobalStyles } from "../styles/globalStyles";
 
 export const UserContext = createContext();
 
@@ -51,30 +52,31 @@ export default function Application() {
 		}
 	}, []);
 
-	const [search, setSearch] = useState("")
+	const [search, setSearch] = useState("");
 
 	const handleSearch = function (e) {
 		console.log(e.target.value);
 		setSearch(e.target.value);
-	}
+	};
 
 	return (
 		<UserContext.Provider value={userControls}>
-			<div>
+			<GlobalStyles />
+
+			<section>
+				<Navbar onSearch={handleSearch} />
+			</section>
+			<main className='main-content' style={{ paddingTop: "4.2rem" }}>
 				<section>
-					<Navbar onSearch={handleSearch} />
-				</section>
-				<section>
-					<Routing />
+					<Routing keywords={search} />
 					<p className='main__text'>All results for: Home</p>
 					<div>
 						<span>Category:</span>
 						<span>Sort By: Date</span>
 					</div>
-					<SearchList keywords={search}/>
-					<MyListings />
+					<SearchList keywords={search} />
 				</section>
-			</div>
+			</main>
 		</UserContext.Provider>
 	);
 }

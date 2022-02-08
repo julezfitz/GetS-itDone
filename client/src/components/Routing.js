@@ -15,7 +15,7 @@ import { UserContext } from "./Application";
 import SearchList from "./Search/SearchList";
 import MyListings from "./Listings/MyListings";
 
-function Routing() {
+function Routing({ keywords }) {
 	const { isLoggedIn } = useContext(UserContext);
 
 	return (
@@ -23,14 +23,16 @@ function Routing() {
 			<Routes>
 				<Route
 					path='/'
-					element={isLoggedIn ? <SearchList /> : <LoggedOutHome />}
+					element={
+						isLoggedIn ? <SearchList keywords={keywords} /> : <LoggedOutHome />
+					}
 				/>
 
 				<Route
 					path='/profile'
 					element={isLoggedIn ? <Profile /> : <Navigate to='/' />}
 				/>
-				<Route path='/search' element={<Search />} />
+
 				<Route
 					path='/listings'
 					element={isLoggedIn ? <MyListings /> : <Navigate to='/' />}
