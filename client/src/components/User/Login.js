@@ -112,6 +112,7 @@ export default function LoginModal({ open, handleClose }) {
 							{/* <p>{user.isLoggedIn}</p> */}
 
 							<Button
+								size={"large"}
 								type='submit'
 								color='primary'
 								fullWidth
