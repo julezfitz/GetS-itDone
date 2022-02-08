@@ -24,7 +24,7 @@ export default function ListingQuickView(props) {
           <h3>Details</h3>
           <Divider />
           <h3>Title: {props.listing.title}</h3>
-          <h3>Category: Yard Work</h3>
+          <h3>Category: {props.listing.category}</h3>
           <h3>Amount: {props.listing.price}</h3>
           <h3>Date: {props.listing.created}</h3>
         </Item>
