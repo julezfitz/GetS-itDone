@@ -111,7 +111,11 @@ export default function LoginModal({ open, handleClose }) {
 							</Button>
 							{errors &&
 								errors.map(err => {
-									return <Alert severity='error'>{err.message}</Alert>;
+									return (
+										<Alert severity='error' sx={{ marginTop: "1rem" }}>
+											{err.message}
+										</Alert>
+									);
 								})}
 						</Box>
 					</Typography>
