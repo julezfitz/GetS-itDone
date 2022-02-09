@@ -9,6 +9,10 @@ import { UserContext } from "../Application";
 import Error from "./Error";
 import axios from "axios";
 import { FormGroup, FormControl } from "@mui/material";
+import { InputAdornment } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const style = {
 	position: "absolute",
@@ -56,6 +60,7 @@ export default function RegisterModal({ open, handleClose }) {
 			axios
 				.post(`http://localhost:8001/user/register`, registerState)
 				.then(res => {
+					console.log(res)
 					res.data.registration.errors.length >= 1 &&
 						setErrors(res.data.registration.errors);
 					res.data.registration.isRegistered &&
@@ -75,7 +80,12 @@ export default function RegisterModal({ open, handleClose }) {
 				aria-describedby='modal-modal-description'
 			>
 				<Box sx={style}>
-					<Typography id='modal-modal-title' variant='h6' component='h2' sx={{mb: 5, textAlign: "center"}}>
+					<Typography
+						id='modal-modal-title'
+						variant='h6'
+						component='h2'
+						sx={{ mb: 5, textAlign: "center" }}
+					>
 						Create an Account
 					</Typography>
 
@@ -168,7 +178,13 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 						</FormControl>
 
-						<Button size='large' variant='contained' fullWidth type='submit' sx={{mt: 5}}>
+						<Button
+							size='large'
+							variant='contained'
+							fullWidth
+							type='submit'
+							sx={{ mt: 5 }}
+						>
 							Create Account
 						</Button>
 						{errors &&
