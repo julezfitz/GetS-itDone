@@ -4,6 +4,7 @@ import LoggedOutHome from "./LoggedOut/Landing/LoggedOut";
 import { UserContext } from "./Application";
 import SearchList from "./Search/SearchList";
 import MyListings from "./Listings/MyListings";
+import MyOffers from "./Offers/MyOffers";
 import OffersList from "./Offers/OffersList";
 
 function Routing({ keywords, search, togglePending }) {
@@ -42,7 +43,7 @@ function Routing({ keywords, search, togglePending }) {
 
 				<Route
 					path='/offers'
-					element={isLoggedIn ? <OffersList /> : () => <Navigate to='/' />}
+					element={isLoggedIn ? <MyOffers /> : () => <Navigate to='/' />}
 				/>
 
 				<Route
