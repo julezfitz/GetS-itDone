@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navigation/Navbar";
-import SearchList from "./Search/SearchList";
-import MyListings from "./Listings/MyListings";
 import axios from "axios";
 import Routing from "./Routing";
 import "normalize.css";
 import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Box } from "@mui/material";
-import ListingDetails from "./Listings/ListingDetails";
+import LoadingScreen from "./LoadingScreen/LoadingScreen";
 
 export const UserContext = createContext();
 
@@ -16,8 +14,14 @@ export default function Application() {
 	//Do not remove - allows axios to receive cookies
 	axios.defaults.withCredentials = true;
 
+	//pending: true while we wait for server to respond with essential data - (do not load components until everything is in place)
+	//isLoggedIn: represents the user's logged in state
+	//details: the user's details, set to null if user is logged out
+
 	const [globalState, setGlobalState] = useState({
+		pending: true,
 		user: {
+			pending: true,
 			isLoggedIn: false,
 			details: {},
 		},
@@ -29,6 +33,19 @@ export default function Application() {
 			user: {
 				isLoggedIn: !globalState.user.isLoggedIn,
 				details: userDetails,
+				pending: prev.user.pending,
+			},
+		}));
+	};
+
+	const togglePending = () => {
+		console.log("hello has been pending!");
+		setGlobalState(prev => ({
+			...prev,
+			user: {
+				isLoggedIn: prev.user.isLoggedIn,
+				details: prev.user.details,
+				pending: !prev.user.pending,
 			},
 		}));
 	};
@@ -63,20 +80,22 @@ export default function Application() {
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles />
-
 			<section>
 				<Navbar onSearch={handleSearch} />
 			</section>
 			<main className={`content-wrapper`}>
 				<Box className='content-inner'>
 					<section>
-						<Routing keywords={search} search={search}/>
+						<Routing
+							keywords={search}
+							search={search}
+							togglePending={togglePending}
+						/>
 						<p className='main__text'>All results for: Home</p>
 						<div>
 							<span>Category:</span>
 							<span>Sort By: Date</span>
 						</div>
-						{/* {search ? <SearchList keywords={search} /> : <SearchList /> } */}
 					</section>
 				</Box>
 			</main>
