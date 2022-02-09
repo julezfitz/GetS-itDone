@@ -22,7 +22,7 @@ export default function SearchList({ keywords, togglePending }) {
 				setListings(result.data);
 			});
 	}, [keywords]);
-
+console.log(listings);
 	return (
 		<Item>
 			{listings.map(listing => {
