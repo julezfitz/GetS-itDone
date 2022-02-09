@@ -1,10 +1,12 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CategoryList from "../Categories/CategoryList";
 import { Button } from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { UserContext } from "../Application.js";
 
 const style = {
 	position: "absolute",
@@ -19,6 +21,50 @@ const style = {
 };
 
 export default function NewListingModal({ open, handleClose }) {
+
+	const { userDetails } = useContext(UserContext);
+
+	const [newListing, setNewListing] = useState({});
+
+	let newListingDetails;
+	
+	const [category, setCategory] = useState("");
+
+	const handleCategoryChange = (category) => {
+		setCategory(category);
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		let price = parseInt(e.target.elements.price.value);
+
+		//add image urls to this once they are added to the form
+		newListingDetails = {
+			"creatorId": userDetails.id,
+			"title": e.target.elements.title.value,
+			"description": e.target.elements.description.value,
+			"price": price,
+			"city": e.target.elements.city.value,
+			"province": e.target.elements.province.value,
+			"country": e.target.elements.country.value,
+			"postalCode": e.target.elements.postalCode.value,
+		}
+		console.log(category);
+		console.log(userDetails);
+		console.log(newListingDetails);
+
+		axios.post(`http://localhost:8001/listings`, newListingDetails)
+		.then((result) => {
+			console.log(result);
+		let categoryForListing = { "categoryId": category, "listingId": result.data.id}
+			return axios.post(`http://localhost:8001/categories/listings`, categoryForListing)
+		})
+		.then((result) => {
+			console.log(result.data);
+		})
+	};
+
 	return (
 		<div>
 			<Modal
@@ -34,31 +80,37 @@ export default function NewListingModal({ open, handleClose }) {
 					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
 						<Box
 							component='form'
+							onSubmit={handleSubmit}
 							sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
 							noValidate
 							autoComplete='off'
 						>
 							<div>
-								<TextField required id='outlined-required' label='Title' />
-								<CategoryList />
+								<TextField required id='outlined-required' name='title' label='Title' />
+								<CategoryList onSelect={handleCategoryChange} />
 								<TextField
 									required
 									id='outlined-required'
 									label='Description'
+									name='description'
 								/>
-								<TextField required id='outlined-password-input' label='City' />
+								<TextField required id='outlined-password-input' name='city' label='City' />
+								<TextField required id='outlined-password-input' name='province' label='Province' />
+								<TextField required id='outlined-password-input' name='country' label='Country' />
 								<TextField
 									required
 									id='outlined-password-input'
 									label='Postal Code'
+									name='postalCode'
 								/>
 								<TextField
 									required
 									id='outlined-password-input'
 									label='Price'
+									name='price'
 								/>
 							</div>
-							<Button size='large' variant='contained' fullWidth>
+							<Button size='large' type="submit" value="Submit" variant='contained' fullWidth>
 								Create
 							</Button>
 						</Box>

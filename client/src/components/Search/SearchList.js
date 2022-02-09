@@ -15,7 +15,7 @@ export default function SearchList({ keywords }) {
   const [listings, setListings] = useState([]);
 
   useEffect((() => {
-    axios.get(`http://localhost:8001/listings/?keywords=${keywords}`).then((result) => {
+    axios.get(`http://localhost:8001/listings/`, {params: {keywords}}).then((result) => {
       setListings(result.data);
     })
   }), [keywords])
@@ -23,7 +23,7 @@ export default function SearchList({ keywords }) {
   return (
     <Item>
       {listings.map((listing) => {
-        return <ListingDetails listing={listing}><SearchListItem listing={listing} /></ListingDetails>
+        return <ListingDetails listing={listing} key={listing.id}><SearchListItem listing={listing} /></ListingDetails>
       })}
     </Item>
   );

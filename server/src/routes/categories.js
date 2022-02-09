@@ -8,6 +8,18 @@ module.exports = db => {
         });
     });
 
+    router.post("/categories/listings", (request, response) => {
+        const { categoryId, listingId } = request.body;
+
+        db.query(
+            `INSERT INTO listing_categories (category_id, listing_id) VALUES ($1::integer, $2::integer) RETURNING *;`,
+            [categoryId, listingId]
+        ).then((result) => {
+            console.log(result);
+            response.status(201).json(result.rows[0]);
+        }).catch((e) => console.log(e));
+    });
+
     return router;
 };
 
@@ -53,5 +65,28 @@ module.exports.apiDocs = {
             }
         }
 
+    },
+    "/categories/listings": {
+
+        "post": {
+            "description": "Create a listing category relation",
+            "tags": ["categories"],
+            "requestBody": {
+                "description": "listing and category ids",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                        },
+                        "example": { "listingId": 2, "categoryId": 3 }
+                    }
+                }
+            },
+            "responses": {
+                201: {
+                    "description": "Listing category connection created",
+                },
+            }
+        }
     }
 }
