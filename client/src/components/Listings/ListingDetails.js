@@ -14,6 +14,8 @@ export default function ListingDetails(props) {
 		right: false,
 	});
 
+
+
 	const toggleDrawer = (anchor, open) => event => {
 		if (
 			event.type === "keydown" &&
@@ -56,7 +58,7 @@ export default function ListingDetails(props) {
 								<h3>Amount Offered: $500.00</h3>
 							</Item>
 							<Item sx={{height: "20rem"}}>
-								<ImageCarousel/>
+								<ImageCarousel listing={props.listing}/>
 							</Item>
 							<Divider />
 							<Item>
