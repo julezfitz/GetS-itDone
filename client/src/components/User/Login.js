@@ -33,7 +33,6 @@ export default function LoginModal({ open, handleClose }) {
 
 	useEffect(() => {
 		if (loading) {
-			console.log("in here!!!");
 			axios
 				.post("http://localhost:8001/user/session", {
 					email: value.email,

@@ -8,17 +8,23 @@ import { useSubmit } from "../../hooks/useSubmit";
 import { UserContext } from "../Application";
 import Error from "./Error";
 import axios from "axios";
+import { FormGroup, FormControl } from "@mui/material";
+import { InputAdornment } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const style = {
 	position: "absolute",
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 400,
+	width: 500,
 	bgcolor: "background.paper",
 	border: "2px solid #000",
+	borderRadius: "10px",
 	boxShadow: 24,
-	p: 4,
+	p: 10,
 };
 
 export default function RegisterModal({ open, handleClose }) {
@@ -29,6 +35,7 @@ export default function RegisterModal({ open, handleClose }) {
 		lastName: "",
 		email: "",
 		city: "",
+		province: "",
 		postalCode: "",
 		country: "",
 		password: "",
@@ -53,6 +60,7 @@ export default function RegisterModal({ open, handleClose }) {
 			axios
 				.post(`http://localhost:8001/user/register`, registerState)
 				.then(res => {
+					console.log(res)
 					res.data.registration.errors.length >= 1 &&
 						setErrors(res.data.registration.errors);
 					res.data.registration.isRegistered &&
@@ -72,96 +80,118 @@ export default function RegisterModal({ open, handleClose }) {
 				aria-describedby='modal-modal-description'
 			>
 				<Box sx={style}>
-					<Typography id='modal-modal-title' variant='h6' component='h2'>
-						Register an Account
+					<Typography
+						id='modal-modal-title'
+						variant='h6'
+						component='h2'
+						sx={{ mb: 5, textAlign: "center" }}
+					>
+						Create an Account
 					</Typography>
-					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
-						<Box
-							component='form'
-							sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
-							noValidate
-							autoComplete='off'
-							onSubmit={handleSubmit}
+
+					<Box
+						component='form'
+						sx={{ "& .MuiTextField-root": { m: 1 } }}
+						noValidate
+						autoComplete='off'
+						onSubmit={handleSubmit}
+					>
+						<FormGroup row>
+							<TextField
+								required
+								id='outlined-required'
+								label='First Name'
+								value={registerState.firstName}
+								onChange={handleChange}
+								name='firstName'
+							/>
+							<TextField
+								required
+								id='outlined-required'
+								label='Last Name'
+								name='lastName'
+								value={registerState.lastName}
+								onChange={handleChange}
+							/>
+						</FormGroup>
+
+						<FormControl fullWidth>
+							<TextField
+								required
+								id='outlined-required'
+								label='Email'
+								name='email'
+								value={registerState.email}
+								onChange={handleChange}
+							/>
+							<TextField
+								required
+								id='outlined-required'
+								label='City/Town'
+								name='city'
+								value={registerState.city}
+								onChange={handleChange}
+							/>
+							<TextField
+								required
+								id='outlined-required'
+								label='Province'
+								name='province'
+								value={registerState.province}
+								onChange={handleChange}
+							/>
+							<TextField
+								required
+								id='outlined-required'
+								label='Postal Code'
+								name='postalCode'
+								value={registerState.postalCode}
+								onChange={handleChange}
+							/>
+							<TextField
+								required
+								id='outlined-required'
+								label='Country'
+								name='country'
+								value={registerState.country}
+								onChange={handleChange}
+							/>
+							<TextField
+								required
+								id='outlined-password-input'
+								label='Password'
+								type='password'
+								autoComplete='current-password'
+								name='password'
+								value={registerState.password}
+								onChange={handleChange}
+							/>
+							<TextField
+								required
+								id='outlined-password-input'
+								label='Password Confirmation'
+								type='password'
+								autoComplete='current-password'
+								name='passwordConfirmation'
+								value={registerState.passwordConfirmation}
+								onChange={handleChange}
+							/>
+						</FormControl>
+
+						<Button
+							size='large'
+							variant='contained'
+							fullWidth
+							type='submit'
+							sx={{ mt: 5 }}
 						>
-							<div>
-								<TextField
-									required
-									id='outlined-required'
-									label='First Name'
-									value={registerState.firstName}
-									onChange={handleChange}
-									name='firstName'
-								/>
-								<TextField
-									required
-									id='outlined-required'
-									label='Last Name'
-									name='lastName'
-									value={registerState.lastName}
-									onChange={handleChange}
-								/>
-								<TextField
-									required
-									id='outlined-required'
-									label='Email'
-									name='email'
-									value={registerState.email}
-									onChange={handleChange}
-								/>
-								<TextField
-									required
-									id='outlined-required'
-									label='City/Town'
-									name='city'
-									value={registerState.city}
-									onChange={handleChange}
-								/>
-								<TextField
-									required
-									id='outlined-required'
-									label='Postal Code'
-									name='postalCode'
-									value={registerState.postalCode}
-									onChange={handleChange}
-								/>
-								<TextField
-									required
-									id='outlined-required'
-									label='Country'
-									name='country'
-									value={registerState.country}
-									onChange={handleChange}
-								/>
-								<TextField
-									required
-									id='outlined-password-input'
-									label='Password'
-									type='password'
-									autoComplete='current-password'
-									name='password'
-									value={registerState.password}
-									onChange={handleChange}
-								/>
-								<TextField
-									required
-									id='outlined-password-input'
-									label='Password Confirmation'
-									type='password'
-									autoComplete='current-password'
-									name='passwordConfirmation'
-									value={registerState.passwordConfirmation}
-									onChange={handleChange}
-								/>
-							</div>
-							<Button size='large' variant='contained' fullWidth type='submit'>
-								Create Account
-							</Button>
-							{errors &&
-								errors.map((err, i) => {
-									return <Error key={i} errorMessage={err.message} />;
-								})}
-						</Box>
-					</Typography>
+							Create Account
+						</Button>
+						{errors &&
+							errors.map((err, i) => {
+								return <Error key={i} errorMessage={err.message} />;
+							})}
+					</Box>
 				</Box>
 			</Modal>
 		</div>
