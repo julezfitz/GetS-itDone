@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Paper, Button } from "@mui/material";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -34,11 +34,17 @@ const swiperStyle = {
 	height: "100%",
 };
 
-function ImageCarousel() {
+function ImageCarousel({ listing }) {
 	SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
+
+	const image1 = listing.image_1;
+	const image2 = listing.image_2;
+	const image3 = listing.image_3;
+
+	const images = [image1, image2, image3];
 
 	return (
 		<Swiper
@@ -46,38 +52,24 @@ function ImageCarousel() {
 			onSlideChange={() => console.log("slide change")}
 			onSwiper={swiper => console.log(swiper)}
 			autoplay={{ delay: 3000 }}
-			navigation={{
-				prevEl: prevRef.current,
-				nextEl: nextRef.current,
-			}}
-			onBeforeInit={swiper => {
-				swiper.params.navigation.prevEl = prevRef.current;
-				swiper.params.navigation.nextEl = nextRef.current;
-			}}
 			pagination={{
 				clickable: true,
 			}}
 		>
 			{images.map((image, i) => {
 				return (
-					<SwiperSlide
-						style={{
-							backgroundImage: `url(${images[0].url})`,
-							backgroundSize: "cover",
-							backgroundPosition: "50% 50%",
-						}}
-					></SwiperSlide>
+					image && (
+						<SwiperSlide
+							key={i}
+							style={{
+								backgroundImage: `url(${image})`,
+								backgroundSize: "cover",
+								backgroundPosition: "50% 50%",
+							}}
+						></SwiperSlide>
+					)
 				);
 			})}
-			<SwiperSlide
-				style={{
-					backgroundImage: `url(${images[0].url})`,
-					backgroundSize: "cover",
-					backgroundPosition: "50% 50%",
-				}}
-			></SwiperSlide>
-			<div ref={prevRef}>prv</div>
-			<div ref={nextRef}>next</div>
 		</Swiper>
 	);
 }
