@@ -23,6 +23,8 @@ import NewRatingModal from "../Ratings/NewRating";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Application";
 import UserMenu from "./UserMenu";
+import LoggedInNav from "./LoggedInNav";
+import LoggedOutNav from "./LoggedOutNav";
 
 const pages = ["Register", "Login"];
 
@@ -122,6 +124,30 @@ export default function ResponsiveAppBar(props) {
 		setAnchorElUser(null);
 	};
 
+	const loggedInProps = {
+		newListingOpen,
+		newRatingOpen,
+		handleNewListingOpen,
+		handleNewListingClose,
+		handleNewRatingOpen,
+		handleNewRatingClose,
+		handleOpenUserMenu,
+		handleCloseUserMenu,
+		userDetails,
+		anchorElUser,
+		toggleLoggedIn,
+		settings,
+	};
+
+	const loggedOutProps = {
+		handleRegisterOpen,
+		handleRegisterClose,
+		registerOpen,
+		loginOpen,
+		handleLoginOpen,
+		handleLoginClose,
+	};
+
 	return (
 		<AppBar position='fixed'>
 			<Container maxWidth='xl'>
@@ -195,109 +221,9 @@ export default function ResponsiveAppBar(props) {
 					<Box sx={{ flexGrow: 1 }} />
 
 					{isLoggedIn ? (
-						<>
-							<Box
-								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='CreateNewListing'
-										onClick={handleNewListingOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										Create New Listing
-									</Button>
-									<NewListingModal
-										open={newListingOpen}
-										handleClose={handleNewListingClose}
-									/>
-								</>
-							</Box>
-							<Box
-								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='NewRating'
-										onClick={handleNewRatingOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										New Rating
-									</Button>
-									<NewRatingModal
-										open={newRatingOpen}
-										handleClose={handleNewRatingClose}
-									/>
-								</>
-							</Box>
-							<Box
-								sx={{
-									maxWidth: "150px",
-									padding: "0 24px",
-									display: { xs: "none", md: "flex" },
-								}}
-							>
-								<IconButton
-									size='large'
-									aria-label='show 4 new notifications'
-									color='inherit'
-								>
-									<Badge badgeContent={4} color='error'>
-										<NotificationsIcon />
-									</Badge>
-								</IconButton>
-							</Box>
-							<Box sx={{ maxWidth: "150px" }}>
-								<Tooltip title='Open settings'>
-									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-										<Avatar
-											alt={userDetails.firstName}
-											src='/static/images/avatar/2.jpg'
-										/>
-									</IconButton>
-								</Tooltip>
-								<UserMenu
-									settings={settings}
-									handleCloseUserMenu={handleCloseUserMenu}
-									anchorElUser={anchorElUser}
-									toggleLoggedIn={toggleLoggedIn}
-								/>
-							</Box>
-						</>
+						<LoggedInNav {...loggedInProps} />
 					) : (
-						<>
-							<Box
-								sx={{ maxWidth: "85px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='Register'
-										onClick={handleRegisterOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										Register
-									</Button>
-									<RegisterModal
-										open={registerOpen}
-										handleClose={handleRegisterClose}
-									/>
-								</>
-							</Box>
-							<Box
-								sx={{ maxWidth: "150px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='Login'
-										onClick={handleLoginOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										Login
-									</Button>
-									<LoginModal open={loginOpen} handleClose={handleLoginClose} />
-								</>
-							</Box>
-						</>
+						<LoggedOutNav {...loggedOutProps} />
 					)}
 					{/* <Box sx={{ maxWidth: "85px", display: { xs: "none", md: "flex" } }}>
             <>
