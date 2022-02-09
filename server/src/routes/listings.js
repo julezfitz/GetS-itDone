@@ -7,19 +7,17 @@ module.exports = db => {
     router.get("/listings", (request, response) => {
         const { keywords, category, creatorId, orderBy, sortOrder } = request.query;
 
-        let queryString = `SELECT * FROM listings`;
+        let queryString = `SELECT listings.*, categories.category FROM listings
+        JOIN listing_categories ON (listings.id = listing_categories.listing_id)
+        JOIN categories ON (categories.id = listing_categories.category_id) `
 
         if(creatorId) {
-            queryString = `SELECT listings.*, categories.category FROM listings
-        JOIN listing_categories ON (listings.id = listing_categories.listing_id)
-        JOIN categories ON (categories.id = listing_categories.category_id) 
-        WHERE listings.creator_id = ${creatorId}`}
+            queryString += ` WHERE listings.creator_id = ${creatorId}`}
 
-        category ? (queryString += ` JOIN listing_categories ON listings.id = listing_categories.listing_id 
-        WHERE listing_categories.category_id = ${category}`) : "";
+        category ? (queryString += ` WHERE listing_categories.category_id = ${category}`) : "";
 
-        keywords ? (queryString += ` WHERE LOWER(title) LIKE LOWER('%${keywords}%')`) : "";
-        orderBy ? (queryString += ` ORDER BY ${orderBy}`) : "";
+        keywords ? (queryString += ` WHERE LOWER(listings.title) LIKE LOWER('%${keywords}%')`) : "";
+        orderBy ? (queryString += ` ORDER BY listings.${orderBy}`) : "";
         sortOrder ? (queryString += ` ${sortOrder}`) : "";
         db.query(queryString += `;`).then(({ rows: listings }) => {
             response.json(listings);
