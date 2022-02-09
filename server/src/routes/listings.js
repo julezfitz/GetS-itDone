@@ -7,9 +7,11 @@ module.exports = db => {
     router.get("/listings", (request, response) => {
         const { keywords, category, creatorId, orderBy, sortOrder } = request.query;
 
-        let queryString = `SELECT listings.*, categories.category FROM listings
+        let queryString = `SELECT listings.*, users.first_name, users.last_name, users.id, categories.category 
+        FROM listings
         JOIN listing_categories ON (listings.id = listing_categories.listing_id)
-        JOIN categories ON (categories.id = listing_categories.category_id) `
+        JOIN categories ON (categories.id = listing_categories.category_id) 
+        JOIN users ON (listings.creator_id = users.id)`
 
         if(creatorId) {
             queryString += ` WHERE listings.creator_id = ${creatorId}`}

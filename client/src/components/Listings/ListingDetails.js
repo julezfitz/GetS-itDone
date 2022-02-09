@@ -61,7 +61,7 @@ export default function ListingDetails(props) {
               <Divider />
               <Item>
                 <h3>Category: {props.listing.category}</h3>
-                <h4>Poster: John Smith</h4>
+                <h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
                 <h3>Description</h3>
                 <p>
                 {props.listing.description}
