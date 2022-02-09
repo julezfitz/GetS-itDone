@@ -35,7 +35,7 @@ module.exports = db => {
         db.query(
             `INSERT INTO listings (creator_id, title, description, image_1, image_2, image_3, price, city, 
                     province, postal_code, country) VALUES ($1::integer, $2::text, $3::text, $4::text, $5::text, 
-                        $6::text, $7, $8::text, $9::text, $10::text, $11::text);`,
+                        $6::text, $7, $8::text, $9::text, $10::text, $11::text) RETURNING *;`,
             [creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
                 country]
         ).then((result) => {

@@ -49,6 +49,7 @@ CREATE TABLE listing_categories (
     listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
     category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE
 );
+ALTER SEQUENCE listings_id_seq RESTART WITH 1000;
 
 CREATE TABLE offers (
     id SERIAL PRIMARY KEY NOT NULL,
