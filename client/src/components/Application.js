@@ -91,11 +91,11 @@ export default function Application() {
 							search={search}
 							togglePending={togglePending}
 						/>
-						<p className='main__text'>All results for: Home</p>
+						{/* <p className='main__text'>All results for: Home</p>
 						<div>
 							<span>Category:</span>
 							<span>Sort By: Date</span>
-						</div>
+						</div> */}
 					</section>
 				</Box>
 			</main>
