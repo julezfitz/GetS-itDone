@@ -26,6 +26,19 @@ const Search = styled("div")(({ theme }) => ({
 const SearchButton = styled(Button)(({ theme }) => ({
 	border: "1px solid white",
 	color: "white",
+	position: "relative",
+	height: "2.5rem",
+	alignItems: "center",
+	justifyContent: "center",
+	padding: "0",
+
+	"& a": {
+		width: "100%",
+		height: "100%",
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 
 	"&:hover": {
 		backgroundColor: "white",
@@ -79,7 +92,7 @@ function SearchBar({ onSearch }) {
 				/>
 
 				{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}
-				<SearchButton type='submit' variant='outlined'>
+				<SearchButton type='button' variant='outlined'>
 					<Link to='/'>Go</Link>
 				</SearchButton>
 			</Search>
