@@ -1,10 +1,13 @@
 import * as THREE from "three";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-
+import { useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Icosahedron } from "@react-three/drei";
 
 function Model({ material, mouseCoords }) {
+	const gltf = useLoader(GLTFLoader, "/donut.gltf");
+
 	const main = useRef();
 	// main sphere rotates following the mouse position
 	useFrame(({ clock, mouse }) => {
@@ -20,15 +23,7 @@ function Model({ material, mouseCoords }) {
 			0.1
 		);
 	});
-	return (
-		<Icosahedron
-			args={[1, 10]}
-			ref={main}
-			material={material}
-			position={[0, 0, 0]}
-			scale={20}
-		/>
-	);
+	return null;
 }
 
 export { Model };

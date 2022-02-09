@@ -45,7 +45,7 @@ function HeroSection() {
 		<StyledHero className='heroSection'>
 			<Suspense fallback={<div>Blob loading...</div>}>
 				<Blob mouseCoords={mouseCoords} />
-				{isBlobLoaded && <TextOverlay />}
+				{/* {isBlobLoaded && <TextOverlay />} */}
 			</Suspense>
 		</StyledHero>
 	);

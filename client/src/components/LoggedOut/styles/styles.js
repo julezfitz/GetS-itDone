@@ -3,7 +3,7 @@ import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
 
 //Hero blob config
-const heroBgColor = "#232323";
+const heroBgColor = "black";
 const blobColor = "#7F7CD5";
 const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
 const blobGradientStops = [0, 0.3, 0.6, 1];

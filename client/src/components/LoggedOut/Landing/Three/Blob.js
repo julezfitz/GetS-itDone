@@ -5,6 +5,9 @@ import { Suspense } from "react";
 import Scene from "./Scene";
 import { Lights } from "./Lighting";
 import { Environment } from "@react-three/drei";
+import DonutModel from "../DonutModel";
+import { OrbitControls } from "@react-three/drei";
+import CheckmarkModel from "./CheckmarkModel";
 
 function Blob({ mouseCoords }) {
 	return (
@@ -20,13 +23,15 @@ function Blob({ mouseCoords }) {
 			}}
 		>
 			<Lights />
+
 			<Suspense fallback={null}>
-				<Scene mouseCoords={mouseCoords} />
-				<Environment
+				{/* <Scene mouseCoords={mouseCoords} /> */}
+				<CheckmarkModel />
+				{/* <Environment
 					background={false}
 					files={"large_corridor_4k.hdr"}
 					path={"/"}
-				/>
+				/> */}
 			</Suspense>
 		</Canvas>
 	);
