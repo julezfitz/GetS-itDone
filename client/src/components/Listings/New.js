@@ -52,6 +52,8 @@ export default function NewListingModal({ open, handleClose }) {
 			"country": userDetails.country,
 			"postalCode": e.target.elements.postalCode.value,
 			"image_1": e.target.elements.image_1.value,
+			"image_2": e.target.elements.image_2.value,
+			"image_3": e.target.elements.image_3.value,
 		}
 
 		axios.post(`http://localhost:8001/listings`, newListingDetails)
@@ -107,6 +109,8 @@ export default function NewListingModal({ open, handleClose }) {
 									name='price'
 								/>
 								<TextField id='outlined-password-input' name='image_1' label='Image URL' />
+								<TextField id='outlined-password-input' name='image_2' label='Image URL 2' />
+								<TextField id='outlined-password-input' name='image_3' label='Image URL 3' />
 							</div>
 							<Button size='large' type="submit" value="Submit" variant='contained' fullWidth>
 								Create
