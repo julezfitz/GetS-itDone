@@ -37,28 +37,33 @@ export default function NewListingModal({ open, handleClose }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+		let price = parseInt(e.target.elements.price.value);
+
 		//add image urls to this once they are added to the form
 		newListingDetails = {
 			"creatorId": userDetails.id,
 			"title": e.target.elements.title.value,
 			"description": e.target.elements.description.value,
-			"price": e.target.elements.price.value,
+			"price": price,
 			"city": e.target.elements.city.value,
 			"province": e.target.elements.province.value,
+			"country": e.target.elements.country.value,
 			"postalCode": e.target.elements.postalCode.value,
 		}
 		console.log(category);
+		console.log(userDetails);
+		console.log(newListingDetails);
+
+		axios.post(`http://localhost:8001/listings`, newListingDetails)
+		.then((result) => {
+			console.log(result);
+		let categoryForListing = { "categoryId": category, "listingId": result.data.id}
+			return axios.post(`http://localhost:8001/categories/listings`, categoryForListing)
+		})
+		.then((result) => {
+			console.log(result.data);
+		})
 	};
-	// .then(() => {
-	// 	axios.post(`http://localhost:8001/listings`, newListingDetails)
-	// })
-	//.then((result) => {
-	// 	console.log(result.data);
-	// let categoryForListing = { "categoryId": category, "listingId": result.data.id}
-	//	return axios.post(`http://localhost:8001/categories/listings`, categoryForListing)
-	//.then((result) => {
-	//	console.log(result.data);
-	// })
 
 	return (
 		<div>
@@ -90,6 +95,8 @@ export default function NewListingModal({ open, handleClose }) {
 									name='description'
 								/>
 								<TextField required id='outlined-password-input' name='city' label='City' />
+								<TextField required id='outlined-password-input' name='province' label='Province' />
+								<TextField required id='outlined-password-input' name='country' label='Country' />
 								<TextField
 									required
 									id='outlined-password-input'
