@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mui/styles": "^5.4.1",
     "@react-three/drei": "^8.8.1",
     "@react-three/fiber": "^7.0.26",
     "@react-three/postprocessing": "^2.1.2",
@@ -21,6 +22,7 @@
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "swiper": "^8.0.3",
     "three": "^0.137.5",
     "web-vitals": "^2.1.4"
   },

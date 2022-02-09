@@ -22,12 +22,12 @@ export default function SearchList({ keywords, togglePending }) {
 				setListings(result.data);
 			});
 	}, [keywords]);
-
-  return (
-		<Item>
+console.log(listings);
+	return (
+		<Item className="search-results">
 			{listings.map(listing => {
 				return (
-					<ListingDetails listing={listing} key={listing.id}>
+					<ListingDetails listing={listing} key={listing.id} className="search-results__item">
 						<SearchListItem listing={listing} />
 					</ListingDetails>
 				);
