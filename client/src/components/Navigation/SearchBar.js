@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const Search = styled("form")(({ theme }) => ({
+const Search = styled("div")(({ theme }) => ({
 	position: "relative",
 	borderRadius: theme.shape.borderRadius,
 	backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -78,7 +80,7 @@ function SearchBar({ onSearch }) {
 
 				{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}
 				<SearchButton type='submit' variant='outlined'>
-					Go
+					<Link to='/'>Go</Link>
 				</SearchButton>
 			</Search>
 		</>
