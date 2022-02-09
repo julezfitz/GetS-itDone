@@ -60,7 +60,7 @@ export default function ListingDetails(props) {
               </Item>
               <Divider />
               <Item>
-                <h3>Category: Yard Work</h3>
+                <h3>Category: {props.listing.category}</h3>
                 <h4>Poster: John Smith</h4>
                 <h3>Description</h3>
                 <p>
