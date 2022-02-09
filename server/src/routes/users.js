@@ -90,6 +90,7 @@ module.exports = db => {
 		};
 
 		const hasEmptyField = checkIfEmpty(req.body);
+
 		const {
 			firstName,
 			lastName,
@@ -100,8 +101,7 @@ module.exports = db => {
 			province,
 			postalCode,
 			country,
-			image,
-		} = trimFields(req.body);
+		} = req.body;
 
 		const hashedPassword = bcrypt.hashSync(password, 12);
 
@@ -145,8 +145,8 @@ module.exports = db => {
 				//Success - register user
 				return db
 					.query(
-						`INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country, image)
-      			VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+						`INSERT INTO users(first_name, last_name, email, password, city, province, postal_code, country)
+      			VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       			RETURNING *
 			`,
 						[
@@ -158,7 +158,6 @@ module.exports = db => {
 							province,
 							postalCode,
 							country,
-							image,
 						]
 					)
 					.then(success => {
@@ -167,10 +166,13 @@ module.exports = db => {
 							id: success.rows[0].id,
 							email: success.rows[0].email,
 						};
-
+						response.registration.isRegistered = true;
 						response.registration.user = success.rows[0];
+						res.send(response);
+						return;
 					})
 					.catch(err => {
+						console.log(err);
 						//Catch any possible server/db errors and send response
 						response.registration.errors.push({
 							message: "Server error. Please try again.",
