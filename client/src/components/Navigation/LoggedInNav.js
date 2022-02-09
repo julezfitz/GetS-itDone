@@ -1,9 +1,11 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Badge, Tooltip, IconButton, Avatar } from "@mui/material";
 import NewListingModal from "../Listings/New";
 import NewRatingModal from "../Ratings/NewRating";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import UserMenu from "./UserMenu";
+import axios from "axios";
+import { UserContext } from "../Application.js";
 
 function LoggedInNav({
 	newListingOpen,
@@ -12,13 +14,25 @@ function LoggedInNav({
 	handleNewListingClose,
 	handleNewRatingOpen,
 	handleNewRatingClose,
-  handleOpenUserMenu,
-  handleCloseUserMenu,
-  userDetails,
-  anchorElUser,
-  toggleLoggedIn,
+	handleOpenUserMenu,
+	handleCloseUserMenu,
+	userDetails,
+	anchorElUser,
+	toggleLoggedIn,
 	settings,
 }) {
+
+	const [notifications, setNotifications] = useState([]);
+
+	useEffect(() => {
+
+		axios.get(`http://localhost:8001/notifications`, { params: { userId: userDetails.id } })
+			.then((results) => {
+				console.log(results.data);
+				setNotifications(results.data);
+			})
+	}, []);
+
 	return (
 		<>
 			<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
@@ -63,7 +77,7 @@ function LoggedInNav({
 					aria-label='show 4 new notifications'
 					color='inherit'
 				>
-					<Badge badgeContent={4} color='error'>
+					<Badge badgeContent={notifications.length} color='error'>
 						<NotificationsIcon />
 					</Badge>
 				</IconButton>
