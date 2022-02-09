@@ -24,10 +24,10 @@ export default function SearchList({ keywords, togglePending }) {
 	}, [keywords]);
 console.log(listings);
 	return (
-		<Item>
+		<Item className="search-results">
 			{listings.map(listing => {
 				return (
-					<ListingDetails listing={listing} key={listing.id}>
+					<ListingDetails listing={listing} key={listing.id} className="search-results__item">
 						<SearchListItem listing={listing} />
 					</ListingDetails>
 				);
