@@ -20,10 +20,10 @@ export default function SearchList({ keywords, togglePending }) {
 			.get(`http://localhost:8001/listings/`, { params: { keywords } })
 			.then(result => {
 				setListings(result.data);
-        console.log('in here!')
 			});
 	}, [keywords]);
 
+  console.log(listings);
 	return (
 		<Item>
 			{listings.map(listing => {
