@@ -2,8 +2,9 @@ import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
+import { useNavigate } from "react-router";
 
-const Search = styled("div")(({ theme }) => ({
+const Search = styled("form")(({ theme }) => ({
 	position: "relative",
 	borderRadius: theme.shape.borderRadius,
 	backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -43,9 +44,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function SearchBar({onSearch}) {
+function SearchBar({ onSearch }) {
+	const navigate = useNavigate();
+
+	const handleSearchSubmit = e => {
+		e.preventDefault();
+
+		navigate("/");
+	};
+
 	return (
-		<Search>
+		<Search method='POST' onSubmit={handleSearchSubmit}>
 			<SearchIconWrapper>
 				<SearchIcon />
 			</SearchIconWrapper>
