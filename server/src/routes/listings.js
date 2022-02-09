@@ -5,24 +5,22 @@ const router = require("express").Router();
 module.exports = db => {
 
     router.get("/listings", (request, response) => {
-        console.log("in listings route");
         const { keywords, category, creatorId, orderBy, sortOrder } = request.query;
 
-        let queryString = `SELECT * FROM listings`;
-
-        if(creatorId) {
-            queryString = `SELECT listings.*, categories.category FROM listings
+        let queryString = `SELECT listings.*, users.first_name, users.last_name, users.id, categories.category 
+        FROM listings
         JOIN listing_categories ON (listings.id = listing_categories.listing_id)
         JOIN categories ON (categories.id = listing_categories.category_id) 
-        WHERE listings.creator_id = ${creatorId}`}
+        JOIN users ON (listings.creator_id = users.id)`
 
-        category ? (queryString += ` JOIN listing_categories ON listings.id = listing_categories.listing_id 
-        WHERE listing_categories.category_id = ${category}`) : "";
+        if(creatorId) {
+            queryString += ` WHERE listings.creator_id = ${creatorId}`}
 
-        keywords ? (queryString += ` WHERE LOWER(title) LIKE LOWER('%${keywords}%')`) : "";
-        orderBy ? (queryString += ` ORDER BY ${orderBy}`) : "";
+        category ? (queryString += ` WHERE listing_categories.category_id = ${category}`) : "";
+
+        keywords ? (queryString += ` WHERE LOWER(listings.title) LIKE LOWER('%${keywords}%')`) : "";
+        orderBy ? (queryString += ` ORDER BY listings.${orderBy}`) : "";
         sortOrder ? (queryString += ` ${sortOrder}`) : "";
-            console.log(queryString);
         db.query(queryString += `;`).then(({ rows: listings }) => {
             response.json(listings);
         });

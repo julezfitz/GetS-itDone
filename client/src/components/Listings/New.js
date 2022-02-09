@@ -34,6 +34,8 @@ export default function NewListingModal({ open, handleClose }) {
 		setCategory(category);
 	}
 
+	console.log(userDetails);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -49,14 +51,11 @@ export default function NewListingModal({ open, handleClose }) {
 			"province": e.target.elements.province.value,
 			"country": e.target.elements.country.value,
 			"postalCode": e.target.elements.postalCode.value,
+			"image_1": e.target.elements.image_1.value,
 		}
-		console.log(category);
-		console.log(userDetails);
-		console.log(newListingDetails);
 
 		axios.post(`http://localhost:8001/listings`, newListingDetails)
 		.then((result) => {
-			console.log(result);
 		let categoryForListing = { "categoryId": category, "listingId": result.data.id}
 			return axios.post(`http://localhost:8001/categories/listings`, categoryForListing)
 		})
@@ -109,6 +108,7 @@ export default function NewListingModal({ open, handleClose }) {
 									label='Price'
 									name='price'
 								/>
+								<TextField id='outlined-password-input' name='image_1' label='Image URL' />
 							</div>
 							<Button size='large' type="submit" value="Submit" variant='contained' fullWidth>
 								Create
