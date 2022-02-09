@@ -12,14 +12,14 @@ function Routing({ keywords, search, togglePending }) {
 	return (
 		<>
 			<Routes>
-				<Route
+				{/* <Route
 					path='/'
 					element={
 						isLoggedIn ? (
 							search ? (
-								<SearchList keywords={keywords} togglePending={togglePending} />
+								<SearchList keywords={keywords} />
 							) : (
-								<SearchList togglePending={togglePending} />
+								<SearchList />
 							)
 						) : (
 							<>
@@ -28,7 +28,7 @@ function Routing({ keywords, search, togglePending }) {
 							</>
 						)
 					}
-				/>
+				/> */}
 
 				{/* <Route
 					path='/profile'

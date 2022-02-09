@@ -7,6 +7,7 @@ import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Box } from "@mui/material";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
+import SearchList from "./Search/SearchList";
 
 export const UserContext = createContext();
 
@@ -97,6 +98,7 @@ export default function Application() {
 							<span>Sort By: Date</span>
 						</div>
 					</section>
+					{search ? <SearchList keywords={search} /> : <SearchList />}
 				</Box>
 			</main>
 		</UserContext.Provider>
