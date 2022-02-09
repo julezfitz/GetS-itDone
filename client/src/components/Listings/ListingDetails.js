@@ -53,15 +53,15 @@ export default function ListingDetails(props) {
 						<Stack spacing={2}>
 							<h1>{props.listing.title}</h1>
 							<Item>
-								<h3>Amount Offered: $500.00</h3>
+								<h3>Amount Offered: $ {props.listing.price}</h3>
 							</Item>
 							<Item sx={{ height: "20rem" }}>
 								<ImageCarousel listing={props.listing} />
 							</Item>
 							<Divider />
 							<Item>
-								<h3>Category: Yard Work</h3>
-								<h4>Poster: John Smith</h4>
+								<h3>Category: {props.listing.category}</h3>
+								<h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
 								<h3>Description</h3>
 								<p>{props.listing.description}</p>
 								<h4>{props.listing.created}</h4>
