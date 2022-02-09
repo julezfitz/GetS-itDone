@@ -8,7 +8,7 @@ import { useSubmit } from "../../hooks/useSubmit";
 import { UserContext } from "../Application";
 import Error from "./Error";
 import axios from "axios";
-import { FormGroup } from "@mui/material";
+import { FormGroup, FormControl } from "@mui/material";
 
 const style = {
 	position: "absolute",
@@ -75,13 +75,13 @@ export default function RegisterModal({ open, handleClose }) {
 				aria-describedby='modal-modal-description'
 			>
 				<Box sx={style}>
-					<Typography id='modal-modal-title' variant='h6' component='h2'>
-						Register an Account
+					<Typography id='modal-modal-title' variant='h6' component='h2' sx={{mb: 5, textAlign: "center"}}>
+						Create an Account
 					</Typography>
 
 					<Box
 						component='form'
-						sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+						sx={{ "& .MuiTextField-root": { m: 1 } }}
 						noValidate
 						autoComplete='off'
 						onSubmit={handleSubmit}
@@ -104,7 +104,8 @@ export default function RegisterModal({ open, handleClose }) {
 								onChange={handleChange}
 							/>
 						</FormGroup>
-						<FormGroup>
+
+						<FormControl fullWidth>
 							<TextField
 								required
 								id='outlined-required'
@@ -156,7 +157,6 @@ export default function RegisterModal({ open, handleClose }) {
 								onChange={handleChange}
 							/>
 							<TextField
-								fullWidth
 								required
 								id='outlined-password-input'
 								label='Password Confirmation'
@@ -166,9 +166,9 @@ export default function RegisterModal({ open, handleClose }) {
 								value={registerState.passwordConfirmation}
 								onChange={handleChange}
 							/>
-						</FormGroup>
+						</FormControl>
 
-						<Button size='large' variant='contained' fullWidth type='submit'>
+						<Button size='large' variant='contained' fullWidth type='submit' sx={{mt: 5}}>
 							Create Account
 						</Button>
 						{errors &&
