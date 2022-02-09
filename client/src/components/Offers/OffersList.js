@@ -16,6 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function OffersList(props) {
 
   const [listingOffers, setListingOffers] = useState([]);
+  const [acceptedOffer, acceptOffer] = useState("");
 
   useEffect((() => {
     axios.get(`http://localhost:8001/listings/${props.listingId}/offers`).then((result) => {
@@ -24,12 +25,28 @@ export default function OffersList(props) {
     })
   }), [props.listingId])
 
+  const handleAccept = function (offer) {
+    acceptOffer(offer);
+    axios.put(`http://localhost:8001/offers/${offer.offerId}`, {"accepted": true})
+    .then((result) => {
+      console.log(result.data);
+    })
+  }
+
+  const handleDecline = function (offer) {
+    axios.put(`http://localhost:8001/offers/${offer.offerId}`, {"accepted": false})
+    .then((result) => {
+      console.log(result.data);
+    })
+  }
+  console.log(acceptedOffer);
+
   return (
     <Item>
       <h3>Offers</h3>
       <Divider />
       {listingOffers.map((offer) => {
-        return <OffersListItem offer={offer}/>
+        return <OffersListItem accept={handleAccept} decline={handleDecline} offer={offer} />
       })}
     </Item>
   );

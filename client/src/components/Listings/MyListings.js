@@ -35,6 +35,9 @@ export default function MyListings() {
     setListing(this);
 	}
 
+  console.log(userDetails);
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} columns={16}>
