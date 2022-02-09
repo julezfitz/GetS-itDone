@@ -46,6 +46,7 @@ module.exports = db => {
 					authResponse.authentication.isAuthenticated = true;
 					authResponse.authentication.errors = [];
 					authResponse.authentication.user = user;
+					console.log(user)
 					req.session["user"] = user;
 					res.send(authResponse);
 					return;
@@ -165,9 +166,14 @@ module.exports = db => {
 						req.session["user"] = {
 							id: success.rows[0].id,
 							email: success.rows[0].email,
+							firstName: success.rows[0]["first_name"],
+							lastName: success.rows[0]["last_name"],
+							city: success.rows[0]["city"],
+							country: success.rows[0]["country"],
+							province: success.rows[0]["province"],
 						};
 						response.registration.isRegistered = true;
-						response.registration.user = success.rows[0];
+						response.registration.user = req.session.user;
 						res.send(response);
 						return;
 					})
