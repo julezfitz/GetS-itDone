@@ -3,6 +3,7 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { useNavigate } from "react-router";
+import { Button } from "@mui/material";
 
 const Search = styled("form")(({ theme }) => ({
 	position: "relative",
@@ -17,6 +18,16 @@ const Search = styled("form")(({ theme }) => ({
 	[theme.breakpoints.up("sm")]: {
 		marginLeft: theme.spacing(3),
 		width: "auto",
+	},
+}));
+
+const SearchButton = styled(Button)(({ theme }) => ({
+	border: "1px solid white",
+	color: "white",
+
+	"&:hover": {
+		backgroundColor: "white",
+		color: "black",
 	},
 }));
 
@@ -54,17 +65,24 @@ function SearchBar({ onSearch }) {
 	};
 
 	return (
-		<Search method='POST' onSubmit={handleSearchSubmit}>
-			<SearchIconWrapper>
-				<SearchIcon />
-			</SearchIconWrapper>
-			<StyledInputBase
-				placeholder='Search…'
-				inputProps={{ "aria-label": "search" }}
-				//could use a button here so that we can make it onSubmit
-				onChange={onSearch}
-			/>
-		</Search>
+		<>
+			<Search method='POST' onSubmit={handleSearchSubmit}>
+				<SearchIconWrapper>
+					<SearchIcon />
+				</SearchIconWrapper>
+				<StyledInputBase
+					placeholder='Search…'
+					inputProps={{ "aria-label": "search" }}
+					//could use a button here so that we can make it onSubmit
+					onChange={onSearch}
+				/>
+
+				{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}
+			</Search>
+			<SearchButton type='submit' variant='outlined'>
+				Go
+			</SearchButton>
+		</>
 	);
 }
 
