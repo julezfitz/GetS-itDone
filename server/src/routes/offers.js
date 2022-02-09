@@ -8,8 +8,10 @@ module.exports = db => {
     router.get("/offers", (request, response) => {
         const { bidderId } = request.query;
         let queryString = `SELECT offers.accepted, offers.pending, offers.id as offerId, listings.id as listingId, listings.title, 
-        listings.image_1, listings.price, listings.created FROM offers
+        listings.image_1, listings.price, listings.created, categories.category FROM offers
         JOIN listings ON offers.listing_id = listings.id
+        JOIN listing_categories ON (listings.id = listing_categories.listing_id)
+        JOIN categories ON (categories.id = listing_categories.category_id) 
         WHERE bidder_id = ${bidderId};`
 
         db.query(queryString).then(({ rows: offers }) => {
@@ -25,7 +27,8 @@ module.exports = db => {
                         "created": offerObj.created,
                         "pending": offerObj.pending,
                         "accepted": offerObj.accepted,
-                        "offerId": offerObj.offerid
+                        "offerId": offerObj.offerid,
+                        "category": offerObj.category
                     }
                 )
             });
