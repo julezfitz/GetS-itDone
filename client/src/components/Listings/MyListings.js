@@ -31,33 +31,6 @@ export default function MyListings() {
 	const [listing, setListing] = useState("");
 
 	const handleListingChange = function () {
-<<<<<<< HEAD
-    setListing(this);
-	}
-
-  console.log(userDetails);
-
-
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2} columns={16}>
-        <Grid item xs={8}>
-          <Item>
-            {listings.map((listing) => {
-              return <MyListingItem onClick={handleListingChange.bind(listing)} listing={listing} />
-            })}
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>
-            <ListingQuickView listing={listing}/>
-            <OffersList listingId={listing.id} />
-          </Item>
-        </Grid>
-      </Grid>
-    </Box>
-  );
-=======
 		setListing(this);
 	};
 
@@ -85,5 +58,4 @@ export default function MyListings() {
 			</Grid>
 		</Box>
 	);
->>>>>>> d1e265c2486395b5c89a493f35971fc8de70a787
 }
