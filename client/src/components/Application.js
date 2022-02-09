@@ -76,7 +76,7 @@ export default function Application() {
 							<span>Category:</span>
 							<span>Sort By: Date</span>
 						</div>
-						{search ? <SearchList keywords={search} /> : <SearchList /> }
+						{/* {search ? <SearchList keywords={search} /> : <SearchList /> } */}
 					</section>
 				</Box>
 			</main>

@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import { Button, Alert } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "../Application";
+import { FormControl } from "@mui/material";
 
 const style = {
 	position: "absolute",
@@ -17,6 +18,7 @@ const style = {
 	border: "2px solid #000",
 	boxShadow: 24,
 	p: 4,
+	borderRadius: "10px"
 };
 
 const ELEMENTSPACING = "1rem";
@@ -77,38 +79,44 @@ export default function LoginModal({ open, handleClose }) {
 				aria-describedby='modal-modal-description'
 			>
 				<Box sx={style}>
-					<Typography id='modal-modal-title' variant='h6' component='h2'>
+					<Typography
+						id='modal-modal-title'
+						variant='h6'
+						component='h2'
+						sx={{ textAlign: "center" }}
+					>
 						Login
 					</Typography>
 					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
 						<Box
 							component='form'
-							sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+							sx={{ "& .MuiTextField-root": { m: 1 } }}
 							noValidate
 							autoComplete='off'
 							onSubmit={handleSubmit}
 						>
-							<TextField
-								fullWidth
-								required
-								id='outlined-required'
-								label='Email'
-								name='email'
-								value={value.email}
-								onChange={handleChange}
-							/>
-							<TextField
-								fullWidth
-								required
-								id='outlined-password-input'
-								label='Password'
-								type='password'
-								autoComplete='current-password'
-								name='password'
-								value={value.password}
-								onChange={handleChange}
-							/>
-							{/* <p>{user.isLoggedIn}</p> */}
+							<FormControl fullWidth>
+								<TextField
+									fullWidth
+									required
+									id='outlined-required'
+									label='Email'
+									name='email'
+									value={value.email}
+									onChange={handleChange}
+								/>
+								<TextField
+									fullWidth
+									required
+									id='outlined-password-input'
+									label='Password'
+									type='password'
+									autoComplete='current-password'
+									name='password'
+									value={value.password}
+									onChange={handleChange}
+								/>
+							</FormControl>
 
 							<Button
 								size={"large"}
@@ -116,7 +124,7 @@ export default function LoginModal({ open, handleClose }) {
 								color='primary'
 								fullWidth
 								variant='contained'
-								sx={{ marginTop: ELEMENTSPACING }}
+								sx={{ marginTop: 5 }}
 							>
 								{loading ? "Loading..." : "Log in"}
 							</Button>
