@@ -6,12 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
 
-export default function CategoryList() {
-  const [category, setCategory] = React.useState("");
-
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
+export default function CategoryList(props) {
 
   const [categories, setCategories] = useState([]);
   useEffect((() => {
@@ -19,6 +14,10 @@ export default function CategoryList() {
       return setCategories(result.data);
     })
   }), [])
+
+  const handleChange = (e) => {
+    props.onSelect(e.target.value);
+  }
 
   //loop through categories to create category list
 
@@ -29,7 +28,6 @@ export default function CategoryList() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={category}
           label="Category"
           onChange={handleChange}
         >

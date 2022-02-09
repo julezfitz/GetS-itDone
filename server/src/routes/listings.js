@@ -5,6 +5,7 @@ const router = require("express").Router();
 module.exports = db => {
 
     router.get("/listings", (request, response) => {
+        console.log("in listings route");
         const { keywords, category, creatorId, orderBy, sortOrder } = request.query;
 
         let queryString = `SELECT * FROM listings`;
@@ -21,7 +22,7 @@ module.exports = db => {
         keywords ? (queryString += ` WHERE LOWER(title) LIKE LOWER('%${keywords}%')`) : "";
         orderBy ? (queryString += ` ORDER BY ${orderBy}`) : "";
         sortOrder ? (queryString += ` ${sortOrder}`) : "";
-
+            console.log(queryString);
         db.query(queryString += `;`).then(({ rows: listings }) => {
             response.json(listings);
         });
@@ -34,11 +35,11 @@ module.exports = db => {
         db.query(
             `INSERT INTO listings (creator_id, title, description, image_1, image_2, image_3, price, city, 
                     province, postal_code, country) VALUES ($1::integer, $2::text, $3::text, $4::text, $5::text, 
-                        $6::text, $7, $8::text, $9::text, $10::text, $11::text);`,
+                        $6::text, $7, $8::text, $9::text, $10::text, $11::text) RETURNING *;`,
             [creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
                 country]
-        ).then(() => {
-            response.status(201).json(`Listing Created`);
+        ).then((result) => {
+            response.status(201).json(result.rows[0]);
         });
     });
 
@@ -309,6 +310,15 @@ module.exports.apiDocs = {
             "responses": {
                 201: {
                     "description": "Listing Created",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "items": listingSchema
+                            },
+                            "example": exampleListing1,
+                        }
+                    }
                 },
             }
         }
