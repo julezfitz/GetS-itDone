@@ -1,10 +1,14 @@
 import React, { useRef } from "react";
 import { Paper, Button } from "@mui/material";
-import SwiperCore, { Autoplay, Navigation } from "swiper";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const images = [
 	{
@@ -31,10 +35,10 @@ const swiperStyle = {
 };
 
 function ImageCarousel() {
-	SwiperCore.use([Autoplay, Navigation]);
+	SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 	const prevRef = useRef(null);
-  const nextRef = useRef(null);
+	const nextRef = useRef(null);
 
 	return (
 		<Swiper
@@ -42,10 +46,17 @@ function ImageCarousel() {
 			onSlideChange={() => console.log("slide change")}
 			onSwiper={swiper => console.log(swiper)}
 			autoplay={{ delay: 3000 }}
-      navigation={{
-        prevEl: prevRef.current,
-        nextEl: nextRef.current
-      }}
+			navigation={{
+				prevEl: prevRef.current,
+				nextEl: nextRef.current,
+			}}
+			onBeforeInit={swiper => {
+				swiper.params.navigation.prevEl = prevRef.current;
+				swiper.params.navigation.nextEl = nextRef.current;
+			}}
+			pagination={{
+				clickable: true,
+			}}
 		>
 			{images.map((image, i) => {
 				return (
@@ -65,6 +76,8 @@ function ImageCarousel() {
 					backgroundPosition: "50% 50%",
 				}}
 			></SwiperSlide>
+			<div ref={prevRef}>prv</div>
+			<div ref={nextRef}>next</div>
 		</Swiper>
 	);
 }
