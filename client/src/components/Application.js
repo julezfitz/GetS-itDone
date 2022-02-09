@@ -70,7 +70,7 @@ export default function Application() {
 			<main className={`content-wrapper`}>
 				<Box className='content-inner'>
 					<section>
-						<Routing keywords={search} />
+						<Routing keywords={search} search={search}/>
 						<p className='main__text'>All results for: Home</p>
 						<div>
 							<span>Category:</span>
