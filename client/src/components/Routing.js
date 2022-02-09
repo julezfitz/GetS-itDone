@@ -6,7 +6,7 @@ import SearchList from "./Search/SearchList";
 import MyListings from "./Listings/MyListings";
 import OffersList from "./Offers/OffersList";
 
-function Routing({ keywords, search }) {
+function Routing({ keywords, search, togglePending }) {
 	const { isLoggedIn } = useContext(UserContext);
 
 	return (
@@ -17,9 +17,9 @@ function Routing({ keywords, search }) {
 					element={
 						isLoggedIn ? (
 							search ? (
-								<SearchList keywords={keywords} />
+								<SearchList keywords={keywords} togglePending={togglePending} />
 							) : (
-								<SearchList />
+								<SearchList togglePending={togglePending} />
 							)
 						) : (
 							<>

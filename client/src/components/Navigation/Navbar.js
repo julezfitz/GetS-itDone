@@ -22,7 +22,10 @@ import NewListingModal from "../Listings/New";
 import NewRatingModal from "../Ratings/NewRating";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Application";
-import UserMenu from "./UserMenu";
+
+import LoggedInNav from "./LoggedInNav";
+import LoggedOutNav from "./LoggedOutNav";
+import SearchBar from "./SearchBar";
 
 const pages = ["Register", "Login"];
 
@@ -44,46 +47,6 @@ const settings = [
 		path: "/",
 	},
 ];
-
-const Search = styled("div")(({ theme }) => ({
-	position: "relative",
-	borderRadius: theme.shape.borderRadius,
-	backgroundColor: alpha(theme.palette.common.white, 0.15),
-	"&:hover": {
-		backgroundColor: alpha(theme.palette.common.white, 0.25),
-	},
-	marginRight: theme.spacing(2),
-	marginLeft: 0,
-	width: "100%",
-	[theme.breakpoints.up("sm")]: {
-		marginLeft: theme.spacing(3),
-		width: "auto",
-	},
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-	padding: theme.spacing(0, 2),
-	height: "100%",
-	position: "absolute",
-	pointerEvents: "none",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-	color: "inherit",
-	"& .MuiInputBase-input": {
-		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
-		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-		transition: theme.transitions.create("width"),
-		width: "100%",
-		[theme.breakpoints.up("md")]: {
-			width: "20ch",
-		},
-	},
-}));
 
 export default function ResponsiveAppBar(props) {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -120,6 +83,30 @@ export default function ResponsiveAppBar(props) {
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
+	};
+
+	const loggedInProps = {
+		newListingOpen,
+		newRatingOpen,
+		handleNewListingOpen,
+		handleNewListingClose,
+		handleNewRatingOpen,
+		handleNewRatingClose,
+		handleOpenUserMenu,
+		handleCloseUserMenu,
+		userDetails,
+		anchorElUser,
+		toggleLoggedIn,
+		settings,
+	};
+
+	const loggedOutProps = {
+		handleRegisterOpen,
+		handleRegisterClose,
+		registerOpen,
+		loginOpen,
+		handleLoginOpen,
+		handleLoginClose,
 	};
 
 	return (
@@ -181,197 +168,14 @@ export default function ResponsiveAppBar(props) {
 					>
 						Get S*it Done
 					</Typography>
-					<Search>
-						<SearchIconWrapper>
-							<SearchIcon />
-						</SearchIconWrapper>
-						<StyledInputBase
-							placeholder='Search…'
-							inputProps={{ "aria-label": "search" }}
-							//could use a button here so that we can make it onSubmit
-							onChange={props.onSearch}
-						/>
-					</Search>
+					<SearchBar onSearch={props.onSearch} />
 					<Box sx={{ flexGrow: 1 }} />
 
 					{isLoggedIn ? (
-						<>
-							<Box
-								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='CreateNewListing'
-										onClick={handleNewListingOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										Create New Listing
-									</Button>
-									<NewListingModal
-										open={newListingOpen}
-										handleClose={handleNewListingClose}
-									/>
-								</>
-							</Box>
-							<Box
-								sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='NewRating'
-										onClick={handleNewRatingOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										New Rating
-									</Button>
-									<NewRatingModal
-										open={newRatingOpen}
-										handleClose={handleNewRatingClose}
-									/>
-								</>
-							</Box>
-							<Box
-								sx={{
-									maxWidth: "150px",
-									padding: "0 24px",
-									display: { xs: "none", md: "flex" },
-								}}
-							>
-								<IconButton
-									size='large'
-									aria-label='show 4 new notifications'
-									color='inherit'
-								>
-									<Badge badgeContent={4} color='error'>
-										<NotificationsIcon />
-									</Badge>
-								</IconButton>
-							</Box>
-							<Box sx={{ maxWidth: "150px" }}>
-								<Tooltip title='Open settings'>
-									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-										<Avatar
-											alt={userDetails.firstName}
-											src='/static/images/avatar/2.jpg'
-										/>
-									</IconButton>
-								</Tooltip>
-								<UserMenu
-									settings={settings}
-									handleCloseUserMenu={handleCloseUserMenu}
-									anchorElUser={anchorElUser}
-									toggleLoggedIn={toggleLoggedIn}
-								/>
-							</Box>
-						</>
+						<LoggedInNav {...loggedInProps} />
 					) : (
-						<>
-							<Box
-								sx={{ maxWidth: "85px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='Register'
-										onClick={handleRegisterOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										Register
-									</Button>
-									<RegisterModal
-										open={registerOpen}
-										handleClose={handleRegisterClose}
-									/>
-								</>
-							</Box>
-							<Box
-								sx={{ maxWidth: "150px", display: { xs: "none", md: "flex" } }}
-							>
-								<>
-									<Button
-										key='Login'
-										onClick={handleLoginOpen}
-										sx={{ my: 2, color: "white", display: "block" }}
-									>
-										Login
-									</Button>
-									<LoginModal open={loginOpen} handleClose={handleLoginClose} />
-								</>
-							</Box>
-						</>
+						<LoggedOutNav {...loggedOutProps} />
 					)}
-					{/* <Box sx={{ maxWidth: "85px", display: { xs: "none", md: "flex" } }}>
-            <>
-              <Button
-                key="Register"
-                onClick={handleRegisterOpen}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Register
-              </Button>
-              <RegisterModal
-                open={registerOpen}
-                handleClose={handleRegisterClose}
-              />
-            </>
-          </Box>
-          <Box sx={{ maxWidth: "150px", display: { xs: "none", md: "flex" } }}>
-            <>
-              <Button
-                key="Login"
-                onClick={handleLoginOpen}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Login
-              </Button>
-              <LoginModal open={loginOpen} handleClose={handleLoginClose} />
-            </>
-          </Box>
-          <Box
-            sx={{
-              maxWidth: "150px",
-              padding: "0 24px",
-              display: { xs: "none", md: "flex" },
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-label="show 4 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Box>
-          <Box sx={{ maxWidth: "150px" }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Bob Smith" src="image1.jpg"/>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
 				</Toolbar>
 			</Container>
 		</AppBar>
