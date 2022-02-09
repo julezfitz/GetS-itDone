@@ -60,7 +60,6 @@ function SearchBar({ onSearch }) {
 
 	const handleSearchSubmit = e => {
 		e.preventDefault();
-
 		navigate("/");
 	};
 
@@ -78,10 +77,10 @@ function SearchBar({ onSearch }) {
 				/>
 
 				{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}
+				<SearchButton type='submit' variant='outlined'>
+					Go
+				</SearchButton>
 			</Search>
-			<SearchButton type='submit' variant='outlined'>
-				Go
-			</SearchButton>
 		</>
 	);
 }

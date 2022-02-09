@@ -17,7 +17,7 @@ export const GlobalStyles = createGlobalStyle`
   main {
     .content-inner {
       height: 100%;
-      padding-top: 4.2rem;
+      padding: 4.2rem 10vw 0 10vw;
     }
   }
 
