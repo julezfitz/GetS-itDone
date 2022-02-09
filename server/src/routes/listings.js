@@ -38,8 +38,8 @@ module.exports = db => {
                         $6::text, $7, $8::text, $9::text, $10::text, $11::text);`,
             [creatorId, title, description, image_1, image_2, image_3, price, city, province, postalCode,
                 country]
-        ).then(() => {
-            response.status(201).json(`Listing Created`);
+        ).then((result) => {
+            response.status(201).json(result.rows[0]);
         });
     });
 
@@ -310,6 +310,15 @@ module.exports.apiDocs = {
             "responses": {
                 201: {
                     "description": "Listing Created",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "items": listingSchema
+                            },
+                            "example": exampleListing1,
+                        }
+                    }
                 },
             }
         }
