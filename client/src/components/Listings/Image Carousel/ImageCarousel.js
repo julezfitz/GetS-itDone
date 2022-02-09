@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Paper, Button } from "@mui/material";
-
+import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -31,8 +31,22 @@ const swiperStyle = {
 };
 
 function ImageCarousel() {
+	SwiperCore.use([Autoplay, Navigation]);
+
+	const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
 	return (
-		<Swiper style={swiperStyle}>
+		<Swiper
+			style={swiperStyle}
+			onSlideChange={() => console.log("slide change")}
+			onSwiper={swiper => console.log(swiper)}
+			autoplay={{ delay: 3000 }}
+      navigation={{
+        prevEl: prevRef.current,
+        nextEl: nextRef.current
+      }}
+		>
 			{images.map((image, i) => {
 				return (
 					<SwiperSlide
