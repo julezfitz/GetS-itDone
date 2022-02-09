@@ -48,8 +48,8 @@ export default function NewListingModal({ open, handleClose }) {
 			"description": e.target.elements.description.value,
 			"price": price,
 			"city": e.target.elements.city.value,
-			"province": e.target.elements.province.value,
-			"country": e.target.elements.country.value,
+			"province": userDetails.province,
+			"country": userDetails.country,
 			"postalCode": e.target.elements.postalCode.value,
 			"image_1": e.target.elements.image_1.value,
 		}
@@ -94,8 +94,6 @@ export default function NewListingModal({ open, handleClose }) {
 									name='description'
 								/>
 								<TextField required id='outlined-password-input' name='city' label='City' />
-								<TextField required id='outlined-password-input' name='province' label='Province' />
-								<TextField required id='outlined-password-input' name='country' label='Country' />
 								<TextField
 									required
 									id='outlined-password-input'
