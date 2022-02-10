@@ -39,13 +39,24 @@ export const StyledHero = styled.section`
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 999;
 	width: 100%;
-	padding: ${heropadding};
+	
 
 	.hero-inner {
 		height: 100%;
 		width: 100%;
+		position: relative;
+
+	
+		.hero-text {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 4rem;
+			font-family: Inter;
+		}
 	}
 
 	.blob-canvas {
@@ -55,18 +66,6 @@ export const StyledHero = styled.section`
 		transform: translate(-50%, -50%);
 		width: 100%;
 		height: 100%;
-	}
-
-	&::after {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: black;
-		z-index: 0;
-		opacity: 0.2;
 	}
 
 	.text-content-wrapper {

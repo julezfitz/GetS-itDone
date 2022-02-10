@@ -3,8 +3,16 @@ import { createGlobalStyle } from "styled-components";
 const GUTTER = "10vw";
 
 export const GlobalStyles = createGlobalStyle`
+  
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap');
+  
+  .accent {
+    color: orange;
+  }
+
   html, body, .App, #root, {
     height: 100%;
+    font-family: 'Inter';
   };
 
   body {
@@ -37,7 +45,6 @@ export const GlobalStyles = createGlobalStyle`
    display: flex;
    flex-direction: column;
    justify-content: center;
-   
  }
 
  
