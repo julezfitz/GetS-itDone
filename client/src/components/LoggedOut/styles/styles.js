@@ -36,8 +36,17 @@ export const StyledHero = styled.section`
 	justify-content: center;
 	flex-direction: column;
 	overflow: hidden;
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	width: 100%;
 	padding: ${heropadding};
+
+	.hero-inner {
+		height: 100%;
+		width: 100%;
+	}
 
 	.blob-canvas {
 		position: absolute !important;
