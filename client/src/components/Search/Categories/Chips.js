@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Chip, Box, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 
 function Chips({ categories, selected, setSelected, handleClearSelection }) {
 	const elementSpacing = 1;
 
+	useEffect(() => {
+		console.log(categories);
+	}, [categories]);
+
 	return (
 		<Box sx={{ mt: 2 }}>
-			{categories &&
+			{categories.length ? (
 				categories.map(category => {
 					return (
 						<Chip
@@ -25,7 +30,12 @@ function Chips({ categories, selected, setSelected, handleClearSelection }) {
 							clickable
 						/>
 					);
-				})}
+				})
+			) : (
+				<Typography>
+					There are no current categories for your search result
+				</Typography>
+			)}
 			<Button
 				variant='contained'
 				sx={{ textTransform: "none", m: elementSpacing, display: "block" }}

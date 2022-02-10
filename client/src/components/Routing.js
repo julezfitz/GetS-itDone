@@ -9,14 +9,7 @@ import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
 
-function Routing({
-	keywords,
-	search,
-	togglePending,
-	emptySearch,
-	isCleared,
-	setCleared,
-}) {
+function Routing({ keywords, search, togglePending, emptySearch }) {
 	const { isLoggedIn } = useContext(UserContext);
 
 	return (
@@ -31,15 +24,11 @@ function Routing({
 									keywords={keywords}
 									togglePending={togglePending}
 									emptySearch={emptySearch}
-									isCleared={isCleared}
-									setCleared={setCleared}
 								/>
 							) : (
 								<SearchWrapper
 									togglePending={togglePending}
 									emptySearch={emptySearch}
-									isCleared={isCleared}
-									setCleared={setCleared}
 								/>
 							)
 						) : (
