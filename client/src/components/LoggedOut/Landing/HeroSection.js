@@ -5,40 +5,7 @@ import Scene from "./Spline/Scene";
 import { Button } from "@mui/material";
 
 function HeroSection({ toggleRegister }) {
-	const splitHeading = useRef(null);
-	const timeline = useRef(gsap.timeline());
 	const marqueeRefs = useRef([]);
-	const headingRef = useRef(null);
-	const [mouseCoords, setMouseCoords] = useState({
-		mouseX: 0,
-		mouseY: 0,
-	});
-	const [isBlobLoaded, setBlobLoaded] = useState(false);
-
-	const addToRefs = el => {
-		if (el && !marqueeRefs.current.includes(el)) {
-			marqueeRefs.current.push(el);
-		}
-	};
-
-	useEffect(() => {
-		setTimeout(() => {
-			setBlobLoaded(true);
-		}, 2000);
-
-		const handleMouseMove = e => {
-			setMouseCoords({
-				mouseX: e.pageX,
-				mouseY: e.pageY,
-			});
-		};
-
-		window.addEventListener("mousemove", handleMouseMove);
-
-		return () => {
-			window.removeEventListener("mousemove", handleMouseMove);
-		};
-	}, []);
 
 	return (
 		<StyledHero className='heroSection'>
