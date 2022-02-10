@@ -35,8 +35,9 @@ export default function UserRatingsModal({ open, handleClose, user }) {
             .then((results) => {
                 console.log(results.data)
                 setRatings(results.data);
-                let averageCalc = results.data.reduce((total, next) => total + next.rating, 0) / results.data.length;
-                setAverage(averageCalc);
+                let averageCalc = results.data.reduce((total, next) => total + parseInt(next.rating), 0) / results.data.length;
+                console.log(averageCalc);
+                setAverage(averageCalc.toFixed(1));
             })
     }), [user.bidderId])
 
@@ -85,9 +86,9 @@ export default function UserRatingsModal({ open, handleClose, user }) {
                                                                 variant="body2"
                                                                 color="text.primary"
                                                             >
-                                                            Rating: {rating.rating}
-                                                            </Typography>
+                                                            <Rating name="user-rating" size="small" value={rating.rating} readOnly />
                                                             &nbsp;- {rating.comment}
+                                                            </Typography>
                                                         </React.Fragment>
                                                     }
                                                 />
