@@ -2,12 +2,23 @@ import React, { useEffect } from "react";
 import { Chip, Box, Button } from "@mui/material";
 import { Typography } from "@mui/material";
 
-function Chips({ categories, selected, setSelected, handleClearSelection }) {
+function Chips({
+	categories,
+	selected,
+	setSelected,
+	handleClearSelection,
+	emptySearch,
+}) {
 	const elementSpacing = 1;
 
 	useEffect(() => {
 		console.log(categories);
 	}, [categories]);
+
+	const handleChipClick = categoryId => {
+		setSelected(categoryId);
+		emptySearch()
+	};
 
 	return (
 		<Box sx={{ mt: 2 }}>
@@ -24,7 +35,7 @@ function Chips({ categories, selected, setSelected, handleClearSelection }) {
 									? "contained"
 									: "outlined"
 							}
-							onClick={() => setSelected(category.id)}
+							onClick={() => handleChipClick(category.id)}
 							clickableColorSecondary
 							color='primary'
 							clickable
