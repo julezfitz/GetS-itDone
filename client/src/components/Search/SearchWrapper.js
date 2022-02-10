@@ -7,7 +7,6 @@ import axios from "axios";
 function SearchWrapper({ keywords }) {
 	const [listings, setListings] = useState([]);
 	const [categories, setCategories] = useState([]);
-
 	const [selectedChip, setSelectedChip] = useState({
 		id: null,
 		name: null,
@@ -28,12 +27,14 @@ function SearchWrapper({ keywords }) {
 	};
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:8001/listings/`, { params: { keywords } })
-			.then(result => {
-				setListings(result.data);
-			});
-	}, [keywords]);
+		if (!selectedChip.id) {
+			axios
+				.get(`http://localhost:8001/listings/`, { params: { keywords } })
+				.then(result => {
+					setListings(result.data);
+				});
+		}
+	}, [keywords, selectedChip]);
 
 	useEffect(() => {
 		//Call for categories
