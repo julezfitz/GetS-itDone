@@ -13,8 +13,13 @@ const Img = styled("img")({
 });
 
 export default function SearchListItem(props) {
+	const handleListingChange = () => {
+		let listing = props.listing;
+		props.onChoice(listing);
+	};
+
 	return (
-		<Paper sx={{ p: 2, flexGrow: 1 }}>
+		<Paper onClick={handleListingChange} sx={{ p: 2, flexGrow: 1 }}>
 			<Grid container spacing={2}>
 				<Grid item>
 					<ButtonBase sx={{ width: 128, height: 128 }}>
