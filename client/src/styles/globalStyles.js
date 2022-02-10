@@ -22,13 +22,15 @@ export const GlobalStyles = createGlobalStyle`
     margin-top: 4.3rem;
     width: 100%;
     min-height: 100%;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
  .content-width-wrapper {
-   
+   margin-top: 10rem;
    width: 1200px;
-   margin: 10rem auto 0 auto;
+   
  }
 
  
