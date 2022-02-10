@@ -13,13 +13,25 @@ export const GlobalStyles = createGlobalStyle`
     color: inherit;
   }
 
-
-  main {
-    .content-inner {
-      height: 100%;
-      padding: 4.2rem 10vw 0 10vw;
-    }
+  section {
+    height: 100%;
   }
+
+
+  .nav-offset {
+    margin-top: 4.3rem;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+ .content-width-wrapper {
+   margin-top: 10rem;
+   width: 1200px;
+   
+ }
 
  
 `;

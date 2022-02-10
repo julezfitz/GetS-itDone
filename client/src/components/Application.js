@@ -80,24 +80,23 @@ export default function Application() {
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles />
-			<section>
-				<Navbar onSearch={handleSearch} />
-			</section>
-			<main className={`content-wrapper`}>
-				<Box className='content-inner'>
-					<section>
-						<Routing
-							keywords={search}
-							search={search}
-							togglePending={togglePending}
-						/>
-						{/* <p className='main__text'>All results for: Home</p>
+
+			<Navbar onSearch={handleSearch} searchValue={search} />
+
+			<main className={`content-wrapper nav-offset`}>
+				<div className='content-width-wrapper'>
+					<Routing
+						keywords={search}
+						search={search}
+						togglePending={togglePending}
+						emptySearch={() => setSearch("")}
+					/>
+					{/* <p className='main__text'>All results for: Home</p>
 						<div>
 							<span>Category:</span>
 							<span>Sort By: Date</span>
 						</div> */}
-					</section>
-				</Box>
+				</div>
 			</main>
 		</UserContext.Provider>
 	);
