@@ -47,17 +47,17 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 
 				<Route
 					path='/listings'
-					element={isLoggedIn ? <MyListings /> : () => <Navigate to='/' />}
+					element={isLoggedIn ? <MyListings /> : <Navigate to='/' />}
 				/>
 
 				<Route
 					path='/offers'
-					element={isLoggedIn ? <MyOffers /> : () => <Navigate to='/' />}
+					element={isLoggedIn ? <MyOffers /> : <Navigate to='/' />}
 				/>
 
 				<Route
 					path='/listings/:id'
-					element={isLoggedIn ? <OffersList /> : () => <Navigate to='/' />}
+					element={isLoggedIn ? <OffersList /> : <Navigate to='/' />}
 				/>
 			</Routes>
 		</>

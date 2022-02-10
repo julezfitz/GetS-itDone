@@ -33,9 +33,7 @@ export default function NewListingModal({ open, handleClose }) {
 		setCategory(category);
 	};
 
-	console.log(userDetails);
-
-	const handleSubmit = e => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		let price = parseInt(e.target.elements.price.value);

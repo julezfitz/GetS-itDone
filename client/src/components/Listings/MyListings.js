@@ -21,11 +21,13 @@ export default function MyListings() {
 	const [listings, setListings] = useState([]);
 
 	useEffect(() => {
+    if(userDetails) {
 		axios
 			.get(`http://localhost:8001/listings?creatorId=${userDetails.id}`)
 			.then(result => {
 				setListings(result.data);
 			});
+    }
 	}, [userDetails]);
 
 	const [listing, setListing] = useState("");
@@ -43,7 +45,8 @@ export default function MyListings() {
 							return (
 								<MyListingItem
 									onClick={handleListingChange.bind(listing)}
-									listing={listing}
+									key={ Math.random().toString(36).substr(2, 9)}
+                  listing={listing}
 								/>
 							);
 						})}
