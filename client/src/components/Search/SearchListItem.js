@@ -15,7 +15,7 @@ const Img = styled("img")({
 export default function SearchListItem(props) {
 
   return (
-    <Paper sx={{ p: 2, flexGrow: 1 }}>
+    <Paper onClick={props.onChoice(props.listing)} sx={{ p: 2, flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
