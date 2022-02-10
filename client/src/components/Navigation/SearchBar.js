@@ -70,7 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch, value }) {
 	const navigate = useNavigate();
 
 	const handleSearchSubmit = e => {
@@ -87,8 +87,8 @@ function SearchBar({ onSearch }) {
 				<StyledInputBase
 					placeholder='Search…'
 					inputProps={{ "aria-label": "search" }}
-					//could use a button here so that we can make it onSubmit
 					onChange={onSearch}
+					value={value}
 				/>
 
 				{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}

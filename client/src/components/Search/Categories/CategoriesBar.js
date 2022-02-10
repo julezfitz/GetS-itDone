@@ -21,7 +21,6 @@ function CategoriesBar({
 
 	return (
 		<>
-			
 			<Box style={barStyle}>
 				<Box>
 					<Typography>Filter by Category</Typography>

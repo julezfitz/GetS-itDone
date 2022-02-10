@@ -4,7 +4,7 @@ import CategoriesBar from "./Categories/CategoriesBar";
 import { Box } from "@mui/material";
 import axios from "axios";
 
-function SearchWrapper({ keywords }) {
+function SearchWrapper({ keywords, emptySearch }) {
 	const [listings, setListings] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [currentCategories, setCurrentCategories] = useState([]);
@@ -21,6 +21,7 @@ function SearchWrapper({ keywords }) {
 	};
 
 	const handleClearSelection = () => {
+		emptySearch();
 		setSelectedChip({
 			id: null,
 			name: null,
@@ -41,7 +42,7 @@ function SearchWrapper({ keywords }) {
 						return categoryNames.includes(category.category);
 					});
 
-					setCurrentCategories(filteredCategories);
+					setCategories(filteredCategories);
 				});
 		}
 	}, [keywords, selectedChip]);
@@ -84,6 +85,7 @@ function SearchWrapper({ keywords }) {
 				selectedChip={selectedChip}
 				handleSelectedChip={handleSelectedChip}
 				handleClearSelection={handleClearSelection}
+				emptySearch={emptySearch}
 			/>
 		</Box>
 	);
