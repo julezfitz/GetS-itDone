@@ -13,11 +13,13 @@ function Chips({ categories, selected, setSelected }) {
 							key={category.id}
 							component='button'
 							variant={
-								selected && selected === category.id ? "contained" : "outlined"
+								selected && selected.id === category.id
+									? "contained"
+									: "outlined"
 							}
 							onClick={() => setSelected(category.id)}
 							clickableColorSecondary
-							color="primary"
+							color='primary'
 							clickable
 						/>
 					);
