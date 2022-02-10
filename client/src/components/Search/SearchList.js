@@ -31,7 +31,8 @@ console.log(listings);
 			{listings.map(listing => {
 				return (
 					<ListingDetails listing={listing} className="search-results__item">
-						<SearchListItem listing={listing} />
+						<SearchListItem listing={listing} key={listing.id}/> 
+            {/* added key here again */}
 					</ListingDetails>
 				);
 			})}
