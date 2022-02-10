@@ -17,7 +17,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     background-color: ${({ isLoggedIn }) =>
-			!isLoggedIn ? "#15181E" : "white"};
+			!isLoggedIn ? "#121215" : "white"};
   }
 
 
