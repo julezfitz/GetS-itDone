@@ -6,11 +6,6 @@ import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItem from '@mui/material/ListItem';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
 import SingleRating from "./SingleRating";
 
 
