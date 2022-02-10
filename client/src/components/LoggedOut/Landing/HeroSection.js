@@ -1,9 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { StyledHero } from "../styles/styles";
 import gsap from "gsap";
-import { Suspense } from "react";
-import Blob from "./Three/Blob";
-import TextOverlay from "./TextOverlay";
 import Scene from "./Spline/Scene";
 import { Button } from "@mui/material";
 
