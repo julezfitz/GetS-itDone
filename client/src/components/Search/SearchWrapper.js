@@ -7,6 +7,7 @@ import axios from "axios";
 function SearchWrapper({ keywords }) {
 	const [listings, setListings] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const [currentCategories, setCurrentCategories] = useState([]);
 	const [selectedChip, setSelectedChip] = useState({
 		id: null,
 		name: null,
@@ -27,11 +28,20 @@ function SearchWrapper({ keywords }) {
 	};
 
 	useEffect(() => {
+		//If no chip is selected we can fetch all listings
 		if (!selectedChip.id) {
 			axios
 				.get(`http://localhost:8001/listings/`, { params: { keywords } })
 				.then(result => {
 					setListings(result.data);
+
+					const categoryNames = result.data.map(listing => listing.category);
+
+					const filteredCategories = categories.filter(category => {
+						return categoryNames.includes(category.category);
+					});
+
+					setCurrentCategories(filteredCategories);
 				});
 		}
 	}, [keywords, selectedChip]);
@@ -39,11 +49,14 @@ function SearchWrapper({ keywords }) {
 	useEffect(() => {
 		//Call for categories
 
-		//Only display all listings if no chip is selected
+		//Only display all categories if no chip is selected
 		if (!selectedChip.id) {
 			axios
 				.get("http://localhost:8001/categories")
-				.then(res => setCategories(res.data))
+				.then(res => {
+					setCategories(res.data);
+					setCurrentCategories(res.data);
+				})
 				.catch(err => console.log(err));
 		}
 
@@ -67,7 +80,7 @@ function SearchWrapper({ keywords }) {
 		<Box className='search-view-wrapper' sx={wrapperStyle}>
 			<SearchList keywords={keywords} listings={listings} />
 			<CategoriesBar
-				categories={categories}
+				categories={currentCategories}
 				selectedChip={selectedChip}
 				handleSelectedChip={handleSelectedChip}
 				handleClearSelection={handleClearSelection}
