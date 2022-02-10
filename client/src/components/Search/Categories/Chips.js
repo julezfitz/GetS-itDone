@@ -28,7 +28,7 @@ function Chips({ categories, selected, setSelected, handleClearSelection }) {
 				})}
 			<Button
 				variant='contained'
-				sx={{ textTransform: "none", m: elementSpacing }}
+				sx={{ textTransform: "none", m: elementSpacing, display: "block" }}
 				size='small'
 				onClick={handleClearSelection}
 			>
