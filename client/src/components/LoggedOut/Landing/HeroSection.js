@@ -50,7 +50,9 @@ function HeroSection() {
 					<span className='accent'>Hi</span>, we're get shit done
 				</div>
 				<Scene />
-				<Button className="her-btn" >Start now for free</Button>
+				<Button size='large' variant='contained' sx={{ textTransform: "none" }}>
+					Start now for free
+				</Button>
 			</div>
 		</StyledHero>
 	);
