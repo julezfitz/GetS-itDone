@@ -9,7 +9,7 @@ import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
-import UserRatings from "../Ratings/UserRatings";
+import UserRatingsModal from "../Ratings/UserRatings";
 
 export default function ListingDetails(props) {
   //Make the listing details full width on mobile
@@ -36,15 +36,10 @@ export default function ListingDetails(props) {
 
   const [listingCreator, setCreator] = React.useState({});
 
-  const [open, setOpen] = React.useState(false);
+  const [userRatingsOpen, setUserRatingsOpen] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleUserRatingsOpen = () => setUserRatingsOpen(true);
+  const handleUserRatingsClose = () => setUserRatingsOpen(false);
 
   React.useEffect((() => {
     if (props.listing.creator_id) {
@@ -93,13 +88,13 @@ export default function ListingDetails(props) {
               <Item>
                 <h3>Category: {props.listing.category}</h3>
                 <h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
-                <Grid container={true} onClick={handleOpen}>
+                <Grid container={true} onClick={handleUserRatingsOpen}>
                   <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
                   <Typography variant="string" component="div">&nbsp;  (</Typography>
                   <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
                   <Typography variant="string" color="black" component="div">)</Typography>
-                  <UserRatings open={open} onClose={handleClose} user={listingCreator}></UserRatings>
                 </Grid>
+                <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
                 <h3>Description</h3>
                 <p>{props.listing.description}</p>
                 <h4>{props.listing.created}</h4>
