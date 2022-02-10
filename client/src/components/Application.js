@@ -81,7 +81,7 @@ export default function Application() {
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles />
 
-			<Navbar onSearch={handleSearch} />
+			<Navbar onSearch={handleSearch} searchValue={search} />
 
 			<main className={`content-wrapper nav-offset`}>
 				<div className='content-width-wrapper'>
@@ -89,6 +89,7 @@ export default function Application() {
 						keywords={search}
 						search={search}
 						togglePending={togglePending}
+						emptySearch={() => setSearch("")}
 					/>
 					{/* <p className='main__text'>All results for: Home</p>
 						<div>
