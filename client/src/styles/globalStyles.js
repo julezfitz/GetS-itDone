@@ -21,9 +21,15 @@ export const GlobalStyles = createGlobalStyle`
   .nav-offset {
     margin-top: 4.3rem;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 
   }
+
+ .content-width-wrapper {
+   
+   width: 1200px;
+   margin: 10rem auto 0 auto;
+ }
 
  
 `;
