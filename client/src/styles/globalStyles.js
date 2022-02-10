@@ -16,7 +16,8 @@ export const GlobalStyles = createGlobalStyle`
   };
 
   body {
-    background-color: #15181E;
+    background-color: ${({ isLoggedIn }) =>
+			!isLoggedIn ? "#15181E" : "white"};
   }
 
 

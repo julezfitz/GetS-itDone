@@ -46,7 +46,7 @@ function HeroSection() {
 		<StyledHero className='heroSection'>
 			<div className='hero-inner'>
 				<div className='hero-text'>
-					<span className="accent">Hi</span>, we're get shit done.
+					<span className="accent">Hi</span>, we're get shit done
 				</div>
 				<Scene />
 			</div>
