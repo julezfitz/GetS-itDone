@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
+import { useContext } from "react";
 
 //Hero blob config
 const heroBgColor = "#232323";
@@ -36,8 +37,35 @@ export const StyledHero = styled.section`
 	justify-content: center;
 	flex-direction: column;
 	overflow: hidden;
-	position: relative;
-	padding: ${heropadding};
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+
+	.hero-inner {
+		height: 100%;
+		width: 100%;
+		position: relative;
+
+		.hero-text {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 3rem;
+			font-family: Inter;
+			z-index: 999;
+		}
+
+		button {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			margin-bottom: 4rem;
+		}
+	}
 
 	.blob-canvas {
 		position: absolute !important;
@@ -46,18 +74,6 @@ export const StyledHero = styled.section`
 		transform: translate(-50%, -50%);
 		width: 100%;
 		height: 100%;
-	}
-
-	&::after {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: black;
-		z-index: 0;
-		opacity: 0.2;
 	}
 
 	.text-content-wrapper {
