@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import { Button, Alert } from "@mui/material";
-import UserRatings from "../Ratings/UserRatings";
+import UserRatingsModal from "../Ratings/UserRatings";
 
 export default function OffersListItem(props) {
   const handleAccept = () => {
@@ -14,15 +14,10 @@ export default function OffersListItem(props) {
     props.decline(props.offer);
   }
 
-  const [open, setOpen] = React.useState(false);
+  const [userRatingsOpen, setUserRatingsOpen] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleUserRatingsOpen = () => setUserRatingsOpen(true);
+  const handleUserRatingsClose = () => setUserRatingsOpen(false);
 
   const [offer, setOffer] = React.useState({});
 
@@ -40,12 +35,12 @@ export default function OffersListItem(props) {
               {offer.firstName} {offer.lastName}
             </Typography>
             <Typography variant="body2" component={'span'} gutterBottom>
-              <Grid container={true} onClick={handleOpen}>
+              <Grid container={true} onClick={handleUserRatingsOpen}>
                 <Rating name="user-rating" size="small" value={parseInt(offer.averageRating)} readOnly />
                 <Typography variant="string" component="div">&nbsp;  (</Typography>
                 <Typography variant="string" color="blue" component="div">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Typography>
                 <Typography variant="string" color="black" component="div">)</Typography>
-                <UserRatings open={open} onClose={handleClose} user={offer}></UserRatings>
+                <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer}></UserRatingsModal>
               </Grid>
             </Typography>
           </Grid>
