@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { keyframes } from "styled-components";
 import { device } from "../../../styles/devices/devices";
+import { useContext } from "react";
 
 //Hero blob config
 const heroBgColor = "#232323";
@@ -41,20 +42,18 @@ export const StyledHero = styled.section`
 	left: 0;
 	z-index: 999;
 	width: 100%;
-	
 
 	.hero-inner {
 		height: 100%;
 		width: 100%;
 		position: relative;
 
-	
 		.hero-text {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			font-size: 4rem;
+			font-size: 3rem;
 			font-family: Inter;
 		}
 	}
