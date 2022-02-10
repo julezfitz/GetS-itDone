@@ -41,7 +41,7 @@ export default function OffersListItem(props) {
             <Typography gutterBottom variant="subtitle1" component="div">
               {offer.firstName} {offer.lastName}
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="body2" component={'span'} gutterBottom>
               <Grid container={true} onClick={handleOpen}>
                 <Rating name="user-rating" size="small" value={parseInt(offer.averageRating)} readOnly />
                 <Typography variant="string" component="div">&nbsp;  (</Typography>
@@ -52,7 +52,7 @@ export default function OffersListItem(props) {
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body2" color="text.secondary">
+            <Typography component={'span'} variant="body2" color="text.secondary">
               Date: February 4, 2022
             </Typography>
           </Grid>
