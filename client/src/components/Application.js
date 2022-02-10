@@ -5,8 +5,6 @@ import Routing from "./Routing";
 import "normalize.css";
 import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
-import { Box } from "@mui/material";
-import LoadingScreen from "./LoadingScreen/LoadingScreen";
 
 export const UserContext = createContext();
 
