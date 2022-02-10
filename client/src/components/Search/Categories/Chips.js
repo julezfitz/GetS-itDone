@@ -36,7 +36,7 @@ function Chips({
 									: "outlined"
 							}
 							onClick={() => handleChipClick(category.id)}
-							clickableColorSecondary
+							
 							color='primary'
 							clickable
 						/>
