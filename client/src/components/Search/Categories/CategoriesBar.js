@@ -22,7 +22,7 @@ function CategoriesBar({
 	return (
 		<>
 			<Box style={barStyle}>
-				<Box>
+				<Box style={{width: "100%"}}>
 					<Typography>Filter by Category</Typography>
 					<Box>
 						<Chips
