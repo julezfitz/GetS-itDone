@@ -66,9 +66,7 @@ export default function UserRatingsModal({ open, handleClose, user }) {
                                             <SingleRating key={ Math.random().toString(36).substr(2, 9)} rating={rating}/>
                                         )
                                     })}
-
                                 </List>
-
                             </Paper>
                         </Box>
                     </Typography>
