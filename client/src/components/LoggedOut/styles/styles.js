@@ -55,6 +55,15 @@ export const StyledHero = styled.section`
 			transform: translate(-50%, -50%);
 			font-size: 3rem;
 			font-family: Inter;
+			z-index: 999;
+		}
+
+		button {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			margin-bottom: 4rem;
 		}
 	}
 
