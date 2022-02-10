@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import HeroSection from "./HeroSection";
 import { StyledLoggedOutHome } from "../styles/styles";
+import RegisterModal from "../../User/Register";
 
 function LoggedOutHome() {
+	const [isRegisterOpen, setRegisterOpen] = useState(false);
+
+	const toggleRegister = () => {
+		setRegisterOpen(!isRegisterOpen);
+	};
+
 	return (
 		<StyledLoggedOutHome className='loggedOutHome-wrapper'>
-			<HeroSection />
+			<RegisterModal open={isRegisterOpen} />
+			<HeroSection toggleRegister={toggleRegister} />
 		</StyledLoggedOutHome>
 	);
 }
