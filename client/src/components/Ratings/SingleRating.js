@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItem from '@mui/material/ListItem';
@@ -29,7 +29,7 @@ export default function SingleRating(rating) {
                     </React.Fragment>
                 }
             />
-            <Divider variant="inset" component="li" />
+            <Divider variant="inset" component={'span'} />
         </ListItem>
     )
 }

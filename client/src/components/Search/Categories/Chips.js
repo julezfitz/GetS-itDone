@@ -17,7 +17,7 @@ function Chips({
 
 	const handleChipClick = categoryId => {
 		setSelected(categoryId);
-		emptySearch()
+		emptySearch();
 	};
 
 	return (
@@ -36,7 +36,6 @@ function Chips({
 									: "outlined"
 							}
 							onClick={() => handleChipClick(category.id)}
-							clickableColorSecondary
 							color='primary'
 							clickable
 						/>
