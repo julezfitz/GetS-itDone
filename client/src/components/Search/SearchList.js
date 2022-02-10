@@ -11,26 +11,12 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
-export default function SearchList({ keywords, togglePending }) {
-  console.log(keywords);
-	const [listings, setListings] = useState([]);
-
-	useEffect((() => {
-    
-		axios
-			.get(`http://localhost:8001/listings/`, { params: { keywords } })
-			.then(result => {
-				setListings(result.data);
-			});
-  }), [keywords]);
-  
-console.log(listings);
-
+export default function SearchList({ keywords, listings }) {
 	return (
-		<Item className="search-results">
+		<Item className='search-results'>
 			{listings.map(listing => {
 				return (
-					<ListingDetails listing={listing} className="search-results__item">
+					<ListingDetails listing={listing} className='search-results__item'>
 						<SearchListItem listing={listing} />
 					</ListingDetails>
 				);
