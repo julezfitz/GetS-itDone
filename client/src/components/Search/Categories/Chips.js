@@ -17,7 +17,7 @@ function Chips({
 
 	const handleChipClick = categoryId => {
 		setSelected(categoryId);
-		emptySearch()
+		emptySearch();
 	};
 
 	return (
