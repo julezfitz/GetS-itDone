@@ -72,6 +72,7 @@ export default function Application() {
 	}, []);
 
 	const [search, setSearch] = useState("");
+	const [isCleared, setCleared] = useState(true);
 
 	const handleSearch = function (e) {
 		setSearch(e.target.value);
@@ -90,6 +91,8 @@ export default function Application() {
 						search={search}
 						togglePending={togglePending}
 						emptySearch={() => setSearch("")}
+						isCleared={isCleared}
+						setCleared={setCleared}
 					/>
 					{/* <p className='main__text'>All results for: Home</p>
 						<div>

@@ -32,7 +32,7 @@ function Chips({ categories, selected, setSelected, handleClearSelection }) {
 				size='small'
 				onClick={handleClearSelection}
 			>
-				Clear selection
+				Clear search
 			</Button>
 		</Box>
 	);

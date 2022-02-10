@@ -4,7 +4,7 @@ import CategoriesBar from "./Categories/CategoriesBar";
 import { Box } from "@mui/material";
 import axios from "axios";
 
-function SearchWrapper({ keywords, emptySearch }) {
+function SearchWrapper({ keywords, emptySearch, setCleared, isCleared }) {
 	const [listings, setListings] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [currentCategories, setCurrentCategories] = useState([]);
@@ -14,6 +14,7 @@ function SearchWrapper({ keywords, emptySearch }) {
 	});
 
 	const handleSelectedChip = (categoryId, categoryName) => {
+		setCleared(false);
 		setSelectedChip({
 			id: categoryId,
 			name: categoryName,
@@ -21,6 +22,7 @@ function SearchWrapper({ keywords, emptySearch }) {
 	};
 
 	const handleClearSelection = () => {
+		setCleared(true);
 		emptySearch();
 		setSelectedChip({
 			id: null,
@@ -30,7 +32,7 @@ function SearchWrapper({ keywords, emptySearch }) {
 
 	useEffect(() => {
 		//If no chip is selected we can fetch all listings
-		if (!selectedChip.id) {
+		if (!isCleared) {
 			axios
 				.get(`http://localhost:8001/listings/`, { params: { keywords } })
 				.then(result => {
@@ -42,7 +44,7 @@ function SearchWrapper({ keywords, emptySearch }) {
 						return categoryNames.includes(category.category);
 					});
 
-					setCategories(filteredCategories);
+					setCurrentCategories(filteredCategories);
 				});
 		}
 	}, [keywords, selectedChip]);
