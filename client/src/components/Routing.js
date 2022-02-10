@@ -6,6 +6,7 @@ import SearchList from "./Search/SearchList";
 import MyListings from "./Listings/MyListings";
 import MyOffers from "./Offers/MyOffers";
 import OffersList from "./Offers/OffersList";
+import MyProfile from "./User/MyProfile";
 
 function Routing({ keywords, search, togglePending }) {
 	const { isLoggedIn } = useContext(UserContext);
@@ -31,10 +32,10 @@ function Routing({ keywords, search, togglePending }) {
 					}
 				/>
 
-				{/* <Route
+				<Route
 					path='/profile'
-					element={isLoggedIn ? <Profile /> : <Navigate to='/' />}
-				/> */}
+					element={isLoggedIn ? <MyProfile /> : <Navigate to='/' />}
+				/>
 
 				<Route
 					path='/listings'
