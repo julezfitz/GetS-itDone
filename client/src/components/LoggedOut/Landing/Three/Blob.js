@@ -22,6 +22,7 @@ function Blob({ mouseCoords }) {
 				depth: false,
 			}}
 		>
+			<OrbitControls makeDefault/>
 			<Lights />
 
 			<Suspense fallback={null}>

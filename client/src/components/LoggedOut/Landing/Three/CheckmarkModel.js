@@ -10,7 +10,7 @@ export default function CheckmarkModel({ ...props }) {
   const { nodes, materials } = useGLTF('/model.gltf')
   return (
     <group ref={group} {...props} dispose={null}>
-      <group rotation={[0, 95, 0]} scale={0.09}>
+      <group rotation={[0, 5, 29]} scale={0.09}>
         <mesh geometry={nodes.Path.geometry} material={nodes.Path.material} />
         <mesh geometry={nodes.Path_1.geometry} material={nodes.Path_1.material} />
       </group>

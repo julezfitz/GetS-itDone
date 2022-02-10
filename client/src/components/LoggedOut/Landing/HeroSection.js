@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { Suspense } from "react";
 import Blob from "./Three/Blob";
 import TextOverlay from "./TextOverlay";
+import Scene from "./Spline/Scene";
 
 function HeroSection() {
 	const splitHeading = useRef(null);
@@ -43,10 +44,11 @@ function HeroSection() {
 
 	return (
 		<StyledHero className='heroSection'>
-			<Suspense fallback={<div>Blob loading...</div>}>
-				<Blob mouseCoords={mouseCoords} />
-				{/* {isBlobLoaded && <TextOverlay />} */}
-			</Suspense>
+			{/* <Suspense fallback={<div>Blob loading...</div>}>
+				<Blob mouseCoords={mouseCoords} /> */}
+			{/* {isBlobLoaded && <TextOverlay />} */}
+			{/* </Suspense> */}
+			<Scene />
 		</StyledHero>
 	);
 }

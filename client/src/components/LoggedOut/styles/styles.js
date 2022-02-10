@@ -28,7 +28,7 @@ export const StyledHero = styled.section`
 	background-color: ${heroBgColor};
 	color: white;
 	height: 93vh;
-	max-height: 100vh;
+	min-height: 100vh;
 	font-family: "Helvetica";
 	font-size: 10vw;
 	display: flex;
@@ -36,8 +36,15 @@ export const StyledHero = styled.section`
 	justify-content: center;
 	flex-direction: column;
 	overflow: hidden;
-	position: relative;
-	padding: ${heropadding};
+
+	position: absolute;
+	top: 0;
+	width: 100%;
+	left: 0;
+
+	iframe {
+		width: 100%;
+	}
 
 	.blob-canvas {
 		position: absolute !important;
