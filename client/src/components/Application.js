@@ -80,11 +80,11 @@ export default function Application() {
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles />
-			<section>
-				<Navbar onSearch={handleSearch} />
-			</section>
-			<main className={`content-wrapper`}>
-				<Box className='content-inner'>
+
+			<Navbar onSearch={handleSearch} />
+
+			<main className={`content-wrapper nav-offset`}>
+				<Box className='nav-offset-wrapper'>
 					<section>
 						<Routing
 							keywords={search}

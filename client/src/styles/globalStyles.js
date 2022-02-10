@@ -13,12 +13,16 @@ export const GlobalStyles = createGlobalStyle`
     color: inherit;
   }
 
+  section {
+    height: 100%;
+  }
 
-  main {
-    .content-inner {
-      height: 100%;
-      padding: 4.2rem 10vw 0 10vw;
-    }
+
+  .nav-offset {
+    margin-top: 4.3rem;
+    width: 100%;
+    height: 100%;
+
   }
 
  
