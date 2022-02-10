@@ -24,7 +24,7 @@ function CategoriesBar({
 			
 			<Box style={barStyle}>
 				<Box>
-					<Typography>Recommended Topics</Typography>
+					<Typography>Filter by Category</Typography>
 					<Box>
 						<Chips
 							categories={categories}
