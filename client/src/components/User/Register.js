@@ -60,7 +60,6 @@ export default function RegisterModal({ open, handleClose }) {
 			axios
 				.post(`http://localhost:8001/user/register`, registerState)
 				.then(res => {
-					console.log(res)
 					res.data.registration.errors.length >= 1 &&
 						setErrors(res.data.registration.errors);
 					res.data.registration.isRegistered &&

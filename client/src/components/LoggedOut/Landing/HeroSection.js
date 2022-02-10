@@ -45,6 +45,9 @@ function HeroSection() {
 	return (
 		<StyledHero className='heroSection'>
 			<div className='hero-inner'>
+				<div className='hero-text'>
+					<span>Hi</span>, we're get shit done.
+				</div>
 				<Scene />
 			</div>
 		</StyledHero>
