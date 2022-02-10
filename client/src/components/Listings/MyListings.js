@@ -43,7 +43,8 @@ export default function MyListings() {
 							return (
 								<MyListingItem
 									onClick={handleListingChange.bind(listing)}
-									listing={listing}
+									key={ Math.random().toString(36).substr(2, 9)}
+                  listing={listing}
 								/>
 							);
 						})}

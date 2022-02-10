@@ -11,6 +11,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItem from '@mui/material/ListItem';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
+import SingleRating from "./SingleRating";
 
 
 const style = {
@@ -51,7 +52,7 @@ export default function UserRatingsModal({ open, handleClose, user }) {
                     <Typography id='modal-modal-title' variant='h6' component='h2'>
                         {user.firstName} {user.lastName}
                     </Typography>
-                    <Rating name="user-rating" size="small" value={average} readOnly />
+                    <Rating name="user-rating" size="small" value={parseInt(average)} readOnly />
                     <Typography variant='string'><br></br> Rating: {average} / 5</Typography>
                     <Typography variant="string" component="div">{ratings.length} {ratings.length > 1 ? "ratings" : "rating"}</Typography>
 
@@ -66,28 +67,29 @@ export default function UserRatingsModal({ open, handleClose, user }) {
 
                                     {ratings.map((rating) => {
                                         return (
-                                            <ListItem alignItems="flex-start">
-                                                <ListItemAvatar>
-                                                    <Avatar alt={rating.rater.firstName} src="/static/images/avatar/2.jpg" />
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary={`${rating.rater.firstName} ${rating.rater.lastName}`}
-                                                    secondary={
-                                                        <React.Fragment>
-                                                            <Typography
-                                                                sx={{ display: 'inline' }}
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="text.primary"
-                                                            >
-                                                            <Rating name="user-rating" size="small" value={rating.rating} readOnly />
-                                                            &nbsp;- {rating.comment}
-                                                            </Typography>
-                                                        </React.Fragment>
-                                                    }
-                                                />
-                                                <Divider variant="inset" component="li" />
-                                            </ListItem>
+                                            <SingleRating key={ Math.random().toString(36).substr(2, 9)} rating={rating}/>
+                                            // <ListItem alignItems="flex-start">
+                                            //     <ListItemAvatar>
+                                            //         <Avatar alt={rating.rater.firstName} src="/static/images/avatar/2.jpg" />
+                                            //     </ListItemAvatar>
+                                            //     <ListItemText
+                                            //         primary={`${rating.rater.firstName} ${rating.rater.lastName}`}
+                                            //         secondary={
+                                            //             <React.Fragment>
+                                            //                 <Typography
+                                            //                     sx={{ display: 'inline' }}
+                                            //                     component="span"
+                                            //                     variant="body2"
+                                            //                     color="text.primary"
+                                            //                 >
+                                            //                 <Rating name="user-rating" size="small" value={rating.rating} readOnly />
+                                            //                 &nbsp;- {rating.comment}
+                                            //                 </Typography>
+                                            //             </React.Fragment>
+                                            //         }
+                                            //     />
+                                            //     <Divider variant="inset" component="li" />
+                                            // </ListItem>
                                         )
                                     })}
 
