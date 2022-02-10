@@ -42,10 +42,6 @@ export const StyledHero = styled.section`
 	width: 100%;
 	left: 0;
 
-	iframe {
-		width: 100%;
-	}
-
 	.blob-canvas {
 		position: absolute !important;
 		top: 50%;

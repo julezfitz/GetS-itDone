@@ -5,6 +5,7 @@ const GUTTER = "10vw";
 export const GlobalStyles = createGlobalStyle`
   html, body, .App, #root, main {
     height: 100%;
+    touch-action: auto;
   };
 
 
