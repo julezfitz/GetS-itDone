@@ -25,7 +25,12 @@ export default function OffersListItem(props) {
               {props.offer.firstName} {props.offer.lastName}
             </Typography>
             <Typography variant="body2" gutterBottom>
+            <Grid container={true}>
               <Rating name="user-rating" size="small" value={props.offer.averageRating} readOnly />
+              <Typography variant="string" component="div">&nbsp;  (</Typography>
+              <Typography variant="string" color="blue" component="div">{props.offer.ratingCount} {props.offer.ratingCount > 1 ? "ratings" : "rating"  }</Typography>
+            <Typography variant="string" color="black" component="div">)</Typography>
+            </Grid>
             </Typography>
           </Grid>
           <Grid item>
