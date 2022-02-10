@@ -9,6 +9,7 @@ function CategoriesBar({
 	selectedChip,
 	handleSelectedChip,
 	handleClearSelection,
+	emptySearch
 }) {
 	const barStyle = {
 		width: "400px",
@@ -30,6 +31,7 @@ function CategoriesBar({
 							selected={selectedChip}
 							setSelected={handleSelectedChip}
 							handleClearSelection={handleClearSelection}
+							emptySearch={emptySearch}
 						/>
 					</Box>
 				</Box>
