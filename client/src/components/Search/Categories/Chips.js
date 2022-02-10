@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Chip, Box, Stack } from "@mui/material";
+import React from "react";
+import { Chip, Box, Button } from "@mui/material";
 
-function Chips({ categories, selected, setSelected }) {
+function Chips({ categories, selected, setSelected, handleClearSelection }) {
+	const elementSpacing = 1;
+
 	return (
-		<Box sx={{ mt: 5 }}>
+		<Box sx={{ mt: 2 }}>
 			{categories &&
 				categories.map(category => {
 					return (
@@ -24,6 +26,14 @@ function Chips({ categories, selected, setSelected }) {
 						/>
 					);
 				})}
+			<Button
+				variant='contained'
+				sx={{ textTransform: "none", m: elementSpacing }}
+				size='small'
+				onClick={handleClearSelection}
+			>
+				Clear selection
+			</Button>
 		</Box>
 	);
 }

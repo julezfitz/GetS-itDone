@@ -2,32 +2,40 @@ import React, { useState } from "react";
 import { Typography, Box } from "@mui/material";
 import { Chip, Paper } from "@mui/material";
 import Chips from "./Chips";
+import { Divider } from "@mui/material";
 
 function CategoriesBar({
 	categories,
 	selectedChip,
-	setSelectedChip,
 	handleSelectedChip,
+	handleClearSelection,
 }) {
 	const barStyle = {
-		height: "100vh",
 		width: "400px",
-		p: 4,
+		height: "100vh",
+		padding: "2rem",
+		display: "flex",
+
+		justifyContent: "center",
 	};
 
 	return (
-		<Paper elevation={5}>
-			<Box sx={barStyle}>
-				<Typography>Recommended Topics</Typography>
+		<>
+			
+			<Box style={barStyle}>
 				<Box>
-					<Chips
-						categories={categories}
-						selected={selectedChip}
-						setSelected={handleSelectedChip}
-					/>
+					<Typography>Recommended Topics</Typography>
+					<Box>
+						<Chips
+							categories={categories}
+							selected={selectedChip}
+							setSelected={handleSelectedChip}
+							handleClearSelection={handleClearSelection}
+						/>
+					</Box>
 				</Box>
 			</Box>
-		</Paper>
+		</>
 	);
 }
 

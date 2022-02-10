@@ -20,6 +20,13 @@ function SearchWrapper({ keywords }) {
 		});
 	};
 
+	const handleClearSelection = () => {
+		setSelectedChip({
+			id: null,
+			name: null,
+		});
+	};
+
 	useEffect(() => {
 		axios
 			.get(`http://localhost:8001/listings/`, { params: { keywords } })
@@ -33,7 +40,6 @@ function SearchWrapper({ keywords }) {
 
 		//Only display all listings if no chip is selected
 		if (!selectedChip.id) {
-			console.log('in here!')
 			axios
 				.get("http://localhost:8001/categories")
 				.then(res => setCategories(res.data))
@@ -53,6 +59,7 @@ function SearchWrapper({ keywords }) {
 
 	const wrapperStyle = {
 		display: "flex",
+		justifyContent: "center",
 	};
 
 	return (
@@ -62,6 +69,7 @@ function SearchWrapper({ keywords }) {
 				categories={categories}
 				selectedChip={selectedChip}
 				handleSelectedChip={handleSelectedChip}
+				handleClearSelection={handleClearSelection}
 			/>
 		</Box>
 	);
