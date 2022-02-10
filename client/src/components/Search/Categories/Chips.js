@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Chip, Box } from "@mui/material";
+import { Chip, Box, Stack } from "@mui/material";
 
 function Chips({ categories, selected, setSelected }) {
 	return (
@@ -17,6 +17,7 @@ function Chips({ categories, selected, setSelected }) {
 							}
 							onClick={() => setSelected(category.id)}
 							clickableColorSecondary
+							color="primary"
 							clickable
 						/>
 					);
