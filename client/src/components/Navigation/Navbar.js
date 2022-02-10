@@ -168,7 +168,7 @@ export default function ResponsiveAppBar(props) {
 					>
 						Get S*it Done
 					</Typography>
-					<SearchBar onSearch={props.onSearch} value={props.search} />
+					<SearchBar onSearch={props.onSearch} value={props.searchValue} />
 					<Box sx={{ flexGrow: 1 }} />
 
 					{isLoggedIn ? (
