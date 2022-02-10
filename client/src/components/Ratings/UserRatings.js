@@ -1,11 +1,17 @@
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import CategoryList from "../Categories/CategoryList";
-import { Button } from "@mui/material";
-import React, { useState, useEffect, useContext } from "react";
+import Rating from "@mui/material/Rating";
+import Paper from '@mui/material/Paper';
+import List from '@mui/material/List';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItem from '@mui/material/ListItem';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+
 
 const style = {
     position: "absolute",
@@ -19,13 +25,24 @@ const style = {
     p: 4,
 };
 
-export default function UserRatingsModal({ open, handleClose, userId }) {
+export default function UserRatingsModal({ open, handleClose, user }) {
 
+    const [ratings, setRatings] = useState([]);
+    const [average, setAverage] = useState('');
 
-    axios.get(`http://localhost:8001/ratings/`, { params: { userId } })
-        .then((results) => {
-            console.log(results.data)
-        })
+    useEffect((() => {
+        axios.get(`http://localhost:8001/ratings`, { params: { rateeId: user.bidderId } })
+            .then((results) => {
+                console.log(results.data)
+                setRatings(results.data);
+                let averageCalc = results.data.reduce((total, next) => total + next.rating, 0) / results.data.length;
+                setAverage(averageCalc);
+            })
+    }), [user.bidderId])
+
+    console.log(user);
+    console.log(ratings);
+    console.log(average);
 
     return (
         <div>
@@ -37,16 +54,51 @@ export default function UserRatingsModal({ open, handleClose, userId }) {
             >
                 <Box sx={style}>
                     <Typography id='modal-modal-title' variant='h6' component='h2'>
-                        User Ratings
+                        {user.firstName} {user.lastName}
                     </Typography>
+                    <Rating name="user-rating" size="small" value={average} readOnly />
+                    <Typography variant='string'><br></br> Rating: {average} / 5</Typography>
+                    <Typography variant="string" component="div">{ratings.length} {ratings.length > 1 ? "ratings" : "rating"}</Typography>
+
                     <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                         <Box
-                            // component='form'
                             sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
                             noValidate
                             autoComplete='off'
                         >
+                            <Paper style={{ maxHeight: 200, overflow: 'auto' }}>
+                                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
 
+                                    {ratings.map((rating) => {
+                                        return (
+                                            <ListItem alignItems="flex-start">
+                                                <ListItemAvatar>
+                                                    <Avatar alt={rating.rater.firstName} src="/static/images/avatar/2.jpg" />
+                                                </ListItemAvatar>
+                                                <ListItemText
+                                                    primary={`${rating.rater.firstName} ${rating.rater.lastName}`}
+                                                    secondary={
+                                                        <React.Fragment>
+                                                            <Typography
+                                                                sx={{ display: 'inline' }}
+                                                                component="span"
+                                                                variant="body2"
+                                                                color="text.primary"
+                                                            >
+                                                            Rating: {rating.rating}
+                                                            </Typography>
+                                                            &nbsp;- {rating.comment}
+                                                        </React.Fragment>
+                                                    }
+                                                />
+                                                <Divider variant="inset" component="li" />
+                                            </ListItem>
+                                        )
+                                    })}
+
+                                </List>
+
+                            </Paper>
                         </Box>
                     </Typography>
                 </Box>
@@ -54,3 +106,4 @@ export default function UserRatingsModal({ open, handleClose, userId }) {
         </div>
     );
 }
+
