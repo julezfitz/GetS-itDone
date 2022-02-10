@@ -8,7 +8,6 @@ import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 
 export default function SingleRating(rating) {
-console.log(rating.rating);
     return (
         <ListItem alignItems="flex-start">
             <ListItemAvatar>

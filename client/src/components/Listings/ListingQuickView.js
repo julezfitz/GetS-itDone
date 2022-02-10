@@ -9,8 +9,6 @@ export default function ListingQuickView(props) {
     right: false,
   });
 
-  console.log(props.listing);
-
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),

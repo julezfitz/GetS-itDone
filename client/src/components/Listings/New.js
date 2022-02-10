@@ -34,8 +34,6 @@ export default function NewListingModal({ open, handleClose }) {
 		setCategory(category);
 	}
 
-	console.log(userDetails);
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 

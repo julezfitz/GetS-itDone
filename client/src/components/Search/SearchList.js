@@ -12,7 +12,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SearchList({ keywords, togglePending }) {
-  console.log(keywords);
 	const [listings, setListings] = useState([]);
 
 	useEffect((() => {
@@ -24,8 +23,6 @@ export default function SearchList({ keywords, togglePending }) {
 			});
   }), [keywords]);
   
-console.log(listings);
-
 	return (
 		<Item className="search-results">
 			{listings.map(listing => {
