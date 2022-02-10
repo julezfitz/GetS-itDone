@@ -13,8 +13,6 @@ import UserRatings from "../Ratings/UserRatings";
 
 export default function ListingDetails(props) {
   //Make the listing details full width on mobile
-
-  //probably need to do an api call here to get all the details -- Julie
   const [state, setState] = React.useState({
     right: false,
   });
@@ -36,14 +34,7 @@ export default function ListingDetails(props) {
     color: theme.palette.text.secondary,
   }));
 
-  console.log(props.listing)
-
-  //api call for ratings happens inside ratings
-
-  // const [ratings, setRatings] = React.useState({});
-  // const [average, setAverage] = React.useState({});
   const [listingCreator, setCreator] = React.useState({});
-
 
   const [open, setOpen] = React.useState(false);
 
@@ -67,14 +58,9 @@ export default function ListingDetails(props) {
             "bidderId": props.listing.creator_id,
             "ratingsCount": result.data.length
           })
-          // setRatings(result.data);
-          // let averageCalc = result.data.reduce((total, next) => total + parseInt(next.rating), 0) / result.data.length;
-          // setAverage(averageCalc.toFixed(1));
         })
     }
   }), [props.listing])
-
-  console.log(listingCreator);
 
   return (
     <div>

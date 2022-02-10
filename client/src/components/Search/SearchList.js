@@ -18,9 +18,9 @@ export default function SearchList({ keywords, listings }) {
 
   const [listing, setListing] = useState({});
 
-  const handleListingChange = (currentListing) => {
-    console.log(currentListing);
-    setListing(currentListing);
+  const handleListingChange = (e) => {
+    console.log(e);
+    setListing(e);
   }
 
   return (
