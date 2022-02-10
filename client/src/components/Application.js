@@ -84,20 +84,18 @@ export default function Application() {
 			<Navbar onSearch={handleSearch} />
 
 			<main className={`content-wrapper nav-offset`}>
-				<Box className='nav-offset-wrapper'>
-					<section>
-						<Routing
-							keywords={search}
-							search={search}
-							togglePending={togglePending}
-						/>
-						{/* <p className='main__text'>All results for: Home</p>
+				<div className='content-width-wrapper'>
+					<Routing
+						keywords={search}
+						search={search}
+						togglePending={togglePending}
+					/>
+					{/* <p className='main__text'>All results for: Home</p>
 						<div>
 							<span>Category:</span>
 							<span>Sort By: Date</span>
 						</div> */}
-					</section>
-				</Box>
+				</div>
 			</main>
 		</UserContext.Provider>
 	);
