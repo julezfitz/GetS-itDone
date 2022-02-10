@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
@@ -14,14 +14,14 @@ export default function OffersListItem(props) {
     props.decline(props.offer);
   }
 
-  const [userRatingsOpen, setUserRatingsOpen] = React.useState(false);
+  const [userRatingsOpen, setUserRatingsOpen] = useState(false);
 
   const handleUserRatingsOpen = () => setUserRatingsOpen(true);
   const handleUserRatingsClose = () => setUserRatingsOpen(false);
 
-  const [offer, setOffer] = React.useState({});
+  const [offer, setOffer] = useState({});
 
-  React.useEffect((() => {
+  useEffect((() => {
     setOffer(props.offer)
   }), [props.offer])
 
@@ -40,7 +40,7 @@ export default function OffersListItem(props) {
                 <Typography variant="string" component="div">&nbsp;  (</Typography>
                 <Typography variant="string" color="blue" component="div">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Typography>
                 <Typography variant="string" color="black" component="div">)</Typography>
-                <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer}></UserRatingsModal>
+                <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer} />
               </Grid>
             </Typography>
           </Grid>

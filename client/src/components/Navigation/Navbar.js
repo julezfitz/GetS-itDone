@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -49,12 +49,12 @@ const settings = [
 ];
 
 export default function ResponsiveAppBar(props) {
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
-	const [anchorElUser, setAnchorElUser] = React.useState(null);
-	const [registerOpen, setRegisterOpen] = React.useState(false);
-	const [loginOpen, setLoginOpen] = React.useState(false);
-	const [newListingOpen, setNewListingOpen] = React.useState(false);
-	const [newRatingOpen, setNewRatingOpen] = React.useState(false);
+	const [anchorElNav, setAnchorElNav] = useState(null);
+	const [anchorElUser, setAnchorElUser] = useState(null);
+	const [registerOpen, setRegisterOpen] = useState(false);
+	const [loginOpen, setLoginOpen] = useState(false);
+	const [newListingOpen, setNewListingOpen] = useState(false);
+	const [newRatingOpen, setNewRatingOpen] = useState(false);
 
 	const { isLoggedIn, userDetails, toggleLoggedIn } = useContext(UserContext);
 
