@@ -39,7 +39,7 @@ export default function MyOffers() {
           <Item>
             {offers.map((offer) => {
               console.log(offer);
-              return <MyOfferItem onClick={handleOfferChange.bind(offer)} offer={offer} />
+              return <MyOfferItem key={ Math.random().toString(36).substr(2, 9)} onClick={handleOfferChange.bind(offer)} offer={offer} />
             })}
           </Item>
         </Grid>
