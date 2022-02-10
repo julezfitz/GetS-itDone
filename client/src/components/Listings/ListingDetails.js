@@ -31,6 +31,10 @@ export default function ListingDetails(props) {
 		color: theme.palette.text.secondary,
 	}));
 
+  console.log(props.listing)
+
+  //api call for ratings
+
 	return (
 		<div>
 			{["right"].map(anchor => (
