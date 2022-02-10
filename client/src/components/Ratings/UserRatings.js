@@ -22,7 +22,6 @@ const style = {
 };
 
 export default function UserRatingsModal({ open, handleClose, user }) {
-    console.log(user);
     const [ratings, setRatings] = useState([]);
     const [average, setAverage] = useState('');
 

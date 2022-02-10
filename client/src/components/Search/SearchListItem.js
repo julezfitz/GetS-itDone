@@ -14,8 +14,13 @@ const Img = styled("img")({
 
 export default function SearchListItem(props) {
 
+  const handleListingChange = () => {
+    let listing = props.listing;
+    props.onChoice(listing);
+  }
+
   return (
-    <Paper onClick={props.onChoice(props.listing)} sx={{ p: 2, flexGrow: 1 }}>
+    <Paper onClick={handleListingChange} sx={{ p: 2, flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
@@ -32,18 +37,18 @@ export default function SearchListItem(props) {
                 {props.listing.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
-              {props.listing.description}
+                {props.listing.description}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="body2" color="text.secondary">
-              {props.listing.created}
+                {props.listing.created}
               </Typography>
             </Grid>
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
-            {props.listing.price}
+              {props.listing.price}
             </Typography>
           </Grid>
         </Grid>
