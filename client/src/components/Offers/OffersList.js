@@ -21,7 +21,6 @@ export default function OffersList(props) {
   useEffect((() => {
     if (props.listingId) {
       axios.get(`http://localhost:8001/listings/${props.listingId}/offers`).then((result) => {
-        console.log(result.data);
         setListingOffers(result.data.offers);
       })
     }

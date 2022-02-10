@@ -38,7 +38,6 @@ export default function MyOffers() {
         <Grid item xs={8}>
           <Item>
             {offers.map((offer) => {
-              console.log(offer);
               return <MyOfferItem key={ Math.random().toString(36).substr(2, 9)} onClick={handleOfferChange.bind(offer)} offer={offer} />
             })}
           </Item>

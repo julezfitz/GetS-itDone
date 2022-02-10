@@ -28,7 +28,6 @@ function LoggedInNav({
 
 		axios.get(`http://localhost:8001/notifications`, { params: { userId: userDetails.id } })
 			.then((results) => {
-				console.log(results.data);
 				setNotifications(results.data);
 			})
 	}, []);

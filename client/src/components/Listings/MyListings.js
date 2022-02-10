@@ -21,11 +21,13 @@ export default function MyListings() {
 	const [listings, setListings] = useState([]);
 
 	useEffect(() => {
+    if(userDetails) {
 		axios
 			.get(`http://localhost:8001/listings?creatorId=${userDetails.id}`)
 			.then(result => {
 				setListings(result.data);
 			});
+    }
 	}, [userDetails]);
 
 	const [listing, setListing] = useState("");
