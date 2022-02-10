@@ -7,6 +7,7 @@ import MyListings from "./Listings/MyListings";
 import MyOffers from "./Offers/MyOffers";
 import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
+import SearchWrapper from "./Search/SearchWrapper";
 
 function Routing({ keywords, search, togglePending }) {
 	const { isLoggedIn } = useContext(UserContext);
@@ -19,14 +20,17 @@ function Routing({ keywords, search, togglePending }) {
 					element={
 						isLoggedIn ? (
 							search ? (
-								<SearchList keywords={keywords} togglePending={togglePending} />
+								<SearchWrapper
+									keywords={keywords}
+									togglePending={togglePending}
+								/>
 							) : (
-								<SearchList togglePending={togglePending} />
+								<SearchWrapper togglePending={togglePending} />
 							)
 						) : (
 							<>
 								<LoggedOutHome />
-								<SearchList />
+								<SearchWrapper />
 							</>
 						)
 					}
