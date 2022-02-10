@@ -39,7 +39,6 @@ export default function OffersList(props) {
       console.log(result.data);
     })
   }
-  console.log(acceptedOffer);
 
   return (
     <Item>

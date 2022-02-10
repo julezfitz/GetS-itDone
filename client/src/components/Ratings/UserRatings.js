@@ -33,17 +33,11 @@ export default function UserRatingsModal({ open, handleClose, user }) {
     useEffect((() => {
         axios.get(`http://localhost:8001/ratings`, { params: { rateeId: user.bidderId } })
             .then((results) => {
-                console.log(results.data)
                 setRatings(results.data);
                 let averageCalc = results.data.reduce((total, next) => total + parseInt(next.rating), 0) / results.data.length;
-                console.log(averageCalc);
                 setAverage(averageCalc.toFixed(1));
             })
     }), [user.bidderId])
-
-    console.log(user);
-    console.log(ratings);
-    console.log(average);
 
     return (
         <div>

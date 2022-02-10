@@ -26,8 +26,6 @@ export default function MyOffers() {
     })
   }), [userDetails])
 
-  console.log(offers);
-
   const [offer, setOffer] = useState("")
 
 	const handleOfferChange = function () {
@@ -40,6 +38,7 @@ export default function MyOffers() {
         <Grid item xs={8}>
           <Item>
             {offers.map((offer) => {
+              console.log(offer);
               return <MyOfferItem onClick={handleOfferChange.bind(offer)} offer={offer} />
             })}
           </Item>
