@@ -40,8 +40,8 @@ export default function OffersListItem(props) {
                 <Typography variant="string" component="div">&nbsp;  (</Typography>
                 <Typography variant="string" color="blue" component="div">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Typography>
                 <Typography variant="string" color="black" component="div">)</Typography>
-                <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer} />
               </Grid>
+              <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer} />
             </Typography>
           </Grid>
           <Grid item>
