@@ -3,19 +3,17 @@ import { Typography, Box } from "@mui/material";
 import { Chip, Paper } from "@mui/material";
 import Chips from "./Chips";
 
-function CategoriesBar({ categories }) {
+function CategoriesBar({
+	categories,
+	selectedChip,
+	setSelectedChip,
+	handleSelectedChip,
+}) {
 	const barStyle = {
 		height: "100vh",
 		width: "400px",
 		p: 4,
 	};
-
-	const [selected, setSelected] = useState(null);
-
-	const handleSelected = (categoryId) => {
-		setSelected(categoryId)
-		console.log(categoryId)
-	}
 
 	return (
 		<Paper elevation={5}>
@@ -24,8 +22,8 @@ function CategoriesBar({ categories }) {
 				<Box>
 					<Chips
 						categories={categories}
-						selected={selected}
-						setSelected={handleSelected}
+						selected={selectedChip}
+						setSelected={handleSelectedChip}
 					/>
 				</Box>
 			</Box>
