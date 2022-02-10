@@ -29,7 +29,6 @@ export default function NewRatingModal({ open, handleClose }) {
 
   const handleChange = (event) => {
     setRating(event.target.value);
-    console.log(event.target.value);
   };
 
   const [starRating, setStarRating] = useState(0);

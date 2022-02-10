@@ -6,8 +6,6 @@ import { Button, Alert } from "@mui/material";
 import UserRatings from "../Ratings/UserRatings";
 
 export default function OffersListItem(props) {
-  //to do on this page - add rating count and hyperlink it to the ratings view
-
   const handleAccept = () => {
     props.accept(props.offer);
   }
@@ -26,6 +24,12 @@ export default function OffersListItem(props) {
     setOpen(false);
   };
 
+  const [offer, setOffer] = React.useState({});
+
+  React.useEffect((() => {
+    setOffer(props.offer)
+  }), [props.offer])
+
   return (
     <Grid container spacing={2}>
       <Grid item></Grid>
@@ -33,20 +37,20 @@ export default function OffersListItem(props) {
         <Grid item xs container direction="column">
           <Grid item xs>
             <Typography gutterBottom variant="subtitle1" component="div">
-              {props.offer.firstName} {props.offer.lastName}
+              {offer.firstName} {offer.lastName}
             </Typography>
-            <Typography variant="body2" gutterBottom>
-            <Grid container={true} onClick={handleOpen}>
-              <Rating name="user-rating" size="small" value={props.offer.averageRating} readOnly />
-              <Typography variant="string" component="div">&nbsp;  (</Typography>
-              <Typography variant="string" color="blue" component="div">{props.offer.ratingCount} {props.offer.ratingCount > 1 ? "ratings" : "rating"  }</Typography>
-            <Typography variant="string" color="black" component="div">)</Typography>
-            <UserRatings open={open} onClose={handleClose} user={props.offer}></UserRatings>
-            </Grid>
+            <Typography variant="body2" component={'span'} gutterBottom>
+              <Grid container={true} onClick={handleOpen}>
+                <Rating name="user-rating" size="small" value={parseInt(offer.averageRating)} readOnly />
+                <Typography variant="string" component="div">&nbsp;  (</Typography>
+                <Typography variant="string" color="blue" component="div">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Typography>
+                <Typography variant="string" color="black" component="div">)</Typography>
+                <UserRatings open={open} onClose={handleClose} user={offer}></UserRatings>
+              </Grid>
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body2" color="text.secondary">
+            <Typography component={'span'} variant="body2" color="text.secondary">
               Date: February 4, 2022
             </Typography>
           </Grid>
@@ -59,7 +63,7 @@ export default function OffersListItem(props) {
               type='submit'
               color='primary'
               variant='contained'
-              value={props.offer}
+              value={offer}
               sx={{ marginTop: 5 }}
               onClick={handleAccept}
             >

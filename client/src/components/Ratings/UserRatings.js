@@ -11,6 +11,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItem from '@mui/material/ListItem';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
+import SingleRating from "./SingleRating";
 
 
 const style = {
@@ -31,19 +32,15 @@ export default function UserRatingsModal({ open, handleClose, user }) {
     const [average, setAverage] = useState('');
 
     useEffect((() => {
+        if(user.bidderId){
         axios.get(`http://localhost:8001/ratings`, { params: { rateeId: user.bidderId } })
             .then((results) => {
-                console.log(results.data)
                 setRatings(results.data);
                 let averageCalc = results.data.reduce((total, next) => total + parseInt(next.rating), 0) / results.data.length;
-                console.log(averageCalc);
                 setAverage(averageCalc.toFixed(1));
             })
+        }
     }), [user.bidderId])
-
-    console.log(user);
-    console.log(ratings);
-    console.log(average);
 
     return (
         <div>
@@ -57,11 +54,11 @@ export default function UserRatingsModal({ open, handleClose, user }) {
                     <Typography id='modal-modal-title' variant='h6' component='h2'>
                         {user.firstName} {user.lastName}
                     </Typography>
-                    <Rating name="user-rating" size="small" value={average} readOnly />
-                    <Typography variant='string'><br></br> Rating: {average} / 5</Typography>
+                    <Rating name="user-rating" size="small" value={parseInt(average)} readOnly />
+                    <Typography component={'span'} variant='string'><br></br> Rating: {average} / 5</Typography>
                     <Typography variant="string" component="div">{ratings.length} {ratings.length > 1 ? "ratings" : "rating"}</Typography>
 
-                    <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                    <Typography component={'span'} id='modal-modal-description' sx={{ mt: 2 }}>
                         <Box
                             sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
                             noValidate
@@ -72,28 +69,7 @@ export default function UserRatingsModal({ open, handleClose, user }) {
 
                                     {ratings.map((rating) => {
                                         return (
-                                            <ListItem alignItems="flex-start">
-                                                <ListItemAvatar>
-                                                    <Avatar alt={rating.rater.firstName} src="/static/images/avatar/2.jpg" />
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary={`${rating.rater.firstName} ${rating.rater.lastName}`}
-                                                    secondary={
-                                                        <React.Fragment>
-                                                            <Typography
-                                                                sx={{ display: 'inline' }}
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="text.primary"
-                                                            >
-                                                            <Rating name="user-rating" size="small" value={rating.rating} readOnly />
-                                                            &nbsp;- {rating.comment}
-                                                            </Typography>
-                                                        </React.Fragment>
-                                                    }
-                                                />
-                                                <Divider variant="inset" component="li" />
-                                            </ListItem>
+                                            <SingleRating key={ Math.random().toString(36).substr(2, 9)} rating={rating}/>
                                         )
                                     })}
 

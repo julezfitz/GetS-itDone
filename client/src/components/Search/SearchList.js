@@ -17,8 +17,8 @@ export default function SearchList({ keywords, listings }) {
 		<Item className='search-results'>
 			{listings.map(listing => {
 				return (
-					<ListingDetails listing={listing} className="search-results__item">
-						<SearchListItem listing={listing} key={listing.id}/> 
+					<ListingDetails key={ Math.random().toString(36).substr(2, 9)} listing={listing} className="search-results__item">
+						<SearchListItem key={ Math.random().toString(36).substr(2, 9)} listing={listing} key={listing.id}/> 
             {/* added key here again */}
 					</ListingDetails>
 				);

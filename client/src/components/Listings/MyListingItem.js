@@ -1,10 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { styled } from "@mui/material/styles";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import ButtonBase from "@mui/material/ButtonBase";
-import axios from "axios";
 
 export default function MyListingItem(props) {
   return (
