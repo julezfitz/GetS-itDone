@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Chip, Box } from "@mui/material";
 
-function Chips({ categories }) {
+function Chips({ categories, selected, setSelected }) {
 	return (
 		<Box sx={{ mt: 5 }}>
 			{categories &&
 				categories.map(category => {
 					return (
 						<Chip
+							sx={{ m: 1 }}
 							label={category.category}
 							key={category.id}
 							component='button'
-							variant='contained'
+							variant={
+								selected && selected === category.id ? "contained" : "outlined"
+							}
+							onClick={() => setSelected(category.id)}
+							clickableColorSecondary
 							clickable
 						/>
-							
-						
 					);
 				})}
 		</Box>
