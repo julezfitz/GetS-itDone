@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
+import { format, compareAsc } from 'date-fns'
 
 const Img = styled("img")({
 	margin: "auto",
@@ -17,6 +18,9 @@ export default function SearchListItem(props) {
 		let listing = props.listing;
 		props.onChoice(listing);
 	};
+
+const date = new Date(props.listing.created)
+const formattedDate = format(date, 'dd/MM/yyyy', )
 
 	return (
 		<Paper onClick={handleListingChange} sx={{ p: 2, flexGrow: 1 }}>
@@ -38,13 +42,13 @@ export default function SearchListItem(props) {
 						</Grid>
 						<Grid item>
 							<Typography variant='body2' color='text.secondary'>
-								{props.listing.created}
+              {props.listing.city} | {formattedDate}
 							</Typography>
 						</Grid>
 					</Grid>
 					<Grid item>
 						<Typography variant='subtitle1' component='div'>
-							{props.listing.price}
+						{props.listing.price}
 						</Typography>
 					</Grid>
 				</Grid>
