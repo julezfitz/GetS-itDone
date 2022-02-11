@@ -46,7 +46,7 @@ module.exports = db => {
 					authResponse.authentication.isAuthenticated = true;
 					authResponse.authentication.errors = [];
 					authResponse.authentication.user = user;
-					console.log(user)
+					console.log(user);
 					req.session["user"] = user;
 					res.send(authResponse);
 					return;
@@ -85,12 +85,12 @@ module.exports = db => {
 		const response = {
 			registration: {
 				isRegistered: false,
-				errors: [],
+				errors: {},
 				user: null,
 			},
 		};
 
-		const hasEmptyField = checkIfEmpty(req.body);
+		const emptyFields = checkIfEmpty(req.body);
 
 		const {
 			firstName,
@@ -104,14 +104,16 @@ module.exports = db => {
 			country,
 		} = req.body;
 
-		const hashedPassword = bcrypt.hashSync(password, 12);
+		// const hashedPassword = bcrypt.hashSync(password, 12);
 
 		//Check if any fields are empty
-		if (hasEmptyField) {
-			response.registration.errors.push({
-				message: "Please fill out all the fields.",
-			});
-			res.send(response);
+
+		if (emptyFields[0]) {
+			response.registration.errors = {
+				message: "Fields cannot be empty",
+				fields: [...emptyFields],
+			};
+			res.send({ ...response });
 			return;
 		}
 
@@ -127,18 +129,21 @@ module.exports = db => {
 			.then(user => {
 				//If email is returned from db, send error message
 				if (user.rows.length) {
-					response.registration.errors.push({
+					console.log('hi')
+					response.registration.errors = {
 						message: "E-mail already exists",
-					});
+						fields: ["email"],
+					};
 					res.send(response);
 					return;
 				}
 
 				//If user does not exist, check to see if password + passwordConfirmation match
 				if (password !== passwordConfirmation) {
-					response.registration.errors.push({
-						message: "Passwords do not match",
-					});
+					response.registration.errors = {
+						message: "Passwords must match",
+						fields: ["password", "passwordConfirmation"],
+					};
 					res.send(response);
 					return;
 				}
