@@ -75,6 +75,9 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const wrapperStyle = {
 		display: "flex",
 		justifyContent: "center",
+		position: "relative",
+		width: "100%"
+
 	};
 
 	return (

@@ -3,27 +3,32 @@ import { Typography, Box } from "@mui/material";
 import { Chip, Paper } from "@mui/material";
 import Chips from "./Chips";
 import { Divider } from "@mui/material";
+import { Container } from "@mui/material";
 
 function CategoriesBar({
 	categories,
 	selectedChip,
 	handleSelectedChip,
 	handleClearSelection,
-	emptySearch
+	emptySearch,
 }) {
 	const barStyle = {
 		width: "400px",
 		height: "100vh",
-		padding: "2rem",
+		padding: "2rem 2rem 0 2rem",
 		display: "flex",
-
+		position: "sticky",
+		top: '5rem',
+		right: 0,
+		
+		
 		justifyContent: "center",
 	};
 
 	return (
 		<>
-			<Box style={barStyle}>
-				<Box style={{width: "100%"}}>
+			<Container style={barStyle} maxWidth="xl">
+				<Box style={{ width: "100%" }}>
 					<Typography>Filter by Category</Typography>
 					<Box>
 						<Chips
@@ -35,7 +40,7 @@ function CategoriesBar({
 						/>
 					</Box>
 				</Box>
-			</Box>
+			</Container>
 		</>
 	);
 }
