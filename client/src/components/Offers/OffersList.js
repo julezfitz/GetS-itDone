@@ -1,11 +1,11 @@
 import { styled } from "@mui/material/styles";
 import Paper from '@mui/material/Paper';
 import OffersListItem from "./OffersListItem";
+import AcceptedView from "./AcceptedView";
 import { Divider } from "@mui/material";
 import { UserContext } from "../Application.js";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -45,11 +45,13 @@ export default function OffersList(props) {
 
   return (
     <Item>
-      <h3>Offers</h3>
       <Divider />
-      {listingOffers.map((offer) => {
-        return <OffersListItem key={Math.random().toString(36).substr(2, 9)} accept={handleAccept} decline={handleDecline} offer={offer} />
-      })}
+      <h3>{acceptedOffer ? "Confirmed" : "Offers"}</h3>
+      {(acceptedOffer && <AcceptedView acceptedOffer={acceptedOffer} />) ||
+        listingOffers.map((offer) => {
+          return <OffersListItem key={Math.random().toString(36).substr(2, 9)} accept={handleAccept} decline={handleDecline} offer={offer} />
+        })
+      }
     </Item>
   );
 }
