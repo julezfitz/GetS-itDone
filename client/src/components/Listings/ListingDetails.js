@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import UserRatingsModal from "../Ratings/UserRatings";
 import { formatDistance } from 'date-fns'
+import { Button, Alert } from "@mui/material";
+import Box from "@mui/material/Box";
 
 export default function ListingDetails(props) {
   //Make the listing details full width on mobile
@@ -86,26 +88,56 @@ export default function ListingDetails(props) {
             }}
           >
             <Stack spacing={0.1}>
-              <h2>{props.listing.title}</h2>
-              <h4>Category: {props.listing.category}</h4>
-              <Item><h4>Amount Offered: $ {props.listing.price}</h4></Item>
+              <Grid container spacing={7} wrap='nowrap'>
+
+                <Grid item xs={8}>
+                  <h2>{props.listing.title}</h2>
+                  <h4>Category: {props.listing.category}</h4>
+                  <Typography variant="h5">$ {props.listing.price}</Typography>
+                </Grid>
+
+                <Grid item xs={4}>
+                <Box m={2} pt={3}>
+                  <Typography variant="subtitle2" color="grey" component="div">Posted {date} &nbsp; |
+                    &nbsp; <b>{props.listing.city}</b></Typography>
+                    </Box>
+                </Grid>
+
+              </Grid>
               <Item sx={{ height: "20rem" }}>
                 <ImageCarousel listing={props.listing} />
               </Item>
               <Divider />
               <Item>
-                   <h4>Description</h4>
-                   <p>{props.listing.description}</p>
-                <h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
-                <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
-                  <Typography variant="string" component="div">&nbsp;</Typography>
-                  <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
-                  <Typography variant="string" component="div">&nbsp;  (</Typography>
-                  <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
-                  <Typography variant="string" color="black" component="div">)</Typography>
+                <h3>Description</h3>
+
+                <Grid container spacing={3}>
+                  <Grid item xs={9}>
+                  <p>{props.listing.description}</p>
+                    <h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
+                    <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
+                      <Typography variant="string" component="div">&nbsp;</Typography>
+                      <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
+                      <Typography variant="string" component="div">&nbsp;  (</Typography>
+                      <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
+                      <Typography variant="string" color="black" component="div">)</Typography>
+                    </Grid>
+                    <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
+                  </Grid>
+
+                  <Grid item xs={2}>
+                  <Box m={-5} pt={-5}>
+                    <Button 
+                    size={"small"}
+                    type='submit'
+                    color='primary'
+                    variant='contained'
+                    >Place Offer</Button>
+                    </Box>
+                  </Grid>
+
                 </Grid>
-                <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
-                <h4>Posted {date}</h4>
+
               </Item>
             </Stack>
           </Drawer>
