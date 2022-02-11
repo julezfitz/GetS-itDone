@@ -17,8 +17,8 @@ function CategoriesBar({
 		height: "100vh",
 		padding: "2rem 2rem 0 2rem",
 		display: "flex",
-		position: "relative",
-
+		position: "sticky",
+		top: "20rem",
 		justifyContent: "center",
 	};
 
