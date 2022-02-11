@@ -137,7 +137,7 @@ export default function LoginModal({ open, handleClose }) {
 									}
 								/>
 								<TextField
-									placeholder='password'
+									placeholder='Password'
 									fullWidth
 									required
 									id='outlined-password-input'
