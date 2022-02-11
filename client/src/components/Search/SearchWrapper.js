@@ -3,6 +3,7 @@ import SearchList from "./SearchList";
 import CategoriesBar from "./Categories/CategoriesBar";
 import { Box } from "@mui/material";
 import axios from "axios";
+import Heading from "../Heading/Heading";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const [listings, setListings] = useState([]);
@@ -75,6 +76,8 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const wrapperStyle = {
 		display: "flex",
 		justifyContent: "center",
+		position: "relative",
+		width: "100%",
 	};
 
 	return (

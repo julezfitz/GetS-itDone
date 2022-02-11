@@ -33,20 +33,8 @@ export const GlobalStyles = createGlobalStyle`
 
   .nav-offset {
     margin-top: 4.3rem;
-    width: 100%;
-    
-
-    
+    width: 100%; 
   }
-
- .content-width-wrapper {
-   margin-top: 10rem;
-   width: 1200px;
-   margin: 10rem auto 0 auto;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
- }
 
  
 `;

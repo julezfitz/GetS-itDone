@@ -8,12 +8,48 @@ import MyOffers from "./Offers/MyOffers";
 import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
+import Heading from "./Heading/Heading";
+import { useLocation } from "react-router";
 
 function Routing({ keywords, search, togglePending, emptySearch }) {
+	const [headingTitle, setHeadingTitle] = useState(null);
 	const { isLoggedIn } = useContext(UserContext);
+	const location = useLocation();
+
+	const pageInfo = [
+		{
+			headingTitle: "Search Results",
+			path: "/",
+		},
+		{
+			headingTitle: "Offers",
+			path: "/offers",
+		},
+		{
+			headingTitle: "Profile",
+			path: "/profile",
+		},
+		{
+			headingTitle: "Listings",
+			path: "/listings",
+		},
+	];
+
+	useEffect(() => {
+		for (let page of pageInfo) {
+			if (page.path === location.pathname) {
+				setHeadingTitle(page.headingTitle);
+			}
+		}
+	}, [location]);
 
 	return (
 		<>
+			{isLoggedIn && (
+				<Heading size='medium' className='page-heading'>
+					My {headingTitle}
+				</Heading>
+			)}
 			<Routes>
 				<Route
 					path='/'
