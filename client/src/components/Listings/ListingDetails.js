@@ -43,6 +43,7 @@ export default function ListingDetails(props) {
   const [listingCreator, setCreator] = React.useState({});
   const [date, setDate] = React.useState("");
   const [userRatingsOpen, setUserRatingsOpen] = React.useState(false);
+  const [currentOffer, setCurrentOffer] = React.useState("");
 
   const handleUserRatingsOpen = () => setUserRatingsOpen(true);
   const handleUserRatingsClose = () => setUserRatingsOpen(false);
@@ -69,14 +70,16 @@ export default function ListingDetails(props) {
 
     }
     //add offer to render list
-  }), [props.listing])
+  }), [currentOffer, props.listing])
 
   const handleOffer = (listingId) => {
-    // axios.post(`http://localhost:8001/offers`, { params: { "listingId": listingId.target.value, "bidderId": userDetails.id } })
-    // .then((result) => {
-    //   console.log(result);
-//update global state by adding this listing object to it
-    // })
+    console.log(userDetails.id);
+    console.log(listingId.target.value);
+    axios.post(`http://localhost:8001/offers`, { listingId: parseInt(listingId.target.value), bidderId: parseInt(userDetails.id) })
+    .then((result) => {
+      setCurrentOffer(listingId)
+      //page doesn't re render
+    })
   }
   console.log(offers);
 
