@@ -37,6 +37,28 @@ module.exports = db => {
         });
     });
 
+    router.get("offers/myoffer/:listingId/:bidderId", (request, response) => {
+        console.log(request.params);
+        let query = `SELECT * FROM offers WHERE bidder_id = ${request.params.bidderId} AND listing_id = ${request.params.listingId};`
+       console.log(query);
+        db.query(query)
+            .then((results) => {
+                offerObj = result.rows[0];
+                let offer = {
+                    "listingId": offerObj.listing_id,
+                    "bidderId": offerObj.bidder_id,
+                    "accepted": offerObj.price,
+                    "pending": offerObj.image_1,
+                    "id": offerObj.created,
+                }
+                response.json(offer);
+            })
+            .catch((err) => {
+                console.log(err);
+                return err;
+            })
+    });
+
     router.post("/offers", (request, response) => {
         const { listingId, bidderId } = request.body;
         let offerId;
@@ -121,6 +143,32 @@ module.exports = db => {
 // API documentation for Open API below
 
 module.exports.apiDocs = {
+    "offers/myoffer/{listingId}/{bidderId}": {
+        "get": {
+            "description": "Return a single applications by an individual user from the system.",
+            "tags": ["offers"],
+            "parameters": [{
+                "name": "bidderId",
+                "type": "integer",
+                "in": "query",
+                "description": "get application for a user",
+                "required": true
+            },
+            {
+                "name": "listingId",
+                "type": "integer",
+                "in": "query",
+                "description": "get application for a listing",
+                "required": true
+            },
+        ],
+            "responses": {
+                "200": {
+                    "description": "An object of a single application.",
+                }
+            }
+        }
+    },
     "/offers": {
         "get": {
             "description": "Return all applications by an individual user from the system.",
