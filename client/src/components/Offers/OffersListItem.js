@@ -52,29 +52,32 @@ export default function OffersListItem(props) {
           <br></br>
         </Grid>
         <Grid item>
-          <Typography variant="subtitle1" component="div">
-            <Button
-              size={"small"}
-              type='submit'
-              color='primary'
-              variant='contained'
-              value={offer}
-              sx={{ marginTop: 5 }}
-              onClick={handleAccept}
-            >
-              Accept
-            </Button>
-            <Button
-              size={"small"}
-              type='submit'
-              color='primary'
-              variant='contained'
-              sx={{ marginTop: 5 }}
-              onClick={handleDecline}
-            >
-              Decline
-            </Button>
-            {/* {errors &&
+          {props.offerDeclined ? (<Typography variant="subtitle1" component="div"> Declined</Typography>) : (
+            <Typography variant="subtitle1" component="div">
+              <Button
+                size={"small"}
+                type='submit'
+                color='primary'
+                variant='contained'
+                value={offer}
+                sx={{ marginTop: 5 }}
+                onClick={handleAccept}
+              >
+                Accept
+              </Button>
+              <Button
+                size={"small"}
+                type='submit'
+                color='primary'
+                variant='contained'
+                sx={{ marginTop: 5 }}
+                onClick={handleDecline}
+              >
+                Decline
+              </Button>
+              </Typography>
+            )}
+              {/* {errors &&
 								errors.map(err => {
 									return (
 										<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
@@ -82,7 +85,6 @@ export default function OffersListItem(props) {
 										</Alert>
 									);
 								})} */}
-          </Typography>
         </Grid>
       </Grid>
     </Grid>
