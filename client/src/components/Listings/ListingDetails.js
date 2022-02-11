@@ -49,8 +49,6 @@ export default function ListingDetails(props) {
   const handleUserRatingsClose = () => setUserRatingsOpen(false);
 
   React.useEffect((() => {
-    getUserOffers();
-
     if (props.listing.creator_id) {
       axios.get(`http://localhost:8001/ratings/`, { params: { "rateeId": props.listing.creator_id } })
         .then((result) => {
@@ -77,7 +75,7 @@ export default function ListingDetails(props) {
     axios.post(`http://localhost:8001/offers`, { listingId: parseInt(listingId.target.value), bidderId: parseInt(userDetails.id) })
     .then((result) => {
       setCurrentOffer(props.listing);
-      
+      getUserOffers();
     })
   }
 
