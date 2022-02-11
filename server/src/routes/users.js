@@ -16,14 +16,19 @@ module.exports = db => {
 			authentication: {
 				isAuthenticated: false,
 				user: null,
-				errors: [],
+				errors: {},
 			},
 		};
-		let errors = authResponse.authentication.errors;
+		
+		const emptyFields = checkIfEmpty(req.body);
+		
 
 		//If any field is empty, send error right away
-		if (!email || !password) {
-			errors.push({ message: "Please fill out the fields." });
+		if (emptyFields[0]) {
+			authResponse.authentication.errors = {
+				message: "Fields cannot be empty",
+				fields: [...emptyFields],
+			};
 			res.send(authResponse);
 			return;
 		}
@@ -34,7 +39,10 @@ module.exports = db => {
 
 			//If passport does not find user, send error response
 			if (!user) {
-				errors.push({ message: info.message });
+				errors = {
+					message: info.message,
+					fields: [],
+				};
 				res.send(authResponse);
 				return;
 			} else {
@@ -44,9 +52,9 @@ module.exports = db => {
 					if (err) throw err;
 					//Send successful auth status + clear errors
 					authResponse.authentication.isAuthenticated = true;
-					authResponse.authentication.errors = [];
+					authResponse.authentication.errors = {};
 					authResponse.authentication.user = user;
-					console.log(user);
+
 					req.session["user"] = user;
 					res.send(authResponse);
 					return;
