@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -8,15 +8,13 @@ import { UserContext } from "../../Application";
 import Error from "../Error";
 import axios from "axios";
 import { FormGroup, FormControl } from "@mui/material";
-import { StyledRegisterPanel } from "./styles";
-import { ButtonGroup } from "@mui/material";
 
 const style = {
 	position: "absolute",
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 400,
+	width: 500,
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	borderRadius: "10px",
@@ -24,11 +22,12 @@ const style = {
 	p: 10,
 };
 
+const formGroupStyle = {
+	"& .MuiTextField-root": { flexGrow: 1 },
+};
+
 const panelStyle = {
 	height: "100%",
-	left: 0,
-	top: 0,
-	position: "absolute",
 };
 
 export default function RegisterModal({ open, handleClose }) {
@@ -81,8 +80,6 @@ export default function RegisterModal({ open, handleClose }) {
 			errorMessage: "",
 		},
 	});
-
-	const [direction, setDirection] = useState(null);
 
 	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState(null);
@@ -156,23 +153,13 @@ export default function RegisterModal({ open, handleClose }) {
 
 					<Box
 						component='form'
-						sx={{
-							"& .MuiTextField-root": { m: 1 },
-							position: "relative",
-							height: "400px",
-							overflow: "hidden",
-						}}
+						sx={{ "& .MuiTextField-root": { m: 1 }, position: "relative" }}
 						noValidate
 						autoComplete='off'
 						onSubmit={handleSubmit}
 					>
-						<StyledRegisterPanel
-							direction={direction}
-							className='registration-form-panel registration-form-panel__1'
-							sx={panelStyle}
-						>
+						<FormGroup row sx={formGroupStyle}>
 							<TextField
-								fullWidth
 								placeholder='First Name'
 								required
 								id='outlined-required'
@@ -188,7 +175,6 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
-								fullWidth
 								required
 								placeholder='Last Name'
 								id='outlined-required'
@@ -203,8 +189,9 @@ export default function RegisterModal({ open, handleClose }) {
 										: "Last Name"
 								}
 							/>
+						</FormGroup>
+						<FormGroup row sx={formGroupStyle}>
 							<TextField
-								fullWidth
 								placeholder='Email'
 								fullWidth
 								required
@@ -220,8 +207,9 @@ export default function RegisterModal({ open, handleClose }) {
 										: "Email"
 								}
 							/>
+						</FormGroup>
+						<FormGroup row sx={formGroupStyle} row>
 							<TextField
-								fullWidth
 								placeholder='Password'
 								required
 								id='outlined-password-input'
@@ -239,7 +227,6 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
-								fullWidth
 								placeholder='Confirm Password'
 								required
 								id='outlined-password-input'
@@ -256,14 +243,9 @@ export default function RegisterModal({ open, handleClose }) {
 										: "Password"
 								}
 							/>
-						</StyledRegisterPanel>
-
-						<StyledRegisterPanel
-							direction={direction}
-							className='registration-form-panel registration-form-panel__2'
-						>
+						</FormGroup>
+						<FormGroup sx={formGroupStyle} row>
 							<TextField
-								fullWidth
 								placeholder='City'
 								required
 								id='outlined-required'
@@ -279,7 +261,6 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
-								fullWidth
 								placeholder='Province'
 								required
 								id='outlined-required'
@@ -294,8 +275,9 @@ export default function RegisterModal({ open, handleClose }) {
 										: "Province"
 								}
 							/>
+						</FormGroup>
+						<FormGroup sx={formGroupStyle} row>
 							<TextField
-								fullWidth
 								placeholder='Postal Code'
 								required
 								id='outlined-required'
@@ -311,7 +293,6 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
-								fullWidth
 								placeholder='Country'
 								required
 								id='outlined-required'
@@ -327,15 +308,8 @@ export default function RegisterModal({ open, handleClose }) {
 										: "Country"
 								}
 							/>
-						</StyledRegisterPanel>
-						<ButtonGroup
-							variant='contained'
-							disableElevation
-							sx={{ width: "100%", justifyContent: "space-between" }}
-						>
-							<Button>Prev</Button>
-							<Button onClick={() => setDirection("next")}>Next</Button>
-						</ButtonGroup>
+						</FormGroup>
+
 						<Button
 							size='large'
 							variant='contained'
@@ -345,9 +319,8 @@ export default function RegisterModal({ open, handleClose }) {
 						>
 							Create Account
 						</Button>
+						{errors && <Error errorMessage={errors} />}
 					</Box>
-
-					{errors && <Error errorMessage={errors} />}
 				</Box>
 			</Modal>
 		</div>

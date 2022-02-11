@@ -38,7 +38,7 @@ module.exports = db => {
 
 			//If passport does not find user, send error response
 			if (!user) {
-				
+				console.log("in here");
 				authResponse.authentication.errors = {
 					message: info.message,
 					fields: [],
