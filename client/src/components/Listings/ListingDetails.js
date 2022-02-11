@@ -17,11 +17,11 @@ import { UserContext } from "../Application.js";
 
 
 export default function ListingDetails(props) {
-	const [state, setState] = React.useState({
-		right: false,
-	});
+  const [state, setState] = React.useState({
+    right: false,
+  });
 
-  const { userDetails } = React.useContext(UserContext);
+  const { userDetails, offers } = React.useContext(UserContext);
 
   const toggleDrawer = (anchor, open) => event => {
     if (
@@ -31,21 +31,21 @@ export default function ListingDetails(props) {
       return;
     }
 
-		setState({ ...state, [anchor]: open });
-	};
+    setState({ ...state, [anchor]: open });
+  };
 
-	const Item = styled(Paper)(({ theme }) => ({
-		...theme.typography.body2,
-		padding: theme.spacing(1),
-		color: theme.palette.text.secondary,
-	}));
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    color: theme.palette.text.secondary,
+  }));
 
   const [listingCreator, setCreator] = React.useState({});
   const [date, setDate] = React.useState("");
   const [userRatingsOpen, setUserRatingsOpen] = React.useState(false);
 
-	const handleUserRatingsOpen = () => setUserRatingsOpen(true);
-	const handleUserRatingsClose = () => setUserRatingsOpen(false);
+  const handleUserRatingsOpen = () => setUserRatingsOpen(true);
+  const handleUserRatingsClose = () => setUserRatingsOpen(false);
 
   React.useEffect((() => {
     if (props.listing.creator_id) {
@@ -66,21 +66,19 @@ export default function ListingDetails(props) {
         { addSuffix: true }
       )
       setDate(timeAgo);
-        //axios call to see if there is an offer to change what is rendered
 
     }
-//add offer to render list
+    //add offer to render list
   }), [props.listing])
 
-  const [offer, setOffer] = React.useState("");
-
   const handleOffer = (listingId) => {
-    axios.post(`http://localhost:8001/offers`, { params: { "listingId": listingId.target.value, "bidderId": userDetails.id } })
-    .then((result) => {
-      console.log(result);
-      //set the offer - to what??????
-    })
+    // axios.post(`http://localhost:8001/offers`, { params: { "listingId": listingId.target.value, "bidderId": userDetails.id } })
+    // .then((result) => {
+    //   console.log(result);
+//update global state by adding this listing object to it
+    // })
   }
+  console.log(offers);
 
   return (
     <div>
@@ -111,10 +109,10 @@ export default function ListingDetails(props) {
                 </Grid>
 
                 <Grid item xs={4}>
-                <Box m={2} pt={3}>
-                  <Typography variant="subtitle2" color="grey" component="div">Posted {date} &nbsp; |
-                    &nbsp; <b>{props.listing.city}</b></Typography>
-                    </Box>
+                  <Box m={2} pt={3}>
+                    <Typography variant="subtitle2" color="grey" component="div">Posted {date} &nbsp; |
+                      &nbsp; <b>{props.listing.city}</b></Typography>
+                  </Box>
                 </Grid>
 
               </Grid>
@@ -127,7 +125,7 @@ export default function ListingDetails(props) {
 
                 <Grid container spacing={3}>
                   <Grid item xs={9}>
-                  <p>{props.listing.description}</p>
+                    <p>{props.listing.description}</p>
                     <h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
                     <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
                       <Typography variant="string" component="div">&nbsp;</Typography>
@@ -140,15 +138,20 @@ export default function ListingDetails(props) {
                   </Grid>
 
                   <Grid item xs={2}>
-                  <Box m={-5} pt={-5}>
-                    <Button 
-                    size={"small"}
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    value={props.listing.id}
-                    onClick={handleOffer}
-                    >Place Offer</Button>
+                    <Box m={-5} pt={-5}>
+                      {/* check if the user has already offered to do this job */}
+                      {(offers.some(({ listingId }) => listingId === props.listing.id)) ?
+                        (<Typography variant="subtitle2" color="grey" component="div">You have already offered to do this job.</Typography>)
+                        :
+                        (<Button
+                          size={"small"}
+                          type='submit'
+                          color='primary'
+                          variant='contained'
+                          value={props.listing.id}
+                          onClick={handleOffer}
+                        >Place Offer</Button>)
+                      }
                     </Box>
                   </Grid>
 

@@ -23,6 +23,7 @@ export default function Application() {
 			isLoggedIn: false,
 			details: {},
 		},
+		offers: []
 	});
 
 	const toggleLoggedIn = userDetails => {
@@ -39,6 +40,7 @@ export default function Application() {
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
+		offers: globalState.offers
 	};
 
 	useEffect(() => {
@@ -52,6 +54,19 @@ export default function Application() {
 				.catch(err => console.log(err));
 		}
 	}, []);
+
+		//	set global state of user's offers
+		useEffect(() => {
+			if(globalState.user.details.id){
+			axios.get(`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`)
+				.then((results) => {
+					setGlobalState(prev => ({
+						...prev,
+						offers: results.data,
+					}))
+				})
+			}
+		}, [globalState.user.details.id]);
 
 	const [search, setSearch] = useState("");
 
