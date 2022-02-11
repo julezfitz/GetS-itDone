@@ -66,14 +66,6 @@ export default function MyProfile() {
   return (
     <Item className="search-results">
       <Box>
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          sx={{ textAlign: "center" }}
-        >
-          My Profile
-        </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           <Box
             component="form"
@@ -164,46 +156,23 @@ export default function MyProfile() {
                 >
                   Update
                 </Button>
+                <Button
+                  size="large"
+                  variant="contained"
+                  onClick={() => setUpdate(false)}
+                >
+                  Cancel
+                </Button>
               </>
             ) : (
               <>
                 <div>
-                  <TextField
-                    disabled
-                    id="outlined-required"
-                    name="firstName"
-                    value={userDetails.firstName}
-                  />
-                  <TextField
-                    disabled
-                    id="outlined-required"
-                    name="lastName"
-                    value={userDetails.lastName}
-                  />
-                  <TextField
-                    disabled
-                    id="outlined-required"
-                    name="email"
-                    value={userDetails.email}
-                  />
-                  <TextField
-                    disabled
-                    id="outlined-required"
-                    name="city"
-                    value={userDetails.city}
-                  />
-                  <TextField
-                    disabled
-                    id="outlined-required"
-                    name="province"
-                    value={userDetails.province}
-                  />
-                  <TextField
-                    disabled
-                    id="outlined-required"
-                    name="country"
-                    value={userDetails.country}
-                  />
+                  <div>First Name: {userDetails.firstName}</div>
+                  <div>Last Name: {userDetails.lastName}</div>
+                  <div>Email: {userDetails.email}</div>
+                  <div>City: {userDetails.city}</div>
+                  <div>Province: {userDetails.province}</div>
+                  <div>Country: {userDetails.country}</div>
                 </div>
                 <Button
                   size="large"

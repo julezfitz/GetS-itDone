@@ -18,19 +18,19 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 
 	const pageInfo = [
 		{
-			headingTitle: "Search Results",
+			headingTitle: "Search",
 			path: "/",
 		},
 		{
-			headingTitle: "Offers",
+			headingTitle: "My Offers",
 			path: "/offers",
 		},
 		{
-			headingTitle: "Profile",
+			headingTitle: "My Profile",
 			path: "/profile",
 		},
 		{
-			headingTitle: "Listings",
+			headingTitle: "My Listings",
 			path: "/listings",
 		},
 	];
@@ -47,7 +47,7 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 		<>
 			{isLoggedIn && (
 				<Heading size='medium' className='page-heading'>
-					My {headingTitle}
+					{headingTitle}
 				</Heading>
 			)}
 			<Routes>
