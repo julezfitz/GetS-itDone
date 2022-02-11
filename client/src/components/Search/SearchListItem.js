@@ -26,7 +26,11 @@ export default function SearchListItem(props) {
 	const formattedDate = format(date, "dd/MM/yyyy");
 
 	return (
-		<Paper onClick={handleListingChange} sx={{ p: 2, flexGrow: 1 }} elevation={4}>
+		<Paper
+			onClick={handleListingChange}
+			sx={{ p: 2, flexGrow: 1 }}
+			elevation={4}
+		>
 			<Grid container spacing={2}>
 				<Grid item>
 					<ButtonBase
@@ -38,7 +42,7 @@ export default function SearchListItem(props) {
 							backgroundImage: `url(${props.listing.image_1})`,
 							backgroundSize: "cover",
 							backgroundPosition: "50% 50%",
-              borderRadius: "5px"
+							borderRadius: "5px",
 						}}
 					></ButtonBase>
 				</Grid>
