@@ -18,7 +18,7 @@ const style = {
 	border: "2px solid #000",
 	boxShadow: 24,
 	p: 4,
-	borderRadius: "10px"
+	borderRadius: "10px",
 };
 
 const ELEMENTSPACING = "1rem";
@@ -26,9 +26,17 @@ const ELEMENTSPACING = "1rem";
 export default function LoginModal({ open, handleClose }) {
 	const { toggleLoggedIn, isLoggedIn } = useContext(UserContext);
 
-	const [value, setValue] = useState({
-		email: "",
-		password: "",
+	const [loginState, setLoginState] = useState({
+		email: {
+			value: "",
+			error: false,
+			errorMessage: null,
+		},
+		password: {
+			value: "",
+			error: false,
+			errorMessage: null,
+		},
 	});
 	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState(false);
@@ -37,15 +45,28 @@ export default function LoginModal({ open, handleClose }) {
 		if (loading) {
 			axios
 				.post("http://localhost:8001/user/session", {
-					email: value.email,
-					password: value.password,
+					email: loginState.email.value,
+					password: loginState.password.value,
 				})
 				.then(response => {
 					const errors = response.data.authentication.errors;
+
+					errors.message && setErrors(errors.message);
+
+					errors.fields.forEach(field => {
+						setLoginState(prev => ({
+							...prev,
+							[field.fieldName]: {
+								value: prev[field.fieldName].value,
+								error: true,
+								errorMessage: errors.message,
+							},
+						}));
+					});
+
 					const isAuthenticated = response.data.authentication.isAuthenticated;
 					const userDetails = response.data.authentication.user;
 					isAuthenticated && toggleLoggedIn(userDetails);
-					errors.length >= 0 && setErrors(errors);
 				})
 				.catch(err => {
 					console.log(err);
@@ -57,11 +78,14 @@ export default function LoginModal({ open, handleClose }) {
 	const handleChange = e => {
 		setErrors(false);
 		const textFieldName = e.target.name;
-		console.log(textFieldName);
 
-		setValue(prev => ({
+		setLoginState(prev => ({
 			...prev,
-			[textFieldName]: e.target.value,
+			[textFieldName]: {
+				value: e.target.value,
+				error: false,
+				errorMessage: null,
+			},
 		}));
 	};
 
@@ -97,15 +121,23 @@ export default function LoginModal({ open, handleClose }) {
 						>
 							<FormControl fullWidth>
 								<TextField
+									placeholder='justine@example.com'
 									fullWidth
 									required
 									id='outlined-required'
 									label='Email'
 									name='email'
-									value={value.email}
+									value={loginState.email.value}
 									onChange={handleChange}
+									error={loginState.email.error}
+									label={
+										loginState.email.error
+											? loginState.email.errorMessage
+											: "Email"
+									}
 								/>
 								<TextField
+									placeholder='password'
 									fullWidth
 									required
 									id='outlined-password-input'
@@ -113,8 +145,14 @@ export default function LoginModal({ open, handleClose }) {
 									type='password'
 									autoComplete='current-password'
 									name='password'
-									value={value.password}
+									value={loginState.password.value}
 									onChange={handleChange}
+									error={loginState.password.error}
+									label={
+										loginState.password.error
+											? loginState.password.errorMessage
+											: "Password"
+									}
 								/>
 							</FormControl>
 
@@ -128,14 +166,11 @@ export default function LoginModal({ open, handleClose }) {
 							>
 								{loading ? "Loading..." : "Log in"}
 							</Button>
-							{errors &&
-								errors.map(err => {
-									return (
-										<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
-											{err.message}
-										</Alert>
-									);
-								})}
+							{errors && (
+								<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
+									{errors}
+								</Alert>
+							)}
 						</Box>
 					</Typography>
 				</Box>
