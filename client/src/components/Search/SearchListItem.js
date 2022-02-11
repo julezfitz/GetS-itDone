@@ -26,8 +26,8 @@ export default function SearchListItem(props) {
 	const formattedDate = format(date, "dd/MM/yyyy");
 
 	return (
-		<Paper onClick={handleListingChange} sx={{ p: 2, flexGrow: 1 }}>
-			<Grid container spacing={2}>
+		<Paper onClick={handleListingChange} sx={{ p: 2, flexGrow: 1 }} elevation={4}>
+			<Grid container spacing={1}>
 				<Grid item>
 					<ButtonBase
 						sx={{
