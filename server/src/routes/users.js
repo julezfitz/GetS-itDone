@@ -150,6 +150,7 @@ module.exports = db => {
 					return;
 				}
 
+				const hashedPassword = bcrypt.hashSync(password, 12);
 				//Success - register user
 				return db
 					.query(

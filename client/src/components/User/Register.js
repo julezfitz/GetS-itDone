@@ -109,7 +109,7 @@ export default function RegisterModal({ open, handleClose }) {
 			axios
 				.post(`http://localhost:8001/user/register`, fieldValues)
 				.then(res => {
-					res.data.registration.errors &&
+					res.data.registration.errors.fields &&
 						res.data.registration.errors.fields.forEach(field => {
 							setRegisterState(prev => ({
 								...prev,
@@ -157,6 +157,7 @@ export default function RegisterModal({ open, handleClose }) {
 					>
 						<FormGroup row sx={{ justifyContent: "space-between" }}>
 							<TextField
+								placeholder='First Name'
 								required
 								id='outlined-required'
 								label='First Name'
@@ -173,6 +174,7 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 							<TextField
 								required
+								placeholder='Last Name'
 								id='outlined-required'
 								label='Last Name'
 								name='lastName'
@@ -190,6 +192,7 @@ export default function RegisterModal({ open, handleClose }) {
 
 						<FormControl fullWidth>
 							<TextField
+								placeholder='Email'
 								required
 								id='outlined-required'
 								label='Email'
@@ -204,6 +207,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								placeholder='City'
 								required
 								id='outlined-required'
 								label='City/Town'
@@ -218,6 +222,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								placeholder='Province'
 								required
 								id='outlined-required'
 								label='Province'
@@ -232,6 +237,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								placeholder='Postal Code'
 								required
 								id='outlined-required'
 								label='Postal Code'
@@ -246,6 +252,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								placeholder='Country'
 								required
 								id='outlined-required'
 								label='Country'
@@ -261,6 +268,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								placeholder='Password'
 								required
 								id='outlined-password-input'
 								label='Password'
@@ -277,6 +285,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								placeholder='Confirm Password'
 								required
 								id='outlined-password-input'
 								label='Password Confirmation'
