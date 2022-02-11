@@ -19,9 +19,8 @@ module.exports = db => {
 				errors: {},
 			},
 		};
-		
+
 		const emptyFields = checkIfEmpty(req.body);
-		
 
 		//If any field is empty, send error right away
 		if (emptyFields[0]) {
@@ -39,7 +38,8 @@ module.exports = db => {
 
 			//If passport does not find user, send error response
 			if (!user) {
-				errors = {
+				
+				authResponse.authentication.errors = {
 					message: info.message,
 					fields: [],
 				};

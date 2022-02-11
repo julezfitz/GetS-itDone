@@ -53,16 +53,17 @@ export default function LoginModal({ open, handleClose }) {
 
 					errors.message && setErrors(errors.message);
 
-					errors.fields.forEach(field => {
-						setLoginState(prev => ({
-							...prev,
-							[field.fieldName]: {
-								value: prev[field.fieldName].value,
-								error: true,
-								errorMessage: errors.message,
-							},
-						}));
-					});
+					errors.fields &&
+						errors.fields.forEach(field => {
+							setLoginState(prev => ({
+								...prev,
+								[field.fieldName]: {
+									value: prev[field.fieldName].value,
+									error: true,
+									errorMessage: errors.message,
+								},
+							}));
+						});
 
 					const isAuthenticated = response.data.authentication.isAuthenticated;
 					const userDetails = response.data.authentication.user;
