@@ -46,7 +46,7 @@ export default function OffersListItem(props) {
           </Grid>
           <Grid item>
             <Typography component={'span'} variant="body2" color="text.secondary">
-              Date: February 4, 2022
+              {/* Date: February 4, 2022 */}
             </Typography>
           </Grid>
           <br></br>

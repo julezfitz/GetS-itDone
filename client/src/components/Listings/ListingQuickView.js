@@ -24,7 +24,7 @@ export default function ListingQuickView(props) {
           <h3>Title: {props.listing.title}</h3>
           <h3>Category: {props.listing.category}</h3>
           <h3>Amount: {props.listing.price}</h3>
-          <h3>Date: {props.listing.created}</h3>
+          <h3>Date Posted: {props.date}</h3>
         </Item>
       </Stack>
     </div>

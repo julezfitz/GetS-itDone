@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import UserRatingsModal from "../Ratings/UserRatings";
-import { format, formatDistance } from 'date-fns'
+import { formatDistance } from 'date-fns'
 
 export default function ListingDetails(props) {
   //Make the listing details full width on mobile
