@@ -17,17 +17,14 @@ function CategoriesBar({
 		height: "100vh",
 		padding: "2rem 2rem 0 2rem",
 		display: "flex",
-		position: "sticky",
-		top: '5rem',
-		right: 0,
-		
-		
+		position: "relative",
+
 		justifyContent: "center",
 	};
 
 	return (
 		<>
-			<Container style={barStyle} maxWidth="xl">
+			<Box style={barStyle}>
 				<Box style={{ width: "100%" }}>
 					<Typography>Filter by Category</Typography>
 					<Box>
@@ -40,7 +37,7 @@ function CategoriesBar({
 						/>
 					</Box>
 				</Box>
-			</Container>
+			</Box>
 		</>
 	);
 }
