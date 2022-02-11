@@ -30,154 +30,156 @@ import SearchBar from "./SearchBar";
 const pages = ["Register", "Login"];
 
 const settings = [
-	{
-		title: "My Profile",
-		path: "/profile",
-	},
-	{
-		title: "My Listings",
-		path: "/listings",
-	},
-	{
-		title: "My Offers",
-		path: "/offers",
-	},
-	{
-		title: "Log Out",
-		path: "/",
-	},
+  {
+    title: "My Profile",
+    path: "/profile",
+  },
+  {
+    title: "My Listings",
+    path: "/listings",
+  },
+  {
+    title: "My Offers",
+    path: "/offers",
+  },
+  {
+    title: "Log Out",
+    path: "/",
+  },
 ];
 
 export default function ResponsiveAppBar(props) {
-	const [anchorElNav, setAnchorElNav] = useState(null);
-	const [anchorElUser, setAnchorElUser] = useState(null);
-	const [registerOpen, setRegisterOpen] = useState(false);
-	const [loginOpen, setLoginOpen] = useState(false);
-	const [newListingOpen, setNewListingOpen] = useState(false);
-	const [newRatingOpen, setNewRatingOpen] = useState(false);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [newListingOpen, setNewListingOpen] = useState(false);
+  const [newRatingOpen, setNewRatingOpen] = useState(false);
 
-	const { isLoggedIn, userDetails, toggleLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, userDetails, toggleLoggedIn } = useContext(UserContext);
 
-	const handleRegisterOpen = () => setRegisterOpen(true);
-	const handleRegisterClose = () => setRegisterOpen(false);
+  const handleRegisterOpen = () => setRegisterOpen(true);
+  const handleRegisterClose = () => setRegisterOpen(false);
 
-	const handleLoginOpen = () => setLoginOpen(true);
-	const handleLoginClose = () => setLoginOpen(false);
+  const handleLoginOpen = () => setLoginOpen(true);
+  const handleLoginClose = () => setLoginOpen(false);
 
-	const handleNewListingOpen = () => setNewListingOpen(true);
-	const handleNewListingClose = () => setNewListingOpen(false);
+  const handleNewListingOpen = () => setNewListingOpen(true);
+  const handleNewListingClose = () => setNewListingOpen(false);
 
-	const handleNewRatingOpen = () => setNewRatingOpen(true);
-	const handleNewRatingClose = () => setNewRatingOpen(false);
+  const handleNewRatingOpen = () => setNewRatingOpen(true);
+  const handleNewRatingClose = () => setNewRatingOpen(false);
 
-	const handleOpenNavMenu = event => {
-		setAnchorElNav(event.currentTarget);
-	};
-	const handleOpenUserMenu = event => {
-		setAnchorElUser(event.currentTarget);
-	};
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
-	};
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
-	const loggedInProps = {
-		newListingOpen,
-		newRatingOpen,
-		handleNewListingOpen,
-		handleNewListingClose,
-		handleNewRatingOpen,
-		handleNewRatingClose,
-		handleOpenUserMenu,
-		handleCloseUserMenu,
-		userDetails,
-		anchorElUser,
-		toggleLoggedIn,
-		settings,
-	};
+  const loggedInProps = {
+    newListingOpen,
+    newRatingOpen,
+    handleNewListingOpen,
+    handleNewListingClose,
+    handleNewRatingOpen,
+    handleNewRatingClose,
+    handleOpenUserMenu,
+    handleCloseUserMenu,
+    userDetails,
+    anchorElUser,
+    toggleLoggedIn,
+    settings,
+  };
 
-	const loggedOutProps = {
-		handleRegisterOpen,
-		handleRegisterClose,
-		registerOpen,
-		loginOpen,
-		handleLoginOpen,
-		handleLoginClose,
-	};
+  const loggedOutProps = {
+    handleRegisterOpen,
+    handleRegisterClose,
+    registerOpen,
+    loginOpen,
+    handleLoginOpen,
+    handleLoginClose,
+  };
 
-	return (
-		<AppBar position='fixed'>
-			<Container maxWidth='xl'>
-				<Toolbar disableGutters>
-					<Link to={"/"}>
-						<Typography
-							variant='h6'
-							noWrap
-							component='div'
-							sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-						>
-							Get S*it Done
-						</Typography>
-					</Link>
+  return (
+    <AppBar position="fixed">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Link to={"/"}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            >
+              Get S*it Done
+            </Typography>
+          </Link>
 
-					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-						<IconButton
-							size='large'
-							aria-label='account of current user'
-							aria-controls='menu-appbar'
-							aria-haspopup='true'
-							onClick={handleOpenNavMenu}
-							color='inherit'
-						>
-							<MenuIcon />
-						</IconButton>
-						<Menu
-							id='menu-appbar'
-							anchorEl={anchorElNav}
-							anchorOrigin={{
-								vertical: "bottom",
-								horizontal: "left",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}
-							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
-							sx={{
-								display: { xs: "block", md: "none" },
-							}}
-						>
-							{pages.map(page => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign='center'>{page}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
-					</Box>
-					<Typography
-						variant='h6'
-						noWrap
-						component='div'
-						sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-					>
-						Get S*it Done
-					</Typography>
-					<SearchBar onSearch={props.onSearch} value={props.searchValue} />
-					<Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
+            Get S*it Done
+          </Typography>
+          {isLoggedIn ? (
+            <SearchBar onSearch={props.onSearch} value={props.searchValue} />
+          ) : null}
+          <Box sx={{ flexGrow: 1 }} />
 
-					{isLoggedIn ? (
-						<LoggedInNav {...loggedInProps} />
-					) : (
-						<LoggedOutNav {...loggedOutProps} />
-					)}
-				</Toolbar>
-			</Container>
-		</AppBar>
-	);
+          {isLoggedIn ? (
+            <LoggedInNav {...loggedInProps} />
+          ) : (
+            <LoggedOutNav {...loggedOutProps} />
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
 }
