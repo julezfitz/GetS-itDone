@@ -5,18 +5,7 @@ import Opposit from "../../../assets/fonts/opposit.otf";
 import Cardinal from "../../../assets/fonts/cardinal.otf";
 
 export const StyledHeading = styled.div`
-	@font-face {
-		font-family: "Opposit";
-		src: url(${Opposit});
-		font-weight: lighter;
-	}
-
-	@font-face {
-		font-family: "Cardinal";
-		src: url(${Cardinal});
-		font-weight: lighter;
-	}
-
+	font-family: Inter;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	font-family: "Opposit";
@@ -40,7 +29,7 @@ export const StyledHeading = styled.div`
 		font-weight: lighter;
 
 		.font-accent {
-			font-family: 'Cardinal';
+			font-family: "Cardinal";
 		}
 	}
 
@@ -48,6 +37,5 @@ export const StyledHeading = styled.div`
 		font-size: 6rem;
 		letter-spacing: -0.2rem;
 		line-height: 6rem;
-		
 	}
 `;

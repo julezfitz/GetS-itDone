@@ -1,9 +1,13 @@
 import React, { forwardRef } from "react";
 import { StyledHeading } from "./styles/styles";
 
-function Heading({ size, color, children }, ref) {
+function Heading({ size, color, children, className }, ref) {
 	return (
-		<StyledHeading className='heading-wrapper' size={size} color={color}>
+		<StyledHeading
+			className={`heading-wrapper ${className && className}`}
+			size={size}
+			color={color}
+		>
 			{size === "large" && <h1 className='heading-large'>{children}</h1>}
 			{size === "medium" && (
 				<h2 className='heading-medium' ref={ref}>
