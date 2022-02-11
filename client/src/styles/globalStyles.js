@@ -10,14 +10,20 @@ export const GlobalStyles = createGlobalStyle`
     color: orange;
   }
 
-  html, body, .App, #root, {
+  
+
+  body  {
     height: 100%;
-    font-family: 'Inter';
+    font-family: Inter;
   };
 
   body {
     background-color: ${({ isLoggedIn }) =>
 			!isLoggedIn ? "#121215" : "white"};
+  }
+
+  h1, h2, h3, h4, h5 , h6 {
+    font-family: Inter;
   }
 
 
@@ -33,7 +39,8 @@ export const GlobalStyles = createGlobalStyle`
 
   .nav-offset {
     margin-top: 4.3rem;
-    width: 100%; 
+    width: 100%;
+    height: 100%; 
   }
 
  
