@@ -68,10 +68,10 @@ export default function Application() {
 
 	//	set global state of user's offers
 	useEffect(() => {
-		if (globalState.user.details.id) {
+		if (globalState.user?.details?.id) {
 			getUserOffers()
 		}
-	}, [globalState.user.details.id]);
+	}, [globalState.user?.details?.id]);
 
 	const [search, setSearch] = useState("");
 
