@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import UserRatingsModal from "../Ratings/UserRatings";
+import { format, formatDistance } from 'date-fns'
 
 export default function ListingDetails(props) {
   //Make the listing details full width on mobile
@@ -35,6 +36,7 @@ export default function ListingDetails(props) {
   }));
 
   const [listingCreator, setCreator] = React.useState({});
+  const [date, setDate] = React.useState("");
 
   const [userRatingsOpen, setUserRatingsOpen] = React.useState(false);
 
@@ -54,7 +56,14 @@ export default function ListingDetails(props) {
             "ratingsCount": result.data.length
           })
         })
+      let timeAgo = formatDistance(
+        new Date(props.listing.created),
+        new Date(),
+        { addSuffix: true }
+      )
+      setDate(timeAgo);
     }
+
   }), [props.listing])
 
   return (
@@ -76,8 +85,8 @@ export default function ListingDetails(props) {
               style: { top: "70px", width: "500px", padding: "3rem" },
             }}
           >
-            <Stack spacing={2}>
-              <h1>{props.listing.title}</h1>
+            <Stack spacing={0.1}>
+              <h2>{props.listing.title}</h2>
               <Item>
                 <h3>Amount Offered: $ {props.listing.price}</h3>
               </Item>
@@ -97,7 +106,7 @@ export default function ListingDetails(props) {
                 <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
                 <h3>Description</h3>
                 <p>{props.listing.description}</p>
-                <h4>{props.listing.created}</h4>
+                <h4>Posted {date}</h4>
               </Item>
             </Stack>
           </Drawer>
