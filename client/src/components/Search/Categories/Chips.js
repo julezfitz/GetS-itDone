@@ -12,7 +12,7 @@ function Chips({
 	const elementSpacing = 1;
 
 	useEffect(() => {
-		console.log(categories);
+		// console.log(categories);
 	}, [categories]);
 
 	const handleChipClick = categoryId => {

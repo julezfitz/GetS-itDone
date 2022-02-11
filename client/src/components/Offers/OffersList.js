@@ -17,17 +17,16 @@ export default function OffersList(props) {
 
   const [listingOffers, setListingOffers] = useState([]);
   const [acceptedOffer, acceptOffer] = useState("");
+  // const [declinedOffers, setDeclinedOffers] = useState("");
 
   useEffect((() => {
     if (props.listingId) {
       axios.get(`http://localhost:8001/listings/${props.listingId}/offers`).then((result) => {
         setListingOffers(result.data.offers);
 
-        //check if any offers have been accepted
+        //check if any offers have been accepted and set state for acceptedOffer
         let acceptedOffer = (result.data.offers).find(offer => offer.accepted === true);
-        if (acceptedOffer) {
-          acceptOffer(acceptedOffer);
-        }
+        acceptedOffer ? acceptOffer(acceptedOffer) : acceptOffer("");
       })
     }
   }), [props.listingId])
@@ -55,7 +54,11 @@ export default function OffersList(props) {
       <h3>{acceptedOffer ? "Confirmed" : "Offers"}</h3>
       {(acceptedOffer && <AcceptedView acceptedOffer={acceptedOffer} />) ||
         listingOffers.map((offer) => {
-          return <OffersListItem key={Math.random().toString(36).substr(2, 9)} accept={handleAccept} decline={handleDecline} offer={offer} />
+          if (!offer.accepted) {
+            return <OffersListItem key={Math.random().toString(36).substr(2, 9)} offerDeclined={true} accept={handleAccept} decline={handleDecline} offer={offer} />
+          } else {
+            return <OffersListItem key={Math.random().toString(36).substr(2, 9)} accept={handleAccept} decline={handleDecline} offer={offer} />
+          }
         })
       }
     </Item>
