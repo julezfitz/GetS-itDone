@@ -8,13 +8,7 @@ function Heading({ size, color, children, className }, ref) {
 			size={size}
 			color={color}
 		>
-			{size === "large" && <h1 className='heading-large'>{children}</h1>}
-			{size === "medium" && (
-				<h2 className='heading-medium' ref={ref}>
-					{children}
-				</h2>
-			)}
-			{size === "small" && <h3 className='heading-small'>{children}</h3>}
+			<h2>{children}</h2>
 		</StyledHeading>
 	);
 }
