@@ -87,25 +87,24 @@ export default function ListingDetails(props) {
           >
             <Stack spacing={0.1}>
               <h2>{props.listing.title}</h2>
-              <Item>
-                <h3>Amount Offered: $ {props.listing.price}</h3>
-              </Item>
+              <h4>Category: {props.listing.category}</h4>
+              <Item><h4>Amount Offered: $ {props.listing.price}</h4></Item>
               <Item sx={{ height: "20rem" }}>
                 <ImageCarousel listing={props.listing} />
               </Item>
               <Divider />
               <Item>
-                <h3>Category: {props.listing.category}</h3>
+                   <h4>Description</h4>
+                   <p>{props.listing.description}</p>
                 <h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
-                <Grid container={true} onClick={handleUserRatingsOpen}>
+                <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
+                  <Typography variant="string" component="div">&nbsp;</Typography>
                   <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
                   <Typography variant="string" component="div">&nbsp;  (</Typography>
                   <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
                   <Typography variant="string" color="black" component="div">)</Typography>
                 </Grid>
                 <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
-                <h3>Description</h3>
-                <p>{props.listing.description}</p>
                 <h4>Posted {date}</h4>
               </Item>
             </Stack>
