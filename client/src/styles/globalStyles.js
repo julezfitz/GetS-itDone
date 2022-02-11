@@ -12,7 +12,7 @@ export const GlobalStyles = createGlobalStyle`
 
   
 
-  html, body, .App, #root {
+  body  {
     height: 100%;
     font-family: Inter;
   };
