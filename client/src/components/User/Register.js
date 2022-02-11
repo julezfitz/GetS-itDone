@@ -121,9 +121,9 @@ export default function RegisterModal({ open, handleClose }) {
 							}));
 						});
 
-					// setErrors(res.data.registration.errors);
-					// res.data.registration.isRegistered &&
-					// 	toggleLoggedIn(res.data.registration.user);
+					setErrors(res.data.registration.errors.message);
+					res.data.registration.isRegistered &&
+						toggleLoggedIn(res.data.registration.user);
 				})
 				.catch(err => setErrors(err))
 				.finally(setLoading(false));
@@ -303,10 +303,7 @@ export default function RegisterModal({ open, handleClose }) {
 						>
 							Create Account
 						</Button>
-						{errors &&
-							errors.map((err, i) => {
-								return <Error key={i} errorMessage={err.message} />;
-							})}
+						{errors && <Error errorMessage={errors} />}
 					</Box>
 				</Box>
 			</Modal>
