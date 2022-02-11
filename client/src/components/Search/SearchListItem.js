@@ -38,6 +38,7 @@ export default function SearchListItem(props) {
 							backgroundImage: `url(${props.listing.image_1})`,
 							backgroundSize: "cover",
 							backgroundPosition: "50% 50%",
+              borderRadius: "5px"
 						}}
 					></ButtonBase>
 				</Grid>
