@@ -23,7 +23,7 @@ export default function OfferQuickView(props) {
           <h3>Title: {props.offer.title}</h3>
           {/* <h3>Category: {props.listing.category}</h3> */}
           <h3>Amount: {props.offer.price}</h3>
-          <h3>Date: {props.offer.created}</h3>
+          <h3>Date: {props.date}</h3>
         </Item>
       </Stack>
     </div>

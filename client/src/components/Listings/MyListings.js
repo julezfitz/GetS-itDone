@@ -8,6 +8,7 @@ import ListingQuickView from "./ListingQuickView";
 import OffersList from "../Offers/OffersList";
 import axios from "axios";
 import { UserContext } from "../Application.js";
+import { format } from 'date-fns'
 
 const Item = styled(Paper)(({ theme }) => ({
 	...theme.typography.body2,
@@ -31,8 +32,13 @@ export default function MyListings() {
 	}, [userDetails]);
 
 	const [listing, setListing] = useState("");
+  const [date, setDate] = useState("");
 
 	const handleListingChange = function () {
+    let date = new Date(this.created);
+    let formattedDate = format(date, 'dd/MM/yyyy');
+    setDate(formattedDate);
+
 		setListing(this);
 	};
 
@@ -54,7 +60,7 @@ export default function MyListings() {
 				</Grid>
 				<Grid item xs={8}>
 					<Item>
-						<ListingQuickView listing={listing} />
+						<ListingQuickView listing={listing} date={date} />
 						<OffersList listingId={listing.id} />
 					</Item>
 				</Grid>

@@ -7,6 +7,7 @@ import MyOfferItem from "./MyOfferItem";
 import OfferQuickView from './OfferQuickView';
 import axios from "axios";
 import { UserContext } from "../Application.js";
+import { format } from 'date-fns'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -26,9 +27,14 @@ export default function MyOffers() {
     })
   }), [userDetails])
 
-  const [offer, setOffer] = useState("")
+  const [offer, setOffer] = useState("");
+  const [date, setDate] = useState("");
 
 	const handleOfferChange = function () {
+    let date = new Date(this.created);
+    let formattedDate = format(date, 'dd/MM/yyyy');
+    setDate(formattedDate);
+
     setOffer(this);
 	}
 
@@ -44,7 +50,7 @@ export default function MyOffers() {
         </Grid>
         <Grid item xs={8}>
           <Item>
-            <OfferQuickView offer={offer}/>
+            <OfferQuickView offer={offer} date={date}/>
           </Item>
         </Grid>
       </Grid>
