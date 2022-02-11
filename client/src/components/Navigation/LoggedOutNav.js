@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import RegisterModal from "../User/Register";
+import RegisterModal from "../User/Registration/Register";
 import LoginModal from "../User/Login";
 
 function LoggedOutNav({

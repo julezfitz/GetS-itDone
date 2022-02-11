@@ -1,30 +1,34 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button } from "@mui/material";
-import { useSubmit } from "../../hooks/useSubmit";
-import { UserContext } from "../Application";
-import Error from "./Error";
+import { UserContext } from "../../Application";
+import Error from "../Error";
 import axios from "axios";
 import { FormGroup, FormControl } from "@mui/material";
-import { InputAdornment } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { StyledRegisterPanel } from "./styles";
+import { ButtonGroup } from "@mui/material";
 
 const style = {
 	position: "absolute",
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 500,
+	width: 400,
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	borderRadius: "10px",
 	boxShadow: 24,
 	p: 10,
+};
+
+const panelStyle = {
+	height: "100%",
+	left: 0,
+	top: 0,
+	position: "absolute",
 };
 
 export default function RegisterModal({ open, handleClose }) {
@@ -77,6 +81,8 @@ export default function RegisterModal({ open, handleClose }) {
 			errorMessage: "",
 		},
 	});
+
+	const [direction, setDirection] = useState(null);
 
 	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState(null);
@@ -150,13 +156,23 @@ export default function RegisterModal({ open, handleClose }) {
 
 					<Box
 						component='form'
-						sx={{ "& .MuiTextField-root": { m: 1 } }}
+						sx={{
+							"& .MuiTextField-root": { m: 1 },
+							position: "relative",
+							height: "400px",
+							overflow: "hidden",
+						}}
 						noValidate
 						autoComplete='off'
 						onSubmit={handleSubmit}
 					>
-						<FormGroup row sx={{ justifyContent: "space-between" }}>
+						<StyledRegisterPanel
+							direction={direction}
+							className='registration-form-panel registration-form-panel__1'
+							sx={panelStyle}
+						>
 							<TextField
+								fullWidth
 								placeholder='First Name'
 								required
 								id='outlined-required'
@@ -164,7 +180,6 @@ export default function RegisterModal({ open, handleClose }) {
 								value={registerState.firstName.value}
 								onChange={handleChange}
 								name='firstName'
-								fullWidth
 								error={registerState.firstName.error}
 								label={
 									registerState.firstName.errorMessage
@@ -173,6 +188,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								fullWidth
 								required
 								placeholder='Last Name'
 								id='outlined-required'
@@ -180,7 +196,6 @@ export default function RegisterModal({ open, handleClose }) {
 								name='lastName'
 								value={registerState.lastName.value}
 								onChange={handleChange}
-								fullWidth
 								error={registerState.lastName.error}
 								label={
 									registerState.lastName.errorMessage
@@ -188,11 +203,10 @@ export default function RegisterModal({ open, handleClose }) {
 										: "Last Name"
 								}
 							/>
-						</FormGroup>
-
-						<FormControl fullWidth>
 							<TextField
+								fullWidth
 								placeholder='Email'
+								fullWidth
 								required
 								id='outlined-required'
 								label='Email'
@@ -207,67 +221,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
-								placeholder='City'
-								required
-								id='outlined-required'
-								label='City/Town'
-								name='city'
-								value={registerState.city.value}
-								onChange={handleChange}
-								error={registerState.city.error}
-								label={
-									registerState.city.errorMessage
-										? registerState.city.errorMessage
-										: "City"
-								}
-							/>
-							<TextField
-								placeholder='Province'
-								required
-								id='outlined-required'
-								label='Province'
-								name='province'
-								value={registerState.province.value}
-								onChange={handleChange}
-								error={registerState.province.error}
-								label={
-									registerState.province.errorMessage
-										? registerState.province.errorMessage
-										: "Province"
-								}
-							/>
-							<TextField
-								placeholder='Postal Code'
-								required
-								id='outlined-required'
-								label='Postal Code'
-								name='postalCode'
-								value={registerState.postalCode.value}
-								onChange={handleChange}
-								error={registerState.postalCode.error}
-								label={
-									registerState.postalCode.errorMessage
-										? registerState.postalCode.errorMessage
-										: "Postal Code"
-								}
-							/>
-							<TextField
-								placeholder='Country'
-								required
-								id='outlined-required'
-								label='Country'
-								name='country'
-								value={registerState.country.value}
-								onChange={handleChange}
-								error={registerState.country.error}
-								label={registerState.country.errorMessage}
-								label={
-									registerState.country.errorMessage
-										? registerState.country.errorMessage
-										: "Country"
-								}
-							/>
-							<TextField
+								fullWidth
 								placeholder='Password'
 								required
 								id='outlined-password-input'
@@ -285,6 +239,7 @@ export default function RegisterModal({ open, handleClose }) {
 								}
 							/>
 							<TextField
+								fullWidth
 								placeholder='Confirm Password'
 								required
 								id='outlined-password-input'
@@ -301,8 +256,86 @@ export default function RegisterModal({ open, handleClose }) {
 										: "Password"
 								}
 							/>
-						</FormControl>
+						</StyledRegisterPanel>
 
+						<StyledRegisterPanel
+							direction={direction}
+							className='registration-form-panel registration-form-panel__2'
+						>
+							<TextField
+								fullWidth
+								placeholder='City'
+								required
+								id='outlined-required'
+								label='City/Town'
+								name='city'
+								value={registerState.city.value}
+								onChange={handleChange}
+								error={registerState.city.error}
+								label={
+									registerState.city.errorMessage
+										? registerState.city.errorMessage
+										: "City"
+								}
+							/>
+							<TextField
+								fullWidth
+								placeholder='Province'
+								required
+								id='outlined-required'
+								label='Province'
+								name='province'
+								value={registerState.province.value}
+								onChange={handleChange}
+								error={registerState.province.error}
+								label={
+									registerState.province.errorMessage
+										? registerState.province.errorMessage
+										: "Province"
+								}
+							/>
+							<TextField
+								fullWidth
+								placeholder='Postal Code'
+								required
+								id='outlined-required'
+								label='Postal Code'
+								name='postalCode'
+								value={registerState.postalCode.value}
+								onChange={handleChange}
+								error={registerState.postalCode.error}
+								label={
+									registerState.postalCode.errorMessage
+										? registerState.postalCode.errorMessage
+										: "Postal Code"
+								}
+							/>
+							<TextField
+								fullWidth
+								placeholder='Country'
+								required
+								id='outlined-required'
+								label='Country'
+								name='country'
+								value={registerState.country.value}
+								onChange={handleChange}
+								error={registerState.country.error}
+								label={registerState.country.errorMessage}
+								label={
+									registerState.country.errorMessage
+										? registerState.country.errorMessage
+										: "Country"
+								}
+							/>
+						</StyledRegisterPanel>
+						<ButtonGroup
+							variant='contained'
+							disableElevation
+							sx={{ width: "100%", justifyContent: "space-between" }}
+						>
+							<Button>Prev</Button>
+							<Button onClick={() => setDirection("next")}>Next</Button>
+						</ButtonGroup>
 						<Button
 							size='large'
 							variant='contained'
@@ -312,8 +345,9 @@ export default function RegisterModal({ open, handleClose }) {
 						>
 							Create Account
 						</Button>
-						{errors && <Error errorMessage={errors} />}
 					</Box>
+
+					{errors && <Error errorMessage={errors} />}
 				</Box>
 			</Modal>
 		</div>
