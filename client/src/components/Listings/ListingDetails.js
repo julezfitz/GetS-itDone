@@ -13,12 +13,16 @@ import UserRatingsModal from "../Ratings/UserRatings";
 import { formatDistance } from 'date-fns'
 import { Button, Alert } from "@mui/material";
 import Box from "@mui/material/Box";
+import { UserContext } from "../Application.js";
+
 
 export default function ListingDetails(props) {
   //Make the listing details full width on mobile
   const [state, setState] = React.useState({
     right: false,
   });
+
+  const { userDetails } = React.useContext(UserContext);
 
   const toggleDrawer = (anchor, open) => event => {
     if (
@@ -39,7 +43,6 @@ export default function ListingDetails(props) {
 
   const [listingCreator, setCreator] = React.useState({});
   const [date, setDate] = React.useState("");
-
   const [userRatingsOpen, setUserRatingsOpen] = React.useState(false);
 
   const handleUserRatingsOpen = () => setUserRatingsOpen(true);
@@ -64,9 +67,21 @@ export default function ListingDetails(props) {
         { addSuffix: true }
       )
       setDate(timeAgo);
-    }
+        //axios call to see if there is an offer to change what is rendered
 
+    }
+//add offer to render list
   }), [props.listing])
+
+  const [offer, setOffer] = React.useState("");
+
+  const handleOffer = (listingId) => {
+    axios.post(`http://localhost:8001/offers`, { params: { "listingId": listingId.target.value, "bidderId": userDetails.id } })
+    .then((result) => {
+      console.log(result);
+      //set the offer - to what??????
+    })
+  }
 
   return (
     <div>
@@ -132,6 +147,8 @@ export default function ListingDetails(props) {
                     type='submit'
                     color='primary'
                     variant='contained'
+                    value={props.listing.id}
+                    onClick={handleOffer}
                     >Place Offer</Button>
                     </Box>
                   </Grid>
