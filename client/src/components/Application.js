@@ -8,9 +8,12 @@ import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
 
+
 export const UserContext = createContext();
 
 export default function Application() {
+	
+
 	//Do not remove - allows axios to receive cookies
 	axios.defaults.withCredentials = true;
 
@@ -66,7 +69,7 @@ export default function Application() {
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
 			<main className={`content-wrapper nav-offset`}>
-				<Container maxWidth='xl' sx={{height: "100%"}}>
+				<Container maxWidth='xl' sx={{ height: "100%" }}>
 					<Routing
 						keywords={search}
 						search={search}

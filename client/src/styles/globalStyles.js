@@ -10,16 +10,13 @@ export const GlobalStyles = createGlobalStyle`
     color: orange;
   }
 
-  
-
   body  {
     height: 100%;
     font-family: Inter;
   };
 
   body {
-    background-color: ${({ isLoggedIn }) =>
-			!isLoggedIn ? "#121215" : "white"};
+    background-color: #121215;
   }
 
   h1, h2, h3, h4, h5 , h6 {
