@@ -28,7 +28,7 @@ export default function SearchList({ keywords, listings }) {
 	return (
 		<Box className='search-results' sx={{ width: "100%" }}>
 			<ListingDetails listing={listing} className='search-results__item'>
-				<Grid container spacing={2}>
+				<Grid container spacing={4}>
 					{listings.map(listing => {
 						return (
 							<Grid item xs={12} md={12} lg={6}>

@@ -1,15 +1,17 @@
-
 //Checks if request registration object contains any empty fields
 
 checkIfEmpty = object => {
-		console.log(object)
+	const emptyFields = [];
 
 	for (key in object) {
 		if (object[key] === "" || !object[key]) {
-			return true;
+			emptyFields.push({
+				fieldName: key,
+			});
 		}
 	}
-	return false;
+	console.log(emptyFields)
+	return emptyFields
 };
 
-module.exports = checkIfEmpty
+module.exports = checkIfEmpty;
