@@ -134,195 +134,193 @@ export default function RegisterModal({ open, handleClose }) {
 	}, [loading]);
 
 	return (
-		<div>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				aria-labelledby='modal-modal-title'
-				aria-describedby='modal-modal-description'
-			>
-				<Box sx={style}>
-					<Typography
-						id='modal-modal-title'
-						variant='h6'
-						component='h2'
-						sx={{ mb: 5, textAlign: "center" }}
-					>
-						Create an Account
-					</Typography>
+		<Modal
+			open={open}
+			onClose={handleClose}
+			aria-labelledby='modal-modal-title'
+			aria-describedby='modal-modal-description'
+		>
+			<Box sx={style}>
+				<Typography
+					id='modal-modal-title'
+					variant='h6'
+					component='h2'
+					sx={{ mb: 5, textAlign: "center", fontFamily: 'Inter' }}
+				>
+					Create an Account
+				</Typography>
 
-					<Box
-						component='form'
-						sx={{ "& .MuiTextField-root": { m: 1 }, position: "relative" }}
-						noValidate
-						autoComplete='off'
-						onSubmit={handleSubmit}
-					>
-						<FormGroup row sx={formGroupStyle}>
-							<TextField
-								placeholder='First Name'
-								required
-								id='outlined-required'
-								label='First Name'
-								value={registerState.firstName.value}
-								onChange={handleChange}
-								name='firstName'
-								error={registerState.firstName.error}
-								label={
-									registerState.firstName.errorMessage
-										? registerState.firstName.errorMessage
-										: "First name"
-								}
-							/>
-							<TextField
-								required
-								placeholder='Last Name'
-								id='outlined-required'
-								label='Last Name'
-								name='lastName'
-								value={registerState.lastName.value}
-								onChange={handleChange}
-								error={registerState.lastName.error}
-								label={
-									registerState.lastName.errorMessage
-										? registerState.lastName.errorMessage
-										: "Last Name"
-								}
-							/>
-						</FormGroup>
-						<FormGroup row sx={formGroupStyle}>
-							<TextField
-								placeholder='Email'
-								fullWidth
-								required
-								id='outlined-required'
-								label='Email'
-								name='email'
-								value={registerState.email.value}
-								onChange={handleChange}
-								error={registerState.email.error}
-								label={
-									registerState.email.errorMessage
-										? registerState.email.errorMessage
-										: "Email"
-								}
-							/>
-						</FormGroup>
-						<FormGroup row sx={formGroupStyle} row>
-							<TextField
-								placeholder='Password'
-								required
-								id='outlined-password-input'
-								label='Password'
-								type='password'
-								autoComplete='current-password'
-								name='password'
-								value={registerState.password.value}
-								onChange={handleChange}
-								error={registerState.password.error}
-								label={
-									registerState.password.errorMessage
-										? registerState.password.errorMessage
-										: "Password"
-								}
-							/>
-							<TextField
-								placeholder='Confirm Password'
-								required
-								id='outlined-password-input'
-								label='Password Confirmation'
-								type='password'
-								autoComplete='current-password'
-								name='passwordConfirmation'
-								value={registerState.passwordConfirmation.value}
-								onChange={handleChange}
-								error={registerState.passwordConfirmation.error}
-								label={
-									registerState.passwordConfirmation.errorMessage
-										? registerState.passwordConfirmation.errorMessage
-										: "Password"
-								}
-							/>
-						</FormGroup>
-						<FormGroup sx={formGroupStyle} row>
-							<TextField
-								placeholder='City'
-								required
-								id='outlined-required'
-								label='City/Town'
-								name='city'
-								value={registerState.city.value}
-								onChange={handleChange}
-								error={registerState.city.error}
-								label={
-									registerState.city.errorMessage
-										? registerState.city.errorMessage
-										: "City"
-								}
-							/>
-							<TextField
-								placeholder='Province'
-								required
-								id='outlined-required'
-								label='Province'
-								name='province'
-								value={registerState.province.value}
-								onChange={handleChange}
-								error={registerState.province.error}
-								label={
-									registerState.province.errorMessage
-										? registerState.province.errorMessage
-										: "Province"
-								}
-							/>
-						</FormGroup>
-						<FormGroup sx={formGroupStyle} row>
-							<TextField
-								placeholder='Postal Code'
-								required
-								id='outlined-required'
-								label='Postal Code'
-								name='postalCode'
-								value={registerState.postalCode.value}
-								onChange={handleChange}
-								error={registerState.postalCode.error}
-								label={
-									registerState.postalCode.errorMessage
-										? registerState.postalCode.errorMessage
-										: "Postal Code"
-								}
-							/>
-							<TextField
-								placeholder='Country'
-								required
-								id='outlined-required'
-								label='Country'
-								name='country'
-								value={registerState.country.value}
-								onChange={handleChange}
-								error={registerState.country.error}
-								label={registerState.country.errorMessage}
-								label={
-									registerState.country.errorMessage
-										? registerState.country.errorMessage
-										: "Country"
-								}
-							/>
-						</FormGroup>
-
-						<Button
-							size='large'
-							variant='contained'
+				<Box
+					component='form'
+					sx={{ "& .MuiTextField-root": { m: 1 }, position: "relative" }}
+					noValidate
+					autoComplete='off'
+					onSubmit={handleSubmit}
+				>
+					<FormGroup row sx={formGroupStyle}>
+						<TextField
+							placeholder='First Name'
+							required
+							id='outlined-required'
+							label='First Name'
+							value={registerState.firstName.value}
+							onChange={handleChange}
+							name='firstName'
+							error={registerState.firstName.error}
+							label={
+								registerState.firstName.errorMessage
+									? registerState.firstName.errorMessage
+									: "First name"
+							}
+						/>
+						<TextField
+							required
+							placeholder='Last Name'
+							id='outlined-required'
+							label='Last Name'
+							name='lastName'
+							value={registerState.lastName.value}
+							onChange={handleChange}
+							error={registerState.lastName.error}
+							label={
+								registerState.lastName.errorMessage
+									? registerState.lastName.errorMessage
+									: "Last Name"
+							}
+						/>
+					</FormGroup>
+					<FormGroup row sx={formGroupStyle}>
+						<TextField
+							placeholder='Email'
 							fullWidth
-							type='submit'
-							sx={{ mt: 5 }}
-						>
-							Create Account
-						</Button>
-						{errors && <Error errorMessage={errors} />}
-					</Box>
+							required
+							id='outlined-required'
+							label='Email'
+							name='email'
+							value={registerState.email.value}
+							onChange={handleChange}
+							error={registerState.email.error}
+							label={
+								registerState.email.errorMessage
+									? registerState.email.errorMessage
+									: "Email"
+							}
+						/>
+					</FormGroup>
+					<FormGroup row sx={formGroupStyle} row>
+						<TextField
+							placeholder='Password'
+							required
+							id='outlined-password-input'
+							label='Password'
+							type='password'
+							autoComplete='current-password'
+							name='password'
+							value={registerState.password.value}
+							onChange={handleChange}
+							error={registerState.password.error}
+							label={
+								registerState.password.errorMessage
+									? registerState.password.errorMessage
+									: "Password"
+							}
+						/>
+						<TextField
+							placeholder='Confirm Password'
+							required
+							id='outlined-password-input'
+							label='Password Confirmation'
+							type='password'
+							autoComplete='current-password'
+							name='passwordConfirmation'
+							value={registerState.passwordConfirmation.value}
+							onChange={handleChange}
+							error={registerState.passwordConfirmation.error}
+							label={
+								registerState.passwordConfirmation.errorMessage
+									? registerState.passwordConfirmation.errorMessage
+									: "Password"
+							}
+						/>
+					</FormGroup>
+					<FormGroup sx={formGroupStyle} row>
+						<TextField
+							placeholder='City'
+							required
+							id='outlined-required'
+							label='City/Town'
+							name='city'
+							value={registerState.city.value}
+							onChange={handleChange}
+							error={registerState.city.error}
+							label={
+								registerState.city.errorMessage
+									? registerState.city.errorMessage
+									: "City"
+							}
+						/>
+						<TextField
+							placeholder='Province'
+							required
+							id='outlined-required'
+							label='Province'
+							name='province'
+							value={registerState.province.value}
+							onChange={handleChange}
+							error={registerState.province.error}
+							label={
+								registerState.province.errorMessage
+									? registerState.province.errorMessage
+									: "Province"
+							}
+						/>
+					</FormGroup>
+					<FormGroup sx={formGroupStyle} row>
+						<TextField
+							placeholder='Postal Code'
+							required
+							id='outlined-required'
+							label='Postal Code'
+							name='postalCode'
+							value={registerState.postalCode.value}
+							onChange={handleChange}
+							error={registerState.postalCode.error}
+							label={
+								registerState.postalCode.errorMessage
+									? registerState.postalCode.errorMessage
+									: "Postal Code"
+							}
+						/>
+						<TextField
+							placeholder='Country'
+							required
+							id='outlined-required'
+							label='Country'
+							name='country'
+							value={registerState.country.value}
+							onChange={handleChange}
+							error={registerState.country.error}
+							label={registerState.country.errorMessage}
+							label={
+								registerState.country.errorMessage
+									? registerState.country.errorMessage
+									: "Country"
+							}
+						/>
+					</FormGroup>
+
+					<Button
+						size='large'
+						variant='contained'
+						fullWidth
+						type='submit'
+						sx={{ mt: 5 }}
+					>
+						Create Account
+					</Button>
+					{errors && <Error errorMessage={errors} />}
 				</Box>
-			</Modal>
-		</div>
+			</Box>
+		</Modal>
 	);
 }
