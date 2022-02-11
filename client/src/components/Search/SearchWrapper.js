@@ -3,9 +3,10 @@ import SearchList from "./SearchList";
 import CategoriesBar from "./Categories/CategoriesBar";
 import { Box } from "@mui/material";
 import axios from "axios";
-import Heading from "../Heading/Heading";
+import { LinearProgress } from "@mui/material";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
+	const [pending, setPending] = useState(true);
 	const [listings, setListings] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [currentCategories, setCurrentCategories] = useState([]);
@@ -37,13 +38,16 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 				.then(result => {
 					setListings(result.data);
 
-					const categoryNames = result.data.map(listing => listing.category);
+					// const categoryNames = result.data.map(listing => listing.category);
 
-					const filteredCategories = categories.filter(category => {
-						return categoryNames.includes(category.category);
-					});
+					// const filteredCategories = categories.filter(category => {
+					// 	return categoryNames.includes(category.category);
+					// });
 
-					setCurrentCategories(filteredCategories);
+					// setCurrentCategories(filteredCategories);
+					// setTimeout(() => {
+					setPending(false);
+					// }, 900);
 				});
 		}
 	}, [keywords, selectedChip]);
@@ -78,18 +82,25 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		justifyContent: "center",
 		position: "relative",
 		width: "100%",
+		height: "100%",
 	};
 
 	return (
 		<Box className='search-view-wrapper' sx={wrapperStyle}>
-			<SearchList keywords={keywords} listings={listings} />
-			<CategoriesBar
-				categories={currentCategories}
-				selectedChip={selectedChip}
-				handleSelectedChip={handleSelectedChip}
-				handleClearSelection={handleClearSelection}
-				emptySearch={emptySearch}
-			/>
+			{pending ? (
+				<LinearProgress color='primary' sx={{ width: "100%" }} />
+			) : (
+				<>
+					<SearchList keywords={keywords} listings={listings} />
+					<CategoriesBar
+						categories={currentCategories}
+						selectedChip={selectedChip}
+						handleSelectedChip={handleSelectedChip}
+						handleClearSelection={handleClearSelection}
+						emptySearch={emptySearch}
+					/>
+				</>
+			)}
 		</Box>
 	);
 }

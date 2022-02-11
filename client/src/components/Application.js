@@ -6,7 +6,7 @@ import "normalize.css";
 import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
-import Heading from "./Heading/Heading";
+import LoadingScreen from "./LoadingScreen/LoadingScreen";
 
 export const UserContext = createContext();
 
@@ -19,9 +19,7 @@ export default function Application() {
 	//details: the user's details, set to null if user is logged out
 
 	const [globalState, setGlobalState] = useState({
-		pending: true,
 		user: {
-			pending: true,
 			isLoggedIn: false,
 			details: {},
 		},
@@ -33,19 +31,6 @@ export default function Application() {
 			user: {
 				isLoggedIn: !globalState.user.isLoggedIn,
 				details: userDetails,
-				pending: prev.user.pending,
-			},
-		}));
-	};
-
-	const togglePending = () => {
-		console.log("hello has been pending!");
-		setGlobalState(prev => ({
-			...prev,
-			user: {
-				isLoggedIn: prev.user.isLoggedIn,
-				details: prev.user.details,
-				pending: !prev.user.pending,
 			},
 		}));
 	};
@@ -56,12 +41,9 @@ export default function Application() {
 		userDetails: globalState.user.details,
 	};
 
-	// ********************
-	// useEffect(() => {
-	// 	axios.get(`http://localhost:8001/user/session`).then(res => console.log);
-	// }, []);
-
 	useEffect(() => {
+		// setPending(globalState.user.isLoggedIn ? false : true);
+
 		//Initial check to see if a cookie is set, change user state according to response
 		if (!globalState.user.isLoggedIn) {
 			axios
@@ -84,11 +66,10 @@ export default function Application() {
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
 			<main className={`content-wrapper nav-offset`}>
-				<Container maxWidth='xl'>
+				<Container maxWidth='xl' sx={{height: "100%"}}>
 					<Routing
 						keywords={search}
 						search={search}
-						togglePending={togglePending}
 						emptySearch={() => setSearch("")}
 					/>
 					{/* <p className='main__text'>All results for: Home</p>
