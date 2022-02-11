@@ -187,9 +187,10 @@ module.exports = db => {
 					})
 					.catch(err => {
 						//Catch any possible server/db errors and send response
-						response.registration.errors.push({
-							message: "Server error. Please try again.",
-						});
+						response.registration.errors = {
+							message: "Server error",
+							fields: [],
+						};
 
 						res.send(response);
 					});
