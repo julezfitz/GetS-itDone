@@ -36,11 +36,22 @@ export default function Application() {
 		}));
 	};
 
+	const getUserOffers = () => {
+		axios.get(`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`)
+			.then((results) => {
+				setGlobalState(prev => ({
+					...prev,
+					offers: results.data,
+				}))
+			})
+	}
+
 	const userControls = {
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
-		offers: globalState.offers
+		offers: globalState.offers,
+		getUserOffers
 	};
 
 	useEffect(() => {
@@ -55,9 +66,9 @@ export default function Application() {
 		}
 	}, []);
 
-		//	set global state of user's offers
-		useEffect(() => {
-			if(globalState.user.details.id){
+	//	set global state of user's offers
+	useEffect(() => {
+		if (globalState.user.details.id) {
 			axios.get(`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`)
 				.then((results) => {
 					setGlobalState(prev => ({
@@ -65,8 +76,8 @@ export default function Application() {
 						offers: results.data,
 					}))
 				})
-			}
-		}, [globalState.user.details.id]);
+		}
+	}, [globalState.user.details.id]);
 
 	const [search, setSearch] = useState("");
 
@@ -81,7 +92,7 @@ export default function Application() {
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
 			<main className={`content-wrapper nav-offset`}>
-				<Container maxWidth='xl' sx={{height: "100%"}}>
+				<Container maxWidth='xl' sx={{ height: "100%" }}>
 					<Routing
 						keywords={search}
 						search={search}

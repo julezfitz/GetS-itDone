@@ -21,7 +21,7 @@ export default function ListingDetails(props) {
     right: false,
   });
 
-  const { userDetails, offers } = React.useContext(UserContext);
+  const { getUserOffers, userDetails, offers } = React.useContext(UserContext);
 
   const toggleDrawer = (anchor, open) => event => {
     if (
@@ -49,6 +49,8 @@ export default function ListingDetails(props) {
   const handleUserRatingsClose = () => setUserRatingsOpen(false);
 
   React.useEffect((() => {
+    getUserOffers();
+
     if (props.listing.creator_id) {
       axios.get(`http://localhost:8001/ratings/`, { params: { "rateeId": props.listing.creator_id } })
         .then((result) => {
@@ -69,19 +71,15 @@ export default function ListingDetails(props) {
       setDate(timeAgo);
 
     }
-    //add offer to render list
   }), [currentOffer, props.listing])
 
   const handleOffer = (listingId) => {
-    console.log(userDetails.id);
-    console.log(listingId.target.value);
     axios.post(`http://localhost:8001/offers`, { listingId: parseInt(listingId.target.value), bidderId: parseInt(userDetails.id) })
     .then((result) => {
-      setCurrentOffer(listingId)
-      //page doesn't re render
+      setCurrentOffer(props.listing);
+      
     })
   }
-  console.log(offers);
 
   return (
     <div>
@@ -144,7 +142,7 @@ export default function ListingDetails(props) {
                     <Box m={-5} pt={-5}>
                       {/* check if the user has already offered to do this job */}
                       {(offers.some(({ listingId }) => listingId === props.listing.id)) ?
-                        (<Typography variant="subtitle2" color="grey" component="div">You have already offered to do this job.</Typography>)
+                        (<Typography variant="subtitle2" color="grey" component="div">Application received</Typography>)
                         :
                         (<Button
                           size={"small"}
