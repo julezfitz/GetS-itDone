@@ -6,6 +6,7 @@ import "normalize.css";
 import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
+import Heading from "./Heading/Heading";
 
 export const UserContext = createContext();
 
@@ -83,7 +84,7 @@ export default function Application() {
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
 			<main className={`content-wrapper nav-offset`}>
-				<Container maxWidth="xl">
+				<Container maxWidth='xl'>
 					<Routing
 						keywords={search}
 						search={search}

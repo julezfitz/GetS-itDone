@@ -8,12 +8,14 @@ import MyOffers from "./Offers/MyOffers";
 import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
+import Heading from "./Heading/Heading";
 
 function Routing({ keywords, search, togglePending, emptySearch }) {
 	const { isLoggedIn } = useContext(UserContext);
 
 	return (
 		<>
+			<Heading size='medium' className="page-heading">Search Results</Heading>
 			<Routes>
 				<Route
 					path='/'
