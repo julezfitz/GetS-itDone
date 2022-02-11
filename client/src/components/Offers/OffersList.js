@@ -22,6 +22,12 @@ export default function OffersList(props) {
     if (props.listingId) {
       axios.get(`http://localhost:8001/listings/${props.listingId}/offers`).then((result) => {
         setListingOffers(result.data.offers);
+
+        //check if any offers have been accepted
+        let acceptedOffer = (result.data.offers).find(offer => offer.accepted === true);
+        if (acceptedOffer) {
+          acceptOffer(acceptedOffer);
+        }
       })
     }
   }), [props.listingId])
