@@ -9,7 +9,7 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   color: theme.palette.text.secondary,
-  width: "600px"
+  width: "100%"
 }));
 
 //If no chip is selected we can fetch all listings
