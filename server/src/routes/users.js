@@ -129,10 +129,9 @@ module.exports = db => {
 			.then(user => {
 				//If email is returned from db, send error message
 				if (user.rows.length) {
-					console.log('hi')
 					response.registration.errors = {
 						message: "E-mail already exists",
-						fields: ["email"],
+						fields: [{ fieldName: "email" }],
 					};
 					res.send(response);
 					return;
@@ -142,7 +141,10 @@ module.exports = db => {
 				if (password !== passwordConfirmation) {
 					response.registration.errors = {
 						message: "Passwords must match",
-						fields: ["password", "passwordConfirmation"],
+						fields: [
+							{ fieldName: "password" },
+							{ fieldName: "passwordConfirmation" },
+						],
 					};
 					res.send(response);
 					return;

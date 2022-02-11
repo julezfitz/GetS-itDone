@@ -83,7 +83,14 @@ export default function RegisterModal({ open, handleClose }) {
 
 	const handleChange = e => {
 		setErrors(null);
-		setRegisterState(prev => ({ ...prev, [e.target.name]: e.target.value }));
+		setRegisterState(prev => ({
+			...prev,
+			[e.target.name]: {
+				value: e.target.value,
+				error: false,
+				errorMessage: null,
+			},
+		}));
 	};
 
 	const handleSubmit = e => {
@@ -103,19 +110,17 @@ export default function RegisterModal({ open, handleClose }) {
 				.post(`http://localhost:8001/user/register`, fieldValues)
 				.then(res => {
 					res.data.registration.errors &&
-						console.log(res.data.registration.errors);
-					res.data.registration.errors.fields.forEach(field => {
-						setRegisterState(prev => ({
-							...prev,
-							[field.fieldName]: {
-								value: prev[field.fieldName].value,
-								error: true,
-								errorMessage: res.data.registration.errors.message,
-							},
-						}));
-					});
+						res.data.registration.errors.fields.forEach(field => {
+							setRegisterState(prev => ({
+								...prev,
+								[field.fieldName]: {
+									value: prev[field.fieldName].value,
+									error: true,
+									errorMessage: res.data.registration.errors.message,
+								},
+							}));
+						});
 
-					console.log("registerstate", registerState);
 					// setErrors(res.data.registration.errors);
 					// res.data.registration.isRegistered &&
 					// 	toggleLoggedIn(res.data.registration.user);
