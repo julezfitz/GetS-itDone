@@ -37,9 +37,7 @@ export const StyledHero = styled.section`
 	justify-content: center;
 	flex-direction: column;
 	overflow: hidden;
-	position: absolute;
-	top: 0;
-	left: 0;
+
 	z-index: 999;
 	width: 100%;
 

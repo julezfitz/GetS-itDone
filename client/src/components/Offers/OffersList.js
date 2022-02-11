@@ -1,11 +1,10 @@
 import { styled } from "@mui/material/styles";
 import Paper from '@mui/material/Paper';
 import OffersListItem from "./OffersListItem";
+import AcceptedView from "./AcceptedView";
 import { Divider } from "@mui/material";
-import { UserContext } from "../Application.js";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,14 +16,21 @@ export default function OffersList(props) {
 
   const [listingOffers, setListingOffers] = useState([]);
   const [acceptedOffer, acceptOffer] = useState("");
+  const [declinedOffer, setDeclinedOffer] = useState("");
 
   useEffect((() => {
     if (props.listingId) {
       axios.get(`http://localhost:8001/listings/${props.listingId}/offers`).then((result) => {
         setListingOffers(result.data.offers);
+
+        //check if any offers have been accepted and set state for acceptedOffer
+        let acceptedOffer = (result.data.offers).find(offer => offer.accepted === true);
+        acceptedOffer ? acceptOffer(acceptedOffer) : acceptOffer("");
+
+        setDeclinedOffer("")
       })
     }
-  }), [props.listingId])
+  }), [props.listingId, declinedOffer])
 
   const handleAccept = function (offer) {
     acceptOffer(offer);
@@ -37,19 +43,23 @@ export default function OffersList(props) {
   const handleDecline = function (offer) {
     axios.put(`http://localhost:8001/offers/${offer.offerId}`, { "accepted": false })
       .then((result) => {
-        console.log(result.data);
+        setDeclinedOffer(offer);
       })
   }
 
-  console.log(acceptedOffer);
-
   return (
     <Item>
-      <h3>Offers</h3>
       <Divider />
-      {listingOffers.map((offer) => {
-        return <OffersListItem key={Math.random().toString(36).substr(2, 9)} accept={handleAccept} decline={handleDecline} offer={offer} />
-      })}
+      <h3>{acceptedOffer ? "Confirmed" : "Offers"}</h3>
+      {(acceptedOffer && <AcceptedView acceptedOffer={acceptedOffer} />) ||
+        listingOffers.map((offer) => {
+          if (!offer.accepted && !offer.pending) {
+            return <OffersListItem key={Math.random().toString(36).substr(2, 9)} offerDeclined={true} accept={handleAccept} decline={handleDecline} offer={offer} />
+          } else {
+            return <OffersListItem key={Math.random().toString(36).substr(2, 9)} accept={handleAccept} decline={handleDecline} offer={offer} />
+          }
+        })
+      }
     </Item>
   );
 }
