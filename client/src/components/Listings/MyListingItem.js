@@ -2,6 +2,9 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import { IconButton } from "@mui/material";
+// import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function MyListingItem(props) {
   return (
@@ -21,6 +24,12 @@ export default function MyListingItem(props) {
             <Typography variant="subtitle1" component="div">
             {props.listing.price}
             </Typography>
+        <IconButton
+					size='large'
+					color='inherit'
+				>
+					<DeleteIcon />
+				</IconButton>
           </Grid>
         </Grid>
       </Grid>
