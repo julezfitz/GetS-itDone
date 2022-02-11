@@ -13,7 +13,7 @@ import UserRatingsModal from "../Ratings/UserRatings";
 import { formatDistance } from 'date-fns'
 
 export default function ListingDetails(props) {
-  //Make the listing details full width on mobile
+  
   const [state, setState] = React.useState({
     right: false,
   });
