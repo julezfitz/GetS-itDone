@@ -9,13 +9,13 @@ export const StyledRegisterPanel = styled.div`
 
 	&:nth-of-type(1) {
 		transform: translateX(
-			${({ direction }) => (direction === "next" ? "120%" : "0%")}
+			${({ isNextSlide }) => (isNextSlide ? "-120%" : "0%")}
 		);
 	}
 
 	&:nth-of-type(2) {
 		transform: translateX(
-			${({ direction }) => (direction === "next" ? "0" : "-120%")}
+			${({ isNextSlide }) => (isNextSlide ? "0" : "120%")}
 		);
 	}
 `;
