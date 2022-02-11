@@ -69,13 +69,7 @@ export default function Application() {
 	//	set global state of user's offers
 	useEffect(() => {
 		if (globalState.user.details.id) {
-			axios.get(`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`)
-				.then((results) => {
-					setGlobalState(prev => ({
-						...prev,
-						offers: results.data,
-					}))
-				})
+			getUserOffers()
 		}
 	}, [globalState.user.details.id]);
 
