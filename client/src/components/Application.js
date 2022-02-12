@@ -58,6 +58,7 @@ export default function Application() {
 	};
 
 	const setModalOpen = entryPoint => {
+		console.log('hi')
 		setGlobalState(prev => ({
 			...prev,
 			user: {
