@@ -8,7 +8,7 @@ import { LinearProgress } from "@mui/material";
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const [pending, setPending] = useState(true);
 	const [listings, setListings] = useState([]);
-	const [categories, setCategories] = useState([]);
+	// const [categories, setCategories] = useState([]);
 	const [currentCategories, setCurrentCategories] = useState([]);
 	const [selectedChip, setSelectedChip] = useState({
 		id: null,
@@ -60,7 +60,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			axios
 				.get("http://localhost:8001/categories")
 				.then(res => {
-					setCategories(res.data);
+					// setCategories(res.data);
 					setCurrentCategories(res.data);
 				})
 				.catch(err => console.log(err));
