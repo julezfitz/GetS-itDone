@@ -49,8 +49,8 @@ function ImageCarousel({ listing }) {
 	return (
 		<Swiper
 			style={swiperStyle}
-			onSlideChange={() => console.log("slide change")}
-			onSwiper={swiper => console.log(swiper)}
+			// onSlideChange={() => console.log("slide change")}
+			// onSwiper={swiper => console.log(swiper)}
 			autoplay={{ delay: 3000 }}
 			pagination={{
 				clickable: true,

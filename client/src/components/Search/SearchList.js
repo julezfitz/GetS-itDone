@@ -3,7 +3,6 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import SearchListItem from "./SearchListItem";
 import ListingDetails from "../Listings/ListingDetails";
-import axios from "axios";
 import Heading from "../Heading/Heading";
 import { Box } from "@mui/material";
 import { Grid, Item } from "@mui/material";
@@ -21,7 +20,6 @@ export default function SearchList({ keywords, listings }) {
 	const [listing, setListing] = useState({});
 
 	const handleListingChange = e => {
-		console.log(e);
 		setListing(e);
 	};
 
@@ -31,7 +29,7 @@ export default function SearchList({ keywords, listings }) {
 				<Grid container spacing={4}>
 					{listings.map(listing => {
 						return (
-							<Grid item xs={12} md={12} lg={6}>
+							<Grid item xs={12} md={12} lg={6} key={Math.random().toString(36).substr(2, 9)}>
 								<SearchListItem
 									key={Math.random().toString(36).substr(2, 9)}
 									onChoice={handleListingChange}
