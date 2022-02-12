@@ -6,17 +6,9 @@ import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import Logo from "../Logo";
 import LoggedOut from "./LoggedOut";
+import LoggedIn from "./LoggedIn";
 
-function NavLeft({
-	handleRegisterOpen,
-	handleRegisterClose,
-	registerOpen,
-	loginOpen,
-	handleLoginOpen,
-	handleLoginClose,
-	setModalOpen,
-	isLoggedIn,
-}) {
+function NavLeft({ isLoggedIn }) {
 	return (
 		<>
 			<Box
@@ -31,13 +23,13 @@ function NavLeft({
 					alignItems: "center",
 					justifyContent: "space-between",
 					marginTop: 2,
-					padding: "0 1rem",
+					padding: `${isLoggedIn ? "1rem" : "0 1rem"}`,
 				}}
 				component='nav'
 			>
 				<Logo />
 
-				{isLoggedIn ? "" : <LoggedOut />}
+				{isLoggedIn ? <LoggedIn /> : <LoggedOut />}
 			</Box>
 		</>
 	);

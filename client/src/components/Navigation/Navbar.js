@@ -14,6 +14,7 @@ import { UserContext } from "../Application";
 import LoggedInNav from "./LoggedInNav";
 import NavLeft from "./NavLeft/NavLeft";
 import SearchBar from "./SearchBar";
+import NavRight from "./NavRight/NavRight";
 
 const pages = ["Register", "Login"];
 
@@ -74,7 +75,7 @@ export default function ResponsiveAppBar(props) {
 		setAnchorElUser(null);
 	};
 
-	const loggedInProps = {
+	const navRightProps = {
 		newListingOpen,
 		newRatingOpen,
 		handleNewListingOpen,
@@ -97,7 +98,7 @@ export default function ResponsiveAppBar(props) {
 		handleLoginOpen,
 		handleLoginClose,
 		setModalOpen,
-    isLoggedIn
+		isLoggedIn,
 	};
 
 	return (
@@ -107,13 +108,18 @@ export default function ResponsiveAppBar(props) {
 					disableGutters
 					sx={{ justifyContent: `${isLoggedIn ? "space-between" : "start"}` }}
 				>
-					{isLoggedIn ? (
+					{/* {isLoggedIn ? (
 						<SearchBar onSearch={props.onSearch} value={props.searchValue} />
-					) : null}
+					) : null} */}
 
 					{isLoggedIn ? (
-						<LoggedInNav {...loggedInProps} />
+						<>
+							<NavLeft isLoggedIn={isLoggedIn} />
+							<NavRight {...navRightProps}/>
+						</>
 					) : (
+						// <LoggedInNav {...loggedInProps} />
+
 						<NavLeft {...loggedOutProps} />
 					)}
 				</Toolbar>
