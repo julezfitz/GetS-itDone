@@ -58,7 +58,6 @@ export default function Application() {
 	};
 
 	const setModalOpen = entryPoint => {
-		console.log("hi");
 		setGlobalState(prev => ({
 			...prev,
 			user: {
@@ -70,6 +69,7 @@ export default function Application() {
 			},
 		}));
 	};
+
 	const [search, setSearch] = useState("");
 
 	const handleSearch = function (e) {

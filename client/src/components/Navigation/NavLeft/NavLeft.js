@@ -14,15 +14,9 @@ function NavLeft({ isLoggedIn }) {
 			<Box
 				sx={{
 					display: "flex",
-					background: "rgba(28,28,28,.9)",
-					backdropFilter: "blur(20px)",
-					width: "500px",
-					borderRadius: "60px",
-					display: "flex",
 					alignItems: "center",
 					justifyContent: "space-between",
-					marginTop: 2,
-					padding: `${isLoggedIn ? "1rem" : "0 1rem"}`,
+					width: `${isLoggedIn ? "auto" : "100%"}`,
 				}}
 			>
 				<Logo />
