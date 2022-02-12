@@ -22,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function NewRatingModal({ rateeId, listingId, open, handleClose }) {
+export default function NewRatingModal({ ratee, listingId, open, handleClose }) {
   const [rating, setRating] = useState('');
 
   const { userDetails } = useContext(UserContext);
@@ -47,19 +47,24 @@ export default function NewRatingModal({ rateeId, listingId, open, handleClose }
 
     let newRatingDetails = {
       "raterId": userDetails.id,
-      "rateeId": rateeId,
+      "rateeId": ratee.rateeId,
       "listingId": listingId,
       "rating": starRating,
       "comment": e.target.elements.comments.value,
     }
 
-    console.log(newRatingDetails);
     axios.post(`http://localhost:8001/ratings`, newRatingDetails)
-    .then((results) => {
-    	console.log(results.data);
-      handleClose();
-    })
+      .then((results) => {
+        handleClose();
+      })
   };
+
+  const [rateeObj, setRatee] = useState({});
+
+  useEffect((() => {
+    setRatee(ratee);
+  }), [ratee]
+  )
 
   return (
     <div>
@@ -81,9 +86,11 @@ export default function NewRatingModal({ rateeId, listingId, open, handleClose }
               autoComplete="off"
               onSubmit={handleSubmit}
             >
-              <Typography component="legend">
-                Your feedback matters. Rate your experience with Jane Doe.
-              </Typography>
+              {rateeObj &&
+                <Typography component="legend">
+                  Your feedback matters. Rate your experience with {rateeObj.firstName} {rateeObj.lastName}.
+                </Typography>
+              }
               <Box
                 sx={{
                   width: 200,
