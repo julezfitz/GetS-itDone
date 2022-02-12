@@ -137,7 +137,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 	return (
 		<Modal
 			open={open}
-			onClose={handleClose}
+			onClose={() => setModalOpen(null)}
 			aria-labelledby='modal-modal-title'
 			aria-describedby='modal-modal-description'
 		>
