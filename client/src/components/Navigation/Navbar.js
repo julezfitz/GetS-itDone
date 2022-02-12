@@ -75,6 +75,19 @@ export default function ResponsiveAppBar(props) {
 		setAnchorElUser(null);
 	};
 
+	const navBubbleStyles = {
+		display: "flex",
+		background: "rgba(28,28,28,.9)",
+		backdropFilter: "blur(20px)",
+		width: "500px",
+		borderRadius: "60px",
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "space-between",
+		marginTop: 2,
+		padding: `${isLoggedIn ? "1rem" : "0 1rem"}`,
+	};
+
 	const navRightProps = {
 		newListingOpen,
 		newRatingOpen,
@@ -88,9 +101,10 @@ export default function ResponsiveAppBar(props) {
 		anchorElUser,
 		toggleLoggedIn,
 		settings,
+		navBubbleStyles,
 	};
 
-	const loggedOutProps = {
+	const navLeftProps = {
 		handleRegisterOpen,
 		handleRegisterClose,
 		registerOpen,
@@ -99,29 +113,32 @@ export default function ResponsiveAppBar(props) {
 		handleLoginClose,
 		setModalOpen,
 		isLoggedIn,
+		navBubbleStyles,
 	};
 
 	return (
 		<AppBar position='fixed'>
 			<Container maxWidth='xl'>
-				<Toolbar
-					disableGutters
-					sx={{ justifyContent: `${isLoggedIn ? "space-between" : "start"}` }}
-				>
-					{/* {isLoggedIn ? (
+				<Toolbar disableGutters>
+					<Box
+						component='nav'
+						sx={{
+							width: "100%",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: `${isLoggedIn ? "space-between" : "start"}`,
+						}}
+						className='site-nav'
+					>
+						{/* {isLoggedIn ? (
 						<SearchBar onSearch={props.onSearch} value={props.searchValue} />
 					) : null} */}
 
-					{isLoggedIn ? (
-						<>
-							<NavLeft isLoggedIn={isLoggedIn} />
-							<NavRight {...navRightProps}/>
-						</>
-					) : (
-						// <LoggedInNav {...loggedInProps} />
+						<NavLeft {...navLeftProps} />
+						{isLoggedIn && <NavRight {...navRightProps} />}
 
-						<NavLeft {...loggedOutProps} />
-					)}
+						{/* // <LoggedInNav {...loggedInProps} /> */}
+					</Box>
 				</Toolbar>
 			</Container>
 		</AppBar>
