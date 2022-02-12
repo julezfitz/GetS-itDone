@@ -13,22 +13,7 @@ function LoggedOutNav({
 }) {
 	return (
 		<>
-			<Box sx={{ maxWidth: "85px", display: { xs: "none", md: "flex" } }}>
-				<>
-					<Button
-						key='Register'
-						onClick={handleRegisterOpen}
-						sx={{ my: 2, color: "white", display: "block" }}
-					>
-						Register
-					</Button>
-					<RegisterModal
-						open={registerOpen}
-						handleClose={handleRegisterClose}
-					/>
-				</>
-			</Box>
-			<Box sx={{ maxWidth: "150px", display: { xs: "none", md: "flex" } }}>
+			<Box className='site-nav' sx={{ display: "flex" }} component='nav'>
 				<>
 					<Button
 						key='Login'
@@ -38,6 +23,22 @@ function LoggedOutNav({
 						Login
 					</Button>
 					<LoginModal open={loginOpen} handleClose={handleLoginClose} />
+				</>
+
+				<>
+					<Button
+						key='Register'
+						onClick={handleRegisterOpen}
+						sx={{ my: 2, display: "block" }}
+						color='secondary'
+						size='small'
+					>
+						Register
+					</Button>
+					<RegisterModal
+						open={registerOpen}
+						handleClose={handleRegisterClose}
+					/>
 				</>
 			</Box>
 		</>
