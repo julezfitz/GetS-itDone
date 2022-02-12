@@ -10,7 +10,7 @@ import { FormControl } from "@mui/material";
 import { keyframes } from "styled-components";
 import Redirect from "./Redirect";
 import RegisterModal from "./Registration/Register";
-import GoogleButton from "./GoogleLogin/GoogleButton";
+import GoogleLogIn from "./GoogleLogin/GoogleLogIn";
 
 const style = {
 	position: "absolute",
@@ -197,7 +197,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 								>
 									{loading ? "Loading..." : "Log in"}
 								</Button>
-								<GoogleButton />
+								<GoogleLogIn />
 								{errors && (
 									<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
 										{errors}
