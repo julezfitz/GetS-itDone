@@ -31,7 +31,7 @@ const panelStyle = {
 	height: "100%",
 };
 
-export default function RegisterModal({ open, handleClose }) {
+export default function RegisterModal({ open, handleClose, setModalOpen }) {
 	const { toggleLoggedIn } = useContext(UserContext);
 
 	const [registerState, setRegisterState] = useState({
@@ -322,7 +322,7 @@ export default function RegisterModal({ open, handleClose }) {
 					</Button>
 					{errors && <Error errorMessage={errors} />}
 				</Box>
-				<Redirect to='log in' />
+				<Redirect to='log in' setModalOpen={setModalOpen} />
 			</Box>
 		</Modal>
 	);
