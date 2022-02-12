@@ -9,7 +9,6 @@ import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 //Our custom theme
 const darkTheme = createTheme({
 	palette: {
-		mode: "dark",
 		primary: {
 			main: "rgba(255,255,255,.05)",
 		},
