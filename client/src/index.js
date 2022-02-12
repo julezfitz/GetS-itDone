@@ -13,6 +13,10 @@ const darkTheme = createTheme({
 		primary: {
 			main: "rgba(255,255,255,.05)",
 		},
+		secondary: {
+			main: "#ED6E23",
+			mainGradient: 'mainGradient: "linear-gradient(45deg, #ED6E23, #EDA224)',
+		},
 	},
 	components: {
 		MuiButton: {

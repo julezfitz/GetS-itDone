@@ -11,11 +11,12 @@ function HeroSection({ toggleRegister }) {
 		<StyledHero className='heroSection'>
 			<div className='hero-inner'>
 				<div className='hero-text'>
-					<span className='accent'>Hi</span>, we're get shit done
+					<span className='accent'>Hi</span>, we're get shit done.
 				</div>
 				<Scene />
 				<Button
 					size='large'
+					color='secondary'
 					variant='contained'
 					sx={{ textTransform: "none" }}
 					onClick={toggleRegister}

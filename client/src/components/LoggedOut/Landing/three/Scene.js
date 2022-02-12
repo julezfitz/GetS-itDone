@@ -4,11 +4,12 @@ import Model from "./Model";
 
 function Scene() {
 	return (
-		<Suspense fallback={null}>
-			<Canvas camera={{ position: [0, 0, 0] }}>
-				<Model />
-			</Canvas>
-		</Suspense>
+		<div>hi</div>
+		// <Suspense fallback={null}>
+		// 	<Canvas camera={{ position: [0, 0, 0] }}>
+		// 		<Model />
+		// 	</Canvas>
+		// </Suspense>
 	);
 }
 
