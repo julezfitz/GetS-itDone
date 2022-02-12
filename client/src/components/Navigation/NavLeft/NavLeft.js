@@ -12,7 +12,6 @@ function NavLeft({ isLoggedIn }) {
 	return (
 		<>
 			<Box
-				className='site-nav'
 				sx={{
 					display: "flex",
 					background: "rgba(28,28,28,.9)",
@@ -25,7 +24,6 @@ function NavLeft({ isLoggedIn }) {
 					marginTop: 2,
 					padding: `${isLoggedIn ? "1rem" : "0 1rem"}`,
 				}}
-				component='nav'
 			>
 				<Logo />
 
