@@ -44,20 +44,21 @@ export const StyledHero = styled.section`
 		width: 100%;
 		position: relative;
 
-		.hero-text {
+		.Typewriter {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			font-size: 5rem;
+			font-size: 7rem;
+			letter-spacing: -0.2rem;
 			font-family: Inter;
 			z-index: 999;
 			width: 100%;
 
 			.Typewriter__cursor {
-				width: 0.3px;
-				font-family: "Helvetica";
+				font-family: Helvetica;
 				font-weight: lighter;
+				opacity: 0.2;
 				overflow: hidden;
 			}
 		}
