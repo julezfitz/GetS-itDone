@@ -8,6 +8,8 @@ import axios from "axios";
 import { UserContext } from "../Application";
 import { FormControl } from "@mui/material";
 import { keyframes } from "styled-components";
+import Redirect from "./Redirect";
+import RegisterModal from "./Registration/Register";
 
 const style = {
 	position: "absolute",
@@ -124,31 +126,32 @@ export default function LoginModal({ open, handleClose }) {
 	};
 
 	return (
-		<div>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				aria-labelledby='modal-modal-title'
-				aria-describedby='modal-modal-description'
-			>
-				<Box sx={style}>
-					<Typography
-						id='modal-modal-title'
-						variant='h6'
-						component='h2'
-						sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
-					>
-						Log in to GSD
-					</Typography>
-					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
-						<Box
-							component='form'
-							sx={{ "& .MuiTextField-root": { m: 1 } }}
-							noValidate
-							autoComplete='off'
-							onSubmit={handleSubmit}
+		<>
+			
+			<div>
+				<Modal
+					open={open}
+					onClose={handleClose}
+					aria-labelledby='modal-modal-title'
+					aria-describedby='modal-modal-description'
+				>
+					<Box sx={style}>
+						<Typography
+							id='modal-modal-title'
+							variant='h6'
+							component='h2'
+							sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
 						>
-							<FormControl fullWidth>
+							Log in to GSD
+						</Typography>
+						<Typography id='modal-modal-description' sx={{ mt: 2 }}>
+							<Box
+								component='form'
+								sx={{ "& .MuiTextField-root": { m: 1 }, padding: "30px" }}
+								noValidate
+								autoComplete='off'
+								onSubmit={handleSubmit}
+							>
 								<TextField
 									placeholder='justine@example.com'
 									fullWidth
@@ -183,27 +186,28 @@ export default function LoginModal({ open, handleClose }) {
 											: "Password"
 									}
 								/>
-							</FormControl>
 
-							<Button
-								size={"large"}
-								type='submit'
-								color='secondary'
-								fullWidth
-								variant='contained'
-								sx={{ marginTop: 5 }}
-							>
-								{loading ? "Loading..." : "Log in"}
-							</Button>
-							{errors && (
-								<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
-									{errors}
-								</Alert>
-							)}
-						</Box>
-					</Typography>
-				</Box>
-			</Modal>
-		</div>
+								<Button
+									size={"large"}
+									type='submit'
+									color='secondary'
+									fullWidth
+									variant='contained'
+									sx={{ marginTop: 5 }}
+								>
+									{loading ? "Loading..." : "Log in"}
+								</Button>
+								{errors && (
+									<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
+										{errors}
+									</Alert>
+								)}
+							</Box>
+						</Typography>
+						<Redirect to={"register"} />
+					</Box>
+				</Modal>
+			</div>
+		</>
 	);
 }

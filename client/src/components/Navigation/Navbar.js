@@ -18,92 +18,92 @@ import SearchBar from "./SearchBar";
 const pages = ["Register", "Login"];
 
 const settings = [
-  {
-    title: "My Profile",
-    path: "/profile",
-  },
-  {
-    title: "My Listings",
-    path: "/listings",
-  },
-  {
-    title: "My Offers",
-    path: "/offers",
-  },
-  {
-    title: "Log Out",
-    path: "/",
-  },
+	{
+		title: "My Profile",
+		path: "/profile",
+	},
+	{
+		title: "My Listings",
+		path: "/listings",
+	},
+	{
+		title: "My Offers",
+		path: "/offers",
+	},
+	{
+		title: "Log Out",
+		path: "/",
+	},
 ];
 
 export default function ResponsiveAppBar(props) {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const [registerOpen, setRegisterOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [newListingOpen, setNewListingOpen] = useState(false);
-  const [newRatingOpen, setNewRatingOpen] = useState(false);
+	const [anchorElNav, setAnchorElNav] = useState(null);
+	const [anchorElUser, setAnchorElUser] = useState(null);
+	const [registerOpen, setRegisterOpen] = useState(false);
+	const [loginOpen, setLoginOpen] = useState(false);
+	const [newListingOpen, setNewListingOpen] = useState(false);
+	const [newRatingOpen, setNewRatingOpen] = useState(false);
 
-  const { isLoggedIn, userDetails, toggleLoggedIn } = useContext(UserContext);
+	const { isLoggedIn, userDetails, toggleLoggedIn, setModalOpen } =
+		useContext(UserContext);
 
-  const handleRegisterOpen = () => setRegisterOpen(true);
-  const handleRegisterClose = () => setRegisterOpen(false);
+	const handleRegisterOpen = () => setRegisterOpen(true);
+	const handleRegisterClose = () => setRegisterOpen(false);
 
-  const handleLoginOpen = () => setLoginOpen(true);
-  const handleLoginClose = () => setLoginOpen(false);
+	const handleLoginOpen = () => setLoginOpen(true);
+	const handleLoginClose = () => setLoginOpen(false);
 
-  const handleNewListingOpen = () => setNewListingOpen(true);
-  const handleNewListingClose = () => setNewListingOpen(false);
+	const handleNewListingOpen = () => setNewListingOpen(true);
+	const handleNewListingClose = () => setNewListingOpen(false);
 
-  const handleNewRatingOpen = () => setNewRatingOpen(true);
-  const handleNewRatingClose = () => setNewRatingOpen(false);
+	const handleNewRatingOpen = () => setNewRatingOpen(true);
+	const handleNewRatingClose = () => setNewRatingOpen(false);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+	const handleOpenNavMenu = event => {
+		setAnchorElNav(event.currentTarget);
+	};
+	const handleOpenUserMenu = event => {
+		setAnchorElUser(event.currentTarget);
+	};
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+	const handleCloseNavMenu = () => {
+		setAnchorElNav(null);
+	};
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+	const handleCloseUserMenu = () => {
+		setAnchorElUser(null);
+	};
 
-  const loggedInProps = {
-    newListingOpen,
-    newRatingOpen,
-    handleNewListingOpen,
-    handleNewListingClose,
-    handleNewRatingOpen,
-    handleNewRatingClose,
-    handleOpenUserMenu,
-    handleCloseUserMenu,
-    userDetails,
-    anchorElUser,
-    toggleLoggedIn,
-    settings,
-  };
+	const loggedInProps = {
+		newListingOpen,
+		newRatingOpen,
+		handleNewListingOpen,
+		handleNewListingClose,
+		handleNewRatingOpen,
+		handleNewRatingClose,
+		handleOpenUserMenu,
+		handleCloseUserMenu,
+		userDetails,
+		anchorElUser,
+		toggleLoggedIn,
+		settings,
+	};
 
-  const loggedOutProps = {
-    handleRegisterOpen,
-    handleRegisterClose,
-    registerOpen,
-    loginOpen,
-    handleLoginOpen,
-    handleLoginClose,
-  };
+	const loggedOutProps = {
+		handleRegisterOpen,
+		handleRegisterClose,
+		registerOpen,
+		loginOpen,
+		handleLoginOpen,
+		handleLoginClose,
+		setModalOpen,
+	};
 
-  return (
-    <AppBar position="fixed">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{justifyContent: "start"}}>
-          
-
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+	return (
+		<AppBar position='fixed'>
+			<Container maxWidth='xl'>
+				<Toolbar disableGutters sx={{ justifyContent: "start" }}>
+					{/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -139,18 +139,18 @@ export default function ResponsiveAppBar(props) {
               ))}
             </Menu>
           </Box> */}
-          {isLoggedIn ? (
-            <SearchBar onSearch={props.onSearch} value={props.searchValue} />
-          ) : null}
-          {/* <Box sx={{ flexGrow: 1 }} /> */}
+					{isLoggedIn ? (
+						<SearchBar onSearch={props.onSearch} value={props.searchValue} />
+					) : null}
+					{/* <Box sx={{ flexGrow: 1 }} /> */}
 
-          {isLoggedIn ? (
-            <LoggedInNav {...loggedInProps} />
-          ) : (
-            <LoggedOutNav {...loggedOutProps} />
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
+					{isLoggedIn ? (
+						<LoggedInNav {...loggedInProps} />
+					) : (
+						<LoggedOutNav {...loggedOutProps} />
+					)}
+				</Toolbar>
+			</Container>
+		</AppBar>
+	);
 }

@@ -71,6 +71,7 @@ module.exports = db => {
 			},
 		};
 		req.session = null;
+
 		res.status(200).send(response);
 	});
 

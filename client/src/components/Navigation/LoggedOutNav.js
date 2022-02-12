@@ -12,6 +12,7 @@ function LoggedOutNav({
 	loginOpen,
 	handleLoginOpen,
 	handleLoginClose,
+	setModalOpen
 }) {
 	return (
 		<>
@@ -27,7 +28,7 @@ function LoggedOutNav({
 					alignItems: "center",
 					justifyContent: "space-between",
 					marginTop: 2,
-					padding: "0 1rem"
+					padding: "0 1rem",
 				}}
 				component='nav'
 			>
@@ -36,34 +37,29 @@ function LoggedOutNav({
 					Get S*it Done
 					{/* </Typography> */}
 				</Link>
-				<Box style={{display: "flex"}}>
+				<Box style={{ display: "flex" }}>
 					<>
 						<Button
 							key='Login'
-							onClick={handleLoginOpen}
+							onClick={() => setModalOpen("logIn")}
 							sx={{ my: 2, display: "block" }}
 							size={"small"}
 							color='primary'
 						>
 							Login
 						</Button>
-						<LoginModal open={loginOpen} handleClose={handleLoginClose} />
 					</>
 
 					<>
 						<Button
 							key='Register'
-							onClick={handleRegisterOpen}
+							onClick={() => setModalOpen('register')}
 							sx={{ my: 2, display: "block", ml: 2 }}
 							color='secondary'
 							size='small'
 						>
 							Register
 						</Button>
-						<RegisterModal
-							open={registerOpen}
-							handleClose={handleRegisterClose}
-						/>
 					</>
 				</Box>
 			</Box>

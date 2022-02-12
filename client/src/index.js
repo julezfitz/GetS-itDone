@@ -32,6 +32,14 @@ const darkTheme = createTheme({
 					},
 				},
 				{
+					props: { variant: "naked" },
+					style: {
+						color: "black",
+						backgroundColor: "none",
+						padding: "0px"
+					},
+				},
+				{
 					props: { color: "primary", size: "small" },
 					style: {
 						color: "hsla(0,0%,100%,0.4)",
