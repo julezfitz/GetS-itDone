@@ -20,27 +20,39 @@ export default function MyListings() {
 	const { userDetails } = useContext(UserContext);
 
 	const [listings, setListings] = useState([]);
+	const [listing, setListing] = useState("");
+	const [date, setDate] = useState("");
+	const [deletedItem, setDeletedItem] = useState("");
 
 	useEffect(() => {
-    if(userDetails) {
-		axios
-			.get(`http://localhost:8001/listings?creatorId=${userDetails.id}`)
-			.then(result => {
-				setListings(result.data);
-			});
-    }
-	}, [userDetails]);
-
-	const [listing, setListing] = useState("");
-  const [date, setDate] = useState("");
+		if (userDetails) {
+			axios
+				.get(`http://localhost:8001/listings?creatorId=${userDetails.id}`)
+				.then(result => {
+					setListings(result.data);
+				});
+		}
+	}, [userDetails, deletedItem]);
 
 	const handleListingChange = function () {
-    let date = new Date(this.created);
-    let formattedDate = format(date, 'dd/MM/yyyy');
-    setDate(formattedDate);
+		let date = new Date(this.created);
+		let formattedDate = format(date, 'dd/MM/yyyy');
+		setDate(formattedDate);
 
 		setListing(this);
 	};
+
+	const handleDelete = (listing) => {
+		console.log(listing.id);
+		axios.delete(`http://localhost:8001/listings/${listing.id}`)
+			.then(result => {
+				console.log(result.data);
+				setDeletedItem(listing);
+				setListing("");
+			});
+	}
+
+
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -51,8 +63,9 @@ export default function MyListings() {
 							return (
 								<MyListingItem
 									onClick={handleListingChange.bind(listing)}
-									key={ Math.random().toString(36).substr(2, 9)}
-                  listing={listing}
+									key={Math.random().toString(36).substr(2, 9)}
+									listing={listing}
+									handleDelete={handleDelete.bind(null, listing)}
 								/>
 							);
 						})}
