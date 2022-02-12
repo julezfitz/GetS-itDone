@@ -7,13 +7,12 @@ import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
-
+import RegisterModal from "./User/Registration/Register";
+import LoginModal from "./User/Login";
 
 export const UserContext = createContext();
 
 export default function Application() {
-	
-
 	//Do not remove - allows axios to receive cookies
 	axios.defaults.withCredentials = true;
 
@@ -23,16 +22,22 @@ export default function Application() {
 
 	const [globalState, setGlobalState] = useState({
 		user: {
+			entries: {
+				currentModal: null,
+			},
 			isLoggedIn: false,
 			details: {},
 		},
-		offers: []
+		offers: [],
 	});
 
 	const toggleLoggedIn = userDetails => {
 		setGlobalState(prev => ({
 			...prev,
 			user: {
+				entries: {
+					currentModal: prev.user.entries.currentModal,
+				},
 				isLoggedIn: !globalState.user.isLoggedIn,
 				details: userDetails,
 			},
@@ -40,21 +45,40 @@ export default function Application() {
 	};
 
 	const getUserOffers = () => {
-		axios.get(`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`)
-			.then((results) => {
+		axios
+			.get(
+				`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`
+			)
+			.then(results => {
 				setGlobalState(prev => ({
 					...prev,
 					offers: results.data,
-				}))
-			})
-	}
+				}));
+			});
+	};
+
+	const setModalOpen = entryPoint => {
+		console.log('hello!')
+		setGlobalState(prev => ({
+			...prev,
+			user: {
+				entries: {
+					currentModal: entryPoint,
+				},
+				isLoggedIn: prev.user.isLoggedIn,
+				details: prev.user.details,
+			},
+		}));
+	};
+
 
 	const userControls = {
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
 		offers: globalState.offers,
-		getUserOffers
+		getUserOffers,
+		setModalOpen
 	};
 
 	useEffect(() => {
@@ -72,7 +96,7 @@ export default function Application() {
 	//	set global state of user's offers
 	useEffect(() => {
 		if (globalState.user?.details?.id) {
-			getUserOffers()
+			getUserOffers();
 		}
 	}, [globalState.user?.details?.id]);
 
@@ -82,10 +106,16 @@ export default function Application() {
 		setSearch(e.target.value);
 	};
 
+
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
-
+			<div className='modals'>
+				<LoginModal open={globalState.user.entries.currentModal === "logIn"} />
+				<RegisterModal
+					open={globalState.user.entries.currentModal === "register"}
+				/>
+			</div>
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
 			<main className={`content-wrapper nav-offset`}>

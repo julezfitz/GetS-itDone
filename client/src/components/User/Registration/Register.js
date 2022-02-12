@@ -8,13 +8,14 @@ import { UserContext } from "../../Application";
 import Error from "../Error";
 import axios from "axios";
 import { FormGroup, FormControl } from "@mui/material";
+import Redirect from "../Redirect";
 
 const style = {
 	position: "absolute",
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 500,
+	width: 450,
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	borderRadius: "10px",
@@ -145,7 +146,7 @@ export default function RegisterModal({ open, handleClose }) {
 					id='modal-modal-title'
 					variant='h6'
 					component='h2'
-					sx={{ mb: 5, textAlign: "center", fontFamily: 'Inter' }}
+					sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
 				>
 					Create an Account
 				</Typography>
@@ -312,7 +313,7 @@ export default function RegisterModal({ open, handleClose }) {
 					<Button
 						size='large'
 						variant='contained'
-						color="secondary"
+						color='secondary'
 						fullWidth
 						type='submit'
 						sx={{ mt: 5 }}
@@ -321,6 +322,7 @@ export default function RegisterModal({ open, handleClose }) {
 					</Button>
 					{errors && <Error errorMessage={errors} />}
 				</Box>
+				<Redirect to='log in' />
 			</Box>
 		</Modal>
 	);

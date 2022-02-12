@@ -10,6 +10,10 @@ export const GlobalStyles = createGlobalStyle`
     color: #ED6E23;
   }
 
+  a:hover {
+    cursor: pointer;
+  }
+
   body  {
     height: 100%;
     font-family: Inter;
