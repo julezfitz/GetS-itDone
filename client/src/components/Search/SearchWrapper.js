@@ -51,7 +51,8 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					// setTimeout(() => {
 					setPending(false);
 					// }, 900);
-				});
+				})
+				.catch((err) => {})
 		}
 		return () => controller.abort()
 	}, [keywords, selectedChip]);
