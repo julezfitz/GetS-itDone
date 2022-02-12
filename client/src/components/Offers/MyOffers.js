@@ -24,26 +24,10 @@ export default function MyOffers() {
   const [offers, setOffers] = useState([]);
 
   const [listingOffers, setListingOffers] = useState([]);
-  const [acceptedOffers, setAcceptOffers] = useState("");
-  const [declinedOffers, setDeclinedOffers] = useState("");
 
   useEffect((() => {
     axios.get(`http://localhost:8001/offers?bidderId=${userDetails.id}`).then((result) => {
       setOffers(result.data);
-
-      //check if any offers have been accepted and set state for acceptedOffer
-      let accepted = [];
-      let declined = [];
-
-      for (const offer in result.data) {
-        if (!result.data[offer].accepted) {
-          declined.push(result.data[offer]);
-        } else {
-          accepted.push(result.data[offer]);
-        }
-      }
-      setAcceptOffers(accepted);
-      setDeclinedOffers(declined);
     })
   }), [userDetails])
 
@@ -58,6 +42,8 @@ export default function MyOffers() {
     setOffer(this);
   }
 
+  // console.log(offer);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} columns={16}>
@@ -71,16 +57,16 @@ export default function MyOffers() {
         <Grid item xs={8}>
           <Item>
             <OfferQuickView offer={offer} date={date} />
+            {offer.accepted &&
             <Item>
+              <h3>Confirmed</h3>
               <Divider />
-              <h3>
-                {
-                  // acceptedOffer ? 
-                  "Confirmed"}</h3>
               <ApplicationAcceptedView
-              // listingId={props.listingId} acceptedOffer={acceptedOffer} 
+              listingId={offer.listingId} 
+              acceptedOffer={offer} 
               />
             </Item>
+}
           </Item>
         </Grid>
       </Grid>
