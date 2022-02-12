@@ -188,7 +188,7 @@ export default function LoginModal({ open, handleClose }) {
 							<Button
 								size={"large"}
 								type='submit'
-								color='primary'
+								color='secondary'
 								fullWidth
 								variant='contained'
 								sx={{ marginTop: 5 }}

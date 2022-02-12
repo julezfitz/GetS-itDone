@@ -45,6 +45,7 @@ const darkTheme = createTheme({
 					textTransform: "none",
 					display: "flex",
 					borderRadius: "60px",
+					boxShadow: "none"
 				},
 			},
 		},
