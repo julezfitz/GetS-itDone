@@ -100,19 +100,10 @@ export default function ResponsiveAppBar(props) {
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Link to={"/"}>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              Get S*it Done
-            </Typography>
-          </Link>
+        <Toolbar disableGutters sx={{justifyContent: "start"}}>
+          
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -147,19 +138,11 @@ export default function ResponsiveAppBar(props) {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            Get S*it Done
-          </Typography>
+          </Box> */}
           {isLoggedIn ? (
             <SearchBar onSearch={props.onSearch} value={props.searchValue} />
           ) : null}
-          <Box sx={{ flexGrow: 1 }} />
+          {/* <Box sx={{ flexGrow: 1 }} /> */}
 
           {isLoggedIn ? (
             <LoggedInNav {...loggedInProps} />

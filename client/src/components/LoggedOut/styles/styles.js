@@ -20,17 +20,15 @@ export const blobConfig = {
 //Bubble button config
 const ctaWidth = "10rem";
 const ctaHeight = "10rem";
-const accentColor = "#EBFF08";
+const accentColor = "#ED6E23";
 const transition = "300ms ease";
 
 //Page styles
 
 export const StyledHero = styled.section`
-	background-color: ${heroBgColor};
 	color: white;
 	height: 93vh;
 	max-height: 100vh;
-	font-family: "Helvetica";
 	font-size: 10vw;
 	display: flex;
 	align-items: center;
@@ -168,7 +166,6 @@ export const StyledMarquee = styled.div`
 
 export const StyledLoggedOutHome = styled.div`
 	height: 100%;
-	background-color: white;
 `;
 
 export const StyledLeak = styled.div`
