@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import SearchBar from "../SearchBar";
-import Logo from "../Logo";
+import { UserContext } from "../../Application";
 
 function LoggedIn() {
+	const { handleSearch, searchValue } = useContext(UserContext);
+
 	return (
 		<>
-			<SearchBar />
+			<SearchBar onSearch={handleSearch} value={searchValue} />
 		</>
 	);
 }
