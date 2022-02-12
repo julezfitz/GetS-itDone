@@ -5,11 +5,22 @@ import Application from "./components/Application";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 
+import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
+
+//Our custom theme
+const darkTheme = createTheme({
+	palette: {
+		mode: "dark",
+	},
+});
+
 ReactDOM.render(
 	<React.StrictMode>
-		<Router>
-			<Application />
-		</Router>
+		<ThemeProvider theme={darkTheme}>
+			<Router>
+				<Application />
+			</Router>
+		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
