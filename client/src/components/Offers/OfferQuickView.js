@@ -5,9 +5,6 @@ import { styled } from "@mui/material/styles";
 import { Divider } from "@mui/material";
 
 export default function OfferQuickView(props) {
-
-  console.log(props.offer);
-
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
