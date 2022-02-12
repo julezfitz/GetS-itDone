@@ -11,28 +11,28 @@ function HeroSection({ toggleRegister }) {
 	return (
 		<StyledHero className='heroSection'>
 			<div className='hero-inner'>
-				<Box className='hero-text' sx={{ display: "flex", width: "400px" }}>
-					<Typewriter
-						onInit={typewriter => {
-							typewriter
+				<Typewriter
+					onInit={typewriter => {
+						typewriter
 
-								.typeString("Get shit accomplished.")
-								.deleteChars(13)
-								.typeString("managed.")
-								.pauseFor(1500)
-								.deleteChars(8)
-								.typeString("delivered.")
-								.pauseFor(1500)
-								.deleteChars(10)
-								.typeString("done.")
-								.start();
-						}}
-						options={{
-							autoStart: true,
-							deleteSpeed: 4,
-						}}
-					/>
-				</Box>
+							.typeString("Get shit accomplished.")
+							.pauseFor(1500)
+							.deleteChars(13)
+							.typeString("managed.")
+							.pauseFor(1500)
+							.deleteChars(8)
+							.typeString("delivered.")
+							.pauseFor(1500)
+							.deleteChars(10)
+							.typeString("done.")
+							.start();
+					}}
+					options={{
+						autoStart: true,
+						deleteSpeed: 4,
+					}}
+				/>
+
 				<Scene />
 			</div>
 		</StyledHero>

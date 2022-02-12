@@ -121,7 +121,11 @@ export default function Application() {
 			</div>
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
-			<main className={`content-wrapper nav-offset`}>
+			<main
+				className={`content-wrapper ${
+					globalState.user.isLoggedIn ? "nav-offset" : ""
+				}`}
+			>
 				<Container maxWidth='xl' sx={{ height: "100%" }}>
 					<Routing
 						keywords={search}
