@@ -130,7 +130,6 @@ export default function LoginModal({ open, handleClose }) {
 				onClose={handleClose}
 				aria-labelledby='modal-modal-title'
 				aria-describedby='modal-modal-description'
-				sx={{background: "transparent", backdropFilter: "blur(10px)"}}
 			>
 				<Box sx={style}>
 					<Typography
