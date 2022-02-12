@@ -1,17 +1,12 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import React, { useState, useContext } from "react";
-import { UserContext } from "../Application.js";
 import NewRatingModal from "../Ratings/NewRating";
 import { Box, Button } from "@mui/material";
-
-
 
 export default function OffersListItem(props) {
 
   const [newRatingOpen, setNewRatingOpen] = useState(false);
-
-  const { userDetails } = useContext(UserContext);
 
   const handleNewRatingOpen = () => setNewRatingOpen(true);
   const handleNewRatingClose = () => setNewRatingOpen(false);
@@ -44,7 +39,7 @@ export default function OffersListItem(props) {
                   <NewRatingModal
                     open={newRatingOpen}
                     rateeId={props.acceptedOffer.bidderId}
-                    raterId={userDetails.id}
+                    listingId={props.listingId}
                     handleClose={handleNewRatingClose}
                   />
                 </>
