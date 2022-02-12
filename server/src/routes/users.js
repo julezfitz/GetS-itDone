@@ -65,10 +65,7 @@ module.exports = db => {
 
 	router.get(
 		"/user/google",
-		passport.authenticate("google", { scope: ["email", "profile"] }),
-		(req, res) => {
-			console.log(req);
-		}
+		passport.authenticate("google", { scope: ["email", "profile"] })
 	);
 
 	router.get(
@@ -78,7 +75,9 @@ module.exports = db => {
 			failureRedirect: "http://localhost:3002/",
 			failureMessage:
 				"Cannot authenticate with Google, please try again later.",
-		})
+		}), (req) => {
+			console.log(req)
+		}
 	);
 
 	//User attempts to log out
@@ -428,6 +427,24 @@ module.exports.apiDocs = {
 						},
 					},
 				},
+				400: {
+					description: "Google Error",
+					content: {
+						"application/json": {
+							schema: {},
+							example: {
+								errors: [
+									{
+										message: "Fields cannot be empty",
+									},
+									{
+										message: "Passwords do not match",
+									},
+								],
+							},
+						},
+					},
+				},
 			},
 		},
 	},
@@ -558,6 +575,34 @@ module.exports.apiDocs = {
 			description: "Login or register to a user account using google",
 			tags: ["users"],
 
+			responses: {
+				201: {
+					description: "Session Created",
+				},
+				401: {
+					description: "Unauthorized",
+					content: {
+						"application/json": {
+							schema: {
+								type: "array",
+							},
+							example: {
+								errors: [
+									{
+										message: "Please fill out the fields.",
+									},
+								],
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+	"/user/google/callback": {
+		get: {
+			description: "Google auth/passport redirect",
+			tags: ["users"],
 			responses: {
 				201: {
 					description: "Session Created",

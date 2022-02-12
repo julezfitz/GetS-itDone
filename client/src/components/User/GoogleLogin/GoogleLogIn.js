@@ -6,10 +6,9 @@ function GoogleLogIn() {
 	const [googleResponse, setGoogleResponse] = useState(null);
 	const [googleError, setGoogleError] = useState(null);
 
-
 	const redirectToGoogleSSO = async () => {
 		const googleLoginURL = "http://localhost:8001/user/google";
-		const newWindow = window.open(googleLoginURL, "_blank", "width=500,height=600")
+		const newWindow = window.open(googleLoginURL, "_self");
 	};
 
 	return <GoogleButton onClick={redirectToGoogleSSO} />;

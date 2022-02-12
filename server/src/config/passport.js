@@ -59,7 +59,8 @@ module.exports = (passport, db) => {
 				passReqToCallback: true,
 			},
 			function (req, accessToken, refreshToken, profile, done) {
-				return done(err, profile);
+				console.log("hi");
+				return done(null, profile);
 
 				// User.findOrCreate({ googleId: profile.id }, function (err, user) {
 				//   return done(err, user);
