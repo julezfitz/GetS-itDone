@@ -51,7 +51,7 @@ export default function OffersList(props) {
     <Item>
       <Divider />
       <h3>{acceptedOffer ? "Confirmed" : "Offers"}</h3>
-      {(acceptedOffer && <AcceptedView acceptedOffer={acceptedOffer} />) ||
+      {(acceptedOffer && <AcceptedView listingId={props.listingId} acceptedOffer={acceptedOffer} />) ||
         listingOffers.map((offer) => {
           if (!offer.accepted && !offer.pending) {
             return <OffersListItem key={Math.random().toString(36).substr(2, 9)} offerDeclined={true} accept={handleAccept} decline={handleDecline} offer={offer} />

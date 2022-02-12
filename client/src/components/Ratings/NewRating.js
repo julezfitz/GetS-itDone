@@ -22,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function NewRatingModal({ open, handleClose }) {
+export default function NewRatingModal({ rateeId, listingId, open, handleClose }) {
   const [rating, setRating] = useState('');
 
   const { userDetails } = useContext(UserContext);
@@ -45,18 +45,20 @@ export default function NewRatingModal({ open, handleClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // newRatingDetails = {
-    //   "raterId": userDetails.id,
-    //   "rateeId": ,
-    //   "listingId": ,
-    //   "rating": starRating,
-    //   "comment": e.target.elements.comments.value,
-    // }
+    let newRatingDetails = {
+      "raterId": userDetails.id,
+      "rateeId": rateeId,
+      "listingId": listingId,
+      "rating": starRating,
+      "comment": e.target.elements.comments.value,
+    }
 
-    // axios.post(`http://localhost:8001/ratings`, newRatingDetails)
-    // .then((results) => {
-    // 	console.log(results.data);
-    // })
+    console.log(newRatingDetails);
+    axios.post(`http://localhost:8001/ratings`, newRatingDetails)
+    .then((results) => {
+    	console.log(results.data);
+      handleClose();
+    })
   };
 
   return (
