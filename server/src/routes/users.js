@@ -63,6 +63,24 @@ module.exports = db => {
 		})(req, res, next);
 	});
 
+	router.get(
+		"/user/google",
+		passport.authenticate("google", { scope: ["email", "profile"] }),
+		(req, res) => {
+			console.log(req);
+		}
+	);
+
+	router.get(
+		"/user/google/callback",
+		passport.authenticate("google", {
+			successRedirect: "http://localhost:3002/",
+			failureRedirect: "http://localhost:3002/",
+			failureMessage:
+				"Cannot authenticate with Google, please try again later.",
+		})
+	);
+
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
 		const response = {
@@ -480,6 +498,86 @@ module.exports.apiDocs = {
 			responses: {
 				204: {
 					description: "Session exists",
+				},
+			},
+		},
+	},
+	"/user/google": {
+		post: {
+			description: "Login or register to a user account using google",
+			tags: ["users"],
+			requestBody: {
+				description: "user email and password",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							description: "Email and password",
+							properties: {
+								email: {
+									type: "string",
+									required: true,
+								},
+								password: {
+									type: "string",
+									required: true,
+								},
+							},
+						},
+						example: {
+							email: "jsmith@email.com",
+							password: "password",
+						},
+					},
+				},
+			},
+			responses: {
+				201: {
+					description: "Session Created",
+				},
+				401: {
+					description: "Unauthorized",
+					content: {
+						"application/json": {
+							schema: {
+								type: "array",
+							},
+							example: {
+								errors: [
+									{
+										message: "Please fill out the fields.",
+									},
+								],
+							},
+						},
+					},
+				},
+			},
+		},
+		get: {
+			description: "Login or register to a user account using google",
+			tags: ["users"],
+
+			responses: {
+				201: {
+					description: "Session Created",
+				},
+				401: {
+					description: "Unauthorized",
+					content: {
+						"application/json": {
+							schema: {
+								type: "array",
+							},
+							example: {
+								errors: [
+									{
+										message: "Please fill out the fields.",
+									},
+								],
+							},
+						},
+					},
 				},
 			},
 		},
