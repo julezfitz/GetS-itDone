@@ -6,7 +6,7 @@ import "normalize.css";
 import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
-import LoadingScreen from "./LoadingScreen/LoadingScreen";
+
 import RegisterModal from "./User/Registration/Register";
 import LoginModal from "./User/Login";
 
