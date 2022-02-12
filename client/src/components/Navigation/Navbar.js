@@ -79,13 +79,13 @@ export default function ResponsiveAppBar(props) {
 		display: "flex",
 		background: "rgba(28,28,28,.9)",
 		backdropFilter: "blur(20px)",
-		width: "500px",
+		width: `${isLoggedIn ? "100%" : "500px"}`,
 		borderRadius: "60px",
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "space-between",
 		marginTop: 2,
-		padding: `${isLoggedIn ? "1rem" : "0 1rem"}`,
+		padding: `${isLoggedIn ? "0 1rem" : "0 1rem"}`,
 	};
 
 	const navRightProps = {
@@ -120,16 +120,7 @@ export default function ResponsiveAppBar(props) {
 		<AppBar position='fixed'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					<Box
-						component='nav'
-						sx={{
-							width: "100%",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: `${isLoggedIn ? "space-between" : "start"}`,
-						}}
-						className='site-nav'
-					>
+					<Box component='nav' sx={navBubbleStyles} className='site-nav'>
 						{/* {isLoggedIn ? (
 						<SearchBar onSearch={props.onSearch} value={props.searchValue} />
 					) : null} */}
