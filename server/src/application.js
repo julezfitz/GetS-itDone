@@ -44,14 +44,14 @@ module.exports = function application(ENV) {
 	);
 
 	//openapi validation middleware
-	app.use(
-		OpenApiValidator.middleware({
-			apiSpec: require("./openapi-spec"),
-			validateRequests: true, // (default)
-			validateResponses: false, // false by default
-			validateApiSpec: false,
-		})
-	);
+	// app.use(
+	// 	OpenApiValidator.middleware({
+	// 		apiSpec: require("./openapi-spec"),
+	// 		validateRequests: true, // (default)
+	// 		validateResponses: false, // false by default
+	// 		validateApiSpec: false,
+	// 	})
+	// );
 
 	app.use("/", require("./routes/listings")(db));
 	app.use("/", require("./routes/categories")(db));
