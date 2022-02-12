@@ -13,12 +13,27 @@ function LoggedOutNav({
 }) {
 	return (
 		<>
-			<Box className='site-nav' sx={{ display: "flex" }} component='nav'>
+			<Box
+				className='site-nav'
+				sx={{
+					display: "flex",
+					background: "rgba(28,28,28,.9)",
+					backdropFilter: "blur(30px)",
+					width: "500px",
+					borderRadius: "60px",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+				component='nav'
+			>
 				<>
 					<Button
 						key='Login'
 						onClick={handleLoginOpen}
-						sx={{ my: 2, color: "white", display: "block" }}
+						sx={{ my: 2, display: "block" }}
+						size={"small"}
+						color='primary'
 					>
 						Login
 					</Button>
@@ -29,7 +44,7 @@ function LoggedOutNav({
 					<Button
 						key='Register'
 						onClick={handleRegisterOpen}
-						sx={{ my: 2, display: "block" }}
+						sx={{ my: 2, display: "block", ml: 4 }}
 						color='secondary'
 						size='small'
 					>
