@@ -9,6 +9,11 @@ import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 
 //Our custom theme
 const darkTheme = createTheme({
+	palette: {
+		primary: {
+			main: "rgba(255,255,255,.05)",
+		},
+	},
 	components: {
 		MuiButton: {
 			variants: [
@@ -19,7 +24,15 @@ const darkTheme = createTheme({
 						background: `linear-gradient(45deg, #ED6E23, #EDA224)`,
 						borderRadius: "60px",
 						color: "white",
-						padding: '0.4rem 2.3rem'
+						padding: "0.4rem 2.3rem",
+					},
+				},
+				{
+					props: { color: "primary", size: "small" },
+					style: {
+						color: "hsla(0,0%,100%,0.4)",
+						background: "rgba(255,255,255,.05)",
+						padding: "0.4rem 2.3rem",
 					},
 				},
 			],
@@ -27,8 +40,7 @@ const darkTheme = createTheme({
 				root: {
 					textTransform: "none",
 					display: "flex",
-					
-					
+					borderRadius: "60px",
 				},
 			},
 		},
