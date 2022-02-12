@@ -312,6 +312,7 @@ export default function RegisterModal({ open, handleClose }) {
 					<Button
 						size='large'
 						variant='contained'
+						color="secondary"
 						fullWidth
 						type='submit'
 						sx={{ mt: 5 }}
