@@ -7,18 +7,46 @@ import { Button, Alert } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "../Application";
 import { FormControl } from "@mui/material";
+import { keyframes } from "styled-components";
 
 const style = {
 	position: "absolute",
 	top: "50%",
 	left: "50%",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	flexDirection: "column",
 	transform: "translate(-50%, -50%)",
 	width: 400,
-	bgcolor: "background.paper",
+	height: 500,
+	backgroundColor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 24,
 	p: 4,
 	borderRadius: "10px",
+};
+
+const blurAnim = keyframes`
+	0% {
+		top: 0;
+		left: 0
+	}
+
+	100% {
+		bottom: 0;
+		right: 0
+	}
+`;
+
+const blurCircleStyle = {
+	width: "17rem",
+	height: "17rem",
+	backgroundColor: "orange",
+	position: "absolute",
+	borderRadius: "50%",
+	filter: "blur(60px)",
+	zIndex: "-2",
 };
 
 const ELEMENTSPACING = "1rem";
@@ -102,6 +130,7 @@ export default function LoginModal({ open, handleClose }) {
 				onClose={handleClose}
 				aria-labelledby='modal-modal-title'
 				aria-describedby='modal-modal-description'
+				sx={{background: "transparent", backdropFilter: "blur(10px)"}}
 			>
 				<Box sx={style}>
 					<Typography
@@ -110,7 +139,7 @@ export default function LoginModal({ open, handleClose }) {
 						component='h2'
 						sx={{ textAlign: "center" }}
 					>
-						Login
+						Log in to GSD
 					</Typography>
 					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
 						<Box

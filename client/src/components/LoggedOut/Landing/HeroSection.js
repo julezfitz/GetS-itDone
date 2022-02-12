@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { StyledHero } from "../styles/styles";
 import gsap from "gsap";
-import Scene from "./Spline/Scene";
+import Scene from "./three/Scene";
 import { Button } from "@mui/material";
 
 function HeroSection({ toggleRegister }) {
