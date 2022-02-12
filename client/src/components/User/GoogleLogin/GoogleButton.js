@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleLogin } from "react-google-login";
 
 function GoogleButton() {
+
+  const [googleResponse, setGoogleResponse] = useState(null);
+  const [googleError, setGoogleError] = useState(null);
+
 	const responseGoogle = response => {
-		console.log(response.details);
+		response.error ? setGoogleError(response) :
+    setGoogleResponse(response)
 	};
 
 	return (
