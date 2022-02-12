@@ -53,7 +53,7 @@ const blurCircleStyle = {
 
 const ELEMENTSPACING = "1rem";
 
-export default function LoginModal({ open, handleClose }) {
+export default function LoginModal({ open, handleClose, setModalOpen }) {
 	const { toggleLoggedIn, isLoggedIn } = useContext(UserContext);
 
 	const [loginState, setLoginState] = useState({
@@ -204,7 +204,7 @@ export default function LoginModal({ open, handleClose }) {
 								)}
 							</Box>
 						</Typography>
-						<Redirect to={"register"} />
+						<Redirect to={"register"} setModalOpen={setModalOpen}/>
 					</Box>
 				</Modal>
 			</div>
