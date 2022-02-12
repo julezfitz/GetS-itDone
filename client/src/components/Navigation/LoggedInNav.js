@@ -21,19 +21,20 @@ function LoggedInNav({
 	toggleLoggedIn,
 	settings,
 }) {
-
 	const [notifications, setNotifications] = useState([]);
 
 	useEffect(() => {
-
-		axios.get(`http://localhost:8001/notifications`, { params: { userId: userDetails.id } })
-			.then((results) => {
-				setNotifications(results.data);
+		axios
+			.get(`http://localhost:8001/notifications`, {
+				params: { userId: userDetails.id },
 			})
+			.then(results => {
+				setNotifications(results.data);
+			});
 	}, []);
 
 	return (
-		<>
+		<Box className="loggedIn-navRight" style={{display: "flex", alignItems: "center"}}>
 			<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
 				<>
 					<Button
@@ -97,7 +98,7 @@ function LoggedInNav({
 					toggleLoggedIn={toggleLoggedIn}
 				/>
 			</Box>
-		</>
+		</Box>
 	);
 }
 

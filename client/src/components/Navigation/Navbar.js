@@ -102,7 +102,10 @@ export default function ResponsiveAppBar(props) {
 	return (
 		<AppBar position='fixed'>
 			<Container maxWidth='xl'>
-				<Toolbar disableGutters sx={{ justifyContent: "start" }}>
+				<Toolbar
+					disableGutters
+					sx={{ justifyContent: `${isLoggedIn ? "space-between" : "start"}` }}
+				>
 					{/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
