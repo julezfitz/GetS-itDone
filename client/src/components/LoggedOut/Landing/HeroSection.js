@@ -14,15 +14,7 @@ function HeroSection({ toggleRegister }) {
 					<span className='accent'>Hi</span>, we're get shit done.
 				</div>
 				<Scene />
-				<Button
-					size='large'
-					color='secondary'
-					variant='contained'
-					sx={{ textTransform: "none" }}
-					onClick={toggleRegister}
-				>
-					Start now for free
-				</Button>
+				
 			</div>
 		</StyledHero>
 	);
