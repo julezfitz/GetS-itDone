@@ -9,8 +9,46 @@ import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 
 //Our custom theme
 const darkTheme = createTheme({
-	palette: {
-		mode: "dark",
+	components: {
+		MuiButton: {
+			variants: [
+				{
+					props: { color: "secondary", size: "small" },
+					style: {
+						textTransform: "none",
+						background: `linear-gradient(45deg, #ED6E23, #EDA224)`,
+						borderRadius: "60px",
+						color: "white",
+						padding: '0.4rem 2.3rem'
+					},
+				},
+			],
+			styleOverrides: {
+				root: {
+					textTransform: "none",
+					display: "flex",
+					
+					
+				},
+			},
+		},
+		MuiAppBar: {
+			variants: [
+				{
+					props: { color: "primary" },
+					style: {
+						textTransform: "none",
+						background: `transparent`,
+						boxShadow: "none",
+					},
+				},
+			],
+			styleOverrides: {
+				root: {
+					textTransform: "none",
+				},
+			},
+		},
 	},
 });
 
