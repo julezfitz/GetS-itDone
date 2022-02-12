@@ -131,7 +131,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 			<div>
 				<Modal
 					open={open}
-					onClose={handleClose}
+					onClose={() => setModalOpen(null)}
 					aria-labelledby='modal-modal-title'
 					aria-describedby='modal-modal-description'
 				>
