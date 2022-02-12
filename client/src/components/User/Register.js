@@ -80,7 +80,7 @@ export default function RegisterModal({ open, handleClose }) {
 			>
 				<Box sx={style}>
 					<Typography
-						id='modal-modal-title'
+						id='1r'
 						variant='h6'
 						component='h2'
 						sx={{ mb: 5, textAlign: "center" }}
@@ -98,7 +98,7 @@ export default function RegisterModal({ open, handleClose }) {
 						<FormGroup row>
 							<TextField
 								required
-								id='outlined-required'
+								id='2r'
 								label='First Name'
 								value={registerState.firstName}
 								onChange={handleChange}
@@ -106,7 +106,7 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 							<TextField
 								required
-								id='outlined-required'
+								id='3r'
 								label='Last Name'
 								name='lastName'
 								value={registerState.lastName}
@@ -117,7 +117,7 @@ export default function RegisterModal({ open, handleClose }) {
 						<FormControl fullWidth>
 							<TextField
 								required
-								id='outlined-required'
+								id='4r'
 								label='Email'
 								name='email'
 								value={registerState.email}
@@ -125,7 +125,7 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 							<TextField
 								required
-								id='outlined-required'
+								id='5r'
 								label='City/Town'
 								name='city'
 								value={registerState.city}
@@ -133,7 +133,7 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 							<TextField
 								required
-								id='outlined-required'
+								id='6r'
 								label='Province'
 								name='province'
 								value={registerState.province}
@@ -141,7 +141,7 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 							<TextField
 								required
-								id='outlined-required'
+								id='7r'
 								label='Postal Code'
 								name='postalCode'
 								value={registerState.postalCode}
@@ -149,7 +149,7 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 							<TextField
 								required
-								id='outlined-required'
+								id='8r'
 								label='Country'
 								name='country'
 								value={registerState.country}
@@ -167,7 +167,7 @@ export default function RegisterModal({ open, handleClose }) {
 							/>
 							<TextField
 								required
-								id='outlined-password-input'
+								id='outlined-password-input2'
 								label='Password Confirmation'
 								type='password'
 								autoComplete='current-password'

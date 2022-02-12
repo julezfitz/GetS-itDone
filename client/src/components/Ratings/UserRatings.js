@@ -7,6 +7,7 @@ import List from '@mui/material/List';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SingleRating from "./SingleRating";
+import { Controller } from "swiper";
 
 
 const style = {
@@ -26,14 +27,22 @@ export default function UserRatingsModal({ open, handleClose, user }) {
     const [average, setAverage] = useState('');
 
     useEffect((() => {
-        if(user.bidderId){
-        axios.get(`http://localhost:8001/ratings`, { params: { rateeId: user.bidderId } })
+        const controller = new AbortController();
+
+        if (user.bidderId) {
+            axios.get(`http://localhost:8001/ratings`, {
+                params: { rateeId: user.bidderId},
+                signal: controller.signal
+            })
             .then((results) => {
                 setRatings(results.data);
                 let averageCalc = results.data.reduce((total, next) => total + parseInt(next.rating), 0) / results.data.length;
                 setAverage(averageCalc.toFixed(1));
             })
+            .catch((err) => {})
         }
+
+        return () => controller.abort()
     }), [user.bidderId])
 
     return (

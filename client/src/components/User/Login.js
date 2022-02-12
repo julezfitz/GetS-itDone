@@ -87,7 +87,7 @@ export default function LoginModal({ open, handleClose }) {
 					>
 						Login
 					</Typography>
-					<Typography id='modal-modal-description' sx={{ mt: 2 }}>
+					<Typography component={'span'} id='modal-modal-description' sx={{ mt: 2 }}>
 						<Box
 							component='form'
 							sx={{ "& .MuiTextField-root": { m: 1 } }}
