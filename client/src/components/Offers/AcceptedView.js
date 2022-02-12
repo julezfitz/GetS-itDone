@@ -11,6 +11,12 @@ export default function OffersListItem(props) {
   const handleNewRatingOpen = () => setNewRatingOpen(true);
   const handleNewRatingClose = () => setNewRatingOpen(false);
 
+  let rateeObject = {
+    "rateeId": props.acceptedOffer.bidderId,
+    "firstName": props.acceptedOffer.firstName,
+    "lastName": props.acceptedOffer.lastName
+  }
+
   return (
     <Grid container spacing={2}>
       <Grid item></Grid>
@@ -38,7 +44,7 @@ export default function OffersListItem(props) {
                   </Button>
                   <NewRatingModal
                     open={newRatingOpen}
-                    rateeId={props.acceptedOffer.bidderId}
+                    ratee={rateeObject}
                     listingId={props.listingId}
                     handleClose={handleNewRatingClose}
                   />
