@@ -58,7 +58,6 @@ export default function Application() {
 	};
 
 	const setModalOpen = entryPoint => {
-		console.log('hello!')
 		setGlobalState(prev => ({
 			...prev,
 			user: {
@@ -71,14 +70,13 @@ export default function Application() {
 		}));
 	};
 
-
 	const userControls = {
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
 		offers: globalState.offers,
 		getUserOffers,
-		setModalOpen
+		setModalOpen,
 	};
 
 	useEffect(() => {
@@ -106,14 +104,17 @@ export default function Application() {
 		setSearch(e.target.value);
 	};
 
-
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
 			<div className='modals'>
-				<LoginModal open={globalState.user.entries.currentModal === "logIn"} />
+				<LoginModal
+					open={globalState.user.entries.currentModal === "logIn"}
+					setModalOpen={setModalOpen}
+				/>
 				<RegisterModal
 					open={globalState.user.entries.currentModal === "register"}
+					setModalOpen={setModalOpen}
 				/>
 			</div>
 			<Navbar onSearch={handleSearch} searchValue={search} />
