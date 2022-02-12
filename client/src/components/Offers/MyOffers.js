@@ -8,6 +8,8 @@ import OfferQuickView from './OfferQuickView';
 import axios from "axios";
 import { UserContext } from "../Application.js";
 import { format } from 'date-fns'
+import { Divider } from "@mui/material";
+import ApplicationAcceptedView from "./ApplicationAcceptedView";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -51,6 +53,16 @@ export default function MyOffers() {
         <Grid item xs={8}>
           <Item>
             <OfferQuickView offer={offer} date={date}/>
+            <Item>
+      <Divider />
+      <h3>
+        {
+        // acceptedOffer ? 
+      "Confirmed"}</h3>
+      <ApplicationAcceptedView 
+      // listingId={props.listingId} acceptedOffer={acceptedOffer} 
+      />
+      </Item>
           </Item>
         </Grid>
       </Grid>
