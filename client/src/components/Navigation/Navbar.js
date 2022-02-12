@@ -12,7 +12,7 @@ import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Application";
 import LoggedInNav from "./LoggedInNav";
-import LoggedOutNav from "./LoggedOutNav";
+import NavLeft from "./NavLeft/NavLeft";
 import SearchBar from "./SearchBar";
 
 const pages = ["Register", "Login"];
@@ -97,6 +97,7 @@ export default function ResponsiveAppBar(props) {
 		handleLoginOpen,
 		handleLoginClose,
 		setModalOpen,
+    isLoggedIn
 	};
 
 	return (
@@ -106,51 +107,14 @@ export default function ResponsiveAppBar(props) {
 					disableGutters
 					sx={{ justifyContent: `${isLoggedIn ? "space-between" : "start"}` }}
 				>
-					{/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
 					{isLoggedIn ? (
 						<SearchBar onSearch={props.onSearch} value={props.searchValue} />
 					) : null}
-					{/* <Box sx={{ flexGrow: 1 }} /> */}
 
 					{isLoggedIn ? (
 						<LoggedInNav {...loggedInProps} />
 					) : (
-						<LoggedOutNav {...loggedOutProps} />
+						<NavLeft {...loggedOutProps} />
 					)}
 				</Toolbar>
 			</Container>
