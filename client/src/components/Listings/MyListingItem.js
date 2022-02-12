@@ -27,6 +27,8 @@ export default function MyListingItem(props) {
         <IconButton
 					size='large'
 					color='inherit'
+          value={props.listing.id}
+          onClick={props.handleDelete}
 				>
 					<DeleteIcon />
 				</IconButton>
