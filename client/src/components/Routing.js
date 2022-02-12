@@ -76,6 +76,8 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 										fontSize: "1.8rem",
 										justifyContent: "center",
 										marginBottom: "5rem",
+										position: "sticky",
+										top: "0"
 									}}
 								>
 									Browse listings

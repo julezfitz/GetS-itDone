@@ -36,7 +36,7 @@ export default function Application() {
 			...prev,
 			user: {
 				entries: {
-					currentModal: prev.user.entries.currentModal,
+					currentModal: null,
 				},
 				isLoggedIn: !globalState.user.isLoggedIn,
 				details: userDetails,
@@ -58,7 +58,7 @@ export default function Application() {
 	};
 
 	const setModalOpen = entryPoint => {
-		console.log('hi')
+		console.log("hi");
 		setGlobalState(prev => ({
 			...prev,
 			user: {
