@@ -137,7 +137,7 @@ export default function LoginModal({ open, handleClose }) {
 						id='modal-modal-title'
 						variant='h6'
 						component='h2'
-						sx={{ textAlign: "center" }}
+						sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
 					>
 						Log in to GSD
 					</Typography>
