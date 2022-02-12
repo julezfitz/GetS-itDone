@@ -31,10 +31,13 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	};
 
 	useEffect(() => {
+		const controller = new AbortController();
 		//If no chip is selected we can fetch all listings
 		if (!selectedChip.id) {
 			axios
-				.get(`http://localhost:8001/listings/`, { params: { keywords } })
+				.get(`http://localhost:8001/listings/`, 
+				{ params: { keywords } ,
+				signal: controller.signal})
 				.then(result => {
 					setListings(result.data);
 
@@ -50,15 +53,17 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					// }, 900);
 				});
 		}
+		return () => controller.abort()
 	}, [keywords, selectedChip]);
 
 	useEffect(() => {
+		const controller = new AbortController();
 		//Call for categories
 
 		//Only display all categories if no chip is selected
 		if (!selectedChip.id) {
 			axios
-				.get("http://localhost:8001/categories")
+				.get("http://localhost:8001/categories", {signal: controller.signal})
 				.then(res => {
 					// setCategories(res.data);
 					setCurrentCategories(res.data);
@@ -71,10 +76,12 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			const categoryId = selectedChip.id;
 
 			axios
-				.get(`http://localhost:8001/listings/?category=${categoryId}`)
+				.get(`http://localhost:8001/listings/?category=${categoryId}`, {signal: controller.signal})
 				.then(res => setListings(res.data))
 				.catch(err => console.log(err));
 		}
+		
+		return () => controller.abort()
 	}, [selectedChip]);
 
 	const wrapperStyle = {
