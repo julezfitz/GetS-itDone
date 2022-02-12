@@ -70,6 +70,11 @@ export default function Application() {
 			},
 		}));
 	};
+	const [search, setSearch] = useState("");
+
+	const handleSearch = function (e) {
+		setSearch(e.target.value);
+	};
 
 	const userControls = {
 		toggleLoggedIn,
@@ -78,6 +83,8 @@ export default function Application() {
 		offers: globalState.offers,
 		getUserOffers,
 		setModalOpen,
+		searchValue: search,
+		handleSearch,
 	};
 
 	useEffect(() => {
@@ -98,12 +105,6 @@ export default function Application() {
 			getUserOffers();
 		}
 	}, [globalState.user?.details?.id]);
-
-	const [search, setSearch] = useState("");
-
-	const handleSearch = function (e) {
-		setSearch(e.target.value);
-	};
 
 	return (
 		<UserContext.Provider value={userControls}>

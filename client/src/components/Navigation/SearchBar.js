@@ -87,7 +87,7 @@ function SearchBar({ onSearch, value }) {
 						<SearchIcon />
 					</SearchIconWrapper>
 					<StyledInputBase
-						autofocus
+						autoFocus
 						placeholder='Search…'
 						inputProps={{ "aria-label": "search" }}
 						onChange={onSearch}
