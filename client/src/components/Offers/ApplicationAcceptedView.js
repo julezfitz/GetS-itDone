@@ -16,6 +16,7 @@ export default function ApplicationAcceptedView(props) {
 //     "firstName": props.acceptedOffer.firstName,
 //     "lastName": props.acceptedOffer.lastName
 //   }
+console.log(props.acceptedOffer); //no lister information included
 
   return (
     <Grid container spacing={2}>
@@ -25,9 +26,9 @@ export default function ApplicationAcceptedView(props) {
           <Grid item xs>
             <Typography gutterBottom variant="subtitle1" component="div">
               Congrats! Your offer to complete this job has been accepted. Please contact 
-              {/* {props.acceptedOffer.firstName} {props.acceptedOffer.lastName} at 
+              {props.acceptedOffer.firstName} {props.acceptedOffer.lastName} at 
               <a href={`mailto:${props.acceptedOffer.email}`}>{props.acceptedOffer.email}</a> to
-              make arrangements. */}
+              make arrangements.
             </Typography>
             <Grid item xs >
 
