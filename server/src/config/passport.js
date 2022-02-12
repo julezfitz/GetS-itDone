@@ -1,5 +1,5 @@
 const LocalStrategy = require("passport-local").Strategy;
-
+var GoogleStrategy = require("passport-google-oauth2").Strategy;
 const bcrypt = require("bcryptjs");
 
 module.exports = (passport, db) => {
@@ -46,6 +46,24 @@ module.exports = (passport, db) => {
 						});
 					}
 				});
+			}
+		)
+	);
+
+	passport.use(
+		new GoogleStrategy(
+			{
+				clientID: GOOGLE_CLIENT_ID,
+				clientSecret: GOOGLE_CLIENT_SECRET,
+				callbackURL: "http://yourdomain:3000/auth/google/callback",
+				passReqToCallback: true,
+			},
+			function (req, accessToken, refreshToken, profile, done) {
+				console.log(profile);
+
+				// User.findOrCreate({ googleId: profile.id }, function (err, user) {
+				//   return done(err, user);
+				// });
 			}
 		)
 	);
