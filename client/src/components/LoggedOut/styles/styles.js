@@ -49,9 +49,17 @@ export const StyledHero = styled.section`
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			font-size: 3rem;
+			font-size: 5rem;
 			font-family: Inter;
 			z-index: 999;
+			width: 100%;
+
+			.Typewriter__cursor {
+				width: 0.3px;
+				font-family: "Helvetica";
+				font-weight: lighter;
+				overflow: hidden;
+			}
 		}
 
 		button {
