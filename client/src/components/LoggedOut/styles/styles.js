@@ -27,7 +27,7 @@ const transition = "300ms ease";
 
 export const StyledHero = styled.section`
 	color: white;
-	height: 34vw;
+	height: 30vw;
 	max-height: 100vh;
 	font-size: 10vw;
 	display: flex;
