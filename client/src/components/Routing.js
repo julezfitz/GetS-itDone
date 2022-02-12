@@ -70,6 +70,16 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 						) : (
 							<>
 								<LoggedOutHome />
+								<Heading
+									color='light'
+									style={{
+										fontSize: "1.8rem",
+										justifyContent: "center",
+										marginBottom: "5rem",
+									}}
+								>
+									Browse listings
+								</Heading>
 								<SearchWrapper />
 							</>
 						)
