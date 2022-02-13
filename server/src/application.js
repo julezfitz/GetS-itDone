@@ -16,16 +16,15 @@ module.exports = function application(ENV) {
 	app.use(bodyparser.json());
 
 	//Configure cors to allow for front end to access cookies
-	app.use(
-		cors({
-			origin: [
-				"http://localhost:3000",
-				"http://localhost:3001",
-				"http://localhost:3002",
-			],
-			credentials: true,
-		})
-	);
+
+	app.options("*", cors());
+	const corsOptions = {
+		origin: "*",
+		optionsSuccessStatus: 200,
+		methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+	};
+
+	app.use(cors(corsOptions));
 
 	app.use(cookieParser("userSession"));
 
@@ -43,15 +42,15 @@ module.exports = function application(ENV) {
 		swaggerUi.setup(require("./openapi-spec"))
 	);
 
-	//openapi validation middleware
-	// app.use(
-	// 	OpenApiValidator.middleware({
-	// 		apiSpec: require("./openapi-spec"),
-	// 		validateRequests: true, // (default)
-	// 		validateResponses: false, // false by default
-	// 		validateApiSpec: false,
-	// 	})
-	// );
+	// openapi validation middleware
+	app.use(
+		OpenApiValidator.middleware({
+			apiSpec: require("./openapi-spec"),
+			validateRequests: true, // (default)
+			validateResponses: false, // false by default
+			validateApiSpec: false,
+		})
+	);
 
 	app.use("/", require("./routes/listings")(db));
 	app.use("/", require("./routes/categories")(db));

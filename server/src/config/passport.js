@@ -8,9 +8,9 @@ module.exports = (passport, db) => {
 			{
 				usernameField: "email",
 				passwordField: "password",
+				proxy:true
 			},
 			(username, password, done) => {
-				
 				//First get user by email
 				db.query(
 					`
@@ -28,6 +28,7 @@ module.exports = (passport, db) => {
 							if (err) throw err;
 
 							if (isMatch) {
+								console.log('is match!')
 								return done(null, {
 									id: user[0].id,
 									email: user[0].email,
@@ -87,7 +88,6 @@ module.exports = (passport, db) => {
 	);
 
 	passport.serializeUser((user, done) => {
-		console.log(user.id)
 		done(null, user.id);
 	});
 
