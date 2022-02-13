@@ -14,6 +14,7 @@ import { formatDistance } from 'date-fns'
 import { Button, Alert } from "@mui/material";
 import Box from "@mui/material/Box";
 import { UserContext } from "../Application.js";
+import CurrencyFormat from 'react-currency-format';
 
 
 export default function ListingDetails(props) {
@@ -104,7 +105,9 @@ export default function ListingDetails(props) {
                 <Grid item xs={8}>
                   <h2>{props.listing.title}</h2>
                   <h4>Category: {props.listing.category}</h4>
-                  <Typography variant="h5">$ {props.listing.price}</Typography>
+                  <Typography variant="h5">
+                    <CurrencyFormat value={props.listing.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                  </Typography>
                 </Grid>
 
                 <Grid item xs={4}>

@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
+import CurrencyFormat from 'react-currency-format';
 
 export default function MyOffersItem(props) {
   return (
@@ -18,7 +19,7 @@ export default function MyOffersItem(props) {
           </Grid>
           <Grid>
             <Typography variant="subtitle1" component="div">
-              {props.offer.price}
+              <CurrencyFormat value={props.offer.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </Typography>
             <Button
               size="small"
