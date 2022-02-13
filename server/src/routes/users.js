@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
+// const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
 
@@ -66,7 +66,7 @@ module.exports = db => {
 					} else {
 						authResponse.authentication.errors = {
 							message: "Incorrect password",
-							fields: ["password", "passwordConfirmation"],
+							fields: [{ fieldName: "password" }],
 						};
 						res.send(authResponse);
 						return;
@@ -81,54 +81,25 @@ module.exports = db => {
 				return;
 			}
 		});
-
-		//If both fields are filled out, move
-
-		// }, (err, user, info) => {
-		// 	if (err) throw err;
-
-		// 	//If passport does not find user, send error response
-		// 	if (!user) {
-		// 		authResponse.authentication.errors = {
-		// 			message: info.message,
-		// 			fields: [],
-		// 		};
-		// 		res.send(authResponse);
-		// 		return;
-		// 	} else {
-		// 		//Passport found a user
-
-		// 		req.logIn(user, err => {
-		// 			if (err) throw err;
-		// 			//Send successful auth status + clear errors
-		// 			authResponse.authentication.isAuthenticated = true;
-		// 			authResponse.authentication.errors = {};
-		// 			authResponse.authentication.user = user;
-		// 			// req.session["user"] = user;
-		// 			res.send(authResponse);
-		// 			return;
-		// 		});
-		// 	}
-		// })(req, res, next);
 	});
 
-	router.get(
-		"/user/google",
-		passport.authenticate("google", { scope: ["email", "profile"] })
-	);
+	// router.get(
+	// 	"/user/google",
+	// 	passport.authenticate("google", { scope: ["email", "profile"] })
+	// );
 
-	router.get(
-		"/user/google/callback",
-		passport.authenticate("google", {
-			successRedirect: "http://localhost:8001/user/session",
-			failureRedirect: "http://localhost:8001/user/session",
-			failureMessage:
-				"Cannot authenticate with Google, please try again later.",
-		}),
-		req => {
-			console.log(req);
-		}
-	);
+	// router.get(
+	// 	"/user/google/callback",
+	// 	passport.authenticate("google", {
+	// 		successRedirect: "http://localhost:8001/user/session",
+	// 		failureRedirect: "http://localhost:8001/user/session",
+	// 		failureMessage:
+	// 			"Cannot authenticate with Google, please try again later.",
+	// 	}),
+	// 	req => {
+	// 		console.log(req);
+	// 	}
+	// );
 
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
@@ -144,11 +115,15 @@ module.exports = db => {
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
-		console.log(req.session.user);
 		const authResponse = { isAuthenticated: false, user: null };
 
-		authResponse.isAuthenticated = true;
-		authResponse.user = req.session.user;
+		if (req.session.user) {
+			authResponse.isAuthenticated = true;
+			authResponse.user = req.session.user;
+			res.send(authResponse);
+			return;
+		}
+
 		res.send(authResponse);
 		return;
 	});

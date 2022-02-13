@@ -6,7 +6,6 @@ const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const swaggerUi = require("swagger-ui-express");
-const passport = require("passport");
 const app = express();
 const OpenApiValidator = require("express-openapi-validator");
 const cookieSession = require("cookie-session");
@@ -67,11 +66,6 @@ module.exports = function application(ENV) {
 			errors: err.errors,
 		});
 	});
-
-	//Passport config
-	require("./config/passport")(passport, db);
-	app.use(passport.initialize());
-	app.use(passport.session());
 
 	app.close = function () {
 		return db.end();

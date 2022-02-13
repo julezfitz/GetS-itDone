@@ -74,6 +74,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 
 	useEffect(() => {
 		if (loading) {
+
 			axios
 				.post("http://localhost:8001/user/session", {
 					email: loginState.email.value,
@@ -101,7 +102,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 					isAuthenticated && toggleLoggedIn(userDetails);
 				})
 				.catch(err => {
-					console.log(err);
+					console.log("err", err);
 				})
 				.finally(setLoading(false));
 		}
@@ -197,7 +198,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 								>
 									{loading ? "Loading..." : "Log in"}
 								</Button>
-								<GoogleLogIn />
+								{/* <GoogleLogIn /> */}
 								{errors && (
 									<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
 										{errors}
