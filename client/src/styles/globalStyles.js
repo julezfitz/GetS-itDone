@@ -1,10 +1,18 @@
 import { createGlobalStyle } from "styled-components";
+import Kobe from "../assets/fonts/Kobe.woff";
 
 const GUTTER = "10vw";
 
 export const GlobalStyles = createGlobalStyle`
   
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap');
+@font-face {
+  font-family: 'Kobe',
+  src: url(${Kobe})format('woff');
+}
+
+  p, a, button {
+  font-family: 'Kobe';
+  }
   
   .accent {
     color: #ED6E23;
