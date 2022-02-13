@@ -26,9 +26,13 @@ export default function MyOffers() {
   const [listingOffers, setListingOffers] = useState([]);
 
   useEffect((() => {
-    axios.get(`http://localhost:8001/offers?bidderId=${userDetails.id}`).then((result) => {
+    const controller = new AbortController();
+
+    axios.get(`http://localhost:8001/offers?bidderId=${userDetails.id}`, {signal: controller.signal}).then((result) => {
       setOffers(result.data);
     })
+    return () => controller.abort()
+
   }), [userDetails])
 
   const [offer, setOffer] = useState("");
@@ -41,8 +45,6 @@ export default function MyOffers() {
 
     setOffer(this);
   }
-
-  // console.log(offer);
 
   return (
     <Box sx={{ flexGrow: 1 }}>

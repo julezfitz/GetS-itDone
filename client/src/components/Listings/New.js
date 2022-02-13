@@ -100,40 +100,40 @@ export default function NewListingModal({ open, handleClose }) {
 							<CategoryList onSelect={handleCategoryChange} />
 							<TextField
 								required
-								id='outlined-required'
+								id='1c'
 								label='Description'
 								name='description'
 							/>
 							<TextField
 								required
-								id='outlined-password-input'
+								id='2c'
 								name='city'
 								label='City'
 							/>
 							<TextField
 								required
-								id='outlined-password-input'
+								id='3c'
 								label='Postal Code'
 								name='postalCode'
 							/>
 							<TextField
 								required
-								id='outlined-password-input'
+								id='4c'
 								label='Price'
 								name='price'
 							/>
 							<TextField
-								id='outlined-password-input'
+								id='5c'
 								name='image_1'
 								label='Image URL'
 							/>
 							<TextField
-								id='outlined-password-input'
+								id='6c'
 								name='image_2'
 								label='Image URL 2'
 							/>
 							<TextField
-								id='outlined-password-input'
+								id='7c'
 								name='image_3'
 								label='Image URL 3'
 							/>
