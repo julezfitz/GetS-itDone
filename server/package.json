@@ -21,6 +21,7 @@
     "express-openapi-validator": "^4.13.5",
     "express-session": "^1.17.2",
     "http-errors": "^2.0.0",
+    "http-proxy-middleware": "^2.0.3",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-google-oauth2": "^0.2.0",

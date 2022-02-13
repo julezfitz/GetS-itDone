@@ -9,62 +9,108 @@ const registerErrors = {
 };
 
 module.exports = db => {
+	router.post("/user/session", (req, res, next) => {
+		const { email, password } = req.body;
+		const authResponse = {
+			authentication: {
+				isAuthenticated: false,
+				user: null,
+				errors: {},
+			},
+		};
 
-	router.post("/user/session", passport.authenticate('local', {
-		failureRedirect: "http://localhost:3002/",
-		falureMessage: "No account exists"
-	}))
-	//User attempts to log in
-	// router.post("/user/session", (req, res, next) => {
-	// 	const { email, password } = req.body;
-	// 	const authResponse = {
-	// 		authentication: {
-	// 			isAuthenticated: false,
-	// 			user: null,
-	// 			errors: {},
-	// 		},
-	// 	};
+		const emptyFields = checkIfEmpty(req.body);
 
-	// 	const emptyFields = checkIfEmpty(req.body);
+		//If any field is empty, send error right away
+		if (emptyFields[0]) {
+			authResponse.authentication.errors = {
+				message: "Fields cannot be empty",
+				fields: [...emptyFields],
+			};
+			res.send(authResponse);
+			return;
+		}
 
-	// 	//If any field is empty, send error right away
-	// 	if (emptyFields[0]) {
-	// 		authResponse.authentication.errors = {
-	// 			message: "Fields cannot be empty",
-	// 			fields: [...emptyFields],
-	// 		};
-	// 		res.send(authResponse);
-	// 		return;
-	// 	}
+		//Check for user
+		db.query(
+			`
+			SELECT id, email, first_name, last_name, password, city, country, province
+			FROM users
+			WHERE email = $1;
+		`,
+			[email]
+		).then(response => {
+			const user = response.rows;
 
-	// 	//If both fields are filled out, begin passport auth
-	// 	passport.authenticate("local", (err, user, info) => {
-	// 		if (err) throw err;
+			//If an email is found, compare passwords
+			if (user.length > 0) {
+				bcrypt.compare(password, user[0].password, (err, isMatch) => {
+					if (err) throw err;
 
-	// 		//If passport does not find user, send error response
-	// 		if (!user) {
-	// 			authResponse.authentication.errors = {
-	// 				message: info.message,
-	// 				fields: [],
-	// 			};
-	// 			res.send(authResponse);
-	// 			return;
-	// 		} else {
-	// 			//Passport found a user
+					if (isMatch) {
+						const userObject = {
+							id: user[0].id,
+							email: user[0].email,
+							firstName: user[0]["first_name"],
+							lastName: user[0]["last_name"],
+							city: user[0]["city"],
+							country: user[0]["country"],
+							province: user[0]["province"],
+						};
 
-	// 			req.logIn(user, err => {
-	// 				if (err) throw err;
-	// 				//Send successful auth status + clear errors
-	// 				authResponse.authentication.isAuthenticated = true;
-	// 				authResponse.authentication.errors = {};
-	// 				authResponse.authentication.user = user;
-	// 				// req.session["user"] = user;
-	// 				res.send(authResponse);
-	// 				return;
-	// 			});
-	// 		}
-	// 	})(req, res, next);
-	// });
+						req.session["user"] = userObject;
+						authResponse.authentication.isAuthenticated = true;
+						authResponse.authentication.user = userObject;
+						res.send(authResponse);
+						return;
+					} else {
+						authResponse.authentication.errors = {
+							message: "Incorrect password",
+							fields: ["password", "passwordConfirmation"],
+						};
+						res.send(authResponse);
+						return;
+					}
+				});
+			} else {
+				authResponse.authentication.errors = {
+					message: "No account is registered with that email address",
+					fields: [],
+				};
+				res.send(authResponse);
+				return;
+			}
+		});
+
+		//If both fields are filled out, move
+
+		// }, (err, user, info) => {
+		// 	if (err) throw err;
+
+		// 	//If passport does not find user, send error response
+		// 	if (!user) {
+		// 		authResponse.authentication.errors = {
+		// 			message: info.message,
+		// 			fields: [],
+		// 		};
+		// 		res.send(authResponse);
+		// 		return;
+		// 	} else {
+		// 		//Passport found a user
+
+		// 		req.logIn(user, err => {
+		// 			if (err) throw err;
+		// 			//Send successful auth status + clear errors
+		// 			authResponse.authentication.isAuthenticated = true;
+		// 			authResponse.authentication.errors = {};
+		// 			authResponse.authentication.user = user;
+		// 			// req.session["user"] = user;
+		// 			res.send(authResponse);
+		// 			return;
+		// 		});
+		// 	}
+		// })(req, res, next);
+	});
 
 	router.get(
 		"/user/google",
@@ -74,8 +120,8 @@ module.exports = db => {
 	router.get(
 		"/user/google/callback",
 		passport.authenticate("google", {
-			successRedirect: "http://localhost:3002/",
-			failureRedirect: "http://localhost:3002/",
+			successRedirect: "http://localhost:8001/user/session",
+			failureRedirect: "http://localhost:8001/user/session",
 			failureMessage:
 				"Cannot authenticate with Google, please try again later.",
 		}),
@@ -92,20 +138,14 @@ module.exports = db => {
 			},
 		};
 		req.session = null;
-		req.logOut();
 
 		res.status(200).send(response);
 	});
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
-		console.log(req.session)
-		console.log('.....', req.user)
+		console.log(req.session.user);
 		const authResponse = { isAuthenticated: false, user: null };
-		if (!req.session.user) {
-			res.send(authResponse);
-			return;
-		}
 
 		authResponse.isAuthenticated = true;
 		authResponse.user = req.session.user;
