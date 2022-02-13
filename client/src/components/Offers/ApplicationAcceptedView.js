@@ -11,12 +11,11 @@ export default function ApplicationAcceptedView(props) {
   const handleNewRatingOpen = () => setNewRatingOpen(true);
   const handleNewRatingClose = () => setNewRatingOpen(false);
 
-//   let rateeObject = {
-//     "rateeId": props.acceptedOffer.bidderId,
-//     "firstName": props.acceptedOffer.firstName,
-//     "lastName": props.acceptedOffer.lastName
-//   }
-console.log(props.acceptedOffer); //no lister information included
+  let rateeObject = {
+    "rateeId": props.acceptedOffer.listerId,
+    "firstName": props.acceptedOffer.listerFirstName,
+    "lastName": props.acceptedOffer.listerLastName
+  }
 
   return (
     <Grid container spacing={2}>
@@ -25,9 +24,9 @@ console.log(props.acceptedOffer); //no lister information included
         <Grid item xs container direction="column">
           <Grid item xs>
             <Typography gutterBottom variant="subtitle1" component="div">
-              Congrats! Your offer to complete this job has been accepted. Please contact 
-              {props.acceptedOffer.firstName} {props.acceptedOffer.lastName} at 
-              <a href={`mailto:${props.acceptedOffer.email}`}>{props.acceptedOffer.email}</a> to
+              Congrats! Your offer to complete this job has been accepted. Please contact
+              &nbsp;<b>{props.acceptedOffer.listerFirstName} {props.acceptedOffer.listerLastName}</b> at
+              &nbsp;<b><a href={`mailto:${props.acceptedOffer.email}`}>{props.acceptedOffer.listerEmail}</a></b> to
               make arrangements.
             </Typography>
             <Grid item xs >
@@ -46,8 +45,8 @@ console.log(props.acceptedOffer); //no lister information included
                   </Button>
                   <NewRatingModal
                     open={newRatingOpen}
-                    // ratee={rateeObject}
-                    // listingId={props.listingId}
+                    ratee={rateeObject}
+                    listingId={props.listingId}
                     handleClose={handleNewRatingClose}
                   />
                 </>
