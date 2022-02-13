@@ -14,7 +14,7 @@ const GREY = "#999999";
 const GRADIENT = "linear-gradient(45deg, #ED6E23, #EDA224)";
 
 //Our custom theme
-const darkTheme = createTheme({
+export const darkTheme = createTheme({
 	transitions: {
 		easing: {
 			// This is the most common easing curve.
