@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
 // import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CurrencyFormat from 'react-currency-format';
 
 export default function MyListingItem(props) {
   return (
@@ -22,7 +23,7 @@ export default function MyListingItem(props) {
           </Grid>
           <Grid>
             <Typography variant="subtitle1" component="div">
-            {props.listing.price}
+              <CurrencyFormat value={props.listing.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </Typography>
         <IconButton
 					size='large'

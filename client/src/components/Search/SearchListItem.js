@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { format } from "date-fns";
+import CurrencyFormat from 'react-currency-format';
 
 const Img = styled("img")({
 	margin: "auto",
@@ -60,7 +61,7 @@ export default function SearchListItem(props) {
 					</Grid>
 					<Grid item>
 						<Typography variant='subtitle1' component='div'>
-							{props.listing.price}
+							<CurrencyFormat value={props.listing.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
 						</Typography>
 					</Grid>
 				</Grid>
