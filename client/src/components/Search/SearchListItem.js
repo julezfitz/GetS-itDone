@@ -28,7 +28,25 @@ export default function SearchListItem(props) {
 	return (
 		<Paper
 			onClick={handleListingChange}
-			sx={{ p: 2, flexGrow: 1 }}
+			sx={{
+				p: 2,
+				flexGrow: 1,
+				position: "relative",
+				"&::after": {
+					position: "absolute",
+					top: 0,
+					left: 0,
+					width: "100%",
+					height: "100%",
+					backgroundColor: "black",
+					content: "''",
+					opacity: 0.3,
+					transition: "300ms ease"
+				},
+				"&:hover::after": {
+					opacity: 0
+				}
+			}}
 			elevation={4}
 		>
 			<Grid container spacing={2}>

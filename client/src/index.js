@@ -6,6 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 
+//Color variables
+const DEEPBLACK = "black";
+const OFFBLACK = "rgba(255,255,255,.05)";
+const LIGHT = "#FFFFFF";
+const GREY = "#999999";
+const GRADIENT = "linear-gradient(45deg, #ED6E23, #EDA224)";
+
 //Our custom theme
 const darkTheme = createTheme({
 	transitions: {
@@ -49,17 +56,30 @@ const darkTheme = createTheme({
 			'"Segoe UI Emoji"',
 			'"Segoe UI Symbol"',
 		].join(","),
+		subtitle1: {
+			color: GREY,
+		},
+		body2: {
+			color: `${GREY} !important`,
+		},
 	},
 	palette: {
 		primary: {
-			main: "rgba(255,255,255,.05)",
+			main: OFFBLACK,
 		},
 		secondary: {
 			main: "#ED6E23",
-			mainGradient: 'mainGradient: "linear-gradient(45deg, #ED6E23, #EDA224)',
+			mainGradient: GRADIENT,
 		},
 	},
 	components: {
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					backgroundColor: OFFBLACK,
+				},
+			},
+		},
 		MuiButton: {
 			variants: [
 				{
