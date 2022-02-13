@@ -11,11 +11,6 @@ App.use(BodyParser.json());
 app.use(cors());
 App.use(Express.static("public"));
 
-//Passport config
-require("./config/passport")(passport);
-App.use(Passport.initialize());
-App.use(Passport.session());
-
 App.listen(PORT, () => {
 	// eslint-disable-next-line no-console
 	console.log(
