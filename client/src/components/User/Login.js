@@ -74,7 +74,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 
 	useEffect(() => {
 		if (loading) {
-
 			axios
 				.post("http://localhost:8001/user/session", {
 					email: loginState.email.value,

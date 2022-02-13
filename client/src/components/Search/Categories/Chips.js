@@ -11,10 +11,6 @@ function Chips({
 }) {
 	const elementSpacing = 1;
 
-	useEffect(() => {
-		// console.log(categories);
-	}, [categories]);
-
 	const handleChipClick = categoryId => {
 		setSelected(categoryId);
 		emptySearch();
@@ -26,7 +22,14 @@ function Chips({
 				categories.map(category => {
 					return (
 						<Chip
-							sx={{ m: 1 }}
+							sx={{
+								m: 1,
+								transition: "300ms ease",
+								'&:hover': {
+									backgroundColor: "white !important",
+									color: "black",
+								}
+							}}
 							label={category.category}
 							key={category.id}
 							component='button'
