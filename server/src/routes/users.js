@@ -9,59 +9,62 @@ const registerErrors = {
 };
 
 module.exports = db => {
+
+	router.post("/user/session", passport.authenticate('local', {
+		failureRedirect: "http://localhost:3002/",
+		falureMessage: "No account exists"
+	}))
 	//User attempts to log in
-	router.post("/user/session", (req, res, next) => {
-		const { email, password } = req.body;
-		const authResponse = {
-			authentication: {
-				isAuthenticated: false,
-				user: null,
-				errors: {},
-			},
-		};
+	// router.post("/user/session", (req, res, next) => {
+	// 	const { email, password } = req.body;
+	// 	const authResponse = {
+	// 		authentication: {
+	// 			isAuthenticated: false,
+	// 			user: null,
+	// 			errors: {},
+	// 		},
+	// 	};
 
-		const emptyFields = checkIfEmpty(req.body);
+	// 	const emptyFields = checkIfEmpty(req.body);
 
-		//If any field is empty, send error right away
-		if (emptyFields[0]) {
-			authResponse.authentication.errors = {
-				message: "Fields cannot be empty",
-				fields: [...emptyFields],
-			};
-			res.send(authResponse);
-			return;
-		}
+	// 	//If any field is empty, send error right away
+	// 	if (emptyFields[0]) {
+	// 		authResponse.authentication.errors = {
+	// 			message: "Fields cannot be empty",
+	// 			fields: [...emptyFields],
+	// 		};
+	// 		res.send(authResponse);
+	// 		return;
+	// 	}
 
-		//If both fields are filled out, begin passport auth
-		passport.authenticate("local", (err, user, info) => {
-			if (err) throw err;
+	// 	//If both fields are filled out, begin passport auth
+	// 	passport.authenticate("local", (err, user, info) => {
+	// 		if (err) throw err;
 
-			//If passport does not find user, send error response
-			if (!user) {
-				console.log("in here");
-				authResponse.authentication.errors = {
-					message: info.message,
-					fields: [],
-				};
-				res.send(authResponse);
-				return;
-			} else {
-				//Passport found a user
+	// 		//If passport does not find user, send error response
+	// 		if (!user) {
+	// 			authResponse.authentication.errors = {
+	// 				message: info.message,
+	// 				fields: [],
+	// 			};
+	// 			res.send(authResponse);
+	// 			return;
+	// 		} else {
+	// 			//Passport found a user
 
-				req.logIn(user, err => {
-					if (err) throw err;
-					//Send successful auth status + clear errors
-					authResponse.authentication.isAuthenticated = true;
-					authResponse.authentication.errors = {};
-					authResponse.authentication.user = user;
-
-					req.session["user"] = user;
-					res.send(authResponse);
-					return;
-				});
-			}
-		})(req, res, next);
-	});
+	// 			req.logIn(user, err => {
+	// 				if (err) throw err;
+	// 				//Send successful auth status + clear errors
+	// 				authResponse.authentication.isAuthenticated = true;
+	// 				authResponse.authentication.errors = {};
+	// 				authResponse.authentication.user = user;
+	// 				// req.session["user"] = user;
+	// 				res.send(authResponse);
+	// 				return;
+	// 			});
+	// 		}
+	// 	})(req, res, next);
+	// });
 
 	router.get(
 		"/user/google",
@@ -75,8 +78,9 @@ module.exports = db => {
 			failureRedirect: "http://localhost:3002/",
 			failureMessage:
 				"Cannot authenticate with Google, please try again later.",
-		}), (req) => {
-			console.log(req)
+		}),
+		req => {
+			console.log(req);
 		}
 	);
 
@@ -88,12 +92,15 @@ module.exports = db => {
 			},
 		};
 		req.session = null;
+		req.logOut();
 
 		res.status(200).send(response);
 	});
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
+		console.log(req.session)
+		console.log('.....', req.user)
 		const authResponse = { isAuthenticated: false, user: null };
 		if (!req.session.user) {
 			res.send(authResponse);

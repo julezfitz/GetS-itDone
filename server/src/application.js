@@ -27,7 +27,7 @@ module.exports = function application(ENV) {
 		})
 	);
 
-	app.use(cookieParser());
+	app.use(cookieParser("userSession"));
 
 	app.use(
 		cookieSession({
