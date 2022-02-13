@@ -4,10 +4,10 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import MyOfferItem from "./MyOfferItem";
-import OfferQuickView from './OfferQuickView';
+import OfferQuickView from "./OfferQuickView";
 import axios from "axios";
 import { UserContext } from "../Application.js";
-import { format } from 'date-fns'
+import { format } from "date-fns";
 import { Divider } from "@mui/material";
 import ApplicationAcceptedView from "./ApplicationAcceptedView";
 
@@ -18,33 +18,44 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function MyOffers() {
-
   const { userDetails } = useContext(UserContext);
 
   const [offers, setOffers] = useState([]);
-
   const [listingOffers, setListingOffers] = useState([]);
+  const [deletedItem, setDeletedItem] = useState("");
 
-  useEffect((() => {
+  useEffect(() => {
     const controller = new AbortController();
 
-    axios.get(`http://localhost:8001/offers?bidderId=${userDetails.id}`, {signal: controller.signal}).then((result) => {
-      setOffers(result.data);
-    })
-    return () => controller.abort()
-
-  }), [userDetails])
+    axios
+      .get(`http://localhost:8001/offers?bidderId=${userDetails.id}`, {
+        signal: controller.signal,
+      })
+      .then((result) => {
+        setOffers(result.data);
+      });
+    return () => controller.abort();
+  }, [userDetails, deletedItem]);
 
   const [offer, setOffer] = useState("");
   const [date, setDate] = useState("");
 
   const handleOfferChange = function () {
     let date = new Date(this.created);
-    let formattedDate = format(date, 'dd/MM/yyyy');
+    let formattedDate = format(date, "dd/MM/yyyy");
     setDate(formattedDate);
 
     setOffer(this);
-  }
+  };
+
+  const handleDelete = (offer) => {
+    console.log(offer.id);
+    axios.delete(`http://localhost:8001/offers/${offer.id}`).then((result) => {
+      console.log(result.data);
+      setDeletedItem(offer);
+      setOffer("");
+    });
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -52,23 +63,30 @@ export default function MyOffers() {
         <Grid item xs={8}>
           <Item>
             {offers.map((offer) => {
-              return <MyOfferItem key={Math.random().toString(36).substr(2, 9)} onClick={handleOfferChange.bind(offer)} offer={offer} />
+              return (
+                <MyOfferItem
+                  key={Math.random().toString(36).substr(2, 9)}
+                  onClick={handleOfferChange.bind(offer)}
+                  offer={offer}
+                  handleDelete={handleDelete.bind(null, offer)}
+                />
+              );
             })}
           </Item>
         </Grid>
         <Grid item xs={8}>
           <Item>
             <OfferQuickView offer={offer} date={date} />
-            {offer.accepted &&
-            <Item>
-              <h3>Confirmed</h3>
-              <Divider />
-              <ApplicationAcceptedView
-              listingId={offer.listingId} 
-              acceptedOffer={offer} 
-              />
-            </Item>
-}
+            {offer.accepted && (
+              <Item>
+                <h3>Confirmed</h3>
+                <Divider />
+                <ApplicationAcceptedView
+                  listingId={offer.listingId}
+                  acceptedOffer={offer}
+                />
+              </Item>
+            )}
           </Item>
         </Grid>
       </Grid>
