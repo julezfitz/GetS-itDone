@@ -17,13 +17,14 @@ function Chips({
 	};
 
 	return (
-		<Box sx={{ mt: 2 }}>
+		<Box sx={{ mt: 2, display: "flex", width: "100%", flexWrap: "wrap"}}>
 			{categories.length ? (
 				categories.map(category => {
 					return (
 						<Chip
 							sx={{
 								m: 1,
+								ml: 0,
 								transition: "300ms ease",
 								'&:hover': {
 									backgroundColor: "white !important",
@@ -51,7 +52,7 @@ function Chips({
 			)}
 			<Button
 				variant='contained'
-				sx={{ textTransform: "none", m: elementSpacing, display: "block" }}
+				sx={{ textTransform: "none", m: elementSpacing, ml: 0, display: "block" }}
 				size='small'
 				onClick={handleClearSelection}
 			>
