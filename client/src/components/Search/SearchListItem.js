@@ -1,10 +1,11 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { format } from "date-fns";
+import useTheme from "@mui/material/styles/useTheme";
 
 const Img = styled("img")({
 	margin: "auto",
@@ -17,6 +18,8 @@ const Img = styled("img")({
 });
 
 export default function SearchListItem(props) {
+	const theme = useTheme();
+
 	const handleListingChange = () => {
 		let listing = props.listing;
 		props.onChoice(listing);
@@ -30,22 +33,13 @@ export default function SearchListItem(props) {
 			onClick={handleListingChange}
 			sx={{
 				p: 2,
-				flexGrow: 1,
-				position: "relative",
-				"&::after": {
-					position: "absolute",
-					top: 0,
-					left: 0,
-					width: "100%",
-					height: "100%",
-					backgroundColor: "black",
-					content: "''",
-					opacity: 0.3,
-					transition: "300ms ease"
+				"&:hover": {
+					backgroundColor: "#22f2",
 				},
-				"&:hover::after": {
-					opacity: 0
-				}
+				flexGrow: 1,
+				overflow: "hidden",
+				position: "relative",
+				transition: "300ms ease",
 			}}
 			elevation={4}
 		>
