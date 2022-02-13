@@ -10,6 +10,7 @@ module.exports = (passport, db) => {
 				passwordField: "password",
 			},
 			(username, password, done) => {
+				
 				//First get user by email
 				db.query(
 					`
@@ -59,8 +60,23 @@ module.exports = (passport, db) => {
 				passReqToCallback: true,
 			},
 			function (req, accessToken, refreshToken, profile, done) {
+				const { id, email } = profile;
 
-				console.log(profile)
+				db.query(
+					`
+					SELECT * FROM	google_users
+					WHERE id = $1
+					AND email = $2
+				`,
+					[id.toString(), email]
+				)
+					.then(user => {
+						console.log(user);
+					})
+					.catch(err => {
+						console.log(err);
+					});
+
 				return done(null, profile);
 
 				// User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -71,12 +87,13 @@ module.exports = (passport, db) => {
 	);
 
 	passport.serializeUser((user, done) => {
+		console.log(user.id)
 		done(null, user.id);
 	});
 
-	passport.deserializeUser((id, cb) => {
+	passport.deserializeUser((id, done) => {
 		db.query(
-			`SELECT id, username, password
+			`SELECT id, email, password
 			FROM users
 			WHERE id = $1`,
 			[id],
