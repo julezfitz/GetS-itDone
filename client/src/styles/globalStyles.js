@@ -1,26 +1,37 @@
 import { createGlobalStyle } from "styled-components";
+import Kobe from "../assets/fonts/Kobe.woff";
 
 const GUTTER = "10vw";
 
 export const GlobalStyles = createGlobalStyle`
+
+h1, h2, h3, h4, h5 {
+  color: white;
+}
   
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap');
-  
-  .accent {
-    color: orange;
-  }
+@font-face {
+  font-family: 'Kobe',
+  src: url(${Kobe})format('woff');
+}
+
+
 
   
+  .accent {
+    color: #ED6E23;
+  }
+
+  a:hover {
+    cursor: pointer;
+  }
 
   body  {
     height: 100%;
     font-family: Inter;
+    background-color: #111;
   };
 
-  body {
-    background-color: ${({ isLoggedIn }) =>
-			!isLoggedIn ? "#121215" : "white"};
-  }
+ 
 
   h1, h2, h3, h4, h5 , h6 {
     font-family: Inter;

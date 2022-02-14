@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
+// const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
 
@@ -9,51 +9,97 @@ const registerErrors = {
 };
 
 module.exports = db => {
-	//User attempts to log in
 	router.post("/user/session", (req, res, next) => {
 		const { email, password } = req.body;
 		const authResponse = {
 			authentication: {
 				isAuthenticated: false,
 				user: null,
-				errors: [],
+				errors: {},
 			},
 		};
-		let errors = authResponse.authentication.errors;
+
+		const emptyFields = checkIfEmpty(req.body);
 
 		//If any field is empty, send error right away
-		if (!email || !password) {
-			errors.push({ message: "Please fill out the fields." });
+		if (emptyFields[0]) {
+			authResponse.authentication.errors = {
+				message: "Fields cannot be empty",
+				fields: [...emptyFields],
+			};
 			res.send(authResponse);
 			return;
 		}
 
-		//If both fields are filled out, begin passport auth
-		passport.authenticate("local", (err, user, info) => {
-			if (err) throw err;
+		//Check for user
+		db.query(
+			`
+			SELECT id, email, first_name, last_name, password, city, country, province
+			FROM users
+			WHERE email = $1;
+		`,
+			[email]
+		).then(response => {
+			const user = response.rows;
 
-			//If passport does not find user, send error response
-			if (!user) {
-				errors.push({ message: info.message });
+			//If an email is found, compare passwords
+			if (user.length > 0) {
+				bcrypt.compare(password, user[0].password, (err, isMatch) => {
+					if (err) throw err;
+
+					if (isMatch) {
+						const userObject = {
+							id: user[0].id,
+							email: user[0].email,
+							firstName: user[0]["first_name"],
+							lastName: user[0]["last_name"],
+							city: user[0]["city"],
+							country: user[0]["country"],
+							province: user[0]["province"],
+						};
+
+						req.session["user"] = userObject;
+						authResponse.authentication.isAuthenticated = true;
+						authResponse.authentication.user = userObject;
+						res.send(authResponse);
+						return;
+					} else {
+						authResponse.authentication.errors = {
+							message: "Incorrect password",
+							fields: [{ fieldName: "password" }],
+						};
+						res.send(authResponse);
+						return;
+					}
+				});
+			} else {
+				authResponse.authentication.errors = {
+					message: "No account is registered with that email address",
+					fields: [],
+				};
 				res.send(authResponse);
 				return;
-			} else {
-				//Passport found a user
-
-				req.logIn(user, err => {
-					if (err) throw err;
-					//Send successful auth status + clear errors
-					authResponse.authentication.isAuthenticated = true;
-					authResponse.authentication.errors = [];
-					authResponse.authentication.user = user;
-					console.log(user)
-					req.session["user"] = user;
-					res.send(authResponse);
-					return;
-				});
 			}
-		})(req, res, next);
+		});
 	});
+
+	// router.get(
+	// 	"/user/google",
+	// 	passport.authenticate("google", { scope: ["email", "profile"] })
+	// );
+
+	// router.get(
+	// 	"/user/google/callback",
+	// 	passport.authenticate("google", {
+	// 		successRedirect: "http://localhost:8001/user/session",
+	// 		failureRedirect: "http://localhost:8001/user/session",
+	// 		failureMessage:
+	// 			"Cannot authenticate with Google, please try again later.",
+	// 	}),
+	// 	req => {
+	// 		console.log(req);
+	// 	}
+	// );
 
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
@@ -63,19 +109,21 @@ module.exports = db => {
 			},
 		};
 		req.session = null;
+
 		res.status(200).send(response);
 	});
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
 		const authResponse = { isAuthenticated: false, user: null };
-		if (!req.session.user) {
+
+		if (req.session.user) {
+			authResponse.isAuthenticated = true;
+			authResponse.user = req.session.user;
 			res.send(authResponse);
 			return;
 		}
 
-		authResponse.isAuthenticated = true;
-		authResponse.user = req.session.user;
 		res.send(authResponse);
 		return;
 	});
@@ -85,12 +133,12 @@ module.exports = db => {
 		const response = {
 			registration: {
 				isRegistered: false,
-				errors: [],
+				errors: {},
 				user: null,
 			},
 		};
 
-		const hasEmptyField = checkIfEmpty(req.body);
+		const emptyFields = checkIfEmpty(req.body);
 
 		const {
 			firstName,
@@ -104,14 +152,16 @@ module.exports = db => {
 			country,
 		} = req.body;
 
-		const hashedPassword = bcrypt.hashSync(password, 12);
+		// const hashedPassword = bcrypt.hashSync(password, 12);
 
 		//Check if any fields are empty
-		if (hasEmptyField) {
-			response.registration.errors.push({
-				message: "Please fill out all the fields.",
-			});
-			res.send(response);
+
+		if (emptyFields[0]) {
+			response.registration.errors = {
+				message: "Fields cannot be empty",
+				fields: [...emptyFields],
+			};
+			res.send({ ...response });
 			return;
 		}
 
@@ -127,22 +177,28 @@ module.exports = db => {
 			.then(user => {
 				//If email is returned from db, send error message
 				if (user.rows.length) {
-					response.registration.errors.push({
+					response.registration.errors = {
 						message: "E-mail already exists",
-					});
+						fields: [{ fieldName: "email" }],
+					};
 					res.send(response);
 					return;
 				}
 
 				//If user does not exist, check to see if password + passwordConfirmation match
 				if (password !== passwordConfirmation) {
-					response.registration.errors.push({
-						message: "Passwords do not match",
-					});
+					response.registration.errors = {
+						message: "Passwords must match",
+						fields: [
+							{ fieldName: "password" },
+							{ fieldName: "passwordConfirmation" },
+						],
+					};
 					res.send(response);
 					return;
 				}
 
+				const hashedPassword = bcrypt.hashSync(password, 12);
 				//Success - register user
 				return db
 					.query(
@@ -178,12 +234,12 @@ module.exports = db => {
 						return;
 					})
 					.catch(err => {
-						console.log(err);
 						//Catch any possible server/db errors and send response
-						response.registration.errors.push({
-							message: "Server error. Please try again.",
-						});
-						console.log(err);
+						response.registration.errors = {
+							message: "Server error",
+							fields: [],
+						};
+
 						res.send(response);
 					});
 			});
@@ -393,6 +449,24 @@ module.exports.apiDocs = {
 						},
 					},
 				},
+				400: {
+					description: "Google Error",
+					content: {
+						"application/json": {
+							schema: {},
+							example: {
+								errors: [
+									{
+										message: "Fields cannot be empty",
+									},
+									{
+										message: "Passwords do not match",
+									},
+								],
+							},
+						},
+					},
+				},
 			},
 		},
 	},
@@ -463,6 +537,114 @@ module.exports.apiDocs = {
 			responses: {
 				204: {
 					description: "Session exists",
+				},
+			},
+		},
+	},
+	"/user/google": {
+		post: {
+			description: "Login or register to a user account using google",
+			tags: ["users"],
+			requestBody: {
+				description: "user email and password",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+							description: "Email and password",
+							properties: {
+								email: {
+									type: "string",
+									required: true,
+								},
+								password: {
+									type: "string",
+									required: true,
+								},
+							},
+						},
+						example: {
+							email: "jsmith@email.com",
+							password: "password",
+						},
+					},
+				},
+			},
+			responses: {
+				201: {
+					description: "Session Created",
+				},
+				401: {
+					description: "Unauthorized",
+					content: {
+						"application/json": {
+							schema: {
+								type: "array",
+							},
+							example: {
+								errors: [
+									{
+										message: "Please fill out the fields.",
+									},
+								],
+							},
+						},
+					},
+				},
+			},
+		},
+		get: {
+			description: "Login or register to a user account using google",
+			tags: ["users"],
+
+			responses: {
+				201: {
+					description: "Session Created",
+				},
+				401: {
+					description: "Unauthorized",
+					content: {
+						"application/json": {
+							schema: {
+								type: "array",
+							},
+							example: {
+								errors: [
+									{
+										message: "Please fill out the fields.",
+									},
+								],
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+	"/user/google/callback": {
+		get: {
+			description: "Google auth/passport redirect",
+			tags: ["users"],
+			responses: {
+				201: {
+					description: "Session Created",
+				},
+				401: {
+					description: "Unauthorized",
+					content: {
+						"application/json": {
+							schema: {
+								type: "array",
+							},
+							example: {
+								errors: [
+									{
+										message: "Please fill out the fields.",
+									},
+								],
+							},
+						},
+					},
 				},
 			},
 		},

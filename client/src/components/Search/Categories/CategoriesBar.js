@@ -13,7 +13,7 @@ function CategoriesBar({
 	emptySearch,
 }) {
 	const barStyle = {
-		width: "400px",
+		width: "500px",
 		height: "100vh",
 		padding: "2rem 2rem 0 2rem",
 		display: "flex",
@@ -26,7 +26,7 @@ function CategoriesBar({
 		<>
 			<Box style={barStyle}>
 				<Box style={{ width: "100%" }}>
-					<Typography>Filter by Category</Typography>
+					<Typography sx={{ color: "white" }}>Filter by Category</Typography>
 					<Box>
 						<Chips
 							categories={categories}

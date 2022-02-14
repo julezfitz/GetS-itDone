@@ -7,28 +7,67 @@ import { Button, Alert } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "../Application";
 import { FormControl } from "@mui/material";
+import { keyframes } from "styled-components";
+import Redirect from "./Redirect";
+import RegisterModal from "./Registration/Register";
+import GoogleLogIn from "./GoogleLogin/GoogleLogIn";
 
 const style = {
 	position: "absolute",
 	top: "50%",
 	left: "50%",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	flexDirection: "column",
 	transform: "translate(-50%, -50%)",
 	width: 400,
-	bgcolor: "background.paper",
+	height: 500,
+	backgroundColor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 24,
 	p: 4,
-	borderRadius: "10px"
+	borderRadius: "10px",
+};
+
+const blurAnim = keyframes`
+	0% {
+		top: 0;
+		left: 0
+	}
+
+	100% {
+		bottom: 0;
+		right: 0
+	}
+`;
+
+const blurCircleStyle = {
+	width: "17rem",
+	height: "17rem",
+	backgroundColor: "orange",
+	position: "absolute",
+	borderRadius: "50%",
+	filter: "blur(60px)",
+	zIndex: "-2",
 };
 
 const ELEMENTSPACING = "1rem";
 
-export default function LoginModal({ open, handleClose }) {
+export default function LoginModal({ open, handleClose, setModalOpen }) {
 	const { toggleLoggedIn, isLoggedIn } = useContext(UserContext);
 
-	const [value, setValue] = useState({
-		email: "",
-		password: "",
+	const [loginState, setLoginState] = useState({
+		email: {
+			value: "",
+			error: false,
+			errorMessage: null,
+		},
+		password: {
+			value: "",
+			error: false,
+			errorMessage: null,
+		},
 	});
 	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState(false);
@@ -37,18 +76,32 @@ export default function LoginModal({ open, handleClose }) {
 		if (loading) {
 			axios
 				.post("http://localhost:8001/user/session", {
-					email: value.email,
-					password: value.password,
+					email: loginState.email.value,
+					password: loginState.password.value,
 				})
 				.then(response => {
 					const errors = response.data.authentication.errors;
+
+					errors.message && setErrors(errors.message);
+
+					errors.fields &&
+						errors.fields.forEach(field => {
+							setLoginState(prev => ({
+								...prev,
+								[field.fieldName]: {
+									value: prev[field.fieldName].value,
+									error: true,
+									errorMessage: errors.message,
+								},
+							}));
+						});
+
 					const isAuthenticated = response.data.authentication.isAuthenticated;
 					const userDetails = response.data.authentication.user;
 					isAuthenticated && toggleLoggedIn(userDetails);
-					errors.length >= 0 && setErrors(errors);
 				})
 				.catch(err => {
-					console.log(err);
+					console.log("err", err);
 				})
 				.finally(setLoading(false));
 		}
@@ -57,11 +110,14 @@ export default function LoginModal({ open, handleClose }) {
 	const handleChange = e => {
 		setErrors(false);
 		const textFieldName = e.target.name;
-		console.log(textFieldName);
 
-		setValue(prev => ({
+		setLoginState(prev => ({
 			...prev,
-			[textFieldName]: e.target.value,
+			[textFieldName]: {
+				value: e.target.value,
+				error: false,
+				errorMessage: null,
+			},
 		}));
 	};
 
@@ -71,41 +127,49 @@ export default function LoginModal({ open, handleClose }) {
 	};
 
 	return (
-		<div>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				aria-labelledby='modal-modal-title'
-				aria-describedby='modal-modal-description'
-			>
-				<Box sx={style}>
-					<Typography
-						id='modal-modal-title'
-						variant='h6'
-						component='h2'
-						sx={{ textAlign: "center" }}
-					>
-						Login
-					</Typography>
-					<Typography component={'span'} id='modal-modal-description' sx={{ mt: 2 }}>
-						<Box
-							component='form'
-							sx={{ "& .MuiTextField-root": { m: 1 } }}
-							noValidate
-							autoComplete='off'
-							onSubmit={handleSubmit}
+		<>
+			<div>
+				<Modal
+					open={open}
+					onClose={() => setModalOpen(null)}
+					aria-labelledby='modal-modal-title'
+					aria-describedby='modal-modal-description'
+				>
+					<Box sx={style}>
+						<Typography
+							id='modal-modal-title'
+							variant='h6'
+							component='h2'
+							sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
 						>
-							<FormControl fullWidth>
+							Log in to GSD
+						</Typography>
+						<Typography id='modal-modal-description' sx={{ mt: 2 }}>
+							<Box
+								component='form'
+								sx={{ "& .MuiTextField-root": { m: 1 }, padding: "30px" }}
+								noValidate
+								autoComplete='off'
+								onSubmit={handleSubmit}
+							>
 								<TextField
+									placeholder='justine@example.com'
 									fullWidth
 									required
 									id='outlined-required'
 									label='Email'
 									name='email'
-									value={value.email}
+									value={loginState.email.value}
 									onChange={handleChange}
+									error={loginState.email.error}
+									label={
+										loginState.email.error
+											? loginState.email.errorMessage
+											: "Email"
+									}
 								/>
 								<TextField
+									placeholder='Password'
 									fullWidth
 									required
 									id='outlined-password-input'
@@ -113,33 +177,38 @@ export default function LoginModal({ open, handleClose }) {
 									type='password'
 									autoComplete='current-password'
 									name='password'
-									value={value.password}
+									value={loginState.password.value}
 									onChange={handleChange}
+									error={loginState.password.error}
+									label={
+										loginState.password.error
+											? loginState.password.errorMessage
+											: "Password"
+									}
 								/>
-							</FormControl>
 
-							<Button
-								size={"large"}
-								type='submit'
-								color='primary'
-								fullWidth
-								variant='contained'
-								sx={{ marginTop: 5 }}
-							>
-								{loading ? "Loading..." : "Log in"}
-							</Button>
-							{errors &&
-								errors.map(err => {
-									return (
-										<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
-											{err.message}
-										</Alert>
-									);
-								})}
-						</Box>
-					</Typography>
-				</Box>
-			</Modal>
-		</div>
+								<Button
+									size={"large"}
+									type='submit'
+									color='secondary'
+									fullWidth
+									variant='contained'
+									sx={{ marginTop: 5 }}
+								>
+									{loading ? "Loading..." : "Log in"}
+								</Button>
+								{/* <GoogleLogIn /> */}
+								{errors && (
+									<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
+										{errors}
+									</Alert>
+								)}
+							</Box>
+						</Typography>
+						<Redirect to={"register"} setModalOpen={setModalOpen} />
+					</Box>
+				</Modal>
+			</div>
+		</>
 	);
 }
