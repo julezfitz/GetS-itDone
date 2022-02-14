@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Badge, Tooltip, IconButton, Avatar } from "@mui/material";
-import NewListingModal from "../Listings/New";
-import NewRatingModal from "../Ratings/NewRating";
+import NewListingModal from "../../Listings/New";
+import NewRatingModal from "../../Ratings/NewRating";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import UserMenu from "./UserMenu";
+import UserMenu from "../UserMenu";
 import axios from "axios";
-import { UserContext } from "../Application.js";
+import { UserContext } from "../../Application";
 
-function LoggedInNav({
+function NavRight({
 	newListingOpen,
 	newRatingOpen,
 	handleNewListingOpen,
@@ -34,7 +34,10 @@ function LoggedInNav({
 	}, []);
 
 	return (
-		<Box className="loggedIn-navRight" style={{display: "flex", alignItems: "center"}}>
+		<Box
+			className='loggedIn-navRight'
+			style={{ display: "flex", alignItems: "center" }}
+		>
 			<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
 				<>
 					<Button
@@ -102,4 +105,4 @@ function LoggedInNav({
 	);
 }
 
-export default LoggedInNav;
+export default NavRight;

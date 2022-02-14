@@ -3,9 +3,10 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { useNavigate } from "react-router";
-import { useLocation } from "react-router";
+
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Box } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -80,22 +81,25 @@ function SearchBar({ onSearch, value }) {
 
 	return (
 		<>
-			<Search method='POST' onSubmit={handleSearchSubmit}>
-				<SearchIconWrapper>
-					<SearchIcon />
-				</SearchIconWrapper>
-				<StyledInputBase
-					placeholder='Search…'
-					inputProps={{ "aria-label": "search" }}
-					onChange={onSearch}
-					value={value}
-				/>
+			<Box component='form' onSubmit={handleSearchSubmit} method='POST'>
+				<Search>
+					<SearchIconWrapper>
+						<SearchIcon />
+					</SearchIconWrapper>
+					<StyledInputBase
+						autoFocus
+						placeholder='Search…'
+						inputProps={{ "aria-label": "search" }}
+						onChange={onSearch}
+						value={value}
+					/>
 
-				{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}
-				<SearchButton type='button' variant='outlined'>
-					<Link to='/'>Go</Link>
-				</SearchButton>
-			</Search>
+					{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}
+					{/* <SearchButton type='button' variant='outlined'>
+						<Link to='/'>Go</Link>
+					</SearchButton> */}
+				</Search>
+			</Box>
 		</>
 	);
 }

@@ -20,24 +20,22 @@ export const blobConfig = {
 //Bubble button config
 const ctaWidth = "10rem";
 const ctaHeight = "10rem";
-const accentColor = "#EBFF08";
+const accentColor = "#ED6E23";
 const transition = "300ms ease";
 
 //Page styles
 
 export const StyledHero = styled.section`
-	background-color: ${heroBgColor};
 	color: white;
-	height: 93vh;
+	height: 30vw;
 	max-height: 100vh;
-	font-family: "Helvetica";
 	font-size: 10vw;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	overflow: hidden;
-
+	margin-bottom: 10rem;
 	z-index: 999;
 	width: 100%;
 
@@ -46,14 +44,23 @@ export const StyledHero = styled.section`
 		width: 100%;
 		position: relative;
 
-		.hero-text {
+		.Typewriter {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			font-size: 3rem;
+			font-size: 7rem;
+			letter-spacing: -0.2rem;
 			font-family: Inter;
 			z-index: 999;
+			width: 100%;
+
+			.Typewriter__cursor {
+				font-family: Helvetica;
+				font-weight: lighter;
+				opacity: 0.2;
+				overflow: hidden;
+			}
 		}
 
 		button {
@@ -168,7 +175,6 @@ export const StyledMarquee = styled.div`
 
 export const StyledLoggedOutHome = styled.div`
 	height: 100%;
-	background-color: white;
 `;
 
 export const StyledLeak = styled.div`
