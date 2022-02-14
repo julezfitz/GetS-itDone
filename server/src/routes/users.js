@@ -191,6 +191,7 @@ module.exports = db => {
 
 	router.get("/user/:userId", (req, res) => {
 		const { userId } = req.params;
+		let getUser;
 
 		db.query(
 			`
@@ -199,21 +200,33 @@ module.exports = db => {
 		`,
 			[userId]
 		).then(user => {
-			if (!user.rows.length) {
+			if (!user.rows[0]) {
 				res.status(404).send("User not found");
 				return;
-			}
+			} 
+			getUser = user.rows[0];
 			db.query(
 				`
 				SELECT COUNT(ratee_id) AS totalratings,
 				ROUND(AVG(rating)) AS averagerating
 				FROM user_ratings
 				WHERE ratee_id = $1;
-			`,
-				[userId]
+			`,[userId]
 			).then(ratingInfo => {
-				user.rows[0]["ratings"] = ratingInfo.rows[0];
-				res.send({ user: user.rows[0] });
+				let user = {
+					"id": getUser.id,
+					"firstName": getUser.first_name,
+					"lastName": getUser.last_name,
+					"email": getUser.email,
+					"password": getUser.password,
+					"city": getUser.city,
+					"province": getUser.province,
+					"postalCode": getUser.postal_code,
+					"country": getUser.country,
+					"image": getUser.image,
+					"ratings": ratingInfo.rows
+				}
+				res.send({ user });
 			});
 		});
 	});
