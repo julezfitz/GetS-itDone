@@ -6,6 +6,8 @@ import ListingDetails from "../Listings/ListingDetails";
 import Heading from "../Heading/Heading";
 import { Box } from "@mui/material";
 import { Grid, Item } from "@mui/material";
+import { Typography } from "@mui/material";
+import useTheme from "@mui/material/styles/useTheme";
 
 // const Item = styled(Paper)(({ theme }) => ({
 // 	...theme.typography.body2,
@@ -17,6 +19,8 @@ import { Grid, Item } from "@mui/material";
 //If no chip is selected we can fetch all listings
 
 export default function SearchList({ keywords, listings }) {
+	const theme = useTheme();
+
 	const [listing, setListing] = useState({});
 
 	const handleListingChange = (e, i) => {
@@ -33,36 +37,44 @@ export default function SearchList({ keywords, listings }) {
 						transition: "300ms ease",
 						"&:hover > .MuiGrid-item": {
 							opacity: 0.5,
-							
 						},
 
 						".MuiGrid-item:hover": {
 							opacity: 1,
 						},
 						".MuiGrid-item:hover .MuiTypography-root": {
-							color: "white !important"
+							color: "white !important",
 						},
 					}}
 				>
-					{listings.map((listing, i) => {
-						return (
-							<Grid
-								item
-								xs={12}
-								md={12}
-								lg={6}
-								key={Math.random().toString(36).substr(2, 9)}
-							>
-								<SearchListItem
+					{listings[0] &&
+						listings.map((listing, i) => {
+							return (
+								<Grid
+									item
+									xs={12}
+									md={12}
+									lg={6}
 									key={Math.random().toString(36).substr(2, 9)}
-									onChoice={handleListingChange}
-									listing={listing}
-								/>
-							</Grid>
-						);
-					})}
+								>
+									<SearchListItem
+										key={Math.random().toString(36).substr(2, 9)}
+										onChoice={handleListingChange}
+										listing={listing}
+									/>
+								</Grid>
+							);
+						})}
 				</Grid>
 			</ListingDetails>
+			{!listings[0] && (
+				<Typography
+					variant='h5'
+					sx={{ mt: 4, color: theme.palette.primary.grey }}
+				>
+					The are no current search results
+				</Typography>
+			)}
 		</Box>
 	);
 }
