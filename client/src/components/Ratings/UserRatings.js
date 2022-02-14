@@ -58,8 +58,8 @@ export default function UserRatingsModal({ open, handleClose, user }) {
                         {user.firstName} {user.lastName}
                     </Typography>
                     <Rating name="user-rating" size="small" value={parseInt(average)} readOnly />
-                    <Typography component={'span'} variant='string'><br></br> Rating: {average} / 5</Typography>
-                    <Typography variant="string" component="div">{ratings.length} {ratings.length > 1 ? "ratings" : "rating"}</Typography>
+                    <Typography sx={{color: "white"}} component={'span'} variant='string'><br></br> Rating: {average} / 5</Typography>
+                    <Typography sx={{color: "white"}} variant="body2">{ratings.length} {ratings.length > 1 ? "ratings" : "rating"}</Typography>
 
                     <Typography component={'span'} id='modal-modal-description' sx={{ mt: 2 }}>
                         <Box
