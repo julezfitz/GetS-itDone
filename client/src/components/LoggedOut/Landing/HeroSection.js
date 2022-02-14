@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { StyledHero } from "../styles/styles";
 import gsap from "gsap";
-import Scene from "./three/Scene";
 import { Box } from "@mui/material";
 import Typewriter from "typewriter-effect";
+import Scene from "./Spline/Scene";
 
 function HeroSection({ toggleRegister }) {
 	const marqueeRefs = useRef([]);
