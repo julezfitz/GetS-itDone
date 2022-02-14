@@ -52,7 +52,7 @@ export default function MyProfile() {
         firstName: e.target.elements.firstName.value,
         lastName: e.target.elements.lastName.value,
         email: e.target.elements.email.value,
-        password: e.target.elements.password.value,
+        // password: e.target.elements.password.value, //needs to add in password hashing for this to work
         city: e.target.elements.city.value,
         province: e.target.elements.province.value,
         postalCode: e.target.elements.postalCode.value,
