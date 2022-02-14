@@ -153,6 +153,11 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 								onSubmit={handleSubmit}
 							>
 								<TextField
+								sx={{input: {
+									"& fieldset": {
+										borderColor: "grey"
+									}
+								}}}
 									placeholder='justine@example.com'
 									fullWidth
 									required

@@ -17,41 +17,45 @@ function Chips({
 	};
 
 	return (
-		<Box sx={{ mt: 2, display: "flex", width: "100%", flexWrap: "wrap" }}>
-			{categories.length ? (
-				categories.map(category => {
-					return (
-						<Chip
-							sx={{
-								border: "1px solid white",
-								color: "white",
-								m: 1,
-								ml: 0,
-								transition: "300ms ease",
-								"&:hover": {
-									backgroundColor: "white !important",
-									color: "black",
-								},
-							}}
-							label={category.category}
-							key={category.id}
-							component='button'
-							variant={
-								selected && selected.id === category.id
-									? "contained"
-									: "outlined"
-							}
-							onClick={() => handleChipClick(category.id)}
-							color='primary'
-							clickable
-						/>
-					);
-				})
-			) : (
-				<Typography>
-					There are no current categories for your search result
-				</Typography>
-			)}
+		<Box>
+			<Box sx={{ mt: 2, display: "flex", width: "100%", flexWrap: "wrap" }}>
+				{categories.length ? (
+					categories.map(category => {
+						return (
+							<Chip
+								sx={{
+									border: "1px solid white",
+									color: "white",
+									m: 1,
+									ml: 0,
+									transition: "300ms ease",
+									"&:hover": {
+										backgroundColor: "white !important",
+									},
+									"&:hover span": {
+										color: "black",
+									},
+								}}
+								label={category.category}
+								key={category.id}
+								component='button'
+								variant={
+									selected && selected.id === category.id
+										? "contained"
+										: "outlined"
+								}
+								onClick={() => handleChipClick(category.id)}
+								color='primary'
+								clickable
+							/>
+						);
+					})
+				) : (
+					<Typography>
+						There are no current categories for your search result
+					</Typography>
+				)}
+			</Box>
 			<Button
 				variant='contained'
 				color='secondary'
@@ -62,8 +66,8 @@ function Chips({
 					display: "block",
 					transition: "300ms ease",
 					"&:hover": {
-						opacity: 0.7
-					}
+						opacity: 0.7,
+					},
 				}}
 				size='small'
 				onClick={handleClearSelection}
