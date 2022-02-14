@@ -97,7 +97,7 @@ export const darkTheme = createTheme({
 			styleOverrides: {
 				root: {
 					backgroundColor: OFFBLACK,
-					backgroundImage: "none"
+					backgroundImage: "none",
 				},
 			},
 		},
