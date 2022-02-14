@@ -14,6 +14,8 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		id: null,
 		name: null,
 	});
+	const [sortByType, setSortByType] = useState([]);
+	const [sortOrder, setSortOrder] = useState([]);
 
 	const handleSelectedChip = (categoryId, categoryName) => {
 		setSelectedChip({
@@ -30,14 +32,29 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		});
 	};
 
+	const handleSortChange = (e) => {
+		setSortByType(e.target.value);
+	}
+
+	const handleOrderChange = (e) => {
+		setSortOrder(e.target.value);
+	}
+
+	useEffect(() => {
+
+	}, [])
+
+
 	useEffect(() => {
 		const controller = new AbortController();
 		//If no chip is selected we can fetch all listings
 		if (!selectedChip.id) {
 			axios
-				.get(`http://localhost:8001/listings/`, 
-				{ params: { keywords } ,
-				signal: controller.signal})
+				.get(`http://localhost:8001/listings/`,
+					{
+						params: { keywords },
+						signal: controller.signal
+					})
 				.then(result => {
 					setListings(result.data);
 
@@ -52,7 +69,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					setPending(false);
 					// }, 900);
 				})
-				.catch((err) => {})
+				.catch((err) => { })
 		}
 		return () => controller.abort()
 	}, [keywords, selectedChip]);
@@ -64,7 +81,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		//Only display all categories if no chip is selected
 		if (!selectedChip.id) {
 			axios
-				.get("http://localhost:8001/categories", {signal: controller.signal})
+				.get("http://localhost:8001/categories", { signal: controller.signal })
 				.then(res => {
 					// setCategories(res.data);
 					setCurrentCategories(res.data);
@@ -77,11 +94,11 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			const categoryId = selectedChip.id;
 
 			axios
-				.get(`http://localhost:8001/listings/?category=${categoryId}`, {signal: controller.signal})
+				.get(`http://localhost:8001/listings/?category=${categoryId}`, { signal: controller.signal })
 				.then(res => setListings(res.data))
 				.catch(err => console.log(err));
 		}
-		
+
 		return () => controller.abort()
 	}, [selectedChip]);
 
@@ -106,6 +123,8 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 						handleSelectedChip={handleSelectedChip}
 						handleClearSelection={handleClearSelection}
 						emptySearch={emptySearch}
+						handleSortChange={handleSortChange}
+						handleOrderChange={handleOrderChange}
 					/>
 				</>
 			)}
