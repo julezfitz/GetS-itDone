@@ -16,4 +16,8 @@ export const StyledHeading = styled.div`
 	color: ${({ color }) => {
 		return color === "light" ? "white" : "black";
 	}};
+
+	h2 {
+		${({style}) => style && style};
+	}
 `;
