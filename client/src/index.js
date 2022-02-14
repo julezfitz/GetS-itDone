@@ -69,7 +69,7 @@ export const darkTheme = createTheme({
 	palette: {
 		text: {
 			primary: LIGHT,
-			secondary: GREY
+			secondary: GREY,
 		},
 		mode: "dark",
 		primary: {
@@ -139,18 +139,6 @@ export const darkTheme = createTheme({
 			],
 			styleOverrides: {
 				root: {
-					textTransform: "none",
-					display: "flex",
-					borderRadius: "60px",
-					boxShadow: "none",
-				},
-			},
-		},
-		MuiChip: {
-			styleOverrides: {
-				root: {
-					border: "1px solid white",
-					color: "white",
 					textTransform: "none",
 					display: "flex",
 					borderRadius: "60px",
