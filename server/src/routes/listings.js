@@ -100,7 +100,7 @@ module.exports = db => {
         JOIN users ON offers.bidder_id = users.id
         JOIN user_ratings ON users.id = user_ratings.ratee_id
         WHERE offers.listing_id = ${request.params.listingId}
-        GROUP BY offers.id, users.first_name, users.last_name, users.email;`
+        GROUP BY offers.id, users.first_name, users.last_name, users.email, users.image;`
 
         let listingObject;
 
