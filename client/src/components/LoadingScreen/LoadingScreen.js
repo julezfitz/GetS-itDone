@@ -16,7 +16,7 @@ function LoadingScreen() {
 		zIndex: 999999999,
 		top: 0,
 		left: 0,
-		display: userPending ? "none" : "none",
+		display: userPending ? "flex" : "none",
 		alignItems: "center",
 		justifyContent: "center",
 	};

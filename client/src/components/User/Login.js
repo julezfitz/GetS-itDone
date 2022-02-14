@@ -10,7 +10,7 @@ import { FormControl } from "@mui/material";
 import { keyframes } from "styled-components";
 import Redirect from "./Redirect";
 import RegisterModal from "./Registration/Register";
-import GoogleLogIn from "./GoogleLogin/GoogleLogIn";
+import GoogleButton from "./GoogleLogin/GoogleButton";
 
 const style = {
 	position: "absolute",

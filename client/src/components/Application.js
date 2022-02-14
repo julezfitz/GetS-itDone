@@ -79,7 +79,6 @@ export default function Application() {
 	};
 
 	const userControls = {
-		
 		toggleLoggedIn,
 		userPending: globalState.user.pending,
 		isLoggedIn: globalState.user.isLoggedIn,
@@ -98,7 +97,21 @@ export default function Application() {
 		if (!globalState.user.isLoggedIn) {
 			axios
 				.get(`http://localhost:8001/user/session`)
-				.then(res => res.data.isAuthenticated && toggleLoggedIn(res.data.user))
+				.then(res =>
+					res.data.isAuthenticated
+						? toggleLoggedIn(res.data.user)
+						: setGlobalState((prev) => ({
+							...prev,
+							user: {
+								entries: {
+									currentModal: null,
+								},
+								pending: false,
+								isLoggedIn: prev.user.isLoggedIn,
+								details: {}
+							}
+						}))
+				)
 				.catch(err => console.log(err));
 		}
 	}, []);
@@ -113,7 +126,7 @@ export default function Application() {
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
-			<LoadingScreen/>
+			<LoadingScreen />
 			<div className='modals'>
 				<LoginModal
 					open={globalState.user.entries.currentModal === "logIn"}
