@@ -1,23 +1,28 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
+import React, { useState, useEffect } from "react";
+// import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { format } from "date-fns";
-import CurrencyFormat from 'react-currency-format';
+import CurrencyFormat from "react-currency-format";
+import useTheme from "@mui/material/styles/useTheme";
+import styled from "styled-components";
+import { Fade } from "@mui/material";
 
-const Img = styled("img")({
-	margin: "auto",
-	display: "block",
-	position: "absolute",
-	width: "100%",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-});
+// const Img = styled("img")({
+// 	margin: "auto",
+// 	display: "block",
+// 	position: "absolute",
+// 	width: "100%",
+// 	top: "50%",
+// 	left: "50%",
+// 	transform: "translate(-50%, -50%)",
+// });
 
 export default function SearchListItem(props) {
+	const theme = useTheme();
+
 	const handleListingChange = () => {
 		let listing = props.listing;
 		props.onChoice(listing);
@@ -27,7 +32,16 @@ export default function SearchListItem(props) {
 	const formattedDate = format(date, "dd/MM/yyyy");
 
 	return (
-		<Paper onClick={handleListingChange} sx={{ p: 2, flexGrow: 1 }} elevation={4}>
+		<Paper
+			onClick={handleListingChange}
+			sx={{
+				p: 2,
+				flexGrow: 1,
+				overflow: "hidden",
+				position: "relative",
+				transition: "300ms ease",
+			}}
+		>
 			<Grid container spacing={2}>
 				<Grid item>
 					<ButtonBase
@@ -39,7 +53,7 @@ export default function SearchListItem(props) {
 							backgroundImage: `url(${props.listing.image_1})`,
 							backgroundSize: "cover",
 							backgroundPosition: "50% 50%",
-              borderRadius: "5px"
+							borderRadius: "5px",
 						}}
 					></ButtonBase>
 				</Grid>
@@ -61,7 +75,12 @@ export default function SearchListItem(props) {
 					</Grid>
 					<Grid item>
 						<Typography variant='subtitle1' component='div'>
-							<CurrencyFormat value={props.listing.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+							<CurrencyFormat
+								value={props.listing.price}
+								displayType={"text"}
+								thousandSeparator={true}
+								prefix={"$"}
+							/>
 						</Typography>
 					</Grid>
 				</Grid>

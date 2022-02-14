@@ -6,13 +6,14 @@ import "normalize.css";
 import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
-import LoadingScreen from "./LoadingScreen/LoadingScreen";
+import RegisterModal from "./User/Registration/Register";
+import LoginModal from "./User/Login";
 
 export const UserContext = createContext();
 
 export default function Application() {
 	//Do not remove - allows axios to receive cookies
-	axios.defaults.withCredentials = true;
+	// axios.defaults.withCredentials = true;
 
 	//pending: true while we wait for server to respond with essential data - (do not load components until everything is in place)
 	//isLoggedIn: represents the user's logged in state
@@ -20,16 +21,22 @@ export default function Application() {
 
 	const [globalState, setGlobalState] = useState({
 		user: {
+			entries: {
+				currentModal: null,
+			},
 			isLoggedIn: false,
 			details: {},
 		},
-		offers: []
+		offers: [],
 	});
 
 	const toggleLoggedIn = userDetails => {
 		setGlobalState(prev => ({
 			...prev,
 			user: {
+				entries: {
+					currentModal: null,
+				},
 				isLoggedIn: !globalState.user.isLoggedIn,
 				details: userDetails,
 			},
@@ -37,21 +44,46 @@ export default function Application() {
 	};
 
 	const getUserOffers = () => {
-		axios.get(`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`)
-			.then((results) => {
+		axios
+			.get(
+				`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`
+			)
+			.then(results => {
 				setGlobalState(prev => ({
 					...prev,
 					offers: results.data,
-				}))
-			})
-	}
+				}));
+			});
+	};
+
+	const setModalOpen = entryPoint => {
+		setGlobalState(prev => ({
+			...prev,
+			user: {
+				entries: {
+					currentModal: entryPoint,
+				},
+				isLoggedIn: prev.user.isLoggedIn,
+				details: prev.user.details,
+			},
+		}));
+	};
+
+	const [search, setSearch] = useState("");
+
+	const handleSearch = function (e) {
+		setSearch(e.target.value);
+	};
 
 	const userControls = {
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
 		offers: globalState.offers,
-		getUserOffers
+		getUserOffers,
+		setModalOpen,
+		searchValue: search,
+		handleSearch,
 	};
 
 	useEffect(() => {
@@ -69,23 +101,30 @@ export default function Application() {
 	//	set global state of user's offers
 	useEffect(() => {
 		if (globalState.user?.details?.id) {
-			getUserOffers()
+			getUserOffers();
 		}
 	}, [globalState.user?.details?.id]);
-
-	const [search, setSearch] = useState("");
-
-	const handleSearch = function (e) {
-		setSearch(e.target.value);
-	};
 
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
-
+			<div className='modals'>
+				<LoginModal
+					open={globalState.user.entries.currentModal === "logIn"}
+					setModalOpen={setModalOpen}
+				/>
+				<RegisterModal
+					open={globalState.user.entries.currentModal === "register"}
+					setModalOpen={setModalOpen}
+				/>
+			</div>
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
-			<main className={`content-wrapper nav-offset`}>
+			<main
+				className={`content-wrapper ${
+					globalState.user.isLoggedIn ? "nav-offset" : ""
+				}`}
+			>
 				<Container maxWidth='xl' sx={{ height: "100%" }}>
 					<Routing
 						keywords={search}
