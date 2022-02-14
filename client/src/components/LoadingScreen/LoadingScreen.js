@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Box } from "@mui/material";
-import { useTheme } from "@material-ui/styles";
+import useTheme from "@mui/material/styles/useTheme";
 import DotLoader from "react-spinners/DotLoader";
 import { UserContext } from "../Application";
 
@@ -16,14 +16,14 @@ function LoadingScreen() {
 		zIndex: 999999999,
 		top: 0,
 		left: 0,
-		display: userPending ? "flex" : "none",
+		display: userPending ? "none" : "none",
 		alignItems: "center",
 		justifyContent: "center",
 	};
 
 	return (
 		<Box sx={loadingScreenStyles}>
-			<DotLoader color='white' loading='true' size='100px' />
+			<DotLoader color={"white"} loading='true' size='100px' />
 		</Box>
 	);
 }

@@ -30,17 +30,7 @@ const style = {
 	borderRadius: "10px",
 };
 
-const blurAnim = keyframes`
-	0% {
-		top: 0;
-		left: 0
-	}
 
-	100% {
-		bottom: 0;
-		right: 0
-	}
-`;
 
 const blurCircleStyle = {
 	width: "17rem",
