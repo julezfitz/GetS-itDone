@@ -171,7 +171,7 @@ export default function Application() {
 						</div> */}
 				</Container>
 			</Box>
-			<Footer />
+			
 		</UserContext.Provider>
 	);
 }
