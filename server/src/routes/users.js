@@ -103,12 +103,14 @@ module.exports = db => {
 
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
+		console.log('hi')
 		const response = {
 			authentication: {
 				isLoggedOut: true,
 			},
 		};
 		req.session = null;
+		
 
 		res.status(200).send(response);
 	});

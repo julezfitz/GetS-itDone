@@ -8,6 +8,7 @@ import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
 import RegisterModal from "./User/Registration/Register";
 import LoginModal from "./User/Login";
+import LoadingScreen from "./LoadingScreen/LoadingScreen";
 
 export const UserContext = createContext();
 
@@ -21,6 +22,7 @@ export default function Application() {
 
 	const [globalState, setGlobalState] = useState({
 		user: {
+			pending: true,
 			entries: {
 				currentModal: null,
 			},
@@ -34,6 +36,7 @@ export default function Application() {
 		setGlobalState(prev => ({
 			...prev,
 			user: {
+				pending: false,
 				entries: {
 					currentModal: null,
 				},
@@ -76,7 +79,9 @@ export default function Application() {
 	};
 
 	const userControls = {
+		
 		toggleLoggedIn,
+		userPending: globalState.user.pending,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
 		offers: globalState.offers,
@@ -108,6 +113,7 @@ export default function Application() {
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
+			<LoadingScreen/>
 			<div className='modals'>
 				<LoginModal
 					open={globalState.user.entries.currentModal === "logIn"}
