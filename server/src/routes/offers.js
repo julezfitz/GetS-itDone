@@ -8,8 +8,10 @@ module.exports = db => {
     router.get("/offers", (request, response) => {
         const { bidderId } = request.query;
         let queryString = `SELECT offers.accepted, offers.pending, offers.id as offerId, listings.id as listingId, listings.title, 
-        listings.image_1, listings.price, listings.created, categories.category FROM offers
+        listings.image_1, listings.price, listings.created, categories.category, users.first_name, users.last_name, users.id as user_id,
+        users.email FROM offers
         JOIN listings ON offers.listing_id = listings.id
+        JOIN users ON listings.creator_id = users.id
         JOIN listing_categories ON (listings.id = listing_categories.listing_id)
         JOIN categories ON (categories.id = listing_categories.category_id) 
         WHERE bidder_id = ${bidderId};`
@@ -28,7 +30,11 @@ module.exports = db => {
                         "pending": offerObj.pending,
                         "accepted": offerObj.accepted,
                         "offerId": offerObj.offerid,
-                        "category": offerObj.category
+                        "category": offerObj.category,
+                        "listerId": offerObj.user_id,
+                        "listerFirstName": offerObj.first_name,
+                        "listerLastName": offerObj.last_name,
+                        "listerEmail": offerObj.email,
                     }
                 )
             });
@@ -167,6 +173,18 @@ module.exports.apiDocs = {
                                         "image_1": {
                                             "type": "string",
                                         },
+                                        "listerId": {
+                                            "type": "integer",
+                                        },
+                                        "listerFirstName": {
+                                            "type": "string",
+                                        },
+                                        "listerLastName": {
+                                            "type": "string",
+                                        },
+                                        "listerEmail": {
+                                            "type": "string",
+                                        },
                                     }
                                 }
                             },
@@ -179,7 +197,11 @@ module.exports.apiDocs = {
                                     "created": "2022-01-01 05:01:37 -5:00",
                                     "pending": "false",
                                     "accepted": "false",
-                                    "offerId": 1
+                                    "offerId": 1,
+                                    "listerId": 3,
+                                    "listerFirstName": "Bob",
+                                    "listerLastName": "Example",
+                                    "listerEmail": "bob@example.com",
                                 },
                                 {
                                     "listingId": 6,
@@ -189,7 +211,11 @@ module.exports.apiDocs = {
                                     "created": "2022-02-01 05:01:37 -5:00",
                                     "pending": "false",
                                     "accepted": "false",
-                                    "offerId": 2
+                                    "offerId": 2,
+                                    "listerId": 3,
+                                    "listerFirstName": "Bob",
+                                    "listerLastName": "Example",
+                                    "listerEmail": "bob@example.com",
                                 },
                             ]
                         }
