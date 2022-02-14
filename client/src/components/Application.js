@@ -9,6 +9,8 @@ import { Container } from "@mui/material";
 import RegisterModal from "./User/Registration/Register";
 import LoginModal from "./User/Login";
 import LoadingScreen from "./Loading/LoadingScreen";
+import Footer from "./Footer/Footer";
+import { Box } from "@mui/material";
 
 export const UserContext = createContext();
 
@@ -150,7 +152,8 @@ export default function Application() {
 			</div>
 			<Navbar onSearch={handleSearch} searchValue={search} />
 
-			<main
+			<Box
+				component='main'
 				className={`content-wrapper ${
 					globalState.user.isLoggedIn ? "nav-offset" : ""
 				}`}
@@ -167,7 +170,8 @@ export default function Application() {
 							<span>Sort By: Date</span>
 						</div> */}
 				</Container>
-			</main>
+			</Box>
+			<Footer />
 		</UserContext.Provider>
 	);
 }
