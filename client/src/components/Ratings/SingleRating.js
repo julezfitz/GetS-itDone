@@ -8,10 +8,11 @@ import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 
 export default function SingleRating(rating) {
+    console.log(rating);
     return (
         <ListItem alignItems="flex-start">
             <ListItemAvatar>
-                <Avatar alt={rating.rating.rater.firstName} src="/static/images/avatar/2.jpg" />
+                <Avatar alt={rating.rating.rater.firstName} src={rating.rating.rater.profileImage} />
             </ListItemAvatar>
             <ListItemText
                 primary={`${rating.rating.rater.firstName} ${rating.rating.rater.lastName}`}
