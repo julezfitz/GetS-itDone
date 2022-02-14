@@ -46,7 +46,7 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 	return (
 		<>
 			{isLoggedIn && (
-				<Heading size='medium' className='page-heading'>
+				<Heading size='medium' className='page-heading' color="light">
 					{headingTitle}
 				</Heading>
 			)}

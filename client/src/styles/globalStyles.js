@@ -10,9 +10,7 @@ export const GlobalStyles = createGlobalStyle`
   src: url(${Kobe})format('woff');
 }
 
-  p, a, button {
-  font-family: 'Kobe';
-  }
+
   
   .accent {
     color: #ED6E23;
