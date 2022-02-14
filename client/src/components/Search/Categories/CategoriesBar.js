@@ -16,6 +16,8 @@ function CategoriesBar({
 	handleSelectedChip,
 	handleClearSelection,
 	emptySearch,
+	handleSortChange,
+	handleOrderChange
 }) {
 	const barStyle = {
 		width: "500px",
@@ -35,33 +37,35 @@ function CategoriesBar({
 					<Grid item style={{ display: "flex", gap: "1rem" }}>
 						<Box style={{ width: "100%" }}>
 							<FormControl size='string' style={{ width: "55%" }}>
-								<InputLabel id="sortby-label">Sort Results</InputLabel>
+								<InputLabel id="sortby-label">Sort by</InputLabel>
 								<Select
 									labelId="sortby-label"
 									id="demo-simple-select"
 									label="Search Filters"
-								// onChange={handleSortChange}
+									defaultValue=''
+									onChange={handleSortChange}
 								>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)}>
+									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='price'>
 										Price
 									</MenuItem>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)}>
+									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='date'>
 										Date Listed
 									</MenuItem>
 								</Select>
-								</FormControl>
-								<FormControl size='string' style={{ width: "35%", marginLeft:'1em' }}>
+							</FormControl>
+							<FormControl size='string' style={{ width: "40%", marginLeft: '1em' }}>
 								<InputLabel id="orderby-label">Order</InputLabel>
 								<Select
 									labelId="orderby-label"
 									id="demo-simple-select"
 									label="Search Filters"
-								// onChange={handleOrderChange}
+									defaultValue=''
+									onChange={handleOrderChange}
 								>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)}>
+									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='desc'>
 										Ascending
 									</MenuItem>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)}>
+									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='asc'>
 										Descending
 									</MenuItem>
 								</Select>
