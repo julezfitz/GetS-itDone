@@ -136,7 +136,7 @@ export default function ListingDetails(props) {
                 <Grid container spacing={0} direction='row'>
 
 
-                  <Grid item xs={2} spacing={0} style={{ display: "flex" }} >
+                  <Grid item xs={2} style={{ display: "flex" }} >
                     <h4 xs={3}>Posted By:</h4>
                   </Grid>
 
