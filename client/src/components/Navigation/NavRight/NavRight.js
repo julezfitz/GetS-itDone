@@ -74,7 +74,7 @@ export default function NavRight({
 				</IconButton>
 			</Box>
 			<Box sx={{ maxWidth: "150px" }}>
-				<Tooltip title="Open settings">
+				<Tooltip title="Menu">
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 						<Avatar
 							alt={userDetails.firstName}
