@@ -24,9 +24,15 @@ const StyledFooter = styled.footer`
 
 	iframe {
 		position: absolute;
+    height: 100%;
 		top: 0;
 		left: 0;
-		z-index: -2;
+		z-index: 99;
+
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
 	}
 
 	.marquee-text {
@@ -108,7 +114,7 @@ function Footer() {
 				</div>
 				<div className='dev-credits'>
 					<Typography>
-						Designed & developed by{" "}
+						Designed & developed by <br></br>{" "}
 						{contactInfo.map((dev, i) => {
 							return (
 								<a
