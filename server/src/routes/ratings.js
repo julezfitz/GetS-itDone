@@ -5,7 +5,7 @@ module.exports = db => {
     router.get("/ratings", (request, response) => {
         const { rateeId } = request.query;
         let queryString = `SELECT user_ratings.ratee_id, user_ratings.rating, user_ratings.comment, 
-        user_ratings.created, users.id AS raterId, users.first_name, users.last_name FROM user_ratings
+        user_ratings.created, users.id AS raterId, users.image, users.first_name, users.last_name FROM user_ratings
         JOIN users ON user_ratings.rater_id = users.id
         WHERE ratee_id = ${rateeId};`
 
@@ -22,6 +22,7 @@ module.exports = db => {
                         },
                         "rateeId": ratingObj.ratee_id,
                         "rating": ratingObj.rating,
+                        "profileImage": ratingObj.image,
                         "comment": ratingObj.comment,
                         "created": ratingObj.created
                     }
