@@ -32,13 +32,8 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		});
 	};
 
-	const handleSortChange = (e) => {
-		setSortByType(e.target.value);
-	}
-
-	const handleOrderChange = (e) => {
-		setSortOrder(e.target.value);
-	}
+	const handleSortChange = (e) => {setSortByType(e.target.value)}
+	const handleOrderChange = (e) => {setSortOrder(e.target.value)}
 
 	useEffect(() => {
 		if (sortByType.length > 0 || sortOrder.length > 0) {
