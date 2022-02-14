@@ -41,8 +41,28 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	}
 
 	useEffect(() => {
+		if (sortByType.length > 0 || sortOrder.length > 0) {
+			// const controller = new AbortController();
+			let paramObj = {};
+			if (sortByType.length > 0) {
+				(paramObj['orderBy'] = sortByType)
+			}
+			if (sortOrder.length > 0) {
+				(paramObj['sortOrder'] = sortOrder)
+			}
+			console.log(paramObj);
 
-	}, [])
+
+			axios.get(`http://localhost:8001/listings/`, {
+				params: paramObj,
+				// signal: controller.signal
+			})
+				.then(result => {
+					console.log(result.data);
+					setListings(result.data);
+				})
+		}
+	}, [sortByType, sortOrder])
 
 
 	useEffect(() => {
