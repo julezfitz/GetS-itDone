@@ -32,7 +32,7 @@ export default function CategoryList(props) {
           onChange={handleChange}
         >
           {categories.map((category) => {
-            return <MenuItem value={category.id}>{category.category}</MenuItem>
+            return <MenuItem key={Math.random().toString(36).substr(2, 9)} value={category.id}>{category.category}</MenuItem>
           })}
         </Select>
       </FormControl>

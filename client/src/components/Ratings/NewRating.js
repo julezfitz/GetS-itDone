@@ -78,7 +78,7 @@ export default function NewRatingModal({ ratee, listingId, open, handleClose }) 
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Rating
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography component={'span'} id="modal-modal-description" sx={{ mt: 2 }}>
             <Box
               component="form"
               sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
