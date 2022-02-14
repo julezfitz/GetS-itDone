@@ -17,7 +17,7 @@ const style = {
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 24,
-	p: 4,
+	p: 10,
 };
 
 export default function NewListingModal({ open, handleClose }) {
@@ -143,7 +143,9 @@ export default function NewListingModal({ open, handleClose }) {
 							type='submit'
 							value='Submit'
 							variant='contained'
+							color="secondary"
 							fullWidth
+							sx={{mt: 4}}
 						>
 							Create
 						</Button>

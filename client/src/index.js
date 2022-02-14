@@ -89,14 +89,33 @@ export const darkTheme = createTheme({
 					"-webkit-text-fill-color": "#fff",
 				},
 			},
+			fieldset: {
+				display: "none",
+			},
 		},
 	},
 
 	components: {
+		MuiOutlinedInput: {
+			styleOverrides: {
+				root: {
+					backgroundColor: OFFBLACK,
+					backgroundImage: "none",
+				},
+			},
+		},
 		MuiPaper: {
 			styleOverrides: {
 				root: {
 					backgroundColor: OFFBLACK,
+					backgroundImage: "none",
+				},
+			},
+		},
+		MuiAlert: {
+			styleOverrides: {
+				root: {
+					background: "transparent",
 				},
 			},
 		},

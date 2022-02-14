@@ -2,12 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import { UserContext } from "../Application.js";
 import Error from "./Error";
 import axios from "axios";
+import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -52,7 +56,7 @@ export default function MyProfile() {
         firstName: e.target.elements.firstName.value,
         lastName: e.target.elements.lastName.value,
         email: e.target.elements.email.value,
-        // password: e.target.elements.password.value, //needs to add in password hashing for this to work
+        password: e.target.elements.password.value, //needs to add in password hashing for this to work
         city: e.target.elements.city.value,
         province: e.target.elements.province.value,
         postalCode: e.target.elements.postalCode.value,
@@ -65,6 +69,13 @@ export default function MyProfile() {
       })
       .catch((err) => setErrors(err))
       .finally(setLoading(false), setUpdate(false));
+  };
+
+  const imageStyle = {
+    height: 250,
+    width: 250,
+    borderRadius: '50%',
+    margin: '15px'
   };
 
   return (
@@ -162,15 +173,30 @@ export default function MyProfile() {
               </>
             ) : (
               <>
-                <div>
-                  <div>First Name: {userDetails.firstName}</div>
-                  <div>Last Name: {userDetails.lastName}</div>
-                  <div>Email: {userDetails.email}</div>
-                  <div>City: {userDetails.city}</div>
-                  <div>Province: {userDetails.province}</div>
-                  <div>Country: {userDetails.country}</div>
-                </div>
-                <Button
+                <Grid container >
+                  <Grid item xs={3.5}>
+                    <Card>
+                      <CardMedia
+                        image={userDetails.image}
+                        title="profileImage"
+                        component="img"
+                        style={imageStyle
+                        }
+                      />
+                    </Card>
+                  </Grid>
+                  <Grid item xs={5} >
+                  <Grid container direction="column" >
+                    <div>&nbsp;</div>
+                      <Typography variant='h3' component='h2'>{userDetails.firstName} {userDetails.lastName}</Typography>
+                      <Divider/>
+                      <div>&nbsp;</div>
+                      <Typography variant='h6' component='span'><b>{userDetails.email}</b></Typography>
+                      <Typography variant='h6' component='div'>{userDetails.city}, {userDetails.province}</Typography>
+                      <Typography variant='h6' component='div'>{userDetails.country}</Typography>
+                    </Grid>
+                    <div>&nbsp;</div>
+                    <Button
                   size="large"
                   type="submit"
                   value="Submit"
@@ -178,6 +204,10 @@ export default function MyProfile() {
                 >
                   Edit
                 </Button>
+                  </Grid>
+
+                </Grid>
+            
               </>
             )}
             {errors &&
