@@ -8,7 +8,7 @@ import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 
 //Color variables
 const DEEPBLACK = "black";
-const OFFBLACK = "rgba(255,255,255,.05)";
+const OFFBLACK = "#1F1F1F";
 const LIGHT = "#FFFFFF";
 const GREY = "#999999";
 const GRADIENT = "linear-gradient(45deg, #ED6E23, #EDA224)";
@@ -59,6 +59,9 @@ export const darkTheme = createTheme({
 		subtitle1: {
 			color: GREY,
 		},
+		h2: {
+			color: LIGHT,
+		},
 		body2: {
 			color: `${GREY} !important`,
 		},
@@ -73,6 +76,17 @@ export const darkTheme = createTheme({
 			mainGradient: GRADIENT,
 		},
 	},
+	overrides: {
+		MuiOutlinedInput: {
+			input: {
+				"&:-webkit-autofill": {
+					"-webkit-box-shadow": "none",
+					"-webkit-text-fill-color": "#fff",
+				},
+			},
+		},
+	},
+
 	components: {
 		MuiPaper: {
 			styleOverrides: {
@@ -87,7 +101,7 @@ export const darkTheme = createTheme({
 					props: { color: "secondary", size: "small" },
 					style: {
 						textTransform: "none",
-						background: `linear-gradient(45deg, #ED6E23, #EDA224)`,
+						background: GRADIENT,
 						borderRadius: "60px",
 						color: "white",
 						padding: "0.4rem 2.3rem",
@@ -106,6 +120,14 @@ export const darkTheme = createTheme({
 					style: {
 						color: "hsla(0,0%,100%,0.4)",
 						background: "rgba(255,255,255,.05)",
+						padding: "0.4rem 2.3rem",
+					},
+				},
+				{
+					props: { color: "secondary", size: "large" },
+					style: {
+						color: LIGHT,
+						background: GRADIENT,
 						padding: "0.4rem 2.3rem",
 					},
 				},
