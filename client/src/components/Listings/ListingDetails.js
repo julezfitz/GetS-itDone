@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import UserRatingsModal from "../Ratings/UserRatings";
 import { formatDistance } from 'date-fns'
-import { Button, Alert } from "@mui/material";
+import { Button, Alert, Avatar, CardHeader } from "@mui/material";
 import Box from "@mui/material/Box";
 import { UserContext } from "../Application.js";
 import CurrencyFormat from 'react-currency-format';
@@ -74,10 +74,10 @@ export default function ListingDetails(props) {
 
   const handleOffer = (listingId) => {
     axios.post(`http://localhost:8001/offers`, { listingId: parseInt(listingId.target.value), bidderId: parseInt(userDetails.id) })
-    .then((result) => {
-      setCurrentOffer(props.listing);
-      getUserOffers();
-    })
+      .then((result) => {
+        setCurrentOffer(props.listing);
+        getUserOffers();
+      })
   }
 
   return (
@@ -125,10 +125,30 @@ export default function ListingDetails(props) {
               <Item>
                 <h3>Description</h3>
 
-                <Grid container spacing={3}>
+                <Grid container spacing={0}>
                   <Grid item xs={9}>
                     <p>{props.listing.description}</p>
-                    <h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4>
+                  </Grid>
+                  <Grid item xs={9} spacing={0} style={{ display: "flex", gap: "1rem" }} >
+
+                    <h4 xs={3}>Posted By:</h4>
+                    <CardHeader
+                      avatar={
+                        <Avatar
+                          alt="Profile Image"
+                          src={props.listing.image}
+                        />
+                      }
+                      title={`${props.listing.first_name} ${props.listing.last_name}`}
+                    />
+                    {/* <Box><h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4> 
+                    <Avatar
+							alt={userDetails.firstName}
+							src={userDetails.image}
+						/>
+            </Box> */}
+                  </Grid>
+                  <Grid Item>
                     <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
                       <Typography variant="string" component="div">&nbsp;</Typography>
                       <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />

@@ -93,6 +93,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		height: "100%",
 	};
 
+	console.log(listings);
 	return (
 		<Box className='search-view-wrapper' sx={wrapperStyle}>
 			{pending ? (
