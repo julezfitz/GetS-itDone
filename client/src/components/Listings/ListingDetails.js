@@ -126,38 +126,46 @@ export default function ListingDetails(props) {
                 <h3>Description</h3>
 
                 <Grid container spacing={0}>
+
                   <Grid item xs={9}>
                     <p>{props.listing.description}</p>
                   </Grid>
-                  <Grid item xs={9} spacing={0} style={{ display: "flex", gap: "1rem" }} >
 
+                </Grid>
+
+                <Grid container spacing={0} direction='row'>
+
+
+                  <Grid item xs={2} spacing={0} style={{ display: "flex" }} >
                     <h4 xs={3}>Posted By:</h4>
+                  </Grid>
+
+                  <Grid item xs={6} >
                     <CardHeader
-                      avatar={
-                        <Avatar
-                          alt="Profile Image"
-                          src={props.listing.image}
-                        />
-                      }
+                      avatar={<Avatar alt="Profile Image" src={props.listing.image}/>}
                       title={`${props.listing.first_name} ${props.listing.last_name}`}
                     />
-                    {/* <Box><h4>Poster: {props.listing.first_name} {props.listing.last_name}</h4> 
-                    <Avatar
-							alt={userDetails.firstName}
-							src={userDetails.image}
-						/>
-            </Box> */}
-                  </Grid>
-                  <Grid Item>
-                    <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
-                      <Typography variant="string" component="div">&nbsp;</Typography>
-                      <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
-                      <Typography variant="string" component="div">&nbsp;  (</Typography>
-                      <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
-                      <Typography variant="string" color="black" component="div">)</Typography>
+
+                    <Grid Item>
+                      <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
+                       
+                        {/* Please fix the spacing issue below if you know how */}
+                       
+                        <Typography variant="string" component="div"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</Typography>
+                        <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
+                        <Typography variant="string" component="div">&nbsp;  (</Typography>
+                        <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
+                        <Typography variant="string" color="black" component="div">)</Typography>
+                      </Grid>
+                      <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
                     </Grid>
-                    <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
+
                   </Grid>
+
+
+                </Grid>
+
+                <Grid container>
 
                   <Grid item xs={2}>
                     <Box m={-5} pt={-5}>
@@ -176,14 +184,16 @@ export default function ListingDetails(props) {
                       }
                     </Box>
                   </Grid>
-
                 </Grid>
+
+
 
               </Item>
             </Stack>
           </Drawer>
         </React.Fragment>
-      ))}
-    </div>
+      ))
+      }
+    </div >
   );
 }
