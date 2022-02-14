@@ -90,7 +90,7 @@ function NavRight({
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 						<Avatar
 							alt={userDetails.firstName}
-							src='/static/images/avatar/2.jpg'
+							src={userDetails.image}
 						/>
 					</IconButton>
 				</Tooltip>
