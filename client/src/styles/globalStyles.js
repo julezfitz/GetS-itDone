@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import Kobe from "../assets/fonts/Kobe.woff";
+import { DEEPBLACK, FOOTERHEIGHT } from "..";
 
 const GUTTER = "10vw";
 
@@ -49,12 +50,18 @@ h1, h2, h3, h4, h5 {
     height: 100%;
   }
 
-
-  .nav-offset {
-    margin-top: 4.3rem;
+  main {
+    min-height: 100vh;
+    background-color: rgba(17,17,17, 1);
+    padding-top: 4.3rem;
     width: 100%;
     height: 100%; 
+    margin-bottom: 100vh;
+    padding-bottom: 10rem;
+    box-shadow: -3px -5px 48px 4px rgba(0,0,0,.5);
   }
+
+
 
  
 `;

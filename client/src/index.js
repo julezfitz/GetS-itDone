@@ -7,11 +7,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 
 //Color variables
-const DEEPBLACK = "black";
-const OFFBLACK = "#1F1F1F";
-const LIGHT = "#FFFFFF";
-const GREY = "#999999";
-const GRADIENT = "linear-gradient(45deg, #ED6E23, #EDA224)";
+export const DEEPBLACK = "black";
+export const OFFBLACK = "#1F1F1F";
+export const LIGHT = "#FFFFFF";
+export const GREY = "#999999";
+export const GRADIENT = "linear-gradient(45deg, #ED6E23, #EDA224)";
+export const ORANGE = "#ED6E23";
+
+//Constants
+export const FOOTERHEIGHT = "80vh";
+export const TRANSITION = "300ms ease";
 
 //Our custom theme
 export const darkTheme = createTheme({
@@ -96,11 +101,27 @@ export const darkTheme = createTheme({
 	},
 
 	components: {
+		MuiBadge: {
+			styleOverrides: {
+				root: {
+					span: {
+						backgroundColor: ORANGE,
+					},
+				},
+			},
+		},
 		MuiOutlinedInput: {
 			styleOverrides: {
 				root: {
 					backgroundColor: OFFBLACK,
 					backgroundImage: "none",
+				},
+			},
+		},
+		MuiGrid: {
+			styleOverrides: {
+				root: {
+					transition: TRANSITION,
 				},
 			},
 		},
@@ -112,6 +133,7 @@ export const darkTheme = createTheme({
 				},
 			},
 		},
+
 		MuiAlert: {
 			styleOverrides: {
 				root: {
