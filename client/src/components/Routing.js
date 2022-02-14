@@ -46,9 +46,12 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 	return (
 		<>
 			{isLoggedIn && (
-				<Heading size='medium' className='page-heading' color="light">
-					{headingTitle}
-				</Heading>
+				<>
+					<Heading size='medium' className='page-heading' color='light' style={{marginBottom: 0}}>
+						{headingTitle}
+					</Heading>
+					<hr className="heading-divider" style={{marginBottom: "4rem"}}/>
+				</>
 			)}
 			<Routes>
 				<Route
@@ -77,7 +80,7 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 										justifyContent: "center",
 										marginBottom: "5rem",
 										position: "sticky",
-										top: "0"
+										top: "0",
 									}}
 								>
 									Browse listings

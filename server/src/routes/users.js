@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+const { query } = require("express");
 // const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
@@ -82,24 +83,6 @@ module.exports = db => {
 			}
 		});
 	});
-
-	// router.get(
-	// 	"/user/google",
-	// 	passport.authenticate("google", { scope: ["email", "profile"] })
-	// );
-
-	// router.get(
-	// 	"/user/google/callback",
-	// 	passport.authenticate("google", {
-	// 		successRedirect: "http://localhost:8001/user/session",
-	// 		failureRedirect: "http://localhost:8001/user/session",
-	// 		failureMessage:
-	// 			"Cannot authenticate with Google, please try again later.",
-	// 	}),
-	// 	req => {
-	// 		console.log(req);
-	// 	}
-	// );
 
 	//User attempts to log out
 	router.post("/user/logout", (req, res) => {
@@ -259,7 +242,7 @@ module.exports = db => {
 			if (!user.rows[0]) {
 				res.status(404).send("User not found");
 				return;
-			} 
+			}
 			getUser = user.rows[0];
 			db.query(
 				`
@@ -267,21 +250,22 @@ module.exports = db => {
 				ROUND(AVG(rating)) AS averagerating
 				FROM user_ratings
 				WHERE ratee_id = $1;
-			`,[userId]
+			`,
+				[userId]
 			).then(ratingInfo => {
 				let user = {
-					"id": getUser.id,
-					"firstName": getUser.first_name,
-					"lastName": getUser.last_name,
-					"email": getUser.email,
-					"password": getUser.password,
-					"city": getUser.city,
-					"province": getUser.province,
-					"postalCode": getUser.postal_code,
-					"country": getUser.country,
-					"image": getUser.image,
-					"ratings": ratingInfo.rows
-				}
+					id: getUser.id,
+					firstName: getUser.first_name,
+					lastName: getUser.last_name,
+					email: getUser.email,
+					password: getUser.password,
+					city: getUser.city,
+					province: getUser.province,
+					postalCode: getUser.postal_code,
+					country: getUser.country,
+					image: getUser.image,
+					ratings: ratingInfo.rows,
+				};
 				res.send({ user });
 			});
 		});
@@ -303,10 +287,16 @@ module.exports = db => {
 		} = req.body;
 
 		let queryString = [];
-		const queryParams = Object.values(req.body);
+
+		const hashedPassword = bcrypt.hashSync(password, 12);
+		let values = Object.values(req.body);
+		const passwordIndex = values.indexOf(password);
+		values[passwordIndex] = hashedPassword;
+		const queryParams = values;
 
 		Object.keys(req.body).forEach((key, i) => {
 			key = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+
 			queryString.push(`${key} = $${(i += 1)}`);
 		});
 
@@ -314,7 +304,6 @@ module.exports = db => {
 			"UPDATE users SET " +
 			queryString.join(", ") +
 			` WHERE id = ${userId} RETURNING *;`;
-		console.log(queryString);
 
 		db.query(queryString, queryParams).then(user => {
 			if (!user.rows.length) {
@@ -323,6 +312,7 @@ module.exports = db => {
 			}
 
 			const updatedUser = user.rows[0];
+			console.log(updatedUser);
 			res.send({
 				success: {
 					updatedUser: updatedUser,

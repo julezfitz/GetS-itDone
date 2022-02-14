@@ -7,7 +7,7 @@ module.exports = db => {
     router.get("/listings", (request, response) => {
         const { keywords, category, creatorId, orderBy, sortOrder } = request.query;
 
-        let queryString = `SELECT listings.*, users.first_name, users.last_name, users.id as user_id, categories.category 
+        let queryString = `SELECT listings.*, users.first_name, users.image, users.last_name, users.id as user_id, categories.category 
         FROM listings
         JOIN listing_categories ON (listings.id = listing_categories.listing_id)
         JOIN categories ON (categories.id = listing_categories.category_id) 
@@ -95,7 +95,7 @@ module.exports = db => {
     router.get("/listings/:listingId/offers", (request, response) => {
         let listingQueryString = `SELECT * FROM listings WHERE id = ${request.params.listingId};`
         let offersQueryString = `SELECT offers.id as offerId, offers.bidder_id as bidderid, offers.accepted, offers.pending, users.first_name as firstName,
-        users.last_name as lastName, users.email, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
+        users.last_name as lastName, users.image, users.email, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
         FROM offers
         JOIN users ON offers.bidder_id = users.id
         JOIN user_ratings ON users.id = user_ratings.ratee_id
@@ -121,6 +121,7 @@ module.exports = db => {
                         "bidderId": ratingObj.bidderid,
                         "firstName": ratingObj.firstname,
                         "lastName": ratingObj.lastname,
+                        "profileImage": ratingObj.image,
                         "email": ratingObj.email,
                         "averageRating": averageRating,
                         "ratingCount": ratingCount,
