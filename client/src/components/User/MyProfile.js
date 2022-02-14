@@ -16,28 +16,28 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function MyProfile() {
-  const { userDetails } = useContext(UserContext);
+  const { userDetails, refreshUserDetails } = useContext(UserContext);
 
-  const [updateState, setUpdateState] = useState({
-    firstName: userDetails.firstName,
-    lastName: userDetails.lastName,
-    email: userDetails.email,
-    city: userDetails.city,
-    province: userDetails.province,
-    postalCode: userDetails.postalCode,
-    country: userDetails.country,
-    password: "",
-    image: "",
-  });
+  // const [updateState, setUpdateState] = useState({
+  //   firstName: userDetails.firstName,
+  //   lastName: userDetails.lastName,
+  //   email: userDetails.email,
+  //   city: userDetails.city,
+  //   province: userDetails.province,
+  //   postalCode: userDetails.postalCode,
+  //   country: userDetails.country,
+  //   password: "",
+  //   image: "",
+  // });
 
   const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState(false);
   const [errors, setErrors] = useState(null);
 
-  const handleChange = (e) => {
-    setErrors(null);
-    setUpdateState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  // const handleChange = (e) => {
+  //   setErrors(null);
+  //   setUpdateState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  // };
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
@@ -47,21 +47,25 @@ export default function MyProfile() {
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    axios
+      .put(`http://localhost:8001/user/${userDetails.id}`, {
+        firstName: e.target.elements.firstName.value,
+        lastName: e.target.elements.lastName.value,
+        email: e.target.elements.email.value,
+        password: e.target.elements.password.value,
+        city: e.target.elements.city.value,
+        province: e.target.elements.province.value,
+        postalCode: e.target.elements.postalCode.value,
+        country: e.target.elements.country.value,
+      })
+      .then((res) => {
+        refreshUserDetails();
+        // 	res.data.registration.errors.length >= 1 &&
+        // 		setErrors(res.data.registration.errors);
+      })
+      .catch((err) => setErrors(err))
+      .finally(setLoading(false), setUpdate(false));
   };
-
-  useEffect(() => {
-    if (loading) {
-      axios
-        .put(`http://localhost:8001/user/${userDetails.id}`, updateState)
-        .then((res) => {
-          console.log(res);
-          // 	res.data.registration.errors.length >= 1 &&
-          // 		setErrors(res.data.registration.errors);
-        })
-        .catch((err) => setErrors(err))
-        .finally(setLoading(false), setUpdate(false));
-    }
-  }, [loading]);
 
   return (
     <Item className="search-results">
@@ -79,73 +83,65 @@ export default function MyProfile() {
                 <div>
                   <TextField
                     required
-                    id="outlined-required"
+                    id="1p"
                     label="First Name"
                     name="firstName"
-                    value={updateState.firstName}
-                    onChange={handleChange}
+                    defaultValue={userDetails.firstName}
                   />
                   <TextField
                     required
-                    id="outlined-required"
+                    id="2p"
                     label="Last Name"
                     name="lastName"
-                    value={updateState.lastName}
-                    onChange={handleChange}
+                    defaultValue={userDetails.lastName}
                   />
                   <TextField
                     required
-                    id="outlined-required"
+                    id="3p"
                     label="Email"
                     name="email"
-                    value={updateState.email}
-                    onChange={handleChange}
+                    defaultValue={userDetails.email}
                   />
                   <TextField
                     required
-                    id="outlined-required"
+                    id="4p"
                     label="Password"
                     name="password"
-                    value={updateState.password}
-                    onChange={handleChange}
+                    type="password"
+                    defaultValue={userDetails.password}
                   />
                   <TextField
                     required
-                    id="outlined-required"
+                    id="5p"
                     label="City"
                     name="city"
-                    value={updateState.city}
-                    onChange={handleChange}
+                    defaultValue={userDetails.city}
                   />
                   <TextField
                     required
-                    id="outlined-required"
+                    id="6p"
                     label="Province"
                     name="province"
-                    value={updateState.province}
-                    onChange={handleChange}
+                    defaultValue={userDetails.province}
                   />
                   <TextField
                     required
-                    id="outlined-required"
+                    id="7p"
                     label="Postal Code"
                     name="postalCode"
-                    value={updateState.postalCode}
-                    onChange={handleChange}
+                    defaultValue={userDetails.postalCode}
                   />
                   <TextField
                     required
-                    id="outlined-required"
+                    id="8p"
                     label="Country"
                     name="country"
-                    value={updateState.country}
-                    onChange={handleChange}
+                    defaultValue={userDetails.country}
                   />
                   <TextField
-                    id="outlined-required"
+                    id="9p"
                     label="Profile Picture"
-                    name={updateState.image}
-                    onChange={handleChange}
+                    defaultValue={userDetails.image}
                   />
                 </div>
                 <Button

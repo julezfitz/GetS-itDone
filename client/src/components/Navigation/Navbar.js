@@ -57,6 +57,8 @@ export default function ResponsiveAppBar(props) {
   const [newRatingOpen, setNewRatingOpen] = useState(false);
 
   const { isLoggedIn, userDetails, toggleLoggedIn } = useContext(UserContext);
+  console.log(isLoggedIn);
+  console.log(userDetails);
 
   const handleRegisterOpen = () => setRegisterOpen(true);
   const handleRegisterClose = () => setRegisterOpen(false);

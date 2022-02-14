@@ -26,12 +26,27 @@ export default function Application() {
 		offers: []
 	});
 
+	//function to update user details when the user updates their profile
+	const refreshUserDetails = (id) => {
+		const userId = id ?? globalState.user?.details?.id;
+		return axios.get(`http://localhost:8001/user/${userId}`)
+			.then((results) => {
+				setGlobalState(prev => ({
+					...prev,
+					user: {
+						...prev.user, 
+						details: results.data.user,
+					},
+				}))
+			});
+	};
+
 	const toggleLoggedIn = userDetails => {
 		setGlobalState(prev => ({
 			...prev,
 			user: {
+				...prev.user,
 				isLoggedIn: !globalState.user.isLoggedIn,
-				details: userDetails,
 			},
 		}));
 	};
@@ -51,7 +66,8 @@ export default function Application() {
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
 		offers: globalState.offers,
-		getUserOffers
+		getUserOffers,
+		refreshUserDetails,
 	};
 
 	useEffect(() => {
@@ -61,7 +77,7 @@ export default function Application() {
 		if (!globalState.user.isLoggedIn) {
 			axios
 				.get(`http://localhost:8001/user/session`)
-				.then(res => res.data.isAuthenticated && toggleLoggedIn(res.data.user))
+				.then(res => res.data.isAuthenticated && refreshUserDetails(res.data.user.id).then(toggleLoggedIn))
 				.catch(err => console.log(err));
 		}
 	}, []);
