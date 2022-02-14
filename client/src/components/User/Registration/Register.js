@@ -162,7 +162,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							placeholder='First Name'
 							required
-							id='outlined-required'
+							id='r1outlined-required'
 							label='First Name'
 							value={registerState.firstName.value}
 							onChange={handleChange}
@@ -177,7 +177,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							required
 							placeholder='Last Name'
-							id='outlined-required'
+							id='r2outlined-required'
 							label='Last Name'
 							name='lastName'
 							value={registerState.lastName.value}
@@ -195,7 +195,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='Email'
 							fullWidth
 							required
-							id='outlined-required'
+							id='r3outlined-required'
 							label='Email'
 							name='email'
 							value={registerState.email.value}
@@ -212,7 +212,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							placeholder='Password'
 							required
-							id='outlined-password-input'
+							id='outlined-password-input3'
 							label='Password'
 							type='password'
 							autoComplete='current-password'
@@ -229,7 +229,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							placeholder='Confirm Password'
 							required
-							id='outlined-password-input'
+							id='outlined-password-input4'
 							label='Password Confirmation'
 							type='password'
 							autoComplete='current-password'
@@ -248,7 +248,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							placeholder='City'
 							required
-							id='outlined-required'
+							id='r5outlined-required'
 							label='City/Town'
 							name='city'
 							value={registerState.city.value}
@@ -263,7 +263,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							placeholder='Province'
 							required
-							id='outlined-required'
+							id='r6outlined-required'
 							label='Province'
 							name='province'
 							value={registerState.province.value}
@@ -280,7 +280,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							placeholder='Postal Code'
 							required
-							id='outlined-required'
+							id='r7outlined-required'
 							label='Postal Code'
 							name='postalCode'
 							value={registerState.postalCode.value}
@@ -295,7 +295,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 						<TextField
 							placeholder='Country'
 							required
-							id='outlined-required'
+							id='r8outlined-required'
 							label='Country'
 							name='country'
 							value={registerState.country.value}
