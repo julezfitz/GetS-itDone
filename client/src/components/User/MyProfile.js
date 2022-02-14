@@ -52,7 +52,7 @@ export default function MyProfile() {
   useEffect(() => {
     if (loading) {
       axios
-        .put(`http://localhost:8001/user?userId=${userDetails.id}`, updateState)
+        .put(`http://localhost:8001/user/${userDetails.id}`, updateState)
         .then((res) => {
           console.log(res);
           // 	res.data.registration.errors.length >= 1 &&
