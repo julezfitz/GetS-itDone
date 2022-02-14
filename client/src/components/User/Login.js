@@ -24,7 +24,7 @@ const style = {
 const ELEMENTSPACING = "1rem";
 
 export default function LoginModal({ open, handleClose }) {
-	const { toggleLoggedIn, isLoggedIn } = useContext(UserContext);
+	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } = useContext(UserContext);
 
 	const [value, setValue] = useState({
 		email: "",
@@ -43,9 +43,8 @@ export default function LoginModal({ open, handleClose }) {
 				.then(response => {
 					const errors = response.data.authentication.errors;
 					const isAuthenticated = response.data.authentication.isAuthenticated;
-					const userDetails = response.data.authentication.user;
-					isAuthenticated && toggleLoggedIn(userDetails);
-					errors.length >= 0 && setErrors(errors);
+					if (errors && errors.length >= 0) setErrors(errors);
+					if (isAuthenticated) return refreshUserDetails(response.data.authentication.user.id).then(toggleLoggedIn)
 				})
 				.catch(err => {
 					console.log(err);
