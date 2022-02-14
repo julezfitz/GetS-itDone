@@ -17,7 +17,7 @@ function Chips({
 	};
 
 	return (
-		<Box sx={{ mt: 2, display: "flex", width: "100%", flexWrap: "wrap"}}>
+		<Box sx={{ mt: 2, display: "flex", width: "100%", flexWrap: "wrap" }}>
 			{categories.length ? (
 				categories.map(category => {
 					return (
@@ -28,10 +28,10 @@ function Chips({
 								m: 1,
 								ml: 0,
 								transition: "300ms ease",
-								'&:hover': {
+								"&:hover": {
 									backgroundColor: "white !important",
 									color: "black",
-								}
+								},
 							}}
 							label={category.category}
 							key={category.id}
@@ -54,8 +54,17 @@ function Chips({
 			)}
 			<Button
 				variant='contained'
-				color="secondary"
-				sx={{ textTransform: "none", m: elementSpacing, ml: 0, display: "block" }}
+				color='secondary'
+				sx={{
+					textTransform: "none",
+					m: elementSpacing,
+					ml: 0,
+					display: "block",
+					transition: "300ms ease",
+					"&:hover": {
+						opacity: 0.7
+					}
+				}}
 				size='small'
 				onClick={handleClearSelection}
 			>
