@@ -67,9 +67,14 @@ export const darkTheme = createTheme({
 		},
 	},
 	palette: {
+		text: {
+			primary: LIGHT,
+			secondary: GREY
+		},
 		mode: "dark",
 		primary: {
 			main: OFFBLACK,
+			grey: GREY,
 		},
 		secondary: {
 			main: "#ED6E23",
@@ -110,7 +115,7 @@ export const darkTheme = createTheme({
 				{
 					props: { variant: "naked" },
 					style: {
-						color: "black",
+						color: "white",
 						backgroundColor: "none",
 						padding: "0px",
 					},

@@ -4,11 +4,16 @@ import Kobe from "../assets/fonts/Kobe.woff";
 const GUTTER = "10vw";
 
 export const GlobalStyles = createGlobalStyle`
+
+h1, h2, h3, h4, h5 {
+  color: white;
+}
   
 @font-face {
   font-family: 'Kobe',
   src: url(${Kobe})format('woff');
 }
+
 
 
   
