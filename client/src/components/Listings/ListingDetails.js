@@ -148,7 +148,7 @@ export default function ListingDetails(props) {
                         (<Button
                           size={"small"}
                           type='submit'
-                          color='primary'
+                          color='secondary'
                           variant='contained'
                           value={props.listing.id}
                           onClick={handleOffer}
