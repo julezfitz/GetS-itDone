@@ -8,6 +8,7 @@ import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
 import RegisterModal from "./User/Registration/Register";
 import LoginModal from "./User/Login";
+import LoadingScreen from "./Loading/LoadingScreen";
 
 export const UserContext = createContext();
 
@@ -21,6 +22,7 @@ export default function Application() {
 
 	const [globalState, setGlobalState] = useState({
 		user: {
+			pending: true,
 			entries: {
 				currentModal: null,
 			},
@@ -31,18 +33,17 @@ export default function Application() {
 	});
 
 	//function to update user details when the user updates their profile
-	const refreshUserDetails = (id) => {
+	const refreshUserDetails = id => {
 		const userId = id ?? globalState.user?.details?.id;
-		return axios.get(`http://localhost:8001/user/${userId}`)
-			.then((results) => {
-				setGlobalState(prev => ({
-					...prev,
-					user: {
-						...prev.user, 
-						details: results.data.user,
-					},
-				}))
-			});
+		return axios.get(`http://localhost:8001/user/${userId}`).then(results => {
+			setGlobalState(prev => ({
+				...prev,
+				user: {
+					...prev.user,
+					details: results.data.user,
+				},
+			}));
+		});
 	};
 
 	const toggleLoggedIn = userDetails => {
@@ -54,6 +55,7 @@ export default function Application() {
 					currentModal: null,
 				},
 				isLoggedIn: !globalState.user.isLoggedIn,
+				pending: false,
 			},
 		}));
 	};
@@ -80,6 +82,7 @@ export default function Application() {
 				},
 				isLoggedIn: prev.user.isLoggedIn,
 				details: prev.user.details,
+				pending: prev.user.pending,
 			},
 		}));
 	};
@@ -103,13 +106,23 @@ export default function Application() {
 	};
 
 	useEffect(() => {
-		// setPending(globalState.user.isLoggedIn ? false : true);
+		// setPending(globalSxtate.user.isLoggedIn ? false : true);
 
 		//Initial check to see if a cookie is set, change user state according to response
 		if (!globalState.user.isLoggedIn) {
 			axios
 				.get(`http://localhost:8001/user/session`)
-				.then(res => res.data.isAuthenticated && refreshUserDetails(res.data.user.id).then(toggleLoggedIn))
+				.then(res =>
+					res.data.isAuthenticated
+						? refreshUserDetails(res.data.user.id).then(toggleLoggedIn)
+						: setGlobalState(prev => ({
+								...prev,
+								user: {
+									...prev.user,
+									pending: false,
+								},
+						  }))
+				)
 				.catch(err => console.log(err));
 		}
 	}, []);
@@ -124,6 +137,7 @@ export default function Application() {
 	return (
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
+			<LoadingScreen isActive={globalState.user.pending} />
 			<div className='modals'>
 				<LoginModal
 					open={globalState.user.entries.currentModal === "logIn"}
