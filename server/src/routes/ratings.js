@@ -19,10 +19,10 @@ module.exports = db => {
                             "raterid": ratingObj.raterid,
                             "firstName": ratingObj.first_name,
                             "lastName": ratingObj.last_name,
+                            "profileImage": ratingObj.image,
                         },
                         "rateeId": ratingObj.ratee_id,
                         "rating": ratingObj.rating,
-                        "profileImage": ratingObj.image,
                         "comment": ratingObj.comment,
                         "created": ratingObj.created
                     }
