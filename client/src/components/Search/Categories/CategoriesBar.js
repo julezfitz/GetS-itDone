@@ -30,13 +30,12 @@ function CategoriesBar({
 	return (
 		<>
 			<Box style={barStyle}>
-				<Grid container direction='column' spacing={3}>
+				<Grid container direction='column' spacing={1}>
 
 					<Grid item style={{ display: "flex", gap: "1rem" }}>
 						<Box style={{ width: "100%" }}>
-						<Typography sx={{ color: "white" }}>Sort by</Typography>
 							<FormControl size='string' style={{ width: "55%" }}>
-								<InputLabel id="sortby-label">Sort by</InputLabel>
+								<InputLabel id="sortby-label">Sort Results</InputLabel>
 								<Select
 									labelId="sortby-label"
 									id="demo-simple-select"
@@ -52,7 +51,7 @@ function CategoriesBar({
 								</Select>
 								</FormControl>
 								<FormControl size='string' style={{ width: "35%", marginLeft:'1em' }}>
-								<InputLabel id="orderby-label">Order by</InputLabel>
+								<InputLabel id="orderby-label">Order</InputLabel>
 								<Select
 									labelId="orderby-label"
 									id="demo-simple-select"
