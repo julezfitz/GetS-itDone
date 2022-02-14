@@ -23,6 +23,8 @@ function Chips({
 					return (
 						<Chip
 							sx={{
+								border: "1px solid white",
+								color: "white",
 								m: 1,
 								ml: 0,
 								transition: "300ms ease",
@@ -52,6 +54,7 @@ function Chips({
 			)}
 			<Button
 				variant='contained'
+				color="secondary"
 				sx={{ textTransform: "none", m: elementSpacing, ml: 0, display: "block" }}
 				size='small'
 				onClick={handleClearSelection}
