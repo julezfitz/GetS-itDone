@@ -25,12 +25,14 @@ function Chips({
 							<Chip
 								sx={{
 									border: "1px solid white",
+									opacity: 0.5,
 									color: "white",
 									m: 1,
 									ml: 0,
 									transition: "300ms ease",
 									"&:hover": {
 										backgroundColor: "white !important",
+										opacity: 1
 									},
 									"&:hover span": {
 										color: "black",
