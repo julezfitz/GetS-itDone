@@ -4,7 +4,6 @@ const cors = require("cors");
 const express = require("express");
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const session = require("express-session");
 const swaggerUi = require("swagger-ui-express");
 const app = express();
 const OpenApiValidator = require("express-openapi-validator");
@@ -16,14 +15,16 @@ module.exports = function application(ENV) {
 
 	//Configure cors to allow for front end to access cookies
 
-	app.options("*", cors());
-	const corsOptions = {
-		origin: "*",
-		optionsSuccessStatus: 200,
-		methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-	};
-
-	app.use(cors(corsOptions));
+	app.use(
+		cors({
+			origin: [
+				"http://localhost:3000",
+				"http://localhost:3001",
+				"http://localhost:3002",
+			],
+			credentials: true,
+		})
+	);
 
 	app.use(cookieParser("userSession"));
 

@@ -13,7 +13,7 @@ export const UserContext = createContext();
 
 export default function Application() {
 	//Do not remove - allows axios to receive cookies
-	// axios.defaults.withCredentials = true;
+	axios.defaults.withCredentials = true;
 
 	//pending: true while we wait for server to respond with essential data - (do not load components until everything is in place)
 	//isLoggedIn: represents the user's logged in state
