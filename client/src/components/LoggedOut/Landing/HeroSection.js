@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { StyledHero } from "../styles/styles";
 import gsap from "gsap";
-import Scene from "./Spline/Scene";
-import { Button } from "@mui/material";
+import Scene from "./three/Scene";
+import { Box } from "@mui/material";
+import Typewriter from "typewriter-effect";
 
 function HeroSection({ toggleRegister }) {
 	const marqueeRefs = useRef([]);
@@ -10,18 +11,29 @@ function HeroSection({ toggleRegister }) {
 	return (
 		<StyledHero className='heroSection'>
 			<div className='hero-inner'>
-				<div className='hero-text'>
-					<span className='accent'>Hi</span>, we're get shit done
-				</div>
+				<Typewriter
+					onInit={typewriter => {
+						typewriter
+
+							.typeString("Get shit accomplished.")
+							.pauseFor(1500)
+							.deleteChars(13)
+							.typeString("managed.")
+							.pauseFor(1500)
+							.deleteChars(8)
+							.typeString("delivered.")
+							.pauseFor(1500)
+							.deleteChars(10)
+							.typeString("done.")
+							.start();
+					}}
+					options={{
+						autoStart: true,
+						deleteSpeed: 4,
+					}}
+				/>
+
 				<Scene />
-				<Button
-					size='large'
-					variant='contained'
-					sx={{ textTransform: "none" }}
-					onClick={toggleRegister}
-				>
-					Start now for free
-				</Button>
 			</div>
 		</StyledHero>
 	);

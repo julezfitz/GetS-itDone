@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import SearchListItem from "./SearchListItem";
@@ -19,17 +19,40 @@ import { Grid, Item } from "@mui/material";
 export default function SearchList({ keywords, listings }) {
 	const [listing, setListing] = useState({});
 
-	const handleListingChange = e => {
+	const handleListingChange = (e, i) => {
 		setListing(e);
 	};
 
 	return (
 		<Box className='search-results' sx={{ width: "100%" }}>
 			<ListingDetails listing={listing} className='search-results__item'>
-				<Grid container spacing={2}>
-					{listings.map(listing => {
+				<Grid
+					container
+					spacing={4}
+					sx={{
+						transition: "300ms ease",
+						"&:hover > .MuiGrid-item": {
+							opacity: 0.5,
+							
+						},
+
+						".MuiGrid-item:hover": {
+							opacity: 1,
+						},
+						".MuiGrid-item:hover .MuiTypography-root": {
+							color: "white !important"
+						},
+					}}
+				>
+					{listings.map((listing, i) => {
 						return (
-							<Grid item xs={12} md={12} lg={6} key={Math.random().toString(36).substr(2, 9)}>
+							<Grid
+								item
+								xs={12}
+								md={12}
+								lg={6}
+								key={Math.random().toString(36).substr(2, 9)}
+							>
 								<SearchListItem
 									key={Math.random().toString(36).substr(2, 9)}
 									onChoice={handleListingChange}

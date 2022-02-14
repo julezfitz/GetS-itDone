@@ -27,7 +27,7 @@ export default function OfferQuickView(props) {
             <Chip label="Offer Accepted" color="success" variant="outlined" />
             : (props.offer.pending ?
               <Chip label="Pending" color="warning" variant="outlined" />
-              : <Chip label="Rejected" color="danger" variant="outlined" />)}
+              : <Chip label="Rejected" color="error" variant="outlined" />)}
         </h3>
         </Item>
       </Stack>

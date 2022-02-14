@@ -21,9 +21,10 @@
     "express-openapi-validator": "^4.13.5",
     "express-session": "^1.17.2",
     "http-errors": "^2.0.0",
+    "http-proxy-middleware": "^2.0.3",
     "nodemon": "^2.0.15",
-    "passport": "^0.5.2",
-    "passport-local": "^1.0.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-google-oidc": "^0.1.0",
     "pg": "^8.5.0",
     "swagger-ui-express": "^4.3.0",
     "ws": "^7.0.0"

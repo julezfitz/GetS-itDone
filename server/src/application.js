@@ -4,9 +4,7 @@ const cors = require("cors");
 const express = require("express");
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const session = require("express-session");
 const swaggerUi = require("swagger-ui-express");
-const passport = require("passport");
 const app = express();
 const OpenApiValidator = require("express-openapi-validator");
 const cookieSession = require("cookie-session");
@@ -16,6 +14,7 @@ module.exports = function application(ENV) {
 	app.use(bodyparser.json());
 
 	//Configure cors to allow for front end to access cookies
+
 	app.use(
 		cors({
 			origin: [
@@ -27,7 +26,7 @@ module.exports = function application(ENV) {
 		})
 	);
 
-	app.use(cookieParser());
+	app.use(cookieParser("userSession"));
 
 	app.use(
 		cookieSession({
@@ -43,7 +42,7 @@ module.exports = function application(ENV) {
 		swaggerUi.setup(require("./openapi-spec"))
 	);
 
-	//openapi validation middleware
+	// openapi validation middleware
 	app.use(
 		OpenApiValidator.middleware({
 			apiSpec: require("./openapi-spec"),
@@ -68,11 +67,6 @@ module.exports = function application(ENV) {
 			errors: err.errors,
 		});
 	});
-
-	//Passport config
-	require("./config/passport")(passport, db);
-	app.use(passport.initialize());
-	app.use(passport.session());
 
 	app.close = function () {
 		return db.end();

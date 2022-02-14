@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import HeroSection from "./HeroSection";
 import { StyledLoggedOutHome } from "../styles/styles";
-import RegisterModal from "../../User/Register";
+import RegisterModal from "../../User/Registration/Register";
 
 function LoggedOutHome() {
 	const [isRegisterOpen, setRegisterOpen] = useState(false);
