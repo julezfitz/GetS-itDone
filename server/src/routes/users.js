@@ -83,10 +83,11 @@ module.exports = db => {
 		});
 	});
 
-	// router.get(
-	// 	"/user/google",
-	// 	passport.authenticate("google", { scope: ["email", "profile"] })
-	// );
+	router.post("/user/google", (req, res) => {
+		const {googleResponse} = req.body;
+
+		console.log(googleResponse.location)
+	})
 
 	// router.get(
 	// 	"/user/google/callback",

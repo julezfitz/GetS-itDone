@@ -30,8 +30,6 @@ const style = {
 	borderRadius: "10px",
 };
 
-
-
 const blurCircleStyle = {
 	width: "17rem",
 	height: "17rem",
@@ -135,6 +133,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 							Log in to GSD
 						</Typography>
 						<Typography id='modal-modal-description' sx={{ mt: 2 }}>
+							<GoogleButton />
 							<Box
 								component='form'
 								sx={{ "& .MuiTextField-root": { m: 1 }, padding: "30px" }}

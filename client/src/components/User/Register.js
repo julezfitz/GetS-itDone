@@ -175,7 +175,7 @@ export default function RegisterModal({ open, handleClose }) {
 								onChange={handleChange}
 							/>
 						</FormControl>
-
+				
 						<Button
 							size='large'
 							variant='contained'
