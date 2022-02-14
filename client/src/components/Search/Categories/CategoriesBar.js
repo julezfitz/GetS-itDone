@@ -48,7 +48,7 @@ function CategoriesBar({
 									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='price'>
 										Price
 									</MenuItem>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='date'>
+									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='created'>
 										Date Listed
 									</MenuItem>
 								</Select>
@@ -62,10 +62,10 @@ function CategoriesBar({
 									defaultValue=''
 									onChange={handleOrderChange}
 								>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='desc'>
+									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='asc'>
 										Ascending
 									</MenuItem>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='asc'>
+									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='desc'>
 										Descending
 									</MenuItem>
 								</Select>
