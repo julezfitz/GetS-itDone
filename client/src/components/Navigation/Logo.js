@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Tooltip, IconButton, Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import logo from "../../logo.png";
+import logo from "../../logo-white.png";
 
 function Logo() {
   return (
