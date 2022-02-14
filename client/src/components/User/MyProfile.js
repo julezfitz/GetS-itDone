@@ -66,7 +66,7 @@ export default function MyProfile() {
   return (
     <Item className="search-results">
       <Box>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <Typography component={'span'} id="modal-modal-description" sx={{ mt: 2 }}>
           <Box
             component="form"
             onSubmit={update ? handleUpdateSubmit : handleEditSubmit}

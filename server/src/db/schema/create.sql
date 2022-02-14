@@ -22,18 +22,6 @@ CREATE TABLE users (
 );
 ALTER SEQUENCE users_id_seq RESTART WITH 1000;
 
-CREATE TABLE google_users (
-  id TEXT NOT NULL,
-  first_name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  city VARCHAR(255) NOT NULL,
-  province VARCHAR(255) NOT NULL,
-  postal_code VARCHAR(255) NOT NULL,
-  country VARCHAR(255) NOT NULL,
-  image VARCHAR(255)
-); 
-
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY NOT NULL,
   category VARCHAR(255) NOT NULL

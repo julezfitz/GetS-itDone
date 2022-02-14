@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 import Rating from "@mui/material/Rating";
 import { Button, Alert } from "@mui/material";
 import UserRatingsModal from "../Ratings/UserRatings";
@@ -35,10 +36,10 @@ export default function OffersListItem(props) {
               {offer.firstName} {offer.lastName}
             </Typography>
             <Typography variant="body2" component={'span'} gutterBottom>
-              <Grid container={true} onClick={handleUserRatingsOpen}>
+              <Grid container={true} >
                 <Rating name="user-rating" size="small" value={parseInt(offer.averageRating)} readOnly />
                 <Typography variant="string" component="div">&nbsp;  (</Typography>
-                <Typography variant="string" color="blue" component="div">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Typography>
+                <Link onClick={handleUserRatingsOpen} variant="string" component="button">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Link>
                 <Typography variant="string" color="black" component="div">)</Typography>
               </Grid>
               <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer} />
