@@ -18,30 +18,32 @@ import { Grid, Item } from "@mui/material";
 
 export default function SearchList({ keywords, listings }) {
 	const [listing, setListing] = useState({});
-	const [hovered, setHovered] = useState(null);
-
-	useEffect(() => {
-		console.log(hovered);
-	}, [hovered]);
 
 	const handleListingChange = (e, i) => {
 		setListing(e);
 	};
 
-	const handleMouseEnter = (e, i) => {
-		setHovered({
-			id: i,
-		});
-	};
-
-	const handleMouseLeave = e => {
-		setHovered(null);
-	};
-
 	return (
 		<Box className='search-results' sx={{ width: "100%" }}>
 			<ListingDetails listing={listing} className='search-results__item'>
-				<Grid container spacing={4}>
+				<Grid
+					container
+					spacing={4}
+					sx={{
+						transition: "300ms ease",
+						"&:hover > .MuiGrid-item": {
+							opacity: 0.5,
+							
+						},
+
+						".MuiGrid-item:hover": {
+							opacity: 1,
+						},
+						".MuiGrid-item:hover .MuiTypography-root": {
+							color: "white !important"
+						},
+					}}
+				>
 					{listings.map((listing, i) => {
 						return (
 							<Grid
@@ -55,7 +57,6 @@ export default function SearchList({ keywords, listings }) {
 									key={Math.random().toString(36).substr(2, 9)}
 									onChoice={handleListingChange}
 									listing={listing}
-									id={i}
 								/>
 							</Grid>
 						);
