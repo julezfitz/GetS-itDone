@@ -113,6 +113,8 @@ export default function Application() {
 	};
 
 	useEffect(() => {
+		window.scrollTo({ top: 0 });
+
 		// setPending(globalSxtate.user.isLoggedIn ? false : true);
 
 		//Initial check to see if a cookie is set, change user state according to response

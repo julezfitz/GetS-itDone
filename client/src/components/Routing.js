@@ -47,20 +47,20 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 
 	return (
 		<>
-			<AnimatePresence exitBeforeEnter>
-				{isLoggedIn && (
-					<>
-						<Heading
-							size='medium'
-							className='page-heading'
-							color='light'
-							style={{ marginBottom: 0 }}
-						>
-							{headingTitle}
-						</Heading>
-						<hr className='heading-divider' style={{ marginBottom: "4rem" }} />
-					</>
-				)}
+			{isLoggedIn && (
+				<>
+					<Heading
+						size='medium'
+						className='page-heading'
+						color='light'
+						style={{ marginBottom: 0, marginTop: "2rem" }}
+					>
+						{headingTitle}
+					</Heading>
+					<hr style={{ marginBottom: "5rem", marginTop: "1rem" }}></hr>
+				</>
+			)}
+			<AnimatePresence exitBeforeEnter initial={false}>
 				<Routes location={location} key={location.pathname}>
 					<Route
 						path='/'

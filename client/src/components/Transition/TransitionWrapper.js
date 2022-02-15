@@ -7,7 +7,11 @@ function TransitionWrapper({ children, location }) {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-		>{children}</motion.div>
+			transition={{ duration: 0.5 }}
+			style={{ minHeight: "100vh" }}
+		>
+			{children}
+		</motion.div>
 	);
 }
 
