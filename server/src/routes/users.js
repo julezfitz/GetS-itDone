@@ -52,6 +52,7 @@ module.exports = db => {
 						const userObject = {
 							id: user[0].id,
 							email: user[0].email,
+							passLength: password.length,
 							firstName: user[0]["first_name"],
 							lastName: user[0]["last_name"],
 							city: user[0]["city"],
@@ -244,6 +245,7 @@ module.exports = db => {
 				return;
 			}
 			getUser = user.rows[0];
+
 			db.query(
 				`
 				SELECT COUNT(ratee_id) AS totalratings,
@@ -266,7 +268,9 @@ module.exports = db => {
 					image: getUser.image,
 					ratings: ratingInfo.rows,
 				};
+
 				res.send({ user });
+				return;
 			});
 		});
 	});
@@ -274,6 +278,7 @@ module.exports = db => {
 	//Update user by Id
 	router.put("/user/:userId", (req, res) => {
 		const { userId } = req.params;
+
 		const {
 			firstName,
 			lastName,
@@ -296,7 +301,6 @@ module.exports = db => {
 
 		Object.keys(req.body).forEach((key, i) => {
 			key = key.replace(/([A-Z])/g, "_$1").toLowerCase();
-
 			queryString.push(`${key} = $${(i += 1)}`);
 		});
 
@@ -312,7 +316,8 @@ module.exports = db => {
 			}
 
 			const updatedUser = user.rows[0];
-			console.log(updatedUser);
+			req.session.user = updatedUser;
+
 			res.send({
 				success: {
 					updatedUser: updatedUser,
