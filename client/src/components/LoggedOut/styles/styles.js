@@ -72,15 +72,6 @@ export const StyledHero = styled.section`
 		}
 	}
 
-	.blob-canvas {
-		position: absolute !important;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 100%;
-		height: 100%;
-	}
-
 	.text-content-wrapper {
 		z-index: 1;
 		width: 100%;
@@ -168,81 +159,6 @@ export const StyledHero = styled.section`
 	}
 `;
 
-export const StyledMarquee = styled.div`
-	width: 100%;
-	overflow: hidden;
-`;
-
 export const StyledLoggedOutHome = styled.div`
 	height: 100%;
-`;
-
-export const StyledLeak = styled.div`
-	height: 400px;
-	width: 400px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: orange;
-	z-index: 9999;
-	border-radius: 50%;
-	filter: blur(30px);
-`;
-
-export const BounceAnimation = keyframes`
-  from {
-    transform: translateY(-5%)
-  }
-
-  to {
-    transform: translateY(5%)
-  }
-`;
-
-export const StyledCallToAction = styled.div`
-	height: ${ctaHeight};
-	width: ${ctaWidth};
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	margin-bottom: 4rem;
-
-	button {
-		background: transparent;
-		width: 100%;
-		height: 100%;
-		border: 0px;
-		position: relative;
-
-		&:hover .hero-cta--text {
-			color: ${heroBgColor};
-		}
-
-		&:hover #hero-bubble-cta polygon {
-			fill: ${accentColor};
-		}
-
-		.hero-cta--text {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			font-size: 0.9rem;
-			color: ${accentColor};
-			transition: ${transition};
-		}
-	}
-
-	#hero-bubble-cta {
-		fill: none;
-		width: 100%;
-		height: 100%;
-
-		polygon {
-			transition: ${transition};
-			fill: transparent;
-			stroke: ${accentColor};
-			stroke-width: 1px;
-		}
-	}
 `;
