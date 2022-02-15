@@ -38,7 +38,7 @@ export default function Application() {
 	const refreshUserDetails = id => {
 		const userId = id ?? globalState.user?.details?.id;
 		return axios.get(`http://localhost:8001/user/${userId}`).then(results => {
-			console.log(results)
+			console.log(results);
 			setGlobalState(prev => ({
 				...prev,
 				user: {
@@ -172,7 +172,7 @@ export default function Application() {
 						</div> */}
 				</Container>
 			</Box>
-			
+			<Footer />
 		</UserContext.Provider>
 	);
 }
