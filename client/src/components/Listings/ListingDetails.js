@@ -159,20 +159,23 @@ export default function ListingDetails(props) {
                   </Grid>
 
                   <Grid item xs={6} >
-                    <CardHeader 
+                    <CardHeader
                       avatar={<Avatar alt="Profile Image" src={props.listing.image} />}
-                      title={`${props.listing.first_name} ${props.listing.last_name}`}
+                      title={
+                        <Grid item>
+                          <Grid container={true} direction="row" spacing={1} style={{ marginLeft: 0, marginBottom: 8 }} wrap='nowrap' onClick={handleUserRatingsOpen}>
+                            <Typography fontSize='small'>{props.listing.first_name} {props.listing.last_name}</Typography>
+                          </Grid>
+                          <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
+                            <Rating name="user-rating" size="small" style={{ marginLeft: 5, marginTop: 0 }} value={parseInt(listingCreator.average)} readOnly />
+                            <Typography variant="string" component="div">&nbsp;  (</Typography>
+                            <Link onClick={handleUserRatingsOpen} color="inherit" underline="hover" variant="string" component="button">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Link>
+                            <Typography variant="string" component="div">)</Typography>
+                          </Grid>
+                          <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
+                        </Grid>
+                      }
                     />
-
-                    <Grid item>
-                      <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
-                        <Rating name="user-rating" size="small" style={{ marginLeft: 75, marginTop: 0 }} value={parseInt(listingCreator.average)} readOnly />
-                        <Typography variant="string" component="div">&nbsp;  (</Typography>
-                        <Link onClick={handleUserRatingsOpen} color="inherit" underline="hover" variant="string" component="button">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Link>
-                        <Typography variant="string" component="div">)</Typography>
-                      </Grid>
-                      <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
-                    </Grid>
 
                   </Grid>
 
