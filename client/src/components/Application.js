@@ -7,7 +7,7 @@ import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
 import RegisterModal from "./User/Registration/Register";
-import LoginModal from "./User/Login";
+import LoginModal from "./User/Login/Login";
 import LoadingScreen from "./Loading/LoadingScreen";
 import Footer from "./Footer/Footer";
 import { Box } from "@mui/material";
