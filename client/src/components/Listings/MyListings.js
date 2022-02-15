@@ -30,6 +30,12 @@ export default function MyListings() {
 				.get(`http://localhost:8001/listings?creatorId=${userDetails.id}`)
 				.then(result => {
 					setListings(result.data);
+
+					setListing(result.data[0]);
+
+					let date = new Date(result.data[0].created);
+					let formattedDate = format(date, 'dd/MM/yyyy');
+					setDate(formattedDate);
 				});
 		}
 	}, [userDetails, deletedItem]);
