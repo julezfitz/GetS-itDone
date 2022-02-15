@@ -131,42 +131,6 @@ export default function ListingDetails(props) {
                     <p>{props.listing.description}</p>
                   </Grid>
 
-                </Grid>
-
-                <Grid container spacing={0} direction='row'>
-
-
-                  <Grid item xs={2} style={{ display: "flex" }} >
-                    <h4 xs={3}>Posted By:</h4>
-                  </Grid>
-
-                  <Grid item xs={6} >
-                    <CardHeader
-                      avatar={<Avatar alt="Profile Image" src={props.listing.image}/>}
-                      title={`${props.listing.first_name} ${props.listing.last_name}`}
-                    />
-
-                    <Grid item>
-                      <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
-                       
-                        {/* Please fix the spacing issue below if you know how */}
-                       
-                        <Typography variant="string" component="div"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</Typography>
-                        <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
-                        <Typography variant="string" component="div">&nbsp;  (</Typography>
-                        <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
-                        <Typography variant="string" color="black" component="div">)</Typography>
-                      </Grid>
-                      <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
-                    </Grid>
-
-                  </Grid>
-
-
-                </Grid>
-
-                <Grid container>
-
                   <Grid item xs={2}>
                     <Box m={-5} pt={-5}>
                       {/* check if the user has already offered to do this job */}
@@ -184,10 +148,39 @@ export default function ListingDetails(props) {
                       }
                     </Box>
                   </Grid>
+
                 </Grid>
 
+                <Grid container spacing={0} direction='row'>
 
+                  <Grid item xs={2} style={{ display: "flex" }} >
+                    <h4 xs={3}>Posted By:</h4>
+                  </Grid>
 
+                  <Grid item xs={6} >
+                    <CardHeader
+                      avatar={<Avatar alt="Profile Image" src={props.listing.image} />}
+                      title={`${props.listing.first_name} ${props.listing.last_name}`}
+                    />
+
+                    <Grid item>
+                      <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
+
+                        {/* Please fix the spacing issue below if you know how */}
+
+                        <Typography variant="string" component="div"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</Typography>
+                        <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
+                        <Typography variant="string" component="div">&nbsp;  (</Typography>
+                        <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
+                        <Typography variant="string" color="black" component="div">)</Typography>
+                      </Grid>
+                      <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
+                    </Grid>
+
+                  </Grid>
+
+                </Grid>
+                
               </Item>
             </Stack>
           </Drawer>
