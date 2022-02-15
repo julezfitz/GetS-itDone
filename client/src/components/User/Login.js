@@ -9,6 +9,7 @@ import { UserContext } from "../Application";
 import { keyframes } from "styled-components";
 import Redirect from "./Redirect";
 import useTheme from "@mui/material/styles/useTheme";
+import { fieldStyles } from "./styles/styles";
 
 const style = {
 	position: "absolute",
@@ -28,35 +29,10 @@ const style = {
 	borderRadius: "10px",
 };
 
-const blurAnim = keyframes`
-	0% {
-		top: 0;
-		left: 0
-	}
-
-	100% {
-		bottom: 0;
-		right: 0
-	}
-`;
-
 const ELEMENTSPACING = "1rem";
 
 export default function LoginModal({ open, handleClose, setModalOpen }) {
 	const theme = useTheme();
-
-	const fieldStyles = {
-		input: {
-			"& fieldset": {
-				borderColor: "grey",
-			},
-		},
-
-		"& .css-nrutr0-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill":
-			{
-				boxShadow: `0 0 0 100px ${theme.palette.primary.main} inset`,
-			},
-	};
 
 	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } =
 		useContext(UserContext);
