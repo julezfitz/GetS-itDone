@@ -24,6 +24,9 @@ export default function MyOffers() {
   const [listingOffers, setListingOffers] = useState([]);
   const [deletedItem, setDeletedItem] = useState("");
 
+  const [offer, setOffer] = useState("");
+  const [date, setDate] = useState("");
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -33,12 +36,16 @@ export default function MyOffers() {
       })
       .then((result) => {
         setOffers(result.data);
+        
+        setOffer(result.data[0]);
+        
+        let date = new Date(result.data[0].created);
+        let formattedDate = format(date, "dd/MM/yyyy");
+        setDate(formattedDate);
       });
     return () => controller.abort();
   }, [userDetails, deletedItem]);
 
-  const [offer, setOffer] = useState("");
-  const [date, setDate] = useState("");
 
   const handleOfferChange = function () {
     let date = new Date(this.created);
