@@ -15,6 +15,7 @@ import { Button, Alert, Avatar, CardHeader } from "@mui/material";
 import Box from "@mui/material/Box";
 import { UserContext } from "../Application.js";
 import CurrencyFormat from 'react-currency-format';
+import Link from "@mui/material/Link";
 
 
 export default function ListingDetails(props) {
@@ -158,21 +159,17 @@ export default function ListingDetails(props) {
                   </Grid>
 
                   <Grid item xs={6} >
-                    <CardHeader
+                    <CardHeader 
                       avatar={<Avatar alt="Profile Image" src={props.listing.image} />}
                       title={`${props.listing.first_name} ${props.listing.last_name}`}
                     />
 
                     <Grid item>
                       <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
-
-                        {/* Please fix the spacing issue below if you know how */}
-
-                        <Typography variant="string" component="div"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</Typography>
-                        <Rating name="user-rating" size="small" value={parseInt(listingCreator.average)} readOnly />
+                        <Rating name="user-rating" size="small" style={{ marginLeft: 75, marginTop: 0 }} value={parseInt(listingCreator.average)} readOnly />
                         <Typography variant="string" component="div">&nbsp;  (</Typography>
-                        <Typography variant="string" color="blue" component="div">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Typography>
-                        <Typography variant="string" color="black" component="div">)</Typography>
+                        <Link onClick={handleUserRatingsOpen} color="inherit" underline="hover" variant="string" component="button">{listingCreator.ratingsCount} {listingCreator.ratingsCount > 1 ? "ratings" : "rating"}</Link>
+                        <Typography variant="string" component="div">)</Typography>
                       </Grid>
                       <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={listingCreator} />
                     </Grid>
@@ -180,7 +177,7 @@ export default function ListingDetails(props) {
                   </Grid>
 
                 </Grid>
-                
+
               </Item>
             </Stack>
           </Drawer>
