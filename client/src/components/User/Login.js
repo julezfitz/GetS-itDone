@@ -125,7 +125,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 							component='h2'
 							sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
 						>
-							Log in to GSD
+							Welcome to GSD
 						</Typography>
 						<Typography
 							component='span'
@@ -134,11 +134,23 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 						>
 							<Box
 								component='form'
-								sx={{ "& .MuiTextField-root": { m: 1 }, padding: "30px" }}
+								sx={{
+									"& .MuiTextField-root": { m: 1 },
+									padding: "30px",
+									position: "relative",
+								}}
 								noValidate
 								autoComplete='off'
 								onSubmit={handleSubmit}
 							>
+								{errors && (
+									<Alert
+										severity='error'
+										sx={{ position: "absolute", top: -20 }}
+									>
+										{errors}
+									</Alert>
+								)}
 								<TextField
 									sx={fieldStyles}
 									placeholder='justine@example.com'
@@ -186,12 +198,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 								>
 									{loading ? "Loading..." : "Log in"}
 								</Button>
-								{/* <GoogleLogIn /> */}
-								{errors && (
-									<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
-										{errors}
-									</Alert>
-								)}
 							</Box>
 						</Typography>
 						<Redirect to={"register"} setModalOpen={setModalOpen} />

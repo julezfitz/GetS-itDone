@@ -84,20 +84,13 @@ export const darkTheme = createTheme({
 			mainGradient: GRADIENT,
 		},
 	},
-	overrides: {
-		MuiInputBase: {
-			"&:-webkit-autofill": {
-				"-webkit-box-shadow": "none !important",
-				"-webkit-text-fill-color": "#fff",
-			},
-
-			fieldset: {
-				display: "none",
-			},
-		},
-	},
 
 	components: {
+		MuiInputLabel: {
+			root: {
+				color: "white"
+			}
+		},
 		MuiBadge: {
 			styleOverrides: {
 				root: {
