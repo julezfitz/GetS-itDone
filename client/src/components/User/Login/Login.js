@@ -5,11 +5,12 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button, Alert } from "@mui/material";
 import axios from "axios";
-import { UserContext } from "../Application";
+import { UserContext } from "../../Application";
 import { keyframes } from "styled-components";
-import Redirect from "./Redirect";
+import Redirect from "../Redirect";
 import useTheme from "@mui/material/styles/useTheme";
-import { fieldStyles } from "./styles/styles";
+import { fieldStyles } from "../styles/styles";
+import LoginForm from "./LoginForm";
 
 const style = {
 	position: "absolute",
@@ -38,6 +39,8 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 		useContext(UserContext);
 
 	const [loginState, setLoginState] = useState({
+		success: false,
+		successAnimationComplete: false,
 		email: {
 			value: "",
 			error: false,
@@ -53,6 +56,8 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 	const [errors, setErrors] = useState(false);
 
 	useEffect(() => {
+		console.log(loginState.successAnimationComplete);
+
 		if (loading) {
 			axios
 				.post("http://localhost:8001/user/session", {
@@ -78,17 +83,19 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 
 					const isAuthenticated = response.data.authentication.isAuthenticated;
 					if (errors && errors.length >= 0) setErrors(errors);
-					if (isAuthenticated)
-						return refreshUserDetails(
-							response.data.authentication.user.id
-						).then(toggleLoggedIn);
+					if (isAuthenticated) {
+						setLoginState(prev => ({ ...prev, success: true }));
+						refreshUserDetails(response.data.authentication.user.id).then(
+							toggleLoggedIn
+						);
+					}
 				})
 				.catch(err => {
 					console.log("err", err);
 				})
 				.finally(setLoading(false));
 		}
-	}, [loading, isLoggedIn, errors]);
+	}, [loading, isLoggedIn, errors, loginState.successAnimationComplete]);
 
 	const handleChange = e => {
 		setErrors(false);
@@ -132,73 +139,14 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 							id='modal-modal-description'
 							sx={{ mt: 2 }}
 						>
-							<Box
-								component='form'
-								sx={{
-									"& .MuiTextField-root": { m: 1 },
-									padding: "30px",
-									position: "relative",
-								}}
-								noValidate
-								autoComplete='off'
-								onSubmit={handleSubmit}
-							>
-								{errors && (
-									<Alert
-										severity='error'
-										sx={{ position: "absolute", top: -20 }}
-									>
-										{errors}
-									</Alert>
-								)}
-								<TextField
-									sx={fieldStyles}
-									placeholder='justine@example.com'
-									fullWidth
-									required
-									id='outlined-required'
-									label='Email'
-									name='email'
-									value={loginState.email.value}
-									onChange={handleChange}
-									error={loginState.email.error}
-									label={
-										loginState.email.error
-											? loginState.email.errorMessage
-											: "Email"
-									}
-								/>
-								<TextField
-									sx={fieldStyles}
-									placeholder='Password'
-									fullWidth
-									required
-									id='outlined-password-input'
-									label='Password'
-									type='password'
-									autoComplete='current-password'
-									name='password'
-									value={loginState.password.value}
-									onChange={handleChange}
-									error={loginState.password.error}
-									label={
-										loginState.password.error
-											? loginState.password.errorMessage
-											: "Password"
-									}
-								/>
-
-								<Button
-									size={"large"}
-									type='submit'
-									color='secondary'
-									fullWidth
-									variant='contained'
-									sx={{ marginTop: 5 }}
-								>
-									{loading ? "Loading..." : "Log in"}
-								</Button>
-							</Box>
+							<LoginForm
+								handleSubmit={handleSubmit}
+								handleChange={handleChange}
+								loading={loading}
+								errors={errors}
+								fieldStyles={fieldStyles}
+								loginState={loginState}
+							/>
 						</Typography>
 						<Redirect to={"register"} setModalOpen={setModalOpen} />
 					</Box>
