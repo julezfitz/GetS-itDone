@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import { LinearProgress } from "@mui/material";
 import { UserContext } from "../Application";
+import TransitionWrapper from "../Transition/TransitionWrapper";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const { isLoggedIn } = useContext(UserContext);
@@ -132,25 +133,27 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	};
 
 	return (
-		<Box className='search-view-wrapper' sx={wrapperStyle}>
-			{pending ? (
-				<LinearProgress color='primary' sx={{ width: "100%" }} />
-			) : (
-				<>
-					<SearchList keywords={keywords} listings={listings} />
-					<CategoriesBar
-						categories={currentCategories}
-						selectedChip={selectedChip}
-						handleSelectedChip={handleSelectedChip}
-						handleClearSelection={handleClearSelection}
-						emptySearch={emptySearch}
-						handleSortChange={handleSortChange}
-						handleOrderChange={handleOrderChange}
-						isLoggedIn={isLoggedIn}
-					/>
-				</>
-			)}
-		</Box>
+		<TransitionWrapper>
+			<Box className='search-view-wrapper' sx={wrapperStyle}>
+				{pending ? (
+					<LinearProgress color='primary' sx={{ width: "100%" }} />
+				) : (
+					<>
+						<SearchList keywords={keywords} listings={listings} />
+						<CategoriesBar
+							categories={currentCategories}
+							selectedChip={selectedChip}
+							handleSelectedChip={handleSelectedChip}
+							handleClearSelection={handleClearSelection}
+							emptySearch={emptySearch}
+							handleSortChange={handleSortChange}
+							handleOrderChange={handleOrderChange}
+							isLoggedIn={isLoggedIn}
+						/>
+					</>
+				)}
+			</Box>
+		</TransitionWrapper>
 	);
 }
 

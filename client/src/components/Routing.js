@@ -10,6 +10,8 @@ import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
 import Heading from "./Heading/Heading";
 import { useLocation } from "react-router";
+import { AnimatePresence } from "framer-motion";
+import TransitionWrapper from "./Transition/TransitionWrapper";
 
 function Routing({ keywords, search, togglePending, emptySearch }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
@@ -45,85 +47,86 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 
 	return (
 		<>
-			{isLoggedIn && (
-				<>
-					<Heading
-						size='medium'
-						className='page-heading'
-						color='light'
-						style={{ marginBottom: 0 }}
-					>
-						{headingTitle}
-					</Heading>
-					<hr className='heading-divider' style={{ marginBottom: "4rem" }} />
-				</>
-			)}
-			<Routes>
-				<Route
-					path='/'
-					element={
-						isLoggedIn ? (
-							search ? (
-								<SearchWrapper
-									keywords={keywords}
-									togglePending={togglePending}
-									emptySearch={emptySearch}
-								/>
+			<AnimatePresence exitBeforeEnter>
+				{isLoggedIn && (
+					<>
+						<Heading
+							size='medium'
+							className='page-heading'
+							color='light'
+							style={{ marginBottom: 0 }}
+						>
+							{headingTitle}
+						</Heading>
+						<hr className='heading-divider' style={{ marginBottom: "4rem" }} />
+					</>
+				)}
+				<Routes location={location} key={location.pathname}>
+					<Route
+						path='/'
+						element={
+							isLoggedIn ? (
+								search ? (
+									<SearchWrapper
+										keywords={keywords}
+										togglePending={togglePending}
+										emptySearch={emptySearch}
+									/>
+								) : (
+									<SearchWrapper
+										togglePending={togglePending}
+										emptySearch={emptySearch}
+									/>
+								)
 							) : (
-								<SearchWrapper
-									togglePending={togglePending}
-									emptySearch={emptySearch}
-								/>
+								<>
+									<LoggedOutHome />
+									<Heading
+										color='light'
+										style={{
+											fontSize: "1.8rem",
+											justifyContent: "center",
+											marginBottom: "5rem",
+											position: "sticky",
+											top: "0",
+										}}
+									>
+										Browse listings
+									</Heading>
+									<SearchWrapper />
+								</>
 							)
-						) : (
-							<>
-								<LoggedOutHome />
-								<Heading
-									color='light'
-									style={{
-										fontSize: "1.8rem",
-										justifyContent: "center",
-										marginBottom: "5rem",
-										position: "sticky",
-										top: "0",
-									}}
-								>
-									Browse listings
-								</Heading>
-								<SearchWrapper />
-							</>
-						)
-					}
-				/>
+						}
+					/>
+					<Route
+						path='/profile'
+						element={
+							isLoggedIn ? <MyProfile /> : !userPending && <Navigate to='/' />
+						}
+					/>
 
-				<Route
-					path='/profile'
-					element={
-						isLoggedIn ? <MyProfile /> : !userPending && <Navigate to='/' />
-					}
-				/>
+					<Route
+						path='/listings'
+						element={
+							isLoggedIn ? <MyListings /> : !userPending && <Navigate to='/' />
+						}
+					/>
 
-				<Route
-					path='/listings'
-					element={
-						isLoggedIn ? <MyListings /> : !userPending && <Navigate to='/' />
-					}
-				/>
+					<Route
+						path='/offers'
+						element={
+							isLoggedIn ? <MyOffers /> : !userPending && <Navigate to='/' />
+						}
+					/>
 
-				<Route
-					path='/offers'
-					element={
-						isLoggedIn ? <MyOffers /> : !userPending && <Navigate to='/' />
-					}
-				/>
-
-				<Route
-					path='/listings/:id'
-					element={
-						isLoggedIn ? <OffersList /> : !userPending && <Navigate to='/' />
-					}
-				/>
-			</Routes>
+					<Route
+						path='/listings/:id'
+						element={
+							isLoggedIn ? <OffersList /> : !userPending && <Navigate to='/' />
+						}
+					/>
+				</Routes>
+			</AnimatePresence>
 		</>
 	);
 }
