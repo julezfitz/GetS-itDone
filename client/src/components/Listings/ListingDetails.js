@@ -96,7 +96,7 @@ export default function ListingDetails(props) {
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
             PaperProps={{
-              style: { top: "70px", width: "500px", padding: "3rem" },
+              style: { width: "500px", padding: "3rem" },
             }}
           >
             <Stack spacing={0.1}>
@@ -105,7 +105,7 @@ export default function ListingDetails(props) {
                 <Grid item xs={8}>
                   <h2>{props.listing.title}</h2>
                   <h4>Category: {props.listing.category}</h4>
-                  <Typography variant="h5">
+                  <Typography component='span' variant="h5">
                     <CurrencyFormat value={props.listing.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                   </Typography>
                 </Grid>
