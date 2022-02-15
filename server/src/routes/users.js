@@ -52,6 +52,7 @@ module.exports = db => {
 						const userObject = {
 							id: user[0].id,
 							email: user[0].email,
+							passLength: password.length,
 							firstName: user[0]["first_name"],
 							lastName: user[0]["last_name"],
 							city: user[0]["city"],
@@ -244,6 +245,7 @@ module.exports = db => {
 				return;
 			}
 			getUser = user.rows[0];
+
 			db.query(
 				`
 				SELECT COUNT(ratee_id) AS totalratings,
@@ -258,7 +260,7 @@ module.exports = db => {
 					firstName: getUser.first_name,
 					lastName: getUser.last_name,
 					email: getUser.email,
-					password: getUser.password,
+					passLength: req.session.user.passLength,
 					city: getUser.city,
 					province: getUser.province,
 					postalCode: getUser.postal_code,
@@ -266,7 +268,9 @@ module.exports = db => {
 					image: getUser.image,
 					ratings: ratingInfo.rows,
 				};
+				console.log(user);
 				res.send({ user });
+				return;
 			});
 		});
 	});
@@ -312,7 +316,10 @@ module.exports = db => {
 			}
 
 			const updatedUser = user.rows[0];
-			console.log(updatedUser);
+			delete updatedUser.password;
+			updatedUser["passLength"] = password.length;
+			req.session.user = updatedUser;
+
 			res.send({
 				success: {
 					updatedUser: updatedUser,
