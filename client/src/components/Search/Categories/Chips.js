@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Chip, Box, Button } from "@mui/material";
 import { Typography } from "@mui/material";
+import $ from "jquery";
 
 function Chips({
 	categories,
@@ -12,6 +13,7 @@ function Chips({
 	const elementSpacing = 1;
 
 	const handleChipClick = categoryId => {
+		window.scrollTo({ top: 0 });
 		setSelected(categoryId);
 		emptySearch();
 	};
@@ -32,7 +34,7 @@ function Chips({
 									transition: "300ms ease",
 									"&:hover": {
 										backgroundColor: "white !important",
-										opacity: 1
+										opacity: 1,
 									},
 									"&:hover span": {
 										color: "black",
