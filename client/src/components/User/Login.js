@@ -6,11 +6,10 @@ import Modal from "@mui/material/Modal";
 import { Button, Alert } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "../Application";
-import { FormControl } from "@mui/material";
 import { keyframes } from "styled-components";
 import Redirect from "./Redirect";
-import RegisterModal from "./Registration/Register";
-import GoogleLogIn from "./GoogleLogin/GoogleLogIn";
+import useTheme from "@mui/material/styles/useTheme";
+import { fieldStyles } from "./styles/styles";
 
 const style = {
 	position: "absolute",
@@ -30,32 +29,13 @@ const style = {
 	borderRadius: "10px",
 };
 
-const blurAnim = keyframes`
-	0% {
-		top: 0;
-		left: 0
-	}
-
-	100% {
-		bottom: 0;
-		right: 0
-	}
-`;
-
-const blurCircleStyle = {
-	width: "17rem",
-	height: "17rem",
-	backgroundColor: "orange",
-	position: "absolute",
-	borderRadius: "50%",
-	filter: "blur(60px)",
-	zIndex: "-2",
-};
-
 const ELEMENTSPACING = "1rem";
 
 export default function LoginModal({ open, handleClose, setModalOpen }) {
-	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } = useContext(UserContext);
+	const theme = useTheme();
+
+	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } =
+		useContext(UserContext);
 
 	const [loginState, setLoginState] = useState({
 		email: {
@@ -98,7 +78,10 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 
 					const isAuthenticated = response.data.authentication.isAuthenticated;
 					if (errors && errors.length >= 0) setErrors(errors);
-					if (isAuthenticated) return refreshUserDetails(response.data.authentication.user.id).then(toggleLoggedIn)
+					if (isAuthenticated)
+						return refreshUserDetails(
+							response.data.authentication.user.id
+						).then(toggleLoggedIn);
 				})
 				.catch(err => {
 					console.log("err", err);
@@ -142,22 +125,34 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 							component='h2'
 							sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
 						>
-							Log in to GSD
+							Welcome to GSD
 						</Typography>
-						<Typography component='span'id='modal-modal-description' sx={{ mt: 2 }}>
+						<Typography
+							component='span'
+							id='modal-modal-description'
+							sx={{ mt: 2 }}
+						>
 							<Box
 								component='form'
-								sx={{ "& .MuiTextField-root": { m: 1 }, padding: "30px" }}
+								sx={{
+									"& .MuiTextField-root": { m: 1 },
+									padding: "30px",
+									position: "relative",
+								}}
 								noValidate
 								autoComplete='off'
 								onSubmit={handleSubmit}
 							>
+								{errors && (
+									<Alert
+										severity='error'
+										sx={{ position: "absolute", top: -20 }}
+									>
+										{errors}
+									</Alert>
+								)}
 								<TextField
-								sx={{input: {
-									"& fieldset": {
-										borderColor: "grey"
-									}
-								}}}
+									sx={fieldStyles}
 									placeholder='justine@example.com'
 									fullWidth
 									required
@@ -174,6 +169,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 									}
 								/>
 								<TextField
+									sx={fieldStyles}
 									placeholder='Password'
 									fullWidth
 									required
@@ -202,12 +198,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 								>
 									{loading ? "Loading..." : "Log in"}
 								</Button>
-								{/* <GoogleLogIn /> */}
-								{errors && (
-									<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
-										{errors}
-									</Alert>
-								)}
 							</Box>
 						</Typography>
 						<Redirect to={"register"} setModalOpen={setModalOpen} />
