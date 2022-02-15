@@ -66,7 +66,7 @@ function Chips({
 				color='secondary'
 				sx={{
 					textTransform: "none",
-					m: elementSpacing,
+					mt: 4,
 					ml: 0,
 					display: "block",
 					transition: "300ms ease",

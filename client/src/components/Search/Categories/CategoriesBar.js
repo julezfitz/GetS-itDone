@@ -54,7 +54,9 @@ function CategoriesBar({
 								<InputLabel
 									id='sortby-label'
 									size={"small"}
-									sx={{ fontSize: "0.8rem" }}
+									sx={{
+										fontSize: "0.8rem",
+									}}
 								>
 									Sort by
 								</InputLabel>
