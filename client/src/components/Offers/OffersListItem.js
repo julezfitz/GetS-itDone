@@ -45,40 +45,47 @@ export default function OffersListItem(props) {
               <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer} />
             </Typography>
           </Grid>
-          <Grid item>
-            <Typography component={'span'} variant="body2" color="text.secondary">
-              {/* Date: February 4, 2022 */}
-            </Typography>
-          </Grid>
           <br></br>
         </Grid>
-        <Grid item>
-          {props.offerDeclined ? (<Typography variant="subtitle1" component="div"> Declined</Typography>) : (
-            <Typography variant="subtitle1" component="div">
-              <Button
-                size={"small"}
-                type='submit'
-                color='primary'
-                variant='contained'
-                value={offer}
-                sx={{ marginTop: 5 }}
-                onClick={handleAccept}
-              >
-                Accept
-              </Button>
-              <Button
-                size={"small"}
-                type='submit'
-                color='primary'
-                variant='contained'
-                sx={{ marginTop: 5 }}
-                onClick={handleDecline}
-              >
-                Decline
-              </Button>
+
+
+        {props.offerDeclined ? (<Typography variant="subtitle1" component="div"> Declined</Typography>) : (
+          <Grid item xs container direction="row" spacing={0}>
+            <Grid item>
+              <Typography variant="subtitle1" component="div">
+                <Button
+                  size={"small"}
+                  type='submit'
+                  color='primary'
+                  variant='contained'
+                  value={offer}
+                  sx={{ marginTop: 2, marginRight: 1 }}
+                  onClick={handleAccept}
+                >
+                  Accept
+                </Button>
               </Typography>
-            )}
-              {/* {errors &&
+            </Grid>
+
+            <Grid item>
+              <Typography variant="subtitle1" component="div">
+                <Button
+                  size={"small"}
+                  type='submit'
+                  color='primary'
+                  variant='contained'
+                  sx={{ marginTop: 2 }}
+                  onClick={handleDecline}
+                >
+                  Decline
+                </Button>
+              </Typography>
+            </Grid>
+          </Grid>
+
+        )}
+
+        {/* {errors &&
 								errors.map(err => {
 									return (
 										<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
@@ -86,7 +93,6 @@ export default function OffersListItem(props) {
 										</Alert>
 									);
 								})} */}
-        </Grid>
       </Grid>
     </Grid>
   );
