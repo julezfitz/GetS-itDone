@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import Kobe from "../assets/fonts/Kobe.woff";
 import { createTheme } from "@mui/material/styles";
+import Haas from "../assets/fonts/Haas.otf";
 
 //Color variables
 export const DEEPBLACK = "black";
@@ -141,9 +142,9 @@ export const darkTheme = createTheme({
 		MuiOutlinedInput: {
 			styleOverrides: {
 				root: {
-					transition: "300ms ease"
-				}
-			}
+					transition: "300ms ease",
+				},
+			},
 		},
 		MuiButton: {
 			variants: [
@@ -213,10 +214,7 @@ export const darkTheme = createTheme({
 
 export const GlobalStyles = createGlobalStyle`
 
-@font-face {
-  font-family: 'Kobe',
-  src: url(${Kobe})format('woff');
-}
+
 
 .css-1l4gfp6-MuiFormLabel-root-MuiInputLabel-root.Mui-focused, .css-12fpueg-MuiFormLabel-root-MuiInputLabel-root.Mui-focused, .css-1gtw0m2-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
 	color: ${GREY};
@@ -242,6 +240,8 @@ export const GlobalStyles = createGlobalStyle`
     font-family: Inter;
     color: white;
   }
+
+	
 
   a {
     text-decoration: none;
