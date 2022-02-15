@@ -26,6 +26,8 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 
 	const handleClearSelection = () => {
 		emptySearch();
+		setSortByType([]);
+		setSortOrder([]);
 		setSelectedChip({
 			id: null,
 			name: null,
@@ -45,15 +47,12 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			if (sortOrder.length > 0) {
 				(paramObj['sortOrder'] = sortOrder)
 			}
-			console.log(paramObj);
-
 
 			axios.get(`http://localhost:8001/listings/`, {
 				params: paramObj,
 				// signal: controller.signal
 			})
 				.then(result => {
-					console.log(result.data);
 					setListings(result.data);
 				})
 		}
