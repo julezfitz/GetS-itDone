@@ -13,7 +13,7 @@ export const ORANGE = "#ED6E23";
 
 //Constants
 const GUTTER = "10vw";
-export const FOOTERHEIGHT = "80vh";
+export const FOOTERHEIGHT = "90vh";
 export const TRANSITION = "300ms ease";
 
 //Our custom theme
@@ -239,7 +239,7 @@ export const GlobalStyles = createGlobalStyle`
     padding-top: 4.3rem;
     width: 100%;
     height: 100%; 
-    margin-bottom: 100vh;
+    margin-bottom: ${FOOTERHEIGHT};
     padding-bottom: 10rem;
     box-shadow: -3px -5px 48px 4px rgba(0,0,0,.5);
   }
