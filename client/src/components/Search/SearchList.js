@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import SearchListItem from "./SearchListItem";
 import ListingDetails from "../Listings/ListingDetails";
-import Heading from "../Heading/Heading";
 import { Box } from "@mui/material";
 import { Grid, Item } from "@mui/material";
 import { Typography } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
+
 
 // const Item = styled(Paper)(({ theme }) => ({
 // 	...theme.typography.body2,
@@ -19,6 +18,7 @@ import useTheme from "@mui/material/styles/useTheme";
 //If no chip is selected we can fetch all listings
 
 export default function SearchList({ keywords, listings }) {
+
 	const theme = useTheme();
 
 	const [listing, setListing] = useState({});
