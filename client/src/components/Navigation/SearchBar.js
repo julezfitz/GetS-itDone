@@ -82,7 +82,7 @@ function SearchBar({ onSearch, value }) {
 	return (
 		<>
 			<Box component='form' onSubmit={handleSearchSubmit} method='POST'>
-				<Search>
+				<Search sx={{ borderRadius: "50px", transition: "300ms ease" }}>
 					<SearchIconWrapper>
 						<SearchIcon />
 					</SearchIconWrapper>
@@ -93,11 +93,6 @@ function SearchBar({ onSearch, value }) {
 						onChange={onSearch}
 						value={value}
 					/>
-
-					{/* <Button variant="outlined" color="success" type="submit">Go</Button> */}
-					{/* <SearchButton type='button' variant='outlined'>
-						<Link to='/'>Go</Link>
-					</SearchButton> */}
 				</Search>
 			</Box>
 		</>
