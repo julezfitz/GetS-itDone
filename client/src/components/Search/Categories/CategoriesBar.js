@@ -50,6 +50,7 @@ function CategoriesBar({
 								<Select
 									labelId="sortby-label"
 									id="demo-simple-select"
+									sx={{ borderRadius: "50px"}}
 									label="Search Filters"
 									value={sort}
 									onChange={(e) => { setSort(e.target.value); handleSortChange(e) }}
@@ -67,6 +68,7 @@ function CategoriesBar({
 								<Select
 									labelId="orderby-label"
 									id="-select"
+									sx={{ borderRadius: "50px"}}
 									label="Search Filters"
 									value={order}
 									onChange={(e) => { setOrder(e.target.value); handleOrderChange(e) }}
