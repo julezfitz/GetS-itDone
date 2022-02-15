@@ -23,7 +23,7 @@ export default function NavRight({
 }) {
 	const [notifications, setNotifications] = useState([]);
 
-	useEffect(() => {
+	const getNotifications = () => {
 		axios
 			.get(`http://localhost:8001/notifications`, {
 				params: { userId: userDetails.id },
@@ -32,6 +32,10 @@ export default function NavRight({
 				//change this so that only unread notifications are added
 				setNotifications(results.data);
 			});
+	}
+
+	useEffect(() => {
+		getNotifications();
 	}, []);
 
 	//toast trigger
@@ -39,26 +43,28 @@ export default function NavRight({
 	const notify = () => {
 		for (const notice in notifications) {
 			if (notifications[notice].notificationMessage === "Your offer has been declined.") {
-				toast.error(notifications[notice].notificationMessage);
+				toast.error(<div style={{fontSize:'medium'}} id={notifications[notice].notificationId}><b>Listing: "{notifications[notice].title}"</b>  <p>{notifications[notice].notificationMessage}</p></div>)
 			}
 			if (notifications[notice].notificationMessage === "Your offer has been accepted.") {
-				toast.success(notifications[notice].notificationMessage);
+				toast.success(<div style={{fontSize:'medium'}} id={notifications[notice].notificationId}><b>Listing: "{notifications[notice].title}"</b>  <p>{notifications[notice].notificationMessage}</p></div>)
 			}
 			if (notifications[notice].notificationMessage === "You have a new offer!") {
-				toast.info(notifications[notice].notificationMessage);
+				toast.info(<div style={{fontSize:'medium'}} id={notifications[notice].notificationId}><b>Listing: "{notifications[notice].title}"</b>  <p>{notifications[notice].notificationMessage}</p></div>)
 			}
 		}
 	}
-	// toast("I use a custom id", {
-	// 	toastId: "customId"
-	//   });
 
 	const handleNotificationDismiss = (e) => {
 
-		console.log(e.target.id);
+		//get notification id
+		let notificationId = e.target.id;
+
 		//axios call here to set read status of notification to true
-		// axios.put(`http://localhost:8001/notifications/${e.target.value}`)
-		// setNotifications([]);
+		axios.put(`http://localhost:8001/notifications/${notificationId}`).then(() => {
+			setNotifications([]);
+			getNotifications();
+		})
+	
 	}
 
 	console.log(notifications);
@@ -106,10 +112,10 @@ export default function NavRight({
 					<Badge badgeContent={notifications.length} color="error" >
 						<ToastContainer
 							position="top-right"
-							// hideProgressBar= "true"
 							autoClose={20000}
 							theme="dark"
 							type="success"
+							closeButton={false}
 							onClick={handleNotificationDismiss}
 						/>
 						<NotificationsIcon onClick={notify} />
