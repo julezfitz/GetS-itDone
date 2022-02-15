@@ -146,7 +146,7 @@ export default function ListingDetails(props) {
                       title={`${props.listing.first_name} ${props.listing.last_name}`}
                     />
 
-                    <Grid Item>
+                    <Grid item>
                       <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
                        
                         {/* Please fix the spacing issue below if you know how */}
