@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Marquee from "react-fast-marquee";
 import { Typography } from "@mui/material";
-import useTheme from "@mui/material/styles/useTheme";
+import { darkTheme } from "../../styles/globalStyles";
 import { device } from "../../styles/devices/devices";
+import Scene from "./Scene/Scene";
 
 const StyledFooter = styled.footer`
-	height: 100vh;
+	height: 90vh;
 	background-color: white;
 	position: fixed;
 	bottom: 0;
@@ -24,15 +25,15 @@ const StyledFooter = styled.footer`
 
 	iframe {
 		position: absolute;
-    height: 100%;
+		height: 100%;
 		top: 0;
 		left: 0;
 		z-index: 99;
 
-    canvas {
-      width: 100%;
-      height: 100%;
-    }
+		canvas {
+			width: 100%;
+			height: 100%;
+		}
 	}
 
 	.marquee-text {
@@ -40,9 +41,9 @@ const StyledFooter = styled.footer`
 		font-size: 13vw;
 		letter-spacing: -0.5vw;
 
-    @media ${device.desktop} {
-      font-size: 200px;
-    }
+		@media ${device.desktop} {
+			font-size: 200px;
+		}
 	}
 
 	.dev-credits {
@@ -51,9 +52,6 @@ const StyledFooter = styled.footer`
 		padding-bottom: 3rem;
 		border-radius: px;
 		color: black;
-		position: absolute;
-		bottom: 0;
-		right: 0;
 
 		p {
 			word-break: keep-all;
@@ -66,8 +64,6 @@ const lineStyle = {
 };
 
 function Footer() {
-	const theme = useTheme();
-
 	const contactInfo = [
 		{
 			name: "Brad",
@@ -90,13 +86,14 @@ function Footer() {
 		<>
 			<StyledFooter>
 				<div className='footer-inner'>
+					<Scene/>
 					{/* <iframe
 					src='https://my.spline.design/primitivescopy-c394739b6b3261b8319b0e09d72f5730/'
 					frameBorder='0'
 					width='100%'
 					height='60%'
 				></iframe> */}
-					<div className='marquee-rails'>
+					{/* <div className='marquee-rails'>
 						<hr style={lineStyle}></hr>
 						<Marquee speed={40} gradient={false} direction='right'>
 							<Typography className='marquee-text' component='h2'>
@@ -110,8 +107,9 @@ function Footer() {
 							</Typography>
 						</Marquee>
 						<hr style={lineStyle}></hr>
-					</div>
+					</div> */}
 				</div>
+
 				<div className='dev-credits'>
 					<Typography>
 						Designed & developed by <br></br>{" "}
@@ -122,7 +120,6 @@ function Footer() {
 									target='_blank'
 									className={`credits-${dev.name}__github`}
 									style={{
-										color: theme.palette.secondary.main,
 										fontWeight: "bolder",
 										textDecoration: "underline",
 									}}
