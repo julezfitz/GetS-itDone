@@ -38,16 +38,22 @@ const StyledFooter = styled.footer`
 	.dev-credits {
 		padding-right: 10rem;
 		padding-bottom: 3rem;
-
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		color: black;
 		position: absolute;
 		bottom: 0;
 		left: 0;
+		width: 100%;
 
 		p {
-			font-size: 3vw;
+			font-size: 2vw;
 			word-break: keep-all;
-			
+
+			@media ${device.desktop} {
+				font-size: 3vw;
+			}
 		}
 
 		.credit {
@@ -129,7 +135,7 @@ function Footer() {
 										", "
 									) : i < 2 ? (
 										<>
-											<span> and</span> <br></br>{" "}
+											<span> and</span>{" "}
 										</>
 									) : (
 										""
