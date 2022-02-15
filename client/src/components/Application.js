@@ -51,6 +51,8 @@ export default function Application() {
 	};
 
 	const toggleLoggedIn = userDetails => {
+		window.scrollTo({ top: 0 });
+
 		setGlobalState(prev => ({
 			...prev,
 			user: {

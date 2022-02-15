@@ -18,67 +18,120 @@ function CategoriesBar({
 	handleSortChange,
 	handleClearSelection,
 	handleOrderChange,
-	isLoggedIn
+	isLoggedIn,
 }) {
 	const barStyle = {
 		width: "500px",
 		height: "100vh",
-		padding: "2rem 2rem 0 2rem",
+		padding: "0rem 2rem 0 2rem",
 		display: "flex",
 		position: "sticky",
 		top: "12.2rem",
 		justifyContent: "center",
 	};
 
-	const [sort, setSort] = useState('');
-	const [order, setOrder] = useState('');
+	const [sort, setSort] = useState("");
+	const [order, setOrder] = useState("");
 
 	const _handleClearSelection = () => {
-		setSort('');
-		setOrder('');
+		setSort("");
+		setOrder("");
 		handleClearSelection();
-	}
+	};
 
 	return (
 		<>
 			<Box style={barStyle}>
 				<Grid container direction='column' spacing={1}>
-
 					<Grid item style={{ display: "flex", gap: "1rem" }}>
 						<Box style={{ width: "100%" }}>
-							<FormControl size='string' id='sortbyform' style={{ width: "45%" }}>
-								<InputLabel id="sortby-label">Sort by</InputLabel>
-								<Select
-									labelId="sortby-label"
-									id="demo-simple-select"
-									sx={{ borderRadius: "50px"}}
-									label="Search Filters"
-									value={sort}
-									onChange={(e) => { setSort(e.target.value); handleSortChange(e) }}
+							<FormControl
+								size='string'
+								id='sortbyform'
+								style={{ width: "45%" }}
+								sx={{ position: "relative" }}
+							>
+								<InputLabel
+									id='sortby-label'
+									size={"small"}
+									sx={{ fontSize: "0.8rem" }}
 								>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='price'>
+									Sort by
+								</InputLabel>
+								<Select
+									labelId='sortby-label'
+									id='demo-simple-select'
+									size='small'
+									sx={{
+										borderRadius: "50px",
+										height: "2.3rem",
+									}}
+									label='Search Filters'
+									value={sort}
+									onChange={e => {
+										setSort(e.target.value);
+										handleSortChange(e);
+									}}
+								>
+									<MenuItem
+										key={Math.random().toString(36).substr(2, 9)}
+										value='price'
+									>
 										Price
 									</MenuItem>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='created'>
+									<MenuItem
+										key={Math.random().toString(36).substr(2, 9)}
+										value='created'
+									>
 										Date Listed
 									</MenuItem>
 								</Select>
 							</FormControl>
-							<FormControl size='string' id='orderbyform' style={{ width: "50%", marginLeft: '1em' }}>
-								<InputLabel id="orderby-label">Order</InputLabel>
-								<Select
-									labelId="orderby-label"
-									id="-select"
-									sx={{ borderRadius: "50px"}}
-									label="Search Filters"
-									value={order}
-									onChange={(e) => { setOrder(e.target.value); handleOrderChange(e) }}
+							<FormControl
+								size='string'
+								id='orderbyform'
+								style={{ width: "50%", marginLeft: "1em" }}
+							>
+								<InputLabel
+									id='orderby-label'
+									size='small'
+									sx={{ fontSize: "0.8rem" }}
 								>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='asc'>
-										{sort === 'price' ? "Lowest to Highest" : sort === 'created' ? "Newest to Oldest" : "Ascending"}
+									Order
+								</InputLabel>
+								<Select
+									labelId='orderby-label'
+									id='-select'
+									sx={{
+										borderRadius: "50px",
+										height: "2.3rem",
+									}}
+									label='Search Filters'
+									value={order}
+									onChange={e => {
+										setOrder(e.target.value);
+										handleOrderChange(e);
+									}}
+								>
+									<MenuItem
+										key={Math.random().toString(36).substr(2, 9)}
+										value='asc'
+									>
+										{sort === "price"
+											? "Lowest to Highest"
+											: sort === "created"
+											? "Newest to Oldest"
+											: "Ascending"}
 									</MenuItem>
-									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='desc'>
-										{sort === 'price' ? "Highest to Lowest" : sort === 'created' ? "Oldest to Newest" : "Descending"}
+									<MenuItem
+										key={Math.random().toString(36).substr(2, 9)}
+										value='desc'
+									>
+										{sort === "price"
+											? "Highest to Lowest"
+											: sort === "created"
+											? "Oldest to Newest"
+											: "Descending"}
 									</MenuItem>
 								</Select>
 							</FormControl>
@@ -87,7 +140,9 @@ function CategoriesBar({
 
 					<Grid item>
 						<Box style={{ width: "100%" }}>
-							<Typography sx={{ color: "white" }}>Filter by Category</Typography>
+							<Typography sx={{ color: "white" }}>
+								Filter by Category
+							</Typography>
 							<Box>
 								<Chips
 									isLoggedIn={isLoggedIn}
@@ -100,7 +155,6 @@ function CategoriesBar({
 							</Box>
 						</Box>
 					</Grid>
-
 				</Grid>
 			</Box>
 		</>

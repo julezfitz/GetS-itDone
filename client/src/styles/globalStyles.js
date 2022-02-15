@@ -233,6 +233,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   main {
+		overflow-y: hidden;
 		position: relative;
     min-height: 100vh;
     background-color: rgba(17,17,17, 1);
