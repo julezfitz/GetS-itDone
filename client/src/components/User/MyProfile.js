@@ -210,6 +210,7 @@ export default function MyProfile() {
 											size='large'
 											type='submit'
 											value='Submit'
+                      color='secondary'
 											variant='contained'
 										>
 											Edit
