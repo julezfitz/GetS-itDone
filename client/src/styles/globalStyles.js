@@ -122,7 +122,15 @@ export const darkTheme = createTheme({
 				},
 			},
 		},
-
+		MuiInputLabel: {
+			styleOverrides: {
+				root: {
+					"& .Mui-focused": {
+						color: "white",
+					},
+				},
+			},
+		},
 		MuiAlert: {
 			styleOverrides: {
 				root: {
@@ -202,6 +210,11 @@ export const GlobalStyles = createGlobalStyle`
   font-family: 'Kobe',
   src: url(${Kobe})format('woff');
 }
+
+.css-1l4gfp6-MuiFormLabel-root-MuiInputLabel-root.Mui-focused, .css-12fpueg-MuiFormLabel-root-MuiInputLabel-root.Mui-focused, .css-1gtw0m2-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+	color: ${GREY};
+}
+
 
   .accent {
     color: #ED6E23;
