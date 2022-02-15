@@ -138,6 +138,13 @@ export const darkTheme = createTheme({
 				},
 			},
 		},
+		MuiOutlinedInput: {
+			styleOverrides: {
+				root: {
+					transition: "300ms ease"
+				}
+			}
+		},
 		MuiButton: {
 			variants: [
 				{
