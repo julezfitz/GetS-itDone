@@ -11,6 +11,7 @@ import LoginModal from "./User/Login";
 import LoadingScreen from "./Loading/LoadingScreen";
 import Footer from "./Footer/Footer";
 import { Box } from "@mui/material";
+import Rails from "./Rails/Rails";
 
 export const UserContext = createContext();
 
@@ -38,6 +39,7 @@ export default function Application() {
 	const refreshUserDetails = id => {
 		const userId = id ?? globalState.user?.details?.id;
 		return axios.get(`http://localhost:8001/user/${userId}`).then(results => {
+			console.log(results);
 			setGlobalState(prev => ({
 				...prev,
 				user: {
@@ -170,8 +172,9 @@ export default function Application() {
 							<span>Sort By: Date</span>
 						</div> */}
 				</Container>
+				<Rails />
 			</Box>
-			
+			<Footer />
 		</UserContext.Provider>
 	);
 }
