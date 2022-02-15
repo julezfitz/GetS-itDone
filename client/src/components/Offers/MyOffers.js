@@ -56,8 +56,7 @@ export default function MyOffers() {
   };
 
   const handleDelete = (offer) => {
-    console.log(offer.id);
-    axios.delete(`http://localhost:8001/offers/${offer.id}`).then((result) => {
+    axios.delete(`http://localhost:8001/offers/${offer.offerId}`).then((result) => {
       console.log(result.data);
       setDeletedItem(offer);
       setOffer("");

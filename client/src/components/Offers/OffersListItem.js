@@ -26,8 +26,6 @@ export default function OffersListItem(props) {
     setOffer(props.offer)
   }), [props.offer])
 
-  console.log(props);
-
   return (
     <Grid container spacing={2}>
       <Grid item></Grid>
