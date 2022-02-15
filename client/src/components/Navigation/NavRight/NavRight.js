@@ -29,6 +29,7 @@ export default function NavRight({
 				params: { userId: userDetails.id },
 			})
 			.then((results) => {
+				//change this so that only unread notifications are added
 				setNotifications(results.data);
 			});
 	}, []);
@@ -48,11 +49,15 @@ export default function NavRight({
 			}
 		}
 	}
+	// toast("I use a custom id", {
+	// 	toastId: "customId"
+	//   });
 
-	const handleNotificationDismiss = () => {
+	const handleNotificationDismiss = (e) => {
 
-		console.log('hello');
+		console.log(e.target.id);
 		//axios call here to set read status of notification to true
+		// axios.put(`http://localhost:8001/notifications/${e.target.value}`)
 		// setNotifications([]);
 	}
 
