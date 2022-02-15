@@ -58,8 +58,6 @@ export default function MyListings() {
 			});
 	}
 
-
-
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<Grid container spacing={2} columns={16}>

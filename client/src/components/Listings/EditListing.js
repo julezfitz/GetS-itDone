@@ -26,17 +26,31 @@ const formGroupStyle = {
   "& .MuiTextField-root": { flexGrow: 1 },
 };
 
-export default function NewListingModal({ open, handleClose }) {
+export default function EditListingModal({ open, handleClose, listing, edit }) {
   const { userDetails } = useContext(UserContext);
 
-  const [newListing, setNewListing] = useState({});
+  console.log(listing)
 
-  let newListingDetails;
+  const [editListing, setEditListing] = useState({
+      creatorId: userDetails.id,
+      listingId: listing.id,
+      title: listing.title,
+      description: listing.description,
+      category: listing.category,
+      price: listing.price,
+      city: listing.city,
+      postalCode: listing.postalCode,
+      image_1: listing.image_1,
+      image_2: listing.image_2,
+      image_3: listing.image_3,
+  });
 
-  const [category, setCategory] = useState("");
+  let editListingDetails;
+
+  const [newCategory, setNewCategory] = useState("");
 
   const handleCategoryChange = (category) => {
-    setCategory(category);
+    setNewCategory(category);
   };
 
   const handleSubmit = (e) => {
@@ -45,7 +59,7 @@ export default function NewListingModal({ open, handleClose }) {
     let price = parseInt(e.target.elements.price.value);
 
     //add image urls to this once they are added to the form
-    newListingDetails = {
+    editListingDetails = {
       creatorId: userDetails.id,
       title: e.target.elements.title.value,
       description: e.target.elements.description.value,
@@ -60,10 +74,10 @@ export default function NewListingModal({ open, handleClose }) {
     };
 
     axios
-      .post(`http://localhost:8001/listings`, newListingDetails)
+      .put(`http://localhost:8001/listings/{editlisting.listingId}`, editListingDetails)
       .then((result) => {
         let categoryForListing = {
-          categoryId: category,
+          categoryId: newCategory,
           listingId: result.data.id,
         };
         return axios.post(
@@ -107,39 +121,42 @@ export default function NewListingModal({ open, handleClose }) {
                 id="outlined-required"
                 name="title"
                 label="Title"
+                defaultValue={editListing.title}
               />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <CategoryList onSelect={handleCategoryChange} />
+              <CategoryList onSelect={handleCategoryChange} label={editListing.category} edit={edit} />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
               <TextField
                 required
+                id="1c"
                 multiline
                 rows={2}
-                id="1c"
                 label="Description"
                 name="description"
+                defaultValue={editListing.description}
               />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField required id="2c" name="city" label="City" />
+              <TextField required id="2c" name="city" label="City" defaultValue={editListing.city}/>
               <TextField
                 required
                 id="3c"
                 label="Postal Code"
                 name="postalCode"
+                defaultValue={editListing.postalCode}
               />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField required id="4c" label="Price" name="price" />
+              <TextField required id="4c" label="Price" name="price" defaultValue={editListing.price} />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField id="5c" name="image_1" label="Image URL" />
+              <TextField id="5c" name="image_1" label="Image URL" defaultValue={editListing.image_1}/>
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField id="6c" name="image_2" label="Image URL 2" />
-              <TextField id="7c" name="image_3" label="Image URL 3" />
+              <TextField id="6c" name="image_2" label="Image URL 2" defaultValue={editListing.image_2}/>
+              <TextField id="7c" name="image_3" label="Image URL 3" defaultValue={editListing.image_3}/>
             </FormGroup>
 
             <Button
@@ -151,7 +168,7 @@ export default function NewListingModal({ open, handleClose }) {
               fullWidth
               sx={{ mt: 5 }}
             >
-              Create Listing
+              Save Listing Details
             </Button>
           </Box>
         </Box>
