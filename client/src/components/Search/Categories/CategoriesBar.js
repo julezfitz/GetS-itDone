@@ -46,7 +46,7 @@ function CategoriesBar({
 
 					<Grid item style={{ display: "flex", gap: "1rem" }}>
 						<Box style={{ width: "100%" }}>
-							<FormControl size='string' id='sortbyform' style={{ width: "55%" }}>
+							<FormControl size='string' id='sortbyform' style={{ width: "45%" }}>
 								<InputLabel id="sortby-label">Sort by</InputLabel>
 								<Select
 									labelId="sortby-label"
@@ -64,7 +64,7 @@ function CategoriesBar({
 									</MenuItem>
 								</Select>
 							</FormControl>
-							<FormControl size='string' id='orderbyform' style={{ width: "40%", marginLeft: '1em' }}>
+							<FormControl size='string' id='orderbyform' style={{ width: "50%", marginLeft: '1em' }}>
 								<InputLabel id="orderby-label">Order</InputLabel>
 								<Select
 									labelId="orderby-label"
@@ -75,10 +75,10 @@ function CategoriesBar({
 									onChange={(e) => { setOrder(e.target.value); handleOrderChange(e) }}
 								>
 									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='asc'>
-										Ascending
+										{sort === 'price' ? "Lowest to Highest" : sort === 'created' ? "Newest to Oldest" : "Ascending"}
 									</MenuItem>
 									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='desc'>
-										Descending
+										{sort === 'price' ? "Highest to Lowest" : sort === 'created' ? "Oldest to Newest" : "Descending"}
 									</MenuItem>
 								</Select>
 							</FormControl>
