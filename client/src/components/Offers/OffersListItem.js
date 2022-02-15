@@ -27,9 +27,9 @@ export default function OffersListItem(props) {
   }), [props.offer])
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       <Grid item></Grid>
-      <Grid item xs={12} sm container spacing={3}>
+      <Grid item xs={6} sm container spacing={1}>
         <Grid item xs container direction="column">
           <Grid item xs>
             <Typography gutterBottom variant="subtitle1" component="div">
@@ -39,8 +39,8 @@ export default function OffersListItem(props) {
               <Grid container={true} >
                 <Rating name="user-rating" size="small" value={parseInt(offer.averageRating)} readOnly />
                 <Typography variant="string" component="div">&nbsp;  (</Typography>
-                <Link onClick={handleUserRatingsOpen} variant="string" component="button">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Link>
-                <Typography variant="string" color="black" component="div">)</Typography>
+                <Link onClick={handleUserRatingsOpen} color="inherit" underline="hover" variant="string" component="button">{offer.ratingCount} {offer.ratingCount > 1 ? "ratings" : "rating"}</Link>
+                <Typography variant="string" component="div">)</Typography>
               </Grid>
               <UserRatingsModal open={userRatingsOpen} handleClose={handleUserRatingsClose} user={offer} />
             </Typography>
@@ -48,15 +48,14 @@ export default function OffersListItem(props) {
           <br></br>
         </Grid>
 
-
         {props.offerDeclined ? (<Typography variant="subtitle1" component="div"> Declined</Typography>) : (
-          <Grid item xs container direction="row" spacing={0}>
+          <Grid item xs container direction="row" alignItems='right' justifyContent='right' spacing={0}>
             <Grid item>
               <Typography variant="subtitle1" component="div">
                 <Button
                   size={"small"}
                   type='submit'
-                  color='primary'
+                  color='success'
                   variant='contained'
                   value={offer}
                   sx={{ marginTop: 2, marginRight: 1 }}
@@ -72,9 +71,9 @@ export default function OffersListItem(props) {
                 <Button
                   size={"small"}
                   type='submit'
-                  color='primary'
+                  color='error'
                   variant='contained'
-                  sx={{ marginTop: 2 }}
+                  sx={{ marginTop: 2, marginRight:0 }}
                   onClick={handleDecline}
                 >
                   Decline
@@ -84,15 +83,6 @@ export default function OffersListItem(props) {
           </Grid>
 
         )}
-
-        {/* {errors &&
-								errors.map(err => {
-									return (
-										<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
-											{err.message}
-										</Alert>
-									);
-								})} */}
       </Grid>
     </Grid>
   );
