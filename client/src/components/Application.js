@@ -98,6 +98,7 @@ export default function Application() {
 	};
 
 	const userControls = {
+		userPending: globalState.user.pending,
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
