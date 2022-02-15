@@ -7,7 +7,7 @@ import CurrencyFormat from 'react-currency-format';
 
 export default function MyOffersItem(props) {
   return (
-    <Paper sx={{ p: 2, flexGrow: 1 }} style={{ cursor: "pointer" }}>
+    <Paper variant="outlined" sx={{ p: 2, m: 2, flexGrow: 1 }} style={{ cursor: "pointer" }}>
       <Grid container spacing={2} onClick={props.onClick}>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
