@@ -9,6 +9,7 @@ import Error from "../Error";
 import axios from "axios";
 import { FormGroup, FormControl } from "@mui/material";
 import Redirect from "../Redirect";
+import { fieldStyles } from "../styles/styles";
 
 const style = {
 	position: "absolute",
@@ -25,10 +26,6 @@ const style = {
 
 const formGroupStyle = {
 	"& .MuiTextField-root": { flexGrow: 1 },
-};
-
-const panelStyle = {
-	height: "100%",
 };
 
 export default function RegisterModal({ open, handleClose, setModalOpen }) {
@@ -158,8 +155,10 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 					autoComplete='off'
 					onSubmit={handleSubmit}
 				>
+					{errors && <Error errorMessage={errors} />}
 					<FormGroup row sx={formGroupStyle}>
 						<TextField
+							sx={fieldStyles}
 							placeholder='First Name'
 							required
 							id='r1outlined-required'
@@ -175,6 +174,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							}
 						/>
 						<TextField
+							sx={fieldStyles}
 							required
 							placeholder='Last Name'
 							id='r2outlined-required'
@@ -192,6 +192,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 					</FormGroup>
 					<FormGroup row sx={formGroupStyle}>
 						<TextField
+							sx={fieldStyles}
 							placeholder='Email'
 							fullWidth
 							required
@@ -210,6 +211,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 					</FormGroup>
 					<FormGroup row sx={formGroupStyle} row>
 						<TextField
+							sx={fieldStyles}
 							placeholder='Password'
 							required
 							id='outlined-password-input3'
@@ -227,6 +229,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							}
 						/>
 						<TextField
+							sx={fieldStyles}
 							placeholder='Confirm Password'
 							required
 							id='outlined-password-input4'
@@ -246,6 +249,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 					</FormGroup>
 					<FormGroup sx={formGroupStyle} row>
 						<TextField
+							sx={fieldStyles}
 							placeholder='City'
 							required
 							id='r5outlined-required'
@@ -261,6 +265,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							}
 						/>
 						<TextField
+							sx={fieldStyles}
 							placeholder='Province'
 							required
 							id='r6outlined-required'
@@ -278,6 +283,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 					</FormGroup>
 					<FormGroup sx={formGroupStyle} row>
 						<TextField
+							sx={fieldStyles}
 							placeholder='Postal Code'
 							required
 							id='r7outlined-required'
@@ -293,6 +299,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							}
 						/>
 						<TextField
+							sx={fieldStyles}
 							placeholder='Country'
 							required
 							id='r8outlined-required'
@@ -320,7 +327,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 					>
 						Create Account
 					</Button>
-					{errors && <Error errorMessage={errors} />}
 				</Box>
 				<Redirect to='log in' setModalOpen={setModalOpen} />
 			</Box>
