@@ -4,10 +4,9 @@ import Marquee from "react-fast-marquee";
 import { Typography } from "@mui/material";
 import { darkTheme } from "../../styles/globalStyles";
 import { device } from "../../styles/devices/devices";
-import Scene from "./Scene/Scene";
 
 const StyledFooter = styled.footer`
-	height: 90vh;
+	height: 64vh;
 	background-color: white;
 	position: fixed;
 	bottom: 0;
@@ -36,25 +35,44 @@ const StyledFooter = styled.footer`
 		}
 	}
 
-	.marquee-text {
-		color: black;
-		font-size: 13vw;
-		letter-spacing: -0.5vw;
-
-		@media ${device.desktop} {
-			font-size: 200px;
-		}
-	}
-
 	.dev-credits {
-		width: 300px;
 		padding-right: 10rem;
 		padding-bottom: 3rem;
-		border-radius: px;
+
 		color: black;
+		position: absolute;
+		bottom: 0;
+		left: 0;
 
 		p {
+			font-size: 3vw;
 			word-break: keep-all;
+			
+		}
+
+		.credit {
+			transition: 500ms ease;
+			position: relative;
+			&::after {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 0.34vw;
+				content: "";
+				background: ${darkTheme.palette.secondary.main};
+				transition: 500ms ease;
+				transform-origin: right;
+			}
+
+			&:hover::after {
+				transform: scaleX(0);
+				transform-origin: right;
+			}
+
+			&:hover {
+				color: ${darkTheme.palette.secondary.main};
+			}
 		}
 	}
 `;
@@ -66,19 +84,19 @@ const lineStyle = {
 function Footer() {
 	const contactInfo = [
 		{
-			name: "Brad",
+			name: "Brad Sawyer",
 			email: "",
-			gitHub: "",
+			gitHub: "https://github.com/BMWSawyer",
 		},
 		{
 			name: "Julie Fitzpatrick",
 			email: "",
-			gitHub: "",
+			gitHub: "https://github.com/julezfitz",
 		},
 		{
 			name: "Matt Parisien",
 			email: "",
-			gitHub: "",
+			gitHub: "https://github.com/mattparisien",
 		},
 	];
 
@@ -86,50 +104,37 @@ function Footer() {
 		<>
 			<StyledFooter>
 				<div className='footer-inner'>
-					<Scene/>
 					{/* <iframe
 					src='https://my.spline.design/primitivescopy-c394739b6b3261b8319b0e09d72f5730/'
 					frameBorder='0'
 					width='100%'
 					height='60%'
 				></iframe> */}
-					{/* <div className='marquee-rails'>
-						<hr style={lineStyle}></hr>
-						<Marquee speed={40} gradient={false} direction='right'>
-							<Typography className='marquee-text' component='h2'>
-								Contact us.
-							</Typography>
-						</Marquee>
-						<hr style={lineStyle}></hr>
-						<Marquee speed={40} gradient={false} direction='left'>
-							<Typography className='marquee-text' component='h2'>
-								We get it done.
-							</Typography>
-						</Marquee>
-						<hr style={lineStyle}></hr>
-					</div> */}
 				</div>
 
 				<div className='dev-credits'>
 					<Typography>
-						Designed & developed by <br></br>{" "}
+						Designed & developed by{" "}
 						{contactInfo.map((dev, i) => {
 							return (
-								<a
-									href={dev.gitHub}
-									target='_blank'
-									className={`credits-${dev.name}__github`}
-									style={{
-										fontWeight: "bolder",
-										textDecoration: "underline",
-									}}
-								>
-									{i < 1
-										? dev.name + ", "
-										: i < 2
-										? dev.name + " and "
-										: dev.name}
-								</a>
+								<>
+									<a
+										href={dev.gitHub}
+										target='_blank'
+										className={`credit credit-${dev.name}__github`}
+									>
+										{dev.name}
+									</a>
+									{i < 1 ? (
+										", "
+									) : i < 2 ? (
+										<>
+											<span> and</span> <br></br>{" "}
+										</>
+									) : (
+										""
+									)}
+								</>
 							);
 						})}
 					</Typography>

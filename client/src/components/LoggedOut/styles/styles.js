@@ -80,7 +80,6 @@ export const StyledHero = styled.section`
 		.text-content-inner {
 			position: relative;
 			height: 100%;
-
 			display: flex;
 			justify-content: end;
 
