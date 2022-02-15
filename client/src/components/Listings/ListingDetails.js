@@ -105,7 +105,7 @@ export default function ListingDetails(props) {
                 <Grid item xs={8}>
                   <h2>{props.listing.title}</h2>
                   <h4>Category: {props.listing.category}</h4>
-                  <Typography variant="h5">
+                  <Typography component='span' variant="h5">
                     <CurrencyFormat value={props.listing.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                   </Typography>
                 </Grid>
@@ -146,7 +146,7 @@ export default function ListingDetails(props) {
                       title={`${props.listing.first_name} ${props.listing.last_name}`}
                     />
 
-                    <Grid Item>
+                    <Grid item>
                       <Grid container={true} direction="row" spacing={1} wrap='nowrap' onClick={handleUserRatingsOpen}>
                        
                         {/* Please fix the spacing issue below if you know how */}
