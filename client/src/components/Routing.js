@@ -13,7 +13,7 @@ import { useLocation } from "react-router";
 
 function Routing({ keywords, search, togglePending, emptySearch }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
-	const { isLoggedIn } = useContext(UserContext);
+	const { isLoggedIn, userPending } = useContext(UserContext);
 	const location = useLocation();
 
 	const pageInfo = [
@@ -47,10 +47,15 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 		<>
 			{isLoggedIn && (
 				<>
-					<Heading size='medium' className='page-heading' color='light' style={{marginBottom: 0}}>
+					<Heading
+						size='medium'
+						className='page-heading'
+						color='light'
+						style={{ marginBottom: 0 }}
+					>
 						{headingTitle}
 					</Heading>
-					<hr className="heading-divider" style={{marginBottom: "4rem"}}/>
+					<hr className='heading-divider' style={{ marginBottom: "4rem" }} />
 				</>
 			)}
 			<Routes>
@@ -93,22 +98,30 @@ function Routing({ keywords, search, togglePending, emptySearch }) {
 
 				<Route
 					path='/profile'
-					element={isLoggedIn ? <MyProfile /> : <Navigate to='/' />}
+					element={
+						isLoggedIn ? <MyProfile /> : !userPending && <Navigate to='/' />
+					}
 				/>
 
 				<Route
 					path='/listings'
-					element={isLoggedIn ? <MyListings /> : <Navigate to='/' />}
+					element={
+						isLoggedIn ? <MyListings /> : !userPending && <Navigate to='/' />
+					}
 				/>
 
 				<Route
 					path='/offers'
-					element={isLoggedIn ? <MyOffers /> : <Navigate to='/' />}
+					element={
+						isLoggedIn ? <MyOffers /> : !userPending && <Navigate to='/' />
+					}
 				/>
 
 				<Route
 					path='/listings/:id'
-					element={isLoggedIn ? <OffersList /> : <Navigate to='/' />}
+					element={
+						isLoggedIn ? <OffersList /> : !userPending && <Navigate to='/' />
+					}
 				/>
 			</Routes>
 		</>
