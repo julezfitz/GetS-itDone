@@ -5,6 +5,10 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddIcon from "@mui/icons-material/Add";
 import UserMenu from "../UserMenu";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 export default function NavRight({
 	newListingOpen,
@@ -28,6 +32,10 @@ export default function NavRight({
 				setNotifications(results.data);
 			});
 	}, []);
+
+
+	//toast trigger
+	const notify = () => toast.info("Wow so easy!");
 
 	return (
 		<Box
@@ -68,9 +76,18 @@ export default function NavRight({
 					aria-label="show 4 new notifications"
 					color="inherit"
 				>
-					<Badge badgeContent={notifications.length} color="error">
+
+					<Badge badgeContent={notifications.length} color="error" onClick={notify}>
+						<ToastContainer
+							position="top-right"
+							// hideProgressBar= "true"
+							autoClose={20000}
+							theme="dark"
+							type="success"
+						/>
 						<NotificationsIcon />
 					</Badge>
+					
 				</IconButton>
 			</Box>
 			<Box sx={{ maxWidth: "150px" }}>
