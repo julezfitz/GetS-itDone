@@ -48,7 +48,7 @@ export default function OffersListItem(props) {
           <br></br>
         </Grid>
 
-        {props.offerDeclined ? (<Typography variant="subtitle1" component="div"> Declined</Typography>) : (
+        {props.offerDeclined ? (<Typography variant="subtitle1" sx={{ marginTop: 2}} component="div"> Declined</Typography>) : (
           <Grid item xs container direction="row" alignItems='right' justifyContent='right' spacing={0}>
             <Grid item>
               <Typography variant="subtitle1" component="div">
