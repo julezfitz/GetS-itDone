@@ -17,20 +17,28 @@ export default function MyOffersItem(props) {
               </Typography>
             </Grid>
           </Grid>
-          <Grid>
+
+          <Grid item>
             <Typography variant="subtitle1" component="div">
               <CurrencyFormat value={props.offer.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </Typography>
-            <Button
-              size="small"
-              variant="outlined"
-              color="error"
-              value={props.offer.id}
-              onClick={props.handleDelete}
-            >
-              Withdraw Offer
-            </Button>
           </Grid>
+
+          <Grid item>
+            <div>{props.offer.accepted ? (<div style={{ marginLeft: '11em' }} ></div>) : 
+                   <Button
+                   size="small"
+                   variant="outlined"
+                   color="error"
+                   value={props.offer.id}
+                   onClick={props.handleDelete}
+                   style={{ marginLeft: '3em' }}
+                 >
+                   Withdraw Offer
+                 </Button>}
+            </div>
+            </Grid>
+
         </Grid>
       </Grid>
     </Paper>
