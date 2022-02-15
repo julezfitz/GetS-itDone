@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Typography, Box } from "@mui/material";
+import React, { useState, useRef } from "react";
+import { Form, Typography, Box } from "@mui/material";
 import { Chip, Paper } from "@mui/material";
 import Chips from "./Chips";
 import { Divider } from "@mui/material";
@@ -14,9 +14,9 @@ function CategoriesBar({
 	categories,
 	selectedChip,
 	handleSelectedChip,
-	handleClearSelection,
 	emptySearch,
 	handleSortChange,
+	handleClearSelection,
 	handleOrderChange
 }) {
 	const barStyle = {
@@ -29,6 +29,15 @@ function CategoriesBar({
 		justifyContent: "center",
 	};
 
+	const [sort, setSort] = useState('');
+	const [order, setOrder] = useState('');
+
+	const _handleClearSelection = () => {
+		setSort('');
+		setOrder('');
+		handleClearSelection();
+	}
+
 	return (
 		<>
 			<Box style={barStyle}>
@@ -36,14 +45,14 @@ function CategoriesBar({
 
 					<Grid item style={{ display: "flex", gap: "1rem" }}>
 						<Box style={{ width: "100%" }}>
-							<FormControl size='string' style={{ width: "55%" }}>
+							<FormControl size='string' id='sortbyform' style={{ width: "55%" }}>
 								<InputLabel id="sortby-label">Sort by</InputLabel>
 								<Select
 									labelId="sortby-label"
 									id="demo-simple-select"
 									label="Search Filters"
-									defaultValue=''
-									onChange={handleSortChange}
+									value={sort}
+									onChange={(e) => { setSort(e.target.value); handleSortChange(e) }}
 								>
 									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='price'>
 										Price
@@ -53,14 +62,14 @@ function CategoriesBar({
 									</MenuItem>
 								</Select>
 							</FormControl>
-							<FormControl size='string' style={{ width: "40%", marginLeft: '1em' }}>
+							<FormControl size='string' id='orderbyform' style={{ width: "40%", marginLeft: '1em' }}>
 								<InputLabel id="orderby-label">Order</InputLabel>
 								<Select
 									labelId="orderby-label"
-									id="demo-simple-select"
+									id="-select"
 									label="Search Filters"
-									defaultValue=''
-									onChange={handleOrderChange}
+									value={order}
+									onChange={(e) => { setOrder(e.target.value); handleOrderChange(e) }}
 								>
 									<MenuItem key={Math.random().toString(36).substr(2, 9)} value='asc'>
 										Ascending
@@ -81,7 +90,7 @@ function CategoriesBar({
 									categories={categories}
 									selected={selectedChip}
 									setSelected={handleSelectedChip}
-									handleClearSelection={handleClearSelection}
+									handleClearSelection={_handleClearSelection}
 									emptySearch={emptySearch}
 								/>
 							</Box>
