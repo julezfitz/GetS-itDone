@@ -11,6 +11,7 @@ import LoginModal from "./User/Login";
 import LoadingScreen from "./Loading/LoadingScreen";
 import Footer from "./Footer/Footer";
 import { Box } from "@mui/material";
+import Rails from "./Rails/Rails";
 
 export const UserContext = createContext();
 
@@ -171,6 +172,7 @@ export default function Application() {
 							<span>Sort By: Date</span>
 						</div> */}
 				</Container>
+				<Rails />
 			</Box>
 			<Footer />
 		</UserContext.Provider>
