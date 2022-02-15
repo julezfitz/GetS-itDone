@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SearchList from "./SearchList";
 import CategoriesBar from "./Categories/CategoriesBar";
 import { Box } from "@mui/material";
 import axios from "axios";
 import { LinearProgress } from "@mui/material";
+import { UserContext } from "../Application";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
+	const { isLoggedIn } = useContext(UserContext);
 	const [pending, setPending] = useState(true);
 	const [listings, setListings] = useState([]);
 	// const [categories, setCategories] = useState([]);
@@ -34,41 +36,44 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		});
 	};
 
-	const handleSortChange = (e) => {setSortByType(e.target.value)}
-	const handleOrderChange = (e) => {setSortOrder(e.target.value)}
+	const handleSortChange = e => {
+		setSortByType(e.target.value);
+	};
+	const handleOrderChange = e => {
+		setSortOrder(e.target.value);
+	};
 
 	useEffect(() => {
 		if (sortByType.length > 0 || sortOrder.length > 0) {
 			// const controller = new AbortController();
 			let paramObj = {};
 			if (sortByType.length > 0) {
-				(paramObj['orderBy'] = sortByType)
+				paramObj["orderBy"] = sortByType;
 			}
 			if (sortOrder.length > 0) {
-				(paramObj['sortOrder'] = sortOrder)
+				paramObj["sortOrder"] = sortOrder;
 			}
 
-			axios.get(`http://localhost:8001/listings/`, {
-				params: paramObj,
-				// signal: controller.signal
-			})
+			axios
+				.get(`http://localhost:8001/listings/`, {
+					params: paramObj,
+					// signal: controller.signal
+				})
 				.then(result => {
 					setListings(result.data);
-				})
+				});
 		}
-	}, [sortByType, sortOrder])
-
+	}, [sortByType, sortOrder]);
 
 	useEffect(() => {
 		const controller = new AbortController();
 		//If no chip is selected we can fetch all listings
 		if (!selectedChip.id) {
 			axios
-				.get(`http://localhost:8001/listings/`,
-					{
-						params: { keywords },
-						signal: controller.signal
-					})
+				.get(`http://localhost:8001/listings/`, {
+					params: { keywords },
+					signal: controller.signal,
+				})
 				.then(result => {
 					setListings(result.data);
 
@@ -83,9 +88,9 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					setPending(false);
 					// }, 900);
 				})
-				.catch((err) => { })
+				.catch(err => {});
 		}
-		return () => controller.abort()
+		return () => controller.abort();
 	}, [keywords, selectedChip]);
 
 	useEffect(() => {
@@ -108,12 +113,14 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			const categoryId = selectedChip.id;
 
 			axios
-				.get(`http://localhost:8001/listings/?category=${categoryId}`, { signal: controller.signal })
+				.get(`http://localhost:8001/listings/?category=${categoryId}`, {
+					signal: controller.signal,
+				})
 				.then(res => setListings(res.data))
 				.catch(err => console.log(err));
 		}
 
-		return () => controller.abort()
+		return () => controller.abort();
 	}, [selectedChip]);
 
 	const wrapperStyle = {
@@ -139,6 +146,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 						emptySearch={emptySearch}
 						handleSortChange={handleSortChange}
 						handleOrderChange={handleOrderChange}
+						isLoggedIn={isLoggedIn}
 					/>
 				</>
 			)}

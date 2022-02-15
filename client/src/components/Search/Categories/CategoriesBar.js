@@ -17,7 +17,8 @@ function CategoriesBar({
 	emptySearch,
 	handleSortChange,
 	handleClearSelection,
-	handleOrderChange
+	handleOrderChange,
+	isLoggedIn
 }) {
 	const barStyle = {
 		width: "500px",
@@ -89,6 +90,7 @@ function CategoriesBar({
 							<Typography sx={{ color: "white" }}>Filter by Category</Typography>
 							<Box>
 								<Chips
+									isLoggedIn={isLoggedIn}
 									categories={categories}
 									selected={selectedChip}
 									setSelected={handleSelectedChip}
