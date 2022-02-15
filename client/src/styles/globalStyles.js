@@ -1,8 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import Kobe from "../assets/fonts/Kobe.woff";
 import { createTheme } from "@mui/material/styles";
-
-const GUTTER = "10vw";
+import shadows, { Shadows } from "@mui/material/styles/shadows";
 
 //Color variables
 export const DEEPBLACK = "black";
@@ -13,6 +12,7 @@ export const GRADIENT = "linear-gradient(45deg, #ED6E23, #EDA224)";
 export const ORANGE = "#ED6E23";
 
 //Constants
+const GUTTER = "10vw";
 export const FOOTERHEIGHT = "80vh";
 export const TRANSITION = "300ms ease";
 
@@ -85,13 +85,12 @@ export const darkTheme = createTheme({
 		},
 	},
 	overrides: {
-		MuiOutlinedInput: {
-			input: {
-				"&:-webkit-autofill": {
-					"-webkit-box-shadow": "none",
-					"-webkit-text-fill-color": "#fff",
-				},
+		MuiInputBase: {
+			"&:-webkit-autofill": {
+				"-webkit-box-shadow": "none !important",
+				"-webkit-text-fill-color": "#fff",
 			},
+
 			fieldset: {
 				display: "none",
 			},
