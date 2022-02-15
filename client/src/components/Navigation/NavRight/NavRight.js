@@ -33,9 +33,30 @@ export default function NavRight({
 			});
 	}, []);
 
-
 	//toast trigger
-	const notify = () => toast.info("Wow so easy!");
+	//add offer listing title?
+	const notify = () => {
+		for (const notice in notifications) {
+			if (notifications[notice].notificationMessage === "Your offer has been declined.") {
+				toast.error(notifications[notice].notificationMessage);
+			}
+			if (notifications[notice].notificationMessage === "Your offer has been accepted.") {
+				toast.success(notifications[notice].notificationMessage);
+			}
+			if (notifications[notice].notificationMessage === "You have a new offer!") {
+				toast.info(notifications[notice].notificationMessage);
+			}
+		}
+	}
+
+	const handleNotificationDismiss = () => {
+
+		console.log('hello');
+		//axios call here to set read status of notification to true
+		// setNotifications([]);
+	}
+
+	console.log(notifications);
 
 	return (
 		<Box
@@ -77,17 +98,18 @@ export default function NavRight({
 					color="inherit"
 				>
 
-					<Badge badgeContent={notifications.length} color="error" onClick={notify}>
+					<Badge badgeContent={notifications.length} color="error" >
 						<ToastContainer
 							position="top-right"
 							// hideProgressBar= "true"
 							autoClose={20000}
 							theme="dark"
 							type="success"
+							onClick={handleNotificationDismiss}
 						/>
-						<NotificationsIcon />
+						<NotificationsIcon onClick={notify} />
 					</Badge>
-					
+
 				</IconButton>
 			</Box>
 			<Box sx={{ maxWidth: "150px" }}>
