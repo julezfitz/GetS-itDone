@@ -9,5 +9,6 @@ export const makeRandomString = passLength => {
 		result += characters.charAt(Math.floor(Math.random() * characters.length));
 	}
 
+	console.log(result)
 	return result;
 };

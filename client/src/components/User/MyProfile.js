@@ -65,8 +65,6 @@ export default function MyProfile() {
 			})
 			.then(res => {
 				refreshUserDetails();
-				// 	res.data.registration.errors.length >= 1 &&
-				// 		setErrors(res.data.registration.errors);
 			})
 			.catch(err => setErrors(err))
 			.finally(setLoading(false), setUpdate(false));
@@ -124,7 +122,7 @@ export default function MyProfile() {
 										label='Password'
 										name='password'
 										type='password'
-										defaultValue={makeRandomString(userDetails.password)}
+										defaultValue={userDetails.password}
 									/>
 									<TextField
 										required

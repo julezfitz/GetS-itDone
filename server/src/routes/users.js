@@ -260,7 +260,7 @@ module.exports = db => {
 					firstName: getUser.first_name,
 					lastName: getUser.last_name,
 					email: getUser.email,
-					passLength: req.session.user.passLength,
+					password: getUser.password,
 					city: getUser.city,
 					province: getUser.province,
 					postalCode: getUser.postal_code,
@@ -268,7 +268,7 @@ module.exports = db => {
 					image: getUser.image,
 					ratings: ratingInfo.rows,
 				};
-				console.log(user);
+
 				res.send({ user });
 				return;
 			});
@@ -278,6 +278,7 @@ module.exports = db => {
 	//Update user by Id
 	router.put("/user/:userId", (req, res) => {
 		const { userId } = req.params;
+
 		const {
 			firstName,
 			lastName,
@@ -300,7 +301,6 @@ module.exports = db => {
 
 		Object.keys(req.body).forEach((key, i) => {
 			key = key.replace(/([A-Z])/g, "_$1").toLowerCase();
-
 			queryString.push(`${key} = $${(i += 1)}`);
 		});
 
@@ -316,8 +316,6 @@ module.exports = db => {
 			}
 
 			const updatedUser = user.rows[0];
-			delete updatedUser.password;
-			updatedUser["passLength"] = password.length;
 			req.session.user = updatedUser;
 
 			res.send({
