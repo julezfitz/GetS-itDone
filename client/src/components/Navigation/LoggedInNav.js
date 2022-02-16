@@ -34,7 +34,10 @@ function LoggedInNav({
 	}, []);
 
 	return (
-		<Box className="loggedIn-navRight" style={{display: "flex", alignItems: "center"}}>
+		<Box
+			className='loggedIn-navRight'
+			style={{ display: "flex", alignItems: "center" }}
+		>
 			<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
 				<>
 					<Button
