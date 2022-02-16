@@ -8,6 +8,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../Application.js";
 import { FormGroup } from "@mui/material";
+import { toast } from 'react-toastify';
 
 const style = {
   position: "absolute",
@@ -74,8 +75,14 @@ export default function NewListingModal({ open, handleClose }) {
       .then((result) => {
         console.log(result.data);
         handleClose();
+        notifyPost();
       });
   };
+
+  const notifyPost = () => {
+				toast.success(<div style={{fontSize:'medium'}}>
+						<p>Success - Your listing is now live!</p></div>)
+    }
 
   return (
     <Modal
