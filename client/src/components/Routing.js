@@ -2,20 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import LoggedOutHome from "./LoggedOut/Landing/LoggedOut";
 import { UserContext } from "./Application";
-import SearchList from "./Search/SearchList";
+
 import MyListings from "./Listings/MyListings";
 import MyOffers from "./Offers/MyOffers";
 import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
 import Heading from "./Heading/Heading";
-import { useLocation } from "react-router";
+
 import { AnimatePresence } from "framer-motion";
 import { Divider } from "@mui/material";
+import useSplit from "../helpers/hooks/useSplit";
 
 function Routing({ keywords, search, togglePending, emptySearch, location }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
 	const { isLoggedIn, userPending } = useContext(UserContext);
+	const splitHeadingRef = useRef(null);
+	const [isSplit, words, chars, splitCount] = useSplit()
 
 	const pageInfo = [
 		{
