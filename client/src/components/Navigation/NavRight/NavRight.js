@@ -28,13 +28,18 @@ export default function NavRight({
 				params: { userId: userDetails.id },
 			})
 			.then((results) => {
+				if(results.data) {
 				setNotifications(results.data);
-			});
+				}
+			})
+			.catch(() => {
+				// console.log('There are no notifications for this user')
+			})
 	}
 
 	useEffect(() => {
 		getNotifications();
-	}, []);
+	}, [notifications]);
 
 	const navigate = useNavigate()
 
@@ -75,7 +80,6 @@ export default function NavRight({
 		//axios call here to set read status of notification to true
 		axios.put(`http://localhost:8001/notifications/${notificationId}`).then(() => {
 			setNotifications([]);
-			getNotifications();
 		})
 	}
 

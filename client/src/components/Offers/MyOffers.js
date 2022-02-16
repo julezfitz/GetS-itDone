@@ -10,6 +10,8 @@ import { UserContext } from "../Application.js";
 import { format } from "date-fns";
 import { Divider } from "@mui/material";
 import ApplicationAcceptedView from "./ApplicationAcceptedView";
+import { Link } from 'react-router-dom'
+import Typography from "@mui/material/Typography";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -36,12 +38,13 @@ export default function MyOffers() {
       })
       .then((result) => {
         setOffers(result.data);
-        
+
         setOffer(result.data[0]);
-        
+        if(result.data[0]) {
         let date = new Date(result.data[0].created);
         let formattedDate = format(date, "dd/MM/yyyy");
         setDate(formattedDate);
+        }
       });
     return () => controller.abort();
   }, [userDetails, deletedItem]);
@@ -67,25 +70,32 @@ export default function MyOffers() {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
-          <Item>
-            {offers.map((offer) => {
-              return (
-                <MyOfferItem
-                  key={Math.random().toString(36).substr(2, 9)}
-                  onClick={handleOfferChange.bind(offer)}
-                  offer={offer}
-                  handleDelete={handleDelete.bind(null, offer)}
-                />
-              );
-            })}
-          </Item>
+          {offers.length > 0 ?
+            <Item>
+              {offers.map((offer) => {
+                return (
+                  <MyOfferItem
+                    key={Math.random().toString(36).substr(2, 9)}
+                    onClick={handleOfferChange.bind(offer)}
+                    offer={offer}
+                    handleDelete={handleDelete.bind(null, offer)}
+                  />
+                );
+              })}
+            </Item>
+            : <Item>
+              <Typography variant='h4' component='h2'>
+                You have no offers to show. Check out <Link style={{ color: 'orange' }} to="/">available listings</Link> to get started.
+              </Typography>
+            </Item>
+          }
         </Grid>
         <Grid item xs={8}>
-          <Item>
+          {offers.length > 0 && <Item>
             <OfferQuickView offer={offer} date={date} />
             {offer.accepted && (
               <Item>
-                <h3>Confirmed</h3>
+                <h2>Confirmed</h2>
                 <Divider />
                 <ApplicationAcceptedView
                   listingId={offer.listingId}
@@ -93,7 +103,7 @@ export default function MyOffers() {
                 />
               </Item>
             )}
-          </Item>
+          </Item>}
         </Grid>
       </Grid>
     </Box>
