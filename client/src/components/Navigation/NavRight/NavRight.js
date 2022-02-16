@@ -53,7 +53,7 @@ export default function NavRight({
 						<b>Listing: "{notifications[notice].title}"</b>  
 						<p>{notifications[notice].notificationMessage}</p></div>)
 			}
-			if (notifications[notice].notificationMessage === "Your offer has been accepted.") {
+			if (notifications[notice].notificationMessage === "Your offer has been accepted!") {
 				toast.success(<div onClick={() => {handleNotificationDismiss(notifications[notice].notificationId); 
 					routeChange(`/offers`);}} style={{fontSize:'medium'}} id={notifications[notice].notificationId}>
 						<b>Listing: "{notifications[notice].title}"</b>  
@@ -70,7 +70,6 @@ export default function NavRight({
 
 	const handleNotificationDismiss = (e) => {
 		//get notification id
-		console.log("handle notifications")
 		let notificationId = e;
 
 		//axios call here to set read status of notification to true
