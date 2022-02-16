@@ -63,6 +63,7 @@ export default function MyProfile() {
         province: e.target.elements.province.value,
         postalCode: e.target.elements.postalCode.value,
         country: e.target.elements.country.value,
+        image: e.target.elements.image.value
       })
       .then(res => {
         refreshUserDetails();
@@ -156,7 +157,8 @@ export default function MyProfile() {
                     />
                     <TextField
                       id='9p'
-                      label='Profile Picture'
+                      label='Profile Picture URL'
+                      name='image'
                       defaultValue={userDetails.image}
                     />
                   </div>
