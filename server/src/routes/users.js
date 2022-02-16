@@ -35,7 +35,7 @@ module.exports = db => {
 		//Check for user
 		db.query(
 			`
-			SELECT id, email, first_name, last_name, password, city, country, province
+			SELECT *
 			FROM users
 			WHERE email = $1;
 		`,
@@ -58,6 +58,7 @@ module.exports = db => {
 							city: user[0]["city"],
 							country: user[0]["country"],
 							province: user[0]["province"],
+							image: user[0].image,
 						};
 
 						req.session["user"] = userObject;
@@ -202,8 +203,9 @@ module.exports = db => {
 						]
 					)
 					.then(success => {
-						console.log(success)
+						console.log(success);
 						//If user has successfully been registered in db, send success msg to front end
+						console.log("succes", success);
 						req.session["user"] = {
 							id: success.rows[0].id,
 							email: success.rows[0].email,
@@ -215,7 +217,7 @@ module.exports = db => {
 						};
 						response.registration.isRegistered = true;
 						response.registration.user = req.session.user;
-						console.log(response)
+						console.log(response);
 						res.send(response);
 						return;
 					})
