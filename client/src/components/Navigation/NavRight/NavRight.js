@@ -28,8 +28,13 @@ export default function NavRight({
 				params: { userId: userDetails.id },
 			})
 			.then((results) => {
+				if(results.data) {
 				setNotifications(results.data);
-			});
+				}
+			})
+			.catch(() => {
+				// console.log('There are no notifications for this user')
+			})
 	}
 
 	useEffect(() => {
