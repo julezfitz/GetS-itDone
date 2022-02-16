@@ -13,7 +13,11 @@ export default function CategoryList(props) {
     });
   }, []);
 
+  const [category, setCategory] = useState("");
+
+
   const handleChange = (e) => {
+    setCategory(e.target.value);
     props.onSelect(e.target.value);
   };
 
@@ -26,6 +30,7 @@ export default function CategoryList(props) {
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         label="Category"
+        value={category}
         onChange={handleChange}
       >
         {categories.map((category) => {
