@@ -95,7 +95,7 @@ export default function MyOffers() {
             <OfferQuickView offer={offer} date={date} />
             {offer.accepted && (
               <Item>
-                <h3>Confirmed</h3>
+                <h2>Confirmed</h2>
                 <Divider />
                 <ApplicationAcceptedView
                   listingId={offer.listingId}

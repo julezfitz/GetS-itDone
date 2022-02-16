@@ -25,7 +25,7 @@ export default function OffersListItem(props) {
           <Grid item xs>
             <Typography gutterBottom variant="subtitle1" component="div">
               Congrats! You chose {props.acceptedOffer.firstName} {props.acceptedOffer.lastName} to complete your
-              job. You can reach them at <a href={`mailto:${props.acceptedOffer.email}`}>{props.acceptedOffer.email}</a> to
+              job. You can reach them at <a href={`mailto:${props.acceptedOffer.email}`} style={{color:'orange'}}>{props.acceptedOffer.email}</a> to
               make arrangements.
             </Typography>
             <Grid item xs >
@@ -36,9 +36,9 @@ export default function OffersListItem(props) {
                     onClick={handleNewRatingOpen}
                     size={"medium"}
                     type='submit'
-                    color='primary'
-                    variant='contained'
-                    sx={{ marginLeft: 16 }}
+                    color='secondary'
+                    variant="outlined"
+                    sx={{ marginLeft: 16, marginTop: 1 }}
                   >
                     Leave A Review
                   </Button>
