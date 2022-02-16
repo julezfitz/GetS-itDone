@@ -26,6 +26,7 @@ export default function MyListings() {
 	const [listing, setListing] = useState("");
 	const [date, setDate] = useState("");
 	const [deletedItem, setDeletedItem] = useState("");
+	const [updated, setUpdated] = useState(false);
 
 	useEffect(() => {
 		if (userDetails) {
@@ -43,7 +44,7 @@ export default function MyListings() {
 					}
 				});
 		}
-	}, [userDetails, deletedItem]);
+	}, [userDetails, deletedItem, updated]);
 
 	const handleListingChange = function () {
 		let date = new Date(this.created);
@@ -63,6 +64,10 @@ export default function MyListings() {
 			});
 	}
 
+	const handleUpdatedChange = function () {
+		updated ? setUpdated(false) : setUpdated(true);
+	};
+
 	return (
 		<TransitionWrapper>
 			<Box sx={{ flexGrow: 1, minHeight: "100vh" }}>
@@ -77,6 +82,7 @@ export default function MyListings() {
 											key={Math.random().toString(36).substr(2, 9)}
 											listing={listing}
 											handleDelete={handleDelete.bind(null, listing)}
+											handleUpdatedChange={handleUpdatedChange}
 										/>
 									);
 								})}
