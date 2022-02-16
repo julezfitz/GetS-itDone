@@ -34,7 +34,7 @@ export default function NavRight({
 
 	useEffect(() => {
 		getNotifications();
-	}, []);
+	}, [notifications]);
 
 	const navigate = useNavigate()
 
@@ -75,7 +75,6 @@ export default function NavRight({
 		//axios call here to set read status of notification to true
 		axios.put(`http://localhost:8001/notifications/${notificationId}`).then(() => {
 			setNotifications([]);
-			getNotifications();
 		})
 	}
 
