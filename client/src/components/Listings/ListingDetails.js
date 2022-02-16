@@ -16,8 +16,12 @@ import Box from "@mui/material/Box";
 import { UserContext } from "../Application.js";
 import CurrencyFormat from "react-currency-format";
 import Link from "@mui/material/Link";
+import { Chip } from "@mui/material";
 
 export default function ListingDetails(props) {
+	//General styles
+	const PADDING = "2rem 3rem";
+
 	const [state, setState] = React.useState({
 		right: false,
 	});
@@ -37,7 +41,6 @@ export default function ListingDetails(props) {
 
 	const Item = styled(Paper)(({ theme }) => ({
 		...theme.typography.body2,
-		padding: theme.spacing(1),
 		color: theme.palette.text.secondary,
 	}));
 
@@ -107,29 +110,52 @@ export default function ListingDetails(props) {
 						onClose={toggleDrawer(anchor, false)}
 						PaperProps={{
 							style: {
-								width: "530px",
-								padding: "3rem",
+								width: "550px",
 								justifyContent: "center",
 							},
 						}}
 					>
 						<Stack spacing={0.4}>
-							{/* <Grid container spacing={7} wrap='nowrap'> */}
-							{/* <Grid item xs={8}> */}
-							<Typography variant='h2' sx={{}}>
-								{props.listing.title}
-							</Typography>
-							<Divider color='white' style={{ marginBottom: "4rem" }} />
-							<Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-								<Typography>Category: {props.listing.category}</Typography>
-								<Typography component='span' variant='h5'>
-									<CurrencyFormat
-										value={props.listing.price}
-										displayType={"text"}
-										thousandSeparator={true}
-										prefix={"$"}
-									/>
+							<Box className='padding-box' sx={{ padding: PADDING }}>
+								{/* <Grid container spacing={7} wrap='nowrap'> */}
+								{/* <Grid item xs={8}> */}
+								<Typography variant='h2' sx={{}}>
+									{props.listing.title}
 								</Typography>
+								<Divider color='white' style={{ marginBottom: "4rem" }} />
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "space-between",
+										alignItems: "center",
+									}}
+								>
+									{/* <Box
+										sx={{
+											border: "1px solid white",
+											borderRadius: "30px",
+											padding: "0.3rem 0.7rem",
+										}}
+									> */}
+									{/* <Typography>Category</Typography> */}
+									<Chip
+										size='small'
+										label={props.listing.category}
+										sx={{ padding: "0.8rem 0.2rem" }}
+									/>
+
+									{/* <Typography>{props.listing.category}</Typography> */}
+
+									{/* </Box> */}
+									<Typography component='span' variant='h5'>
+										<CurrencyFormat
+											value={props.listing.price}
+											displayType={"text"}
+											thousandSeparator={true}
+											prefix={"$"}
+										/>
+									</Typography>
+								</Box>
 							</Box>
 							{/* </Grid> */}
 
@@ -145,23 +171,93 @@ export default function ListingDetails(props) {
 									</Box>
 								</Grid> */}
 							{/* </Grid> */}
-							<Item sx={{ height: "20rem" }}>
+							<Item sx={{ height: "16rem" }}>
 								<ImageCarousel listing={props.listing} />
 							</Item>
 							<Item>
-								<h3>Description</h3>
+								<Box className='padding-box' sx={{ padding: PADDING }}>
+									{/* <Typography>Category: {props.listing.category}</Typography> */}
 
-								{/* <Grid container spacing={0}> */}
-								{/* <Grid item xs={9}> */}
-								<Box>
-									<p>{props.listing.description}</p>
-								</Box>
-								{/* </Grid> */}
+									{/* <Grid container spacing={0}> */}
+									{/* <Grid item xs={9}> */}
+									<Box>
+										<p>{props.listing.description}</p>
+									</Box>
+									{/* </Grid> */}
 
-								{/* <Grid item xs={2}> */}
-								<Box m={-5} pt={-5}>
+									{/* <Grid item xs={2}> */}
+									{/* <Box m={-5} pt={-5}> */}
 									{/* check to see if the user owns the job */}
 
+									{/* </Box> */}
+
+									{/* <h4 xs={3}>Posted By:</h4> */}
+
+									<CardHeader
+										sx={{ paddingLeft: 0 }}
+										avatar={
+											<Avatar
+												alt='Profile Image'
+												src={props.listing.image}
+												sx={{ width: "50px", height: "50px" }}
+											/>
+										}
+										title={
+											<Grid item>
+												<Grid
+													container={true}
+													direction='row'
+													spacing={1}
+													style={{ marginLeft: 0, marginBottom: 8 }}
+													wrap='nowrap'
+													onClick={handleUserRatingsOpen}
+												>
+													<Typography fontSize='small'>
+														{props.listing.first_name} {props.listing.last_name}
+													</Typography>
+												</Grid>
+												<Grid
+													container={true}
+													direction='row'
+													spacing={1}
+													wrap='nowrap'
+													onClick={handleUserRatingsOpen}
+												>
+													<Rating
+														name='user-rating'
+														size='small'
+														style={{ marginLeft: 5, marginTop: 0 }}
+														value={parseInt(listingCreator.average)}
+														readOnly
+													/>
+													<Typography variant='string' component='div'>
+														&nbsp; (
+													</Typography>
+
+													<Typography variant='string' component='div'>
+														)
+													</Typography>
+												</Grid>
+												<UserRatingsModal
+													open={userRatingsOpen}
+													handleClose={handleUserRatingsClose}
+													user={listingCreator}
+												/>
+												<Link
+													onClick={handleUserRatingsOpen}
+													color='inherit'
+													underline='hover'
+													variant='string'
+													component='button'
+												>
+													{listingCreator.ratingsCount}{" "}
+													{listingCreator.ratingsCount > 1
+														? "ratings"
+														: "rating"}
+												</Link>
+											</Grid>
+										}
+									/>
 									{props.listing.creator_id === userDetails.id ? (
 										<Typography
 											variant='subtitle2'
@@ -183,7 +279,8 @@ export default function ListingDetails(props) {
 										</Typography>
 									) : (
 										<Button
-											size={"small"}
+											sx={{marginTop: "4rem"}}
+											size={"large"}
 											type='submit'
 											color='secondary'
 											variant='contained'
@@ -194,77 +291,6 @@ export default function ListingDetails(props) {
 										</Button>
 									)}
 								</Box>
-								{/* </Grid> */}
-								{/* </Grid> */}
-
-								<Grid container spacing={0} direction='row'>
-									<Grid item xs={2} style={{ display: "flex" }}>
-										<h4 xs={3}>Posted By:</h4>
-									</Grid>
-
-									<Grid item xs={6}>
-										<CardHeader
-											avatar={
-												<Avatar alt='Profile Image' src={props.listing.image} />
-											}
-											title={
-												<Grid item>
-													<Grid
-														container={true}
-														direction='row'
-														spacing={1}
-														style={{ marginLeft: 0, marginBottom: 8 }}
-														wrap='nowrap'
-														onClick={handleUserRatingsOpen}
-													>
-														<Typography fontSize='small'>
-															{props.listing.first_name}{" "}
-															{props.listing.last_name}
-														</Typography>
-													</Grid>
-													<Grid
-														container={true}
-														direction='row'
-														spacing={1}
-														wrap='nowrap'
-														onClick={handleUserRatingsOpen}
-													>
-														<Rating
-															name='user-rating'
-															size='small'
-															style={{ marginLeft: 5, marginTop: 0 }}
-															value={parseInt(listingCreator.average)}
-															readOnly
-														/>
-														<Typography variant='string' component='div'>
-															&nbsp; (
-														</Typography>
-														<Link
-															onClick={handleUserRatingsOpen}
-															color='inherit'
-															underline='hover'
-															variant='string'
-															component='button'
-														>
-															{listingCreator.ratingsCount}{" "}
-															{listingCreator.ratingsCount > 1
-																? "ratings"
-																: "rating"}
-														</Link>
-														<Typography variant='string' component='div'>
-															)
-														</Typography>
-													</Grid>
-													<UserRatingsModal
-														open={userRatingsOpen}
-														handleClose={handleUserRatingsClose}
-														user={listingCreator}
-													/>
-												</Grid>
-											}
-										/>
-									</Grid>
-								</Grid>
 							</Item>
 						</Stack>
 					</Drawer>
