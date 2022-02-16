@@ -65,7 +65,6 @@ function ImageCarousel({ listing }) {
 								backgroundImage: `url(${image})`,
 								backgroundSize: "cover",
 								backgroundPosition: "50% 50%",
-								borderRadius: "5px"
 							}}
 						></SwiperSlide>
 					)

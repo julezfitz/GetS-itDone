@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, {
+	useState,
+	useEffect,
+	forwardRef,
+	useCallback,
+	useRef,
+} from "react";
 // import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -7,20 +13,9 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { format } from "date-fns";
 import CurrencyFormat from "react-currency-format";
 import useTheme from "@mui/material/styles/useTheme";
-import styled from "styled-components";
-import { Fade } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
 
-// const Img = styled("img")({
-// 	margin: "auto",
-// 	display: "block",
-// 	position: "absolute",
-// 	width: "100%",
-// 	top: "50%",
-// 	left: "50%",
-// 	transform: "translate(-50%, -50%)",
-// });
-
-export default function SearchListItem(props) {
+function SearchListItem(props, ref) {
 	const theme = useTheme();
 
 	const handleListingChange = () => {
@@ -88,3 +83,5 @@ export default function SearchListItem(props) {
 		</Paper>
 	);
 }
+
+export default forwardRef(SearchListItem);

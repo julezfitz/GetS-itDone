@@ -4,6 +4,7 @@ import Marquee from "react-fast-marquee";
 import { Typography } from "@mui/material";
 import { darkTheme } from "../../styles/globalStyles";
 import { device } from "../../styles/devices/devices";
+import { useInView } from "react-intersection-observer";
 
 const StyledFooter = styled.footer`
 	height: 64vh;
@@ -43,6 +44,12 @@ const StyledFooter = styled.footer`
 		bottom: 0;
 		left: 0;
 		width: 100%;
+		overflow: hidden;
+
+		&__translate {
+			transition: 100ms ease;
+			transform: translateY(${({ inView }) => (inView ? "0" : "100%")});
+		}
 
 		p {
 			font-size: 2vw;
@@ -85,6 +92,8 @@ const lineStyle = {
 };
 
 function Footer() {
+	const [inViewRef, inView] = useInView();
+
 	const contactInfo = [
 		{
 			name: "Brad Sawyer",
@@ -105,7 +114,7 @@ function Footer() {
 
 	return (
 		<>
-			<StyledFooter>
+			<StyledFooter inView={inView}>
 				<div className='footer-inner'>
 					{/* <iframe
 					src='https://my.spline.design/primitivescopy-c394739b6b3261b8319b0e09d72f5730/'
@@ -116,7 +125,7 @@ function Footer() {
 				</div>
 
 				<div className='dev-credits'>
-					<Typography>
+					<Typography ref={inViewRef} className='dev-credits__translate'>
 						Designed & developed by{" "}
 						{contactInfo.map((dev, i) => {
 							return (

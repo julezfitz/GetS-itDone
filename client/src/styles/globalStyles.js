@@ -89,6 +89,7 @@ export const darkTheme = createTheme({
 				color: "white",
 			},
 		},
+
 		MuiBadge: {
 			styleOverrides: {
 				root: {
@@ -211,6 +212,7 @@ export const darkTheme = createTheme({
 });
 
 export const GlobalStyles = createGlobalStyle`
+
 
 
 
