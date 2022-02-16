@@ -71,6 +71,7 @@ export default function MyListingItem(props) {
 						    open={editListingOpen}
 						    handleClose={handleEditListingClose}
                 listing={props.listing}
+                handleUpdatedChange={props.handleUpdatedChange}
                 edit={edit}
 					    />
             </Grid>

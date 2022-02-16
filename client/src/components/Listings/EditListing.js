@@ -26,7 +26,7 @@ const formGroupStyle = {
   "& .MuiTextField-root": { flexGrow: 1 },
 };
 
-export default function EditListingModal({ open, handleClose, listing, edit }) {
+export default function EditListingModal({ open, handleClose, listing, handleUpdatedChange, edit }) {
   const { userDetails } = useContext(UserContext);
 
   const [editListing, setEditListing] = useState({
@@ -73,8 +73,6 @@ export default function EditListingModal({ open, handleClose, listing, edit }) {
 
     let listingId = editListing.listingId;
 
-    console.log(listingId)
-
     axios
       .put(`http://localhost:8001/listings/${listingId}`, editListingDetails)
       .then((result) => {
@@ -82,12 +80,13 @@ export default function EditListingModal({ open, handleClose, listing, edit }) {
           categoryId: newCategory,
           listingId: result.data.id,
         };
-        return axios.post(
+        return axios.put(
           `http://localhost:8001/categories/listings`,
           categoryForListing
         );
       })
       .then((result) => {
+        handleUpdatedChange();
         console.log(result.data);
       });
   };
