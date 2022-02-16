@@ -27,10 +27,9 @@ function CategoriesBar({
 	const barStyle = {
 		width: "500px",
 		height: "100vh",
-		padding: "0rem 2rem 0 2rem",
+		padding: "0rem 3rem 0 3rem",
 		display: "flex",
-		position: "sticky",
-		top: "12.2rem",
+
 		justifyContent: "center",
 	};
 

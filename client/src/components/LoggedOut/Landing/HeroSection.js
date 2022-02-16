@@ -32,9 +32,9 @@ function HeroSection({ toggleRegister }) {
 						deleteSpeed: 4,
 					}}
 				/>
-
-				<Scene />
 			</div>
+
+			<Scene />
 		</StyledHero>
 	);
 }
