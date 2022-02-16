@@ -56,7 +56,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 	const [errors, setErrors] = useState(false);
 
 	useEffect(() => {
-		console.log(loginState.successAnimationComplete);
 
 		if (loading) {
 			axios
