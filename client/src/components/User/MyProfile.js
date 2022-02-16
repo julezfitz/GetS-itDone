@@ -162,21 +162,34 @@ export default function MyProfile() {
                       defaultValue={userDetails.image}
                     />
                   </div>
+                  <Grid 
+                    container 
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                  <Grid item sx={{ m: 1 }}>
                   <Button
                     size='large'
                     type='submit'
                     value='Submit'
+                    color='secondary'
                     variant='contained'
                   >
                     Update
                   </Button>
+                  </Grid>
+                  <Grid item sx={{ m: 1 }}>
                   <Button
                     size='large'
+                    color='secondary'
                     variant='contained'
                     onClick={() => setUpdate(false)}
                   >
                     Cancel
                   </Button>
+                  </Grid>
+                  </Grid>
                 </>
               ) : (
                 <>
