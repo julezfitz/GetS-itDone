@@ -37,7 +37,7 @@ export default function EditListingModal({ open, handleClose, listing, edit }) {
       category: listing.category,
       price: listing.price,
       city: listing.city,
-      postalCode: listing.postalCode,
+      postalCode: listing.postal_code,
       image_1: listing.image_1,
       image_2: listing.image_2,
       image_3: listing.image_3,
@@ -71,8 +71,12 @@ export default function EditListingModal({ open, handleClose, listing, edit }) {
       image_3: e.target.elements.image_3.value,
     };
 
+    let listingId = editListing.listingId;
+
+    console.log(listingId)
+
     axios
-      .put(`http://localhost:8001/listings/{editlisting.listingId}`, editListingDetails)
+      .put(`http://localhost:8001/listings/${listingId}`, editListingDetails)
       .then((result) => {
         let categoryForListing = {
           categoryId: newCategory,
@@ -103,7 +107,7 @@ export default function EditListingModal({ open, handleClose, listing, edit }) {
             component="h2"
             sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
           >
-            Create New Listing
+            Edit Listing
           </Typography>
 
           <Box
