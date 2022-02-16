@@ -203,33 +203,35 @@ export default function ListingDetails(props) {
 											/>
 										}
 										title={
-											<Grid item>
-												<Grid
+											<Box sx={{ display: "flex", alignItems: "center" }}>
+												{/* <Grid
 													container={true}
 													direction='row'
 													spacing={1}
 													style={{ marginLeft: 0, marginBottom: 8 }}
 													wrap='nowrap'
 													onClick={handleUserRatingsOpen}
-												>
-													<Typography fontSize='small'>
-														{props.listing.first_name} {props.listing.last_name}
-													</Typography>
-												</Grid>
-												<Grid
+												> */}
+												<Typography fontSize='small'>
+													{props.listing.first_name} {props.listing.last_name}
+												</Typography>
+												{/* </Grid> */}
+												{/* <Grid
 													container={true}
 													direction='row'
 													spacing={1}
 													wrap='nowrap'
 													onClick={handleUserRatingsOpen}
-												>
+												> */}
+												<Box>
 													<Rating
 														name='user-rating'
-														size='small'
+														size='large'
 														style={{ marginLeft: 5, marginTop: 0 }}
 														value={parseInt(listingCreator.average)}
 														readOnly
 													/>
+
 													<Typography variant='string' component='div'>
 														&nbsp; (
 													</Typography>
@@ -237,25 +239,26 @@ export default function ListingDetails(props) {
 													<Typography variant='string' component='div'>
 														)
 													</Typography>
-												</Grid>
-												<UserRatingsModal
-													open={userRatingsOpen}
-													handleClose={handleUserRatingsClose}
-													user={listingCreator}
-												/>
-												<Link
-													onClick={handleUserRatingsOpen}
-													color='inherit'
-													underline='hover'
-													variant='string'
-													component='button'
-												>
-													{listingCreator.ratingsCount}{" "}
-													{listingCreator.ratingsCount > 1
-														? "ratings"
-														: "rating"}
-												</Link>
-											</Grid>
+													{/* </Grid> */}
+													<UserRatingsModal
+														open={userRatingsOpen}
+														handleClose={handleUserRatingsClose}
+														user={listingCreator}
+													/>
+													<Link
+														onClick={handleUserRatingsOpen}
+														color='inherit'
+														underline='hover'
+														variant='string'
+														component='button'
+													>
+														{listingCreator.ratingsCount}{" "}
+														{listingCreator.ratingsCount > 1
+															? "ratings"
+															: "rating"}
+													</Link>
+												</Box>
+											</Box>
 										}
 									/>
 									{props.listing.creator_id === userDetails.id ? (
@@ -279,7 +282,7 @@ export default function ListingDetails(props) {
 										</Typography>
 									) : (
 										<Button
-											sx={{marginTop: "4rem"}}
+											sx={{ marginTop: "4rem" }}
 											size={"large"}
 											type='submit'
 											color='secondary'
