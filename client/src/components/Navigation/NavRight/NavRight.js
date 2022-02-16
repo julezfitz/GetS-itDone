@@ -7,8 +7,7 @@ import UserMenu from "../UserMenu";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import { useNavigate } from "react-router";
 
 export default function NavRight({
 	newListingOpen,
@@ -29,7 +28,7 @@ export default function NavRight({
 				params: { userId: userDetails.id },
 			})
 			.then((results) => {
-				//change this so that only unread notifications are added
+				//change this so that only unread notifications are added - changed on route instead
 				setNotifications(results.data);
 			});
 	}
@@ -38,36 +37,49 @@ export default function NavRight({
 		getNotifications();
 	}, []);
 
+	const navigate = useNavigate()
+
+	const routeChange = (path) =>{ 
+		navigate(path);
+		window.scrollTo(0, 0)
+	  }
+
 	//toast trigger
-	//add offer listing title?
 	const notify = () => {
+
 		for (const notice in notifications) {
 			if (notifications[notice].notificationMessage === "Your offer has been declined.") {
-				toast.error(<div style={{fontSize:'medium'}} id={notifications[notice].notificationId}><b>Listing: "{notifications[notice].title}"</b>  <p>{notifications[notice].notificationMessage}</p></div>)
+				toast.error(<div onClick={() => {handleNotificationDismiss(notifications[notice].notificationId); 
+					routeChange(`/offers`);}} style={{fontSize:'medium'}} id={notifications[notice].notificationId}>
+						<b>Listing: "{notifications[notice].title}"</b>  
+						<p>{notifications[notice].notificationMessage}</p></div>)
 			}
 			if (notifications[notice].notificationMessage === "Your offer has been accepted.") {
-				toast.success(<div style={{fontSize:'medium'}} id={notifications[notice].notificationId}><b>Listing: "{notifications[notice].title}"</b>  <p>{notifications[notice].notificationMessage}</p></div>)
+				toast.success(<div onClick={() => {handleNotificationDismiss(notifications[notice].notificationId); 
+					routeChange(`/offers`);}} style={{fontSize:'medium'}} id={notifications[notice].notificationId}>
+						<b>Listing: "{notifications[notice].title}"</b>  
+						<p>{notifications[notice].notificationMessage}</p></div>)
 			}
 			if (notifications[notice].notificationMessage === "You have a new offer!") {
-				toast.info(<div style={{fontSize:'medium'}} id={notifications[notice].notificationId}><b>Listing: "{notifications[notice].title}"</b>  <p>{notifications[notice].notificationMessage}</p></div>)
+				toast.info(<div onClick={() => {handleNotificationDismiss(notifications[notice].notificationId); 
+					routeChange(`/listings`);}} style={{fontSize:'medium'}} id={notifications[notice].notificationId}>
+						<b>Listing: "{notifications[notice].title}"</b>  
+						<p>{notifications[notice].notificationMessage}</p></div>)
 			}
 		}
 	}
 
 	const handleNotificationDismiss = (e) => {
-
 		//get notification id
-		let notificationId = e.target.id;
+		console.log("handle notifications")
+		let notificationId = e;
 
 		//axios call here to set read status of notification to true
 		axios.put(`http://localhost:8001/notifications/${notificationId}`).then(() => {
 			setNotifications([]);
 			getNotifications();
 		})
-	
 	}
-
-	console.log(notifications);
 
 	return (
 		<Box
@@ -112,11 +124,10 @@ export default function NavRight({
 					<Badge badgeContent={notifications.length} color="error" >
 						<ToastContainer
 							position="top-right"
-							autoClose={20000}
+							autoClose={10000}
 							theme="dark"
 							type="success"
 							closeButton={false}
-							onClick={handleNotificationDismiss}
 						/>
 						<NotificationsIcon onClick={notify} />
 					</Badge>
