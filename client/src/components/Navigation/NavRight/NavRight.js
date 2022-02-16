@@ -21,25 +21,22 @@ export default function NavRight({
 	settings,
 }) {
 	const [notifications, setNotifications] = useState([]);
-
-	const getNotifications = () => {
-		axios
-			.get(`http://localhost:8001/notifications`, {
-				params: { userId: userDetails.id },
-			})
-			.then((results) => {
-				if(results.data) {
-				setNotifications(results.data);
-				}
-			})
-			.catch(() => {
-				// console.log('There are no notifications for this user')
-			})
-	}
+	const [notificationRead, setNotificationRead] = useState('');
 
 	useEffect(() => {
-		getNotifications();
-	}, [notifications]);
+		axios
+		.get(`http://localhost:8001/notifications`, {
+			params: { userId: userDetails.id },
+		})
+		.then((results) => {
+			if(results.data) {
+			setNotifications(results.data);
+			}
+		})
+		.catch(() => {
+			// console.log('There are no notifications for this user')
+		})
+	}, [userDetails.id, notificationRead, handleCloseUserMenu]);
 
 	const navigate = useNavigate()
 
@@ -80,8 +77,11 @@ export default function NavRight({
 		//axios call here to set read status of notification to true
 		axios.put(`http://localhost:8001/notifications/${notificationId}`).then(() => {
 			setNotifications([]);
+			setNotificationRead(notificationId);
 		})
 	}
+
+	console.log('here in nav right')
 
 	return (
 		<Box

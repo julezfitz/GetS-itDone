@@ -7,22 +7,21 @@ import axios from "axios";
 
 export default function CategoryList(props) {
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     axios.get(`http://localhost:8001/categories`).then((result) => {
       return setCategories(result.data);
     });
   }, []);
 
-  const [category, setCategory] = useState("");
-
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleChange = (e) => {
-    setCategory(e.target.value);
     props.onSelect(e.target.value);
+    setSelectedCategory(e.target.value);
   };
 
   //loop through categories to create category list
-
   return (
     <FormControl fullWidth>
       {props.edit ? <InputLabel id="demo-simple-select-label">{props.label}</InputLabel> : <InputLabel id="demo-simple-select-label">Category *</InputLabel>}
@@ -30,7 +29,7 @@ export default function CategoryList(props) {
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         label="Category"
-        value={category}
+        value={selectedCategory}
         onChange={handleChange}
       >
         {categories.map((category) => {
