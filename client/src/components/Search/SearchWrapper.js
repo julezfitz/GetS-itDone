@@ -6,6 +6,7 @@ import axios from "axios";
 import { LinearProgress } from "@mui/material";
 import { UserContext } from "../Application";
 import TransitionWrapper from "../Transition/TransitionWrapper";
+import { useLocomotiveScroll } from "react-locomotive-scroll";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const { isLoggedIn, userDetails } = useContext(UserContext);
@@ -67,24 +68,23 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 				})
 				.then(result => {
 					let cityListings = [];
-					(result.data).map((listing) => {
+					result.data.map(listing => {
 						if (listing.city === city) {
 							cityListings.push(listing);
 						}
 						return cityListings;
-					})
+					});
 					setListings(cityListings);
 				});
 		} else {
-			axios.get(`http://localhost:8001/listings/`)
-			.then(result => {
+			axios.get(`http://localhost:8001/listings/`).then(result => {
 				let cityListings = [];
-				(result.data).map((listing) => {
+				result.data.map(listing => {
 					if (listing.city === city) {
 						cityListings.push(listing);
 					}
 					return cityListings;
-				})
+				});
 				setListings(cityListings);
 			});
 		}
@@ -113,7 +113,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					setPending(false);
 					// }, 900);
 				})
-				.catch(err => { });
+				.catch(err => {});
 		}
 		return () => controller.abort();
 	}, [keywords, selectedChip]);
@@ -143,12 +143,12 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 				})
 				.then(res => {
 					let cityListings = [];
-					(res.data).map((listing) => {
+					res.data.map(listing => {
 						if (listing.city === city) {
 							cityListings.push(listing);
 						}
 						return cityListings;
-					})
+					});
 					setListings(cityListings);
 				})
 				.catch(err => console.log(err));

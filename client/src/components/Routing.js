@@ -1,21 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import LoggedOutHome from "./LoggedOut/Landing/LoggedOut";
 import { UserContext } from "./Application";
-import SearchList from "./Search/SearchList";
+
 import MyListings from "./Listings/MyListings";
 import MyOffers from "./Offers/MyOffers";
 import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
 import Heading from "./Heading/Heading";
-import { useLocation } from "react-router";
-import { AnimatePresence } from "framer-motion";
-import TransitionWrapper from "./Transition/TransitionWrapper";
+import { AnimatePresence, motion } from "framer-motion";
+import { Divider } from "@mui/material";
+import useSplit from "../helpers/hooks/useSplit";
+import { headingAnimation } from "../helpers/animations/animations";
+import gsap from "gsap";
 
 function Routing({ keywords, search, togglePending, emptySearch, location }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
 	const { isLoggedIn, userPending } = useContext(UserContext);
+	const searchListRefs = useRef([]);
+	const splitHeadingRef = useRef(null);
+	const timelineRef = useRef(gsap.timeline());
+	const [isSplit, words, chars, splitCount] = useSplit(
+		[splitHeadingRef.current],
+		{ type: "chars", charsClass: "char" }
+	);
 
 	const pageInfo = [
 		{
@@ -52,11 +61,20 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 						size='medium'
 						className='page-heading'
 						color='light'
-						style={{ marginBottom: 0, marginTop: "2rem" }}
+						style={{
+							marginBottom: 0,
+							marginTop: "2rem",
+							
+							overflow: "hidden",
+						}}
+						ref={splitHeadingRef}
 					>
 						{headingTitle}
 					</Heading>
-					<hr style={{ marginBottom: "5rem", marginTop: "1rem" }}></hr>
+					<Divider
+						sx={{ marginBottom: "5rem", marginTop: "1rem" }}
+						color='white'
+					/>
 				</>
 			)}
 			<AnimatePresence exitBeforeEnter initial={false}>
@@ -80,18 +98,24 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 							) : (
 								<>
 									<LoggedOutHome />
-									<Heading
-										color='light'
-										style={{
-											fontSize: "1.8rem",
-											justifyContent: "center",
-											marginBottom: "5rem",
-											position: "sticky",
-											top: "0",
-										}}
+									<div
+										className='scroll-wrapper'
+										data-scroll
+										data-scroll-speed={2}
 									>
-										Browse listings
-									</Heading>
+										<Heading
+											color='light'
+											style={{
+												fontSize: "1.8rem",
+												justifyContent: "center",
+												marginBottom: "5rem",
+												position: "sticky",
+												top: "0",
+											}}
+										>
+											Browse listings
+										</Heading>
+									</div>
 									<SearchWrapper />
 								</>
 							)
