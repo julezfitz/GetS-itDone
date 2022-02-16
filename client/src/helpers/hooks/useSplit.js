@@ -20,6 +20,7 @@ function useSplit(arrayOfElements, options) {
 		console.log(arrayOfElements);
 
 		if (!arrayOfElements || !arrayOfElements[0]) {
+			console.log('hi')
 			return;
 		}
 
