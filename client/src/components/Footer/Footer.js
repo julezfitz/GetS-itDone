@@ -48,7 +48,7 @@ const StyledFooter = styled.footer`
 
 		&__translate {
 			transition: 100ms ease;
-			transform: translateY(${({ inView }) => (inView ? "0" : "100%")});
+			transform: translateY(${({ inView }) => (inView ? "0" : "100px")});
 		}
 
 		p {

@@ -11,7 +11,7 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import { UserContext } from "../../Application";
 import TextField from "@mui/material/TextField";
-import { withStyles } from "@mui/styles";
+
 
 function CategoriesBar({
 	categories,
@@ -33,19 +33,6 @@ function CategoriesBar({
 
 		justifyContent: "center",
 	};
-
-	const CustomTextField = withStyles({
-		root: {
-			width: "100%",
-			"& .MuiOutlinedInput-root": {
-				height: "2.5rem",
-				width: "100%",
-				"& fieldset": {
-					borderRadius: "50px",
-				},
-			},
-		},
-	})(TextField);
 
 	const [sort, setSort] = useState("");
 	const [order, setOrder] = useState("");
@@ -154,21 +141,29 @@ function CategoriesBar({
 									</MenuItem>
 								</Select>
 							</FormControl>
-							<Box sx={{marginTop: "1.3rem"}}>
-								<CustomTextField
-									id='1p'
-									sx={{
-										borderRadius: "50%",
-										height: "2rem",
-									}}
-									label='City'
-									name='city'
-									value={city}
-									onChange={e => {
-										handleCityChange(e);
-									}}
-								/>
-							</Box>
+							<TextField
+								id='1p'
+								size="small"
+								sx={{
+									width: "100%",
+									marginTop: "1rem",
+									"& .MuiOutlinedInput-root": {
+										height: "2.3rem",
+										width: "100%",
+										width: "100%",
+										"& fieldset": {
+											borderRadius: "50px",
+											
+										},
+									},
+								}}
+								label='City'
+								name='city'
+								value={city}
+								onChange={e => {
+									handleCityChange(e);
+								}}
+							/>
 						</Box>
 					</Grid>
 
