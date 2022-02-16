@@ -21,6 +21,16 @@ module.exports = db => {
 			.catch(e => console.log(e));
 	});
 
+	router.put("/categories/listings", (request, response) => {
+		const { listingId, categoryId } = request.body;
+
+		const queryString1 = `UPDATE listing_categories SET category_id = ${categoryId} WHERE listing_id = ${listingId};`;
+		
+		db.query(queryString1).then(() => {
+			response.status(200).json(`Category updated.`);
+		})
+	});
+
 	return router;
 };
 
@@ -84,6 +94,26 @@ module.exports.apiDocs = {
 			responses: {
 				201: {
 					description: "Listing category connection created",
+				},
+			},
+		},
+		put: {
+			description: "Update a listing category relation",
+			tags: ["categories"],
+			requestBody: {
+				description: "listing and category ids",
+				content: {
+					"application/json": {
+						schema: {
+							type: "object",
+						},
+						example: { listingId: 2, categoryId: 3 },
+					},
+				},
+			},
+			responses: {
+				201: {
+					description: "Listing category connection updated",
 				},
 			},
 		},
