@@ -131,7 +131,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 		}
 	}, [loading]);
 
-
 	return (
 		<Modal
 			open={open}
