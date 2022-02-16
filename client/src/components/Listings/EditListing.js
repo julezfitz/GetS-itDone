@@ -103,7 +103,7 @@ export default function EditListingModal({ open, handleClose, listing, edit }) {
             component="h2"
             sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
           >
-            Create New Listing
+            Edit Listing
           </Typography>
 
           <Box
