@@ -6,9 +6,11 @@ import axios from "axios";
 import { LinearProgress } from "@mui/material";
 import { UserContext } from "../Application";
 import TransitionWrapper from "../Transition/TransitionWrapper";
+import { useLocomotiveScroll } from "react-locomotive-scroll";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const { isLoggedIn } = useContext(UserContext);
+	const { scroll } = useLocomotiveScroll();
 	const [pending, setPending] = useState(true);
 	const [listings, setListings] = useState([]);
 	// const [categories, setCategories] = useState([]);

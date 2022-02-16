@@ -76,6 +76,8 @@ export default function NewListingModal({ open, handleClose }) {
       });
   };
 
+  console.log('hello!')
+
   return (
     <Modal
       open={open}
