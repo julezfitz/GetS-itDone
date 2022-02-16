@@ -56,7 +56,10 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 					>
 						{headingTitle}
 					</Heading>
-					<Divider sx={{ marginBottom: "5rem", marginTop: "1rem" }} color="white"/>
+					<Divider
+						sx={{ marginBottom: "5rem", marginTop: "1rem" }}
+						color='white'
+					/>
 				</>
 			)}
 			<AnimatePresence exitBeforeEnter initial={false}>
@@ -80,18 +83,24 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 							) : (
 								<>
 									<LoggedOutHome />
-									<Heading
-										color='light'
-										style={{
-											fontSize: "1.8rem",
-											justifyContent: "center",
-											marginBottom: "5rem",
-											position: "sticky",
-											top: "0",
-										}}
+									<div
+										className='scroll-wrapper'
+										data-scroll
+										data-scroll-speed={2}
 									>
-										Browse listings
-									</Heading>
+										<Heading
+											color='light'
+											style={{
+												fontSize: "1.8rem",
+												justifyContent: "center",
+												marginBottom: "5rem",
+												position: "sticky",
+												top: "0",
+											}}
+										>
+											Browse listings
+										</Heading>
+									</div>
 									<SearchWrapper />
 								</>
 							)
