@@ -87,8 +87,9 @@ export default function NavRight({
 			<Box sx={{ maxWidth: "250px", display: { xs: "none", md: "flex" } }}>
 				<>
 					<Button
-						variant="outlined"
+						variant="contained"
 						color="secondary"
+						size="large"
 						key="CreateNewListing"
 						onClick={handleNewListingOpen}
 						sx={{

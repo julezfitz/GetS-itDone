@@ -9,6 +9,7 @@ import OffersList from "../Offers/OffersList";
 import axios from "axios";
 import { UserContext } from "../Application.js";
 import { format } from 'date-fns'
+import TransitionWrapper from "../Transition/TransitionWrapper";
 
 const Item = styled(Paper)(({ theme }) => ({
 	...theme.typography.body2,
@@ -58,10 +59,9 @@ export default function MyListings() {
 			});
 	}
 
-
-
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<TransitionWrapper>
+		<Box sx={{ flexGrow: 1, minHeight: "100vh" }}>
 			<Grid container spacing={2} columns={16}>
 				<Grid item xs={8}>
 					<Item>
@@ -85,5 +85,6 @@ export default function MyListings() {
 				</Grid>
 			</Grid>
 		</Box>
+		</TransitionWrapper>
 	);
 }
