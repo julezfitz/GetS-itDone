@@ -10,6 +10,8 @@ import axios from "axios";
 import { UserContext } from "../Application.js";
 import { format } from 'date-fns'
 import TransitionWrapper from "../Transition/TransitionWrapper";
+import Typography from "@mui/material/Typography";
+import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 
 const Item = styled(Paper)(({ theme }) => ({
 	...theme.typography.body2,
@@ -34,9 +36,11 @@ export default function MyListings() {
 
 					setListing(result.data[0]);
 
-					let date = new Date(result.data[0].created);
-					let formattedDate = format(date, 'dd/MM/yyyy');
-					setDate(formattedDate);
+					if (result.data[0]) {
+						let date = new Date(result.data[0].created);
+						let formattedDate = format(date, 'dd/MM/yyyy');
+						setDate(formattedDate);
+					}
 				});
 		}
 	}, [userDetails, deletedItem]);
@@ -61,30 +65,50 @@ export default function MyListings() {
 
 	return (
 		<TransitionWrapper>
-		<Box sx={{ flexGrow: 1, minHeight: "100vh" }}>
-			<Grid container spacing={2} columns={16}>
-				<Grid item xs={8}>
-					<Item>
-						{listings.map(listing => {
-							return (
-								<MyListingItem
-									onClick={handleListingChange.bind(listing)}
-									key={Math.random().toString(36).substr(2, 9)}
-									listing={listing}
-									handleDelete={handleDelete.bind(null, listing)}
-								/>
-							);
-						})}
-					</Item>
+			<Box sx={{ flexGrow: 1, minHeight: "100vh" }}>
+				<Grid container spacing={2} columns={16}>
+					<Grid item xs={8}>
+						{listings.length > 0 ?
+							<Item>
+								{listings.map(listing => {
+									return (
+										<MyListingItem
+											onClick={handleListingChange.bind(listing)}
+											key={Math.random().toString(36).substr(2, 9)}
+											listing={listing}
+											handleDelete={handleDelete.bind(null, listing)}
+										/>
+									);
+								})}
+							</Item>
+							: <Item>
+								<Grid container direction="row">
+									<Grid item xs={13.7}>
+										<Typography variant='h4' component='h2'>
+											You have no listings to show. Click the + New Listing button above to get started.
+										</Typography>
+									</Grid>
+									<Grid item xs={2}>
+										<ArrowUpwardRoundedIcon
+											size="large"
+											color="inherit"
+											fontSize="inherit"
+											style={{ color: 'orange', fontSize: "80px", marginTop:10 }}
+										></ArrowUpwardRoundedIcon>
+									</Grid>
+								</Grid>
+							</Item>
+						}
+					</Grid>
+					<Grid item xs={8}>
+						{listings.length > 0 && <Item>
+							<ListingQuickView listing={listing} date={date} />
+							<OffersList listingId={listing.id} />
+						</Item>
+						}
+					</Grid>
 				</Grid>
-				<Grid item xs={8}>
-					<Item>
-						<ListingQuickView listing={listing} date={date} />
-						<OffersList listingId={listing.id} />
-					</Item>
-				</Grid>
-			</Grid>
-		</Box>
+			</Box>
 		</TransitionWrapper>
 	);
 }

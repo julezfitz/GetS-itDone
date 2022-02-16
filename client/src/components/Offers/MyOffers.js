@@ -10,7 +10,6 @@ import { UserContext } from "../Application.js";
 import { format } from "date-fns";
 import { Divider } from "@mui/material";
 import ApplicationAcceptedView from "./ApplicationAcceptedView";
-import { useNavigate } from "react-router";
 import { Link } from 'react-router-dom'
 import Typography from "@mui/material/Typography";
 
