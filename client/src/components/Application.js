@@ -12,13 +12,17 @@ import LoadingScreen from "./Loading/LoadingScreen";
 import Footer from "./Footer/Footer";
 import { Box } from "@mui/material";
 import Rails from "./Rails/Rails";
-import locomotiveScroll from "locomotive-scroll";
+import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+import { useLocation } from "react-router";
 
 export const UserContext = createContext();
 
 export default function Application() {
 	//Do not remove - allows axios to receive cookies
 	axios.defaults.withCredentials = true;
+
+	//Track page changes
+	const location = useLocation();
 
 	//pending: true while we wait for server to respond with essential data - (do not load components until everything is in place)
 	//isLoggedIn: represents the user's logged in state
@@ -38,19 +42,6 @@ export default function Application() {
 
 	//For locomotive scroll
 	const scrollRef = useRef(null);
-
-	useEffect(() => {
-		if (scrollRef.current) {
-			setTimeout(() => {
-				const scroll = new locomotiveScroll({
-					el: scrollRef.current,
-					smooth: true,
-					getDirection: true,
-					smoothMobile: false,
-				});
-			}, 700);
-		}
-	}, [scrollRef]);
 
 	//function to update user details when the user updates their profile
 	const refreshUserDetails = id => {
@@ -72,7 +63,7 @@ export default function Application() {
 		setGlobalState(prev => ({
 			...prev,
 			user: {
-				...prev.user,
+				details: userDetails ? userDetails : {},
 				entries: {
 					currentModal: null,
 				},
@@ -131,15 +122,15 @@ export default function Application() {
 	useEffect(() => {
 		window.scrollTo({ top: 0 });
 
-		// setPending(globalSxtate.user.isLoggedIn ? false : true);
-
 		//Initial check to see if a cookie is set, change user state according to response
 		if (!globalState.user.isLoggedIn) {
 			axios
 				.get(`http://localhost:8001/user/session`)
 				.then(res =>
 					res.data.isAuthenticated
-						? refreshUserDetails(res.data.user.id).then(toggleLoggedIn)
+						? refreshUserDetails(res.data.user.id).then(() =>
+								toggleLoggedIn(res.data.user)
+						  )
 						: setGlobalState(prev => ({
 								...prev,
 								user: {
@@ -160,44 +151,59 @@ export default function Application() {
 	}, [globalState.user?.details?.id]);
 
 	return (
-		<UserContext.Provider value={userControls}>
-			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
-			<LoadingScreen isActive={globalState.user.pending} />
+		<LocomotiveScrollProvider
+			options={{
+				smooth: true,
+				// ... all available Locomotive Scroll instance options
+			}}
+			watch={[location.pathname]}
+			containerRef={scrollRef}
+		>
+			<UserContext.Provider value={userControls}>
+				<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
+				<LoadingScreen isActive={globalState.user.pending} />
 
-			<div className='modals'>
-				<LoginModal
-					open={globalState.user.entries.currentModal === "logIn"}
-					setModalOpen={setModalOpen}
-				/>
-				<RegisterModal
-					open={globalState.user.entries.currentModal === "register"}
-					setModalOpen={setModalOpen}
-				/>
-			</div>
-			<Navbar onSearch={handleSearch} searchValue={search} />
-			<div className='scroller' ref={scrollRef}>
-				<Box
-					component='main'
-					className={`content-wrapper ${
-						globalState.user.isLoggedIn ? "nav-offset" : ""
-					}`}
+				<div className='modals'>
+					<LoginModal
+						open={globalState.user.entries.currentModal === "logIn"}
+						setModalOpen={setModalOpen}
+					/>
+					<RegisterModal
+						open={globalState.user.entries.currentModal === "register"}
+						setModalOpen={setModalOpen}
+					/>
+				</div>
+				<Navbar onSearch={handleSearch} searchValue={search} />
+				<div
+					className='scroller'
+					data-scroll-container
+					ref={scrollRef}
+					style={{ marginBottom: "10rem" }}
 				>
-					<Container maxWidth='xl' sx={{ height: "100%" }}>
-						<Routing
-							keywords={search}
-							search={search}
-							emptySearch={() => setSearch("")}
-						/>
-						{/* <p className='main__text'>All results for: Home</p>
+					<Box
+						component='main'
+						className={`content-wrapper ${
+							globalState.user.isLoggedIn ? "nav-offset" : ""
+						}`}
+					>
+						<Container maxWidth='xl' sx={{ height: "100%" }}>
+							<Routing
+								keywords={search}
+								search={search}
+								emptySearch={() => setSearch("")}
+								location={location}
+							/>
+							{/* <p className='main__text'>All results for: Home</p>
 						<div>
 							<span>Category:</span>
 							<span>Sort By: Date</span>
 						</div> */}
-					</Container>
-					<Rails />
-				</Box>
-			</div>
-			<Footer />
-		</UserContext.Provider>
+						</Container>
+						<Rails />
+					</Box>
+					<Footer />
+				</div>
+			</UserContext.Provider>
+		</LocomotiveScrollProvider>
 	);
 }

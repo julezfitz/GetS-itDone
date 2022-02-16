@@ -13,10 +13,9 @@ import { useLocation } from "react-router";
 import { AnimatePresence } from "framer-motion";
 import TransitionWrapper from "./Transition/TransitionWrapper";
 
-function Routing({ keywords, search, togglePending, emptySearch }) {
+function Routing({ keywords, search, togglePending, emptySearch, location }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
 	const { isLoggedIn, userPending } = useContext(UserContext);
-	const location = useLocation();
 
 	const pageInfo = [
 		{
