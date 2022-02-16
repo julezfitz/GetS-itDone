@@ -202,6 +202,7 @@ module.exports = db => {
 						]
 					)
 					.then(success => {
+						console.log(success)
 						//If user has successfully been registered in db, send success msg to front end
 						req.session["user"] = {
 							id: success.rows[0].id,
@@ -214,6 +215,7 @@ module.exports = db => {
 						};
 						response.registration.isRegistered = true;
 						response.registration.user = req.session.user;
+						console.log(response)
 						res.send(response);
 						return;
 					})

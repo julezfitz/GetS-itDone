@@ -56,8 +56,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 	const [errors, setErrors] = useState(false);
 
 	useEffect(() => {
-		console.log(loginState.successAnimationComplete);
-
 		if (loading) {
 			axios
 				.post("http://localhost:8001/user/session", {
@@ -85,8 +83,8 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 					if (errors && errors.length >= 0) setErrors(errors);
 					if (isAuthenticated) {
 						setLoginState(prev => ({ ...prev, success: true }));
-						refreshUserDetails(response.data.authentication.user.id).then(
-							toggleLoggedIn
+						refreshUserDetails(response.data.authentication.user.id).then(() =>
+							toggleLoggedIn(response.data.authentication.user)
 						);
 					}
 				})
