@@ -132,6 +132,7 @@ export default function ListingDetails(props) {
 										display: "flex",
 										justifyContent: "space-between",
 										alignItems: "center",
+										position: "relative",
 									}}
 								>
 									{/* <Box
@@ -159,21 +160,25 @@ export default function ListingDetails(props) {
 											prefix={"$"}
 										/>
 									</Typography>
+									<Box
+										sx={{
+											position: "absolute",
+											left: "50%",
+											top: "50%",
+											transform: "translate(-50%, -50%)",
+										}}
+									>
+										<Typography variant='body2' component='div'>
+											Posted {date} &nbsp; | &nbsp; <b>{props.listing.city}</b>
+										</Typography>
+									</Box>
 								</Box>
 							</Box>
 							{/* </Grid> */}
 
-							{/* <Grid item xs={4}>
-									<Box m={2} pt={3}>
-										<Typography
-											variant='subtitle2'
-											color='grey'
-											component='div'
-										>
-											Posted {date} &nbsp; | &nbsp; <b>{props.listing.city}</b>
-										</Typography>
-									</Box>
-								</Grid> */}
+							{/* <Grid item xs={4}> */}
+
+							{/* </Grid> */}
 							{/* </Grid> */}
 							<Item sx={{ height: "16rem" }}>
 								<ImageCarousel listing={props.listing} />
