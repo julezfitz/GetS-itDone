@@ -18,12 +18,13 @@ import CurrencyFormat from "react-currency-format";
 import Link from "@mui/material/Link";
 import { Chip } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
+import LightLeak from "../Leaks/LightLeak";
 
 export default function ListingDetails(props) {
 	const theme = useTheme();
 
 	//General styles
-	const PADDING = "2rem 3rem";
+	const PADDING = "2rem 3.5rem";
 
 	const [state, setState] = React.useState({
 		right: false,

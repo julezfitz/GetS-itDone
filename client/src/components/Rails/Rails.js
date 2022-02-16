@@ -4,6 +4,7 @@ import { Typography } from "@mui/material";
 import styled from "styled-components";
 import { device } from "../../styles/devices/devices";
 import { darkTheme } from "../../styles/globalStyles";
+import LightLeak from "../Leaks/LightLeak";
 
 const StyledRails = styled.div`
 position: absolute;
@@ -35,7 +36,7 @@ bottom: 0;
 function Rails() {
 	return (
 		<StyledRails className='marquee-rails'>
-			<div className="light-leak"></div>
+			<LightLeak/>
 			<Marquee speed={40} gradient={false} direction='right'>
 				<Typography className='marquee-text' component='h2'>
 					Contact us.
