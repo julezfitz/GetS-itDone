@@ -11,6 +11,7 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import { UserContext } from "../../Application";
 import TextField from "@mui/material/TextField";
+import { withStyles } from "@mui/styles";
 
 function CategoriesBar({
 	categories,
@@ -22,7 +23,7 @@ function CategoriesBar({
 	handleOrderChange,
 	handleCityChange,
 	isLoggedIn,
-	city
+	city,
 }) {
 	const barStyle = {
 		width: "500px",
@@ -32,6 +33,19 @@ function CategoriesBar({
 
 		justifyContent: "center",
 	};
+
+	const CustomTextField = withStyles({
+		root: {
+			width: "100%",
+			"& .MuiOutlinedInput-root": {
+				height: "2.5rem",
+				width: "100%",
+				"& fieldset": {
+					borderRadius: "50px",
+				},
+			},
+		},
+	})(TextField);
 
 	const [sort, setSort] = useState("");
 	const [order, setOrder] = useState("");
@@ -125,8 +139,8 @@ function CategoriesBar({
 										{sort === "price"
 											? "Lowest to Highest"
 											: sort === "created"
-												? "Newest to Oldest"
-												: "Ascending"}
+											? "Newest to Oldest"
+											: "Ascending"}
 									</MenuItem>
 									<MenuItem
 										key={Math.random().toString(36).substr(2, 9)}
@@ -135,25 +149,26 @@ function CategoriesBar({
 										{sort === "price"
 											? "Highest to Lowest"
 											: sort === "created"
-												? "Oldest to Newest"
-												: "Descending"}
+											? "Oldest to Newest"
+											: "Descending"}
 									</MenuItem>
 								</Select>
 							</FormControl>
-							<TextField
-								id='1p'
-								sx={{
-									borderRadius: "50px",
-									height: "2rem",
-									marginTop: 3
-								}}
-								label='City'
-								name='city'
-								value={city}
-								onChange={e => {
-									handleCityChange(e);
-								}}
-							/>
+							<Box sx={{marginTop: "1.3rem"}}>
+								<CustomTextField
+									id='1p'
+									sx={{
+										borderRadius: "50%",
+										height: "2rem",
+									}}
+									label='City'
+									name='city'
+									value={city}
+									onChange={e => {
+										handleCityChange(e);
+									}}
+								/>
+							</Box>
 						</Box>
 					</Grid>
 
