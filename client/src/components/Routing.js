@@ -11,7 +11,7 @@ import SearchWrapper from "./Search/SearchWrapper";
 import Heading from "./Heading/Heading";
 import { useLocation } from "react-router";
 import { AnimatePresence } from "framer-motion";
-import TransitionWrapper from "./Transition/TransitionWrapper";
+import { Divider } from "@mui/material";
 
 function Routing({ keywords, search, togglePending, emptySearch, location }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
@@ -56,7 +56,7 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 					>
 						{headingTitle}
 					</Heading>
-					<hr style={{ marginBottom: "5rem", marginTop: "1rem" }}></hr>
+					<Divider sx={{ marginBottom: "5rem", marginTop: "1rem" }} color="white"/>
 				</>
 			)}
 			<AnimatePresence exitBeforeEnter initial={false}>

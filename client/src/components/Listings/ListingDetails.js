@@ -17,8 +17,11 @@ import { UserContext } from "../Application.js";
 import CurrencyFormat from "react-currency-format";
 import Link from "@mui/material/Link";
 import { Chip } from "@mui/material";
+import useTheme from "@mui/material/styles/useTheme";
 
 export default function ListingDetails(props) {
+	const theme = useTheme();
+
 	//General styles
 	const PADDING = "2rem 3rem";
 
@@ -104,6 +107,7 @@ export default function ListingDetails(props) {
 						{props.children}
 					</div>
 					<Drawer
+						BackdropProps={{ style: { opacity: 0.98 } }}
 						anchor={anchor}
 						variant='temporary'
 						open={state[anchor]}
@@ -180,9 +184,7 @@ export default function ListingDetails(props) {
 
 									{/* <Grid container spacing={0}> */}
 									{/* <Grid item xs={9}> */}
-									<Box>
-										<p>{props.listing.description}</p>
-									</Box>
+
 									{/* </Grid> */}
 
 									{/* <Grid item xs={2}> */}
@@ -203,7 +205,13 @@ export default function ListingDetails(props) {
 											/>
 										}
 										title={
-											<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+											<Box
+												sx={{
+													display: "flex",
+													alignItems: "center",
+													justifyContent: "space-between",
+												}}
+											>
 												{/* <Grid
 													container={true}
 													direction='row'
@@ -212,7 +220,7 @@ export default function ListingDetails(props) {
 													wrap='nowrap'
 													onClick={handleUserRatingsOpen}
 												> */}
-												<Typography fontSize='small'>
+												<Typography fontSize='medium'>
 													{props.listing.first_name} {props.listing.last_name}
 												</Typography>
 												{/* </Grid> */}
@@ -227,7 +235,11 @@ export default function ListingDetails(props) {
 													<Rating
 														name='user-rating'
 														size='large'
-														style={{ marginLeft: 5, marginTop: 0 }}
+														style={{
+															marginLeft: 5,
+															marginTop: 0,
+															color: theme.palette.secondary.mainGradient,
+														}}
 														value={parseInt(listingCreator.average)}
 														readOnly
 													/>
@@ -261,6 +273,9 @@ export default function ListingDetails(props) {
 											</Box>
 										}
 									/>
+									<Box>
+										<p>{props.listing.description}</p>
+									</Box>
 									{props.listing.creator_id === userDetails.id ? (
 										<Typography
 											variant='subtitle2'
