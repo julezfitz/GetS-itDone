@@ -11,6 +11,7 @@ import Redirect from "../Redirect";
 import useTheme from "@mui/material/styles/useTheme";
 import { fieldStyles } from "../styles/styles";
 import LoginForm from "./LoginForm";
+import GoogleAuth from "../GoogleAuth";
 
 const style = {
 	position: "absolute",
@@ -137,6 +138,7 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 							id='modal-modal-description'
 							sx={{ mt: 2 }}
 						>
+							<GoogleAuth/>
 							<LoginForm
 								handleSubmit={handleSubmit}
 								handleChange={handleChange}

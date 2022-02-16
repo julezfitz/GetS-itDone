@@ -9,6 +9,7 @@ const app = express();
 const OpenApiValidator = require("express-openapi-validator");
 const cookieSession = require("cookie-session");
 const db = require("./db");
+const passport = require("passport");
 
 module.exports = function application(ENV) {
 	app.use(bodyparser.json());
@@ -45,14 +46,14 @@ module.exports = function application(ENV) {
 	);
 
 	// openapi validation middleware
-	app.use(
-		OpenApiValidator.middleware({
-			apiSpec: require("./openapi-spec"),
-			validateRequests: true, // (default)
-			validateResponses: false, // false by default
-			validateApiSpec: false,
-		})
-	);
+	// app.use(
+	// 	OpenApiValidator.middleware({
+	// 		apiSpec: require("./openapi-spec"),
+	// 		validateRequests: true, // (default)
+	// 		validateResponses: false, // false by default
+	// 		validateApiSpec: false,
+	// 	})
+	// );
 
 	app.use("/", require("./routes/listings")(db));
 	app.use("/", require("./routes/categories")(db));
@@ -60,6 +61,8 @@ module.exports = function application(ENV) {
 	app.use("/", require("./routes/ratings")(db));
 	app.use("/", require("./routes/offers")(db));
 	app.use("/", require("./routes/notifications")(db));
+
+	
 
 	//openapi validation middleware
 	app.use((err, req, res, next) => {
@@ -69,6 +72,12 @@ module.exports = function application(ENV) {
 			errors: err.errors,
 		});
 	});
+
+		//Passport config
+		require("./config/passport")(passport, db);
+		app.use(passport.initialize());
+		app.use(passport.session());
+	
 
 	app.close = function () {
 		return db.end();

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const { query } = require("express");
-// const passport = require("passport");
+const passport = require("passport");
 const checkIfEmpty = require("../helpers/auth/checkIfEmpty");
 const trimFields = require("../helpers/auth/trimFields");
 
@@ -97,6 +97,21 @@ module.exports = db => {
 
 		res.status(200).send(response);
 	});
+
+	router.get(
+		"/user/google",
+		passport.authenticate("google", {
+			scope: ["profile", "email"],
+		})
+	);
+
+	router.get(
+		"/user/google/callback",
+		passport.authenticate("google", {
+			successRedirect: "http://localhost:3002",
+			failureRedirect: "http://localhost:3002",
+		})
+	);
 
 	//Check to see if a user is logged in
 	router.get("/user/session", (req, res) => {
