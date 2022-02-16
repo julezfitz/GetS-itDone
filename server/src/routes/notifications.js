@@ -6,11 +6,12 @@ module.exports = db => {
         const { userId } = request.query;
         let queryString = `SELECT user_notifications.viewed, user_notifications.created, 
         notifications.notification_message, user_notifications.offer_id, user_notifications.id as notification_id,
-        offers.listing_id
+        offers.listing_id, listings.title
         FROM user_notifications
         JOIN notifications ON user_notifications.notification_id = notifications.id
         JOIN offers ON user_notifications.offer_id = offers.id
-        WHERE user_notifications.user_id = ${userId};`
+        JOIN listings ON offers.listing_id = listings.id
+        WHERE user_notifications.user_id = ${userId} AND user_notifications.viewed = ${false};`
 
         db.query(queryString).then(({ rows: notifications }) => {
 
@@ -25,6 +26,7 @@ module.exports = db => {
                             "offerId": notificationObj.offer_id,
                             "listingId": notificationObj.listing_id,
                             "created": notificationObj.created,
+                            "title": notificationObj.title,
                             "notificationId": notificationObj.notification_id
                         }
                     )
