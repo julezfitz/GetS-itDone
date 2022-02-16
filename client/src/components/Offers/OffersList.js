@@ -50,7 +50,7 @@ export default function OffersList(props) {
   return (
     <Item>
       <Divider />
-      <h3>{acceptedOffer ? "Confirmed" : "Offers"}</h3>
+      <h2>{acceptedOffer ? "Confirmed" : "Offers"}</h2>
       {(acceptedOffer && <AcceptedView listingId={props.listingId} acceptedOffer={acceptedOffer} />) ||
         listingOffers.map((offer) => {
           if (!offer.accepted && !offer.pending) {

@@ -24,9 +24,8 @@ export default function ApplicationAcceptedView(props) {
         <Grid item xs container direction="column">
           <Grid item xs>
             <Typography gutterBottom variant="subtitle1" component="div">
-              Congrats! Your offer to complete this job has been accepted. Please contact
-              &nbsp;<b>{props.acceptedOffer.listerFirstName} {props.acceptedOffer.listerLastName}</b> at
-              &nbsp;<b><a href={`mailto:${props.acceptedOffer.email}`}>{props.acceptedOffer.listerEmail}</a></b> to
+              Congrats! Your offer to complete this job has been accepted. 
+              Please contact {props.acceptedOffer.listerFirstName} {props.acceptedOffer.listerLastName} at <a href={`mailto:${props.acceptedOffer.email}`} style={{color:'orange'}}>{props.acceptedOffer.listerEmail}</a> to
               make arrangements.
             </Typography>
             <Grid item xs >
@@ -37,9 +36,9 @@ export default function ApplicationAcceptedView(props) {
                     onClick={handleNewRatingOpen}
                     size={"medium"}
                     type='submit'
-                    color='primary'
-                    variant='contained'
-                    sx={{ marginLeft: 16 }}
+                    color='secondary'
+                    variant="outlined"
+                    sx={{ marginLeft: 16,  marginTop: 1 }}
                   >
                     Leave A Review
                   </Button>
