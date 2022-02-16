@@ -77,85 +77,78 @@ export default function NewListingModal({ open, handleClose }) {
   };
 
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-            sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
-          >
-            Create New Listing
-          </Typography>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
+        >
+          Create New Listing
+        </Typography>
 
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{ "& .MuiTextField-root": { m: 1 }, position: "relative" }}
-            noValidate
-            autoComplete="off"
-          >
-            <FormGroup row sx={formGroupStyle}>
-              <TextField
-                required
-                id="outlined-required"
-                name="title"
-                label="Title"
-              />
-            </FormGroup>
-            <FormGroup row sx={formGroupStyle}>
-              <CategoryList onSelect={handleCategoryChange} />
-            </FormGroup>
-            <FormGroup row sx={formGroupStyle}>
-              <TextField
-                required
-                multiline
-                rows={2}
-                id="1c"
-                label="Description"
-                name="description"
-              />
-            </FormGroup>
-            <FormGroup row sx={formGroupStyle}>
-              <TextField required id="2c" name="city" label="City" />
-              <TextField
-                required
-                id="3c"
-                label="Postal Code"
-                name="postalCode"
-              />
-            </FormGroup>
-            <FormGroup row sx={formGroupStyle}>
-              <TextField required id="4c" label="Price" name="price" />
-            </FormGroup>
-            <FormGroup row sx={formGroupStyle}>
-              <TextField id="5c" name="image_1" label="Image URL" />
-            </FormGroup>
-            <FormGroup row sx={formGroupStyle}>
-              <TextField id="6c" name="image_2" label="Image URL 2" />
-              <TextField id="7c" name="image_3" label="Image URL 3" />
-            </FormGroup>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ "& .MuiTextField-root": { m: 1 }, position: "relative" }}
+          noValidate
+          autoComplete="off"
+        >
+          <FormGroup row sx={formGroupStyle}>
+            <TextField
+              required
+              id="outlined-required"
+              name="title"
+              label="Title"
+            />
+          </FormGroup>
+          <FormGroup row sx={formGroupStyle}>
+            <CategoryList onSelect={handleCategoryChange} />
+          </FormGroup>
+          <FormGroup row sx={formGroupStyle}>
+            <TextField
+              required
+              multiline
+              rows={2}
+              id="1c"
+              label="Description"
+              name="description"
+            />
+          </FormGroup>
+          <FormGroup row sx={formGroupStyle}>
+            <TextField required id="2c" name="city" label="City" />
+            <TextField required id="3c" label="Postal Code" name="postalCode" />
+          </FormGroup>
+          <FormGroup row sx={formGroupStyle}>
+            <TextField required id="4c" label="Price" name="price" />
+          </FormGroup>
+          <FormGroup row sx={formGroupStyle}>
+            <TextField id="5c" name="image_1" label="Image URL" />
+          </FormGroup>
+          <FormGroup row sx={formGroupStyle}>
+            <TextField id="6c" name="image_2" label="Image URL 2" />
+            <TextField id="7c" name="image_3" label="Image URL 3" />
+          </FormGroup>
 
-            <Button
-              size="large"
-              type="submit"
-              value="Submit"
-              variant="contained"
-              color="secondary"
-              fullWidth
-              sx={{ mt: 5 }}
-            >
-              Create Listing
-            </Button>
-          </Box>
+          <Button
+            size="large"
+            type="submit"
+            value="Submit"
+            variant="contained"
+            color="secondary"
+            fullWidth
+            sx={{ mt: 5 }}
+          >
+            Create Listing
+          </Button>
         </Box>
-      </Modal>
-    </div>
+      </Box>
+    </Modal>
   );
 }
