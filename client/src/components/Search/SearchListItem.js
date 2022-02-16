@@ -1,4 +1,10 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, {
+	useState,
+	useEffect,
+	forwardRef,
+	useCallback,
+	useRef,
+} from "react";
 // import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -10,17 +16,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import styled from "styled-components";
 import { Fade } from "@mui/material";
 
-// const Img = styled("img")({
-// 	margin: "auto",
-// 	display: "block",
-// 	position: "absolute",
-// 	width: "100%",
-// 	top: "50%",
-// 	left: "50%",
-// 	transform: "translate(-50%, -50%)",
-// });
-
-function SearchListItem(props, ref) {
+function SearchListItem(props) {
 	const theme = useTheme();
 
 	const handleListingChange = () => {
@@ -33,7 +29,6 @@ function SearchListItem(props, ref) {
 
 	return (
 		<Paper
-			ref={ref}
 			onClick={handleListingChange}
 			sx={{
 				p: 2,
@@ -90,4 +85,4 @@ function SearchListItem(props, ref) {
 	);
 }
 
-export default forwardRef(SearchListItem);
+export default SearchListItem;
