@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import LoggedOutHome from "./LoggedOut/Landing/LoggedOut";
 import { UserContext } from "./Application";
@@ -9,16 +9,22 @@ import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
 import Heading from "./Heading/Heading";
-
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Divider } from "@mui/material";
 import useSplit from "../helpers/hooks/useSplit";
+import { headingAnimation } from "../helpers/animations/animations";
+import gsap from "gsap";
 
 function Routing({ keywords, search, togglePending, emptySearch, location }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
 	const { isLoggedIn, userPending } = useContext(UserContext);
+	const searchListRefs = useRef([]);
 	const splitHeadingRef = useRef(null);
-	const [isSplit, words, chars, splitCount] = useSplit()
+	const timelineRef = useRef(gsap.timeline());
+	const [isSplit, words, chars, splitCount] = useSplit(
+		[splitHeadingRef.current],
+		{ type: "chars", charsClass: "char" }
+	);
 
 	const pageInfo = [
 		{
@@ -55,7 +61,13 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 						size='medium'
 						className='page-heading'
 						color='light'
-						style={{ marginBottom: 0, marginTop: "2rem" }}
+						style={{
+							marginBottom: 0,
+							marginTop: "2rem",
+							
+							overflow: "hidden",
+						}}
+						ref={splitHeadingRef}
 					>
 						{headingTitle}
 					</Heading>

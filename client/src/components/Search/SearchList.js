@@ -6,8 +6,6 @@ import { Box } from "@mui/material";
 import { Grid, Item } from "@mui/material";
 import { Typography } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
-import { useInView } from "react-intersection-observer";
-import { InView } from "react-intersection-observer";
 
 // const Item = styled(Paper)(({ theme }) => ({
 // 	...theme.typography.body2,
@@ -18,7 +16,7 @@ import { InView } from "react-intersection-observer";
 
 //If no chip is selected we can fetch all listings
 
-export default function SearchList({ keywords, listings }) {
+export default function SearchList({ keywords, listings, addToRefs }) {
 	const theme = useTheme();
 
 	const listRefs = useRef([]);
@@ -30,6 +28,10 @@ export default function SearchList({ keywords, listings }) {
 		setListing(e);
 	};
 
+	const listItemVariant = {
+		hidden: { x: -500 },
+		show: { x: 0, transition: { type: "spring", stiffness: 120 } },
+	};
 	return (
 		<Box className='search-results' sx={{ width: "100%" }}>
 			<ListingDetails listing={listing} className='search-results__item'>
@@ -52,6 +54,7 @@ export default function SearchList({ keywords, listings }) {
 				>
 					{listings[0] &&
 						listings.map((listing, i) => {
+							let delayCounter = 0.1;
 							return (
 								<Grid
 									item
@@ -64,6 +67,7 @@ export default function SearchList({ keywords, listings }) {
 										key={Math.random().toString(36).substr(2, 9)}
 										onChoice={handleListingChange}
 										listing={listing}
+										addToRefs={addToRefs}
 									/>
 								</Grid>
 							);

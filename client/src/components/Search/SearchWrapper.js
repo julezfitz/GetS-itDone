@@ -8,7 +8,7 @@ import { UserContext } from "../Application";
 import TransitionWrapper from "../Transition/TransitionWrapper";
 import { useLocomotiveScroll } from "react-locomotive-scroll";
 
-function SearchWrapper({ keywords, emptySearch, setCleared }) {
+function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 	const { isLoggedIn } = useContext(UserContext);
 	const { scroll } = useLocomotiveScroll();
 	const [pending, setPending] = useState(true);
@@ -141,7 +141,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					<LinearProgress color='primary' sx={{ width: "100%" }} />
 				) : (
 					<>
-						<SearchList keywords={keywords} listings={listings} />
+						<SearchList keywords={keywords} listings={listings} addToRefs={addToRefs}/>
 						<CategoriesBar
 							categories={currentCategories}
 							selectedChip={selectedChip}
