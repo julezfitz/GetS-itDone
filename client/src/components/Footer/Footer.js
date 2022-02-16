@@ -123,7 +123,8 @@ function Footer() {
 						Designed & developed by{" "}
 						{contactInfo.map((dev, i) => {
 							return (
-								<>
+								<React.Fragment
+									key={Math.random().toString(36).substr(2, 9)}>							>
 									<a
 										href={dev.gitHub}
 										target='_blank'
@@ -140,7 +141,7 @@ function Footer() {
 									) : (
 										""
 									)}
-								</>
+								</React.Fragment>
 							);
 						})}
 					</Typography>
