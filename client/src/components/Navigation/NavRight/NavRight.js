@@ -117,8 +117,6 @@ export default function NavRight({
 			});
 	};
 
-	console.log("here in nav right");
-
 	return (
 		<Box
 			className='loggedIn-navRight'

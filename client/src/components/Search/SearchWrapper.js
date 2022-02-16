@@ -8,9 +8,8 @@ import { UserContext } from "../Application";
 import TransitionWrapper from "../Transition/TransitionWrapper";
 import { useLocomotiveScroll } from "react-locomotive-scroll";
 
-function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
-	const { isLoggedIn } = useContext(UserContext);
-	const { scroll } = useLocomotiveScroll();
+function SearchWrapper({ keywords, emptySearch, setCleared }) {
+	const { isLoggedIn, userDetails } = useContext(UserContext);
 	const [pending, setPending] = useState(true);
 	const [listings, setListings] = useState([]);
 	// const [categories, setCategories] = useState([]);
@@ -21,6 +20,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 	});
 	const [sortByType, setSortByType] = useState([]);
 	const [sortOrder, setSortOrder] = useState([]);
+	const [city, setCity] = useState(userDetails.city);
 
 	const handleSelectedChip = (categoryId, categoryName) => {
 		setSelectedChip({
@@ -33,6 +33,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 		emptySearch();
 		setSortByType([]);
 		setSortOrder([]);
+		setCity(userDetails.city);
 		setSelectedChip({
 			id: null,
 			name: null,
@@ -44,6 +45,9 @@ function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 	};
 	const handleOrderChange = e => {
 		setSortOrder(e.target.value);
+	};
+	const handleCityChange = e => {
+		setCity(e.target.value);
 	};
 
 	useEffect(() => {
@@ -63,10 +67,28 @@ function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 					// signal: controller.signal
 				})
 				.then(result => {
-					setListings(result.data);
+					let cityListings = [];
+					result.data.map(listing => {
+						if (listing.city === city) {
+							cityListings.push(listing);
+						}
+						return cityListings;
+					});
+					setListings(cityListings);
 				});
+		} else {
+			axios.get(`http://localhost:8001/listings/`).then(result => {
+				let cityListings = [];
+				result.data.map(listing => {
+					if (listing.city === city) {
+						cityListings.push(listing);
+					}
+					return cityListings;
+				});
+				setListings(cityListings);
+			});
 		}
-	}, [sortByType, sortOrder]);
+	}, [sortByType, sortOrder, city]);
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -119,7 +141,16 @@ function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 				.get(`http://localhost:8001/listings/?category=${categoryId}`, {
 					signal: controller.signal,
 				})
-				.then(res => setListings(res.data))
+				.then(res => {
+					let cityListings = [];
+					res.data.map(listing => {
+						if (listing.city === city) {
+							cityListings.push(listing);
+						}
+						return cityListings;
+					});
+					setListings(cityListings);
+				})
 				.catch(err => console.log(err));
 		}
 
@@ -141,7 +172,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 					<LinearProgress color='primary' sx={{ width: "100%" }} />
 				) : (
 					<>
-						<SearchList keywords={keywords} listings={listings} addToRefs={addToRefs}/>
+						<SearchList keywords={keywords} listings={listings} />
 						<CategoriesBar
 							categories={currentCategories}
 							selectedChip={selectedChip}
@@ -150,7 +181,9 @@ function SearchWrapper({ keywords, emptySearch, setCleared, addToRefs }) {
 							emptySearch={emptySearch}
 							handleSortChange={handleSortChange}
 							handleOrderChange={handleOrderChange}
+							handleCityChange={handleCityChange}
 							isLoggedIn={isLoggedIn}
+							city={city}
 						/>
 					</>
 				)}

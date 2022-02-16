@@ -8,6 +8,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../Application.js";
 import { FormGroup } from "@mui/material";
+import { toast } from 'react-toastify';
 
 const style = {
 	position: "absolute",
@@ -59,39 +60,46 @@ export default function NewListingModal({ open, handleClose }) {
 			image_3: e.target.elements.image_3.value,
 		};
 
-		axios
-			.post(`http://localhost:8001/listings`, newListingDetails)
-			.then(result => {
-				let categoryForListing = {
-					categoryId: category,
-					listingId: result.data.id,
-				};
-				return axios.post(
-					`http://localhost:8001/categories/listings`,
-					categoryForListing
-				);
-			})
-			.then(result => {
-				console.log(result.data);
-			});
-	};
+    axios
+      .post(`http://localhost:8001/listings`, newListingDetails)
+      .then((result) => {
+        let categoryForListing = {
+          categoryId: category,
+          listingId: result.data.id,
+        };
+        return axios.post(
+          `http://localhost:8001/categories/listings`,
+          categoryForListing
+        );
+      })
+      .then((result) => {
+        console.log(result.data);
+        handleClose();
+        notifyPost();
+      });
+  };
 
-	return (
-		<Modal
-			open={open}
-			onClose={handleClose}
-			aria-labelledby='modal-modal-title'
-			aria-describedby='modal-modal-description'
-		>
-			<Box sx={style}>
-				<Typography
-					id='modal-modal-title'
-					variant='h6'
-					component='h2'
-					sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
-				>
-					Create New Listing
-				</Typography>
+  const notifyPost = () => {
+				toast.success(<div style={{fontSize:'medium'}}>
+						<p>Success - Your listing is now live!</p></div>)
+    }
+
+  return (
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
+        >
+          Create New Listing
+        </Typography>
 
 				<Box
 					component='form'

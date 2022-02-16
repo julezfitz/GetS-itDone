@@ -52,14 +52,14 @@ export default function OffersList(props) {
       <Divider />
       <h2>{acceptedOffer ? "Confirmed" : "Offers"}</h2>
       {(acceptedOffer && <AcceptedView listingId={props.listingId} acceptedOffer={acceptedOffer} />) ||
-        listingOffers.map((offer) => {
+       ( listingOffers.length > 0 ? (listingOffers.map((offer) => {
           if (!offer.accepted && !offer.pending) {
             return <OffersListItem key={Math.random().toString(36).substr(2, 9)} offerDeclined={true} accept={handleAccept} decline={handleDecline} offer={offer} />
           } else {
             return <OffersListItem key={Math.random().toString(36).substr(2, 9)} accept={handleAccept} decline={handleDecline} offer={offer} />
           }
-        })
-      }
+        })) : <Item style={{fontSize:15}}>You don't have any offers for this listing. Please check back later.</Item>
+       )}
     </Item>
   );
 }
