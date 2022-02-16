@@ -108,7 +108,7 @@ export default function NewListingModal({ open, handleClose }) {
               label="Title"
             />
           </FormGroup>
-          <FormGroup row sx={formGroupStyle}>
+          <FormGroup row sx={formGroupStyle} fullWidth>
             <CategoryList onSelect={handleCategoryChange} />
           </FormGroup>
           <FormGroup row sx={formGroupStyle}>
