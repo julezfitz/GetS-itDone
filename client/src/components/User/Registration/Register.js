@@ -77,11 +77,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 			error: false,
 			errorMessage: "",
 		},
-		image: {
-			value: "",
-			error: false,
-			errorMessage: "",
-		},
 	});
 
 	const [loading, setLoading] = useState(false);
@@ -115,7 +110,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 			axios
 				.post(`http://localhost:8001/user/register`, fieldValues)
 				.then(res => {
-					console.log('post successful');
 					res.data.registration.errors.fields &&
 						res.data.registration.errors.fields.forEach(field => {
 							setRegisterState(prev => ({
@@ -320,22 +314,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 								registerState.country.errorMessage
 									? registerState.country.errorMessage
 									: "Country"
-							}
-						/>
-						<TextField
-							sx={fieldStyles}
-							placeholder='Image URL'
-							id='r9outlined-required'
-							label='Image'
-							name='image'
-							value={registerState.image.value}
-							onChange={handleChange}
-							error={registerState.image.error}
-							label={registerState.image.errorMessage}
-							label={
-								registerState.image.errorMessage
-									? registerState.image.errorMessage
-									: "Image"
 							}
 						/>
 					</FormGroup>
