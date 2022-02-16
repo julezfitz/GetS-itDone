@@ -7,6 +7,7 @@ import { Grid, Item } from "@mui/material";
 import { Typography } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
 import { useInView } from "react-intersection-observer";
+import { InView } from "react-intersection-observer";
 
 // const Item = styled(Paper)(({ theme }) => ({
 // 	...theme.typography.body2,
@@ -21,13 +22,7 @@ export default function SearchList({ keywords, listings }) {
 	const theme = useTheme();
 
 	const listRefs = useRef([]);
-	const [inViewRef, inView] = useInView();
-
-	const addToRefs = el => {
-		if (el && !listRefs.current.includes(el)) {
-			listRefs.current.push(el);
-		}
-	};
+	const ref = useRef(null);
 
 	const [listing, setListing] = useState({});
 
@@ -64,7 +59,6 @@ export default function SearchList({ keywords, listings }) {
 									md={12}
 									lg={6}
 									key={Math.random().toString(36).substr(2, 9)}
-									ref={addToRefs}
 								>
 									<SearchListItem
 										key={Math.random().toString(36).substr(2, 9)}
