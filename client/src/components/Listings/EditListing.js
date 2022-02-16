@@ -29,8 +29,6 @@ const formGroupStyle = {
 export default function EditListingModal({ open, handleClose, listing, edit }) {
   const { userDetails } = useContext(UserContext);
 
-  console.log(listing)
-
   const [editListing, setEditListing] = useState({
       creatorId: userDetails.id,
       listingId: listing.id,

@@ -134,18 +134,24 @@ export default function ListingDetails(props) {
 
                   <Grid item xs={2}>
                     <Box m={-5} pt={-5}>
-                      {/* check if the user has already offered to do this job */}
-                      {(offers.some(({ listingId }) => listingId === props.listing.id)) ?
-                        (<Typography variant="subtitle2" color="grey" component="div">Application received</Typography>)
-                        :
-                        (<Button
-                          size={"small"}
-                          type='submit'
-                          color='secondary'
-                          variant='contained'
-                          value={props.listing.id}
-                          onClick={handleOffer}
-                        >Place Offer</Button>)
+                      {/* check to see if the user owns the job */}
+
+                      {(props.listing.creator_id === userDetails.id) ?
+                        (<Typography variant="subtitle2" color="grey" component="div">You Own This Listing</Typography>)
+                        : (
+                          /* check if the user has already offered to do this job */
+                          (offers.some(({ listingId }) => listingId === props.listing.id)) ?
+                            (<Typography variant="subtitle2" color="grey" component="div">Application received</Typography>)
+                            :
+                            (<Button
+                              size={"small"}
+                              type='submit'
+                              color='secondary'
+                              variant='contained'
+                              value={props.listing.id}
+                              onClick={handleOffer}
+                            >Place Offer</Button>)
+                        )
                       }
                     </Box>
                   </Grid>
