@@ -8,9 +8,6 @@ import { device } from "../../styles/devices/devices";
 const StyledFooter = styled.footer`
 	height: 64vh;
 	background-color: white;
-	position: fixed;
-	bottom: 0;
-	z-index: -1;
 	width: 100%;
 
 	.footer-inner {
@@ -123,8 +120,8 @@ function Footer() {
 						Designed & developed by{" "}
 						{contactInfo.map((dev, i) => {
 							return (
-								<React.Fragment
-									key={Math.random().toString(36).substr(2, 9)}>							>
+								<React.Fragment key={Math.random().toString(36).substr(2, 9)}>
+									{" "}
 									<a
 										href={dev.gitHub}
 										target='_blank'

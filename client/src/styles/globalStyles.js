@@ -258,7 +258,7 @@ export const GlobalStyles = createGlobalStyle`
     padding-top: 4.3rem;
     width: 100%;
     height: 100%; 
-    margin-bottom: ${FOOTERHEIGHT};
+    
     padding-bottom: 50vw;
     box-shadow: -3px -5px 48px 4px rgba(0,0,0,.5);
   }
