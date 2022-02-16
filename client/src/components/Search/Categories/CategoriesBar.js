@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Form, Typography, Box } from "@mui/material";
 import { Chip, Paper } from "@mui/material";
 import Chips from "./Chips";
@@ -9,6 +9,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
+import { UserContext } from "../../Application";
+import TextField from "@mui/material/TextField";
 
 function CategoriesBar({
 	categories,
@@ -18,7 +20,9 @@ function CategoriesBar({
 	handleSortChange,
 	handleClearSelection,
 	handleOrderChange,
+	handleCityChange,
 	isLoggedIn,
+	city
 }) {
 	const barStyle = {
 		width: "500px",
@@ -122,8 +126,8 @@ function CategoriesBar({
 										{sort === "price"
 											? "Lowest to Highest"
 											: sort === "created"
-											? "Newest to Oldest"
-											: "Ascending"}
+												? "Newest to Oldest"
+												: "Ascending"}
 									</MenuItem>
 									<MenuItem
 										key={Math.random().toString(36).substr(2, 9)}
@@ -132,11 +136,25 @@ function CategoriesBar({
 										{sort === "price"
 											? "Highest to Lowest"
 											: sort === "created"
-											? "Oldest to Newest"
-											: "Descending"}
+												? "Oldest to Newest"
+												: "Descending"}
 									</MenuItem>
 								</Select>
 							</FormControl>
+							<TextField
+								id='1p'
+								sx={{
+									borderRadius: "50px",
+									height: "2rem",
+									marginTop: 3
+								}}
+								label='City'
+								name='city'
+								value={city}
+								onChange={e => {
+									handleCityChange(e);
+								}}
+							/>
 						</Box>
 					</Grid>
 
