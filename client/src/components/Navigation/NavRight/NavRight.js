@@ -28,7 +28,6 @@ export default function NavRight({
 				params: { userId: userDetails.id },
 			})
 			.then((results) => {
-				//change this so that only unread notifications are added - changed on route instead
 				setNotifications(results.data);
 			});
 	}
