@@ -107,8 +107,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 	useEffect(() => {
 		const fieldValues = {};
 
-		console.log(fieldValues);
-
 		if (loading) {
 			//Reduce to only get values
 			for (let key in registerState) {
@@ -117,6 +115,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 			axios
 				.post(`http://localhost:8001/user/register`, fieldValues)
 				.then(res => {
+					console.log('post successful');
 					res.data.registration.errors.fields &&
 						res.data.registration.errors.fields.forEach(field => {
 							setRegisterState(prev => ({
