@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import Kobe from "../../../assets/fonts/Kobe.woff";
-import Beatrice from "../../../assets/fonts/Beatrice.otf";
-import Opposit from "../../../assets/fonts/opposit.otf";
-import Cardinal from "../../../assets/fonts/cardinal.otf";
+
 
 export const StyledHeading = styled.div`
 	font-family: Inter;

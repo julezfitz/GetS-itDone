@@ -22,8 +22,13 @@ const style = {
   p: 4,
 };
 
-export default function NewRatingModal({ ratee, listingId, open, handleClose }) {
-  const [rating, setRating] = useState('');
+export default function NewRatingModal({
+  ratee,
+  listingId,
+  open,
+  handleClose,
+}) {
+  const [rating, setRating] = useState("");
 
   const { userDetails } = useContext(UserContext);
 
@@ -46,95 +51,115 @@ export default function NewRatingModal({ ratee, listingId, open, handleClose }) 
     e.preventDefault();
 
     let newRatingDetails = {
-      "raterId": userDetails.id,
-      "rateeId": ratee.rateeId,
-      "listingId": listingId,
-      "rating": starRating,
-      "comment": e.target.elements.comments.value,
-    }
+      raterId: userDetails.id,
+      rateeId: ratee.rateeId,
+      listingId: listingId,
+      rating: starRating,
+      comment: e.target.elements.comments.value,
+    };
 
-    axios.post(`http://localhost:8001/ratings`, newRatingDetails)
+    axios
+      .post(`http://localhost:8001/ratings`, newRatingDetails)
       .then((results) => {
         handleClose();
-      })
+      });
   };
 
   const [rateeObj, setRatee] = useState({});
 
-  useEffect((() => {
+  useEffect(() => {
     setRatee(ratee);
-  }), [ratee]
-  )
+  }, [ratee]);
 
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Rating
-          </Typography>
-          <Typography component={'span'} id="modal-modal-description" sx={{ mt: 2 }}>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ textAlign: "center" }}
+        >
+          Rating
+        </Typography>
+
+        <Divider sx={{ m: 2 }} />
+
+        <Typography
+          component={"span"}
+          id="modal-modal-description"
+          sx={{ mt: 2, textAlign: "center" }}
+        >
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
             <Box
-              component="form"
-              sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
-              noValidate
-              autoComplete="off"
-              onSubmit={handleSubmit}
+              sx={{
+                m: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              {rateeObj &&
-                <Typography component="legend">
-                  Your feedback matters. Rate your experience with {rateeObj.firstName} {rateeObj.lastName}.
-                </Typography>
-              }
-              <Box
-                sx={{
-                  width: 200,
-                  display: "flex",
-                  alignItems: "center",
+              <Rating
+                name="hover-feedback"
+                required
+                value={starRating}
+                precision={1}
+                onChange={(event, newValue) => {
+                  setStarRating(newValue);
                 }}
-              >
-                <Rating
-                  name="hover-feedback"
-                  required
-                  value={starRating}
-                  precision={1}
-                  onChange={(event, newValue) => {
-                    setStarRating(newValue);
-                  }}
-                  onChangeActive={(event, newHover) => {
-                    setStarRatingHover(newHover);
-                  }}
-                />
-                {starRating !== null && (
-                  <Box sx={{ ml: 2 }}>
-                    {
-                      labels[
-                      starRatingHover !== -1 ? starRatingHover : starRating
-                      ]
-                    }
-                  </Box>
-                )}
-                <Button size='large' type="submit" value="Submit" variant='contained' fullWidth>
-                  Submit
-                </Button>
-              </Box>
-              <Divider />
-              <TextField
-                id="outlined-multiline-static"
-                label="Comments"
-                multiline
-                rows={4}
-                name='comments'
+                onChangeActive={(event, newHover) => {
+                  setStarRatingHover(newHover);
+                }}
               />
+              {starRating !== null && (
+                <Box sx={{ color: "white", ml: 2 }}>
+                  {
+                    labels[
+                      starRatingHover !== -1 ? starRatingHover : starRating
+                    ]
+                  }
+                </Box>
+              )}
             </Box>
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
+            {rateeObj && (
+              <Typography sx={{ m: 2, color: "white" }} component="legend">
+                Your feedback matters! Rate your experience with:{" "}
+                {rateeObj.firstName} {rateeObj.lastName}.
+              </Typography>
+            )}
+            <TextField
+              id="outlined-multiline-static"
+              label="Comments"
+              multiline
+              rows={4}
+              name="comments"
+              fullWidth
+            />
+            <Button
+              size="large"
+              type="submit"
+              value="Submit"
+              variant="contained"
+              color="secondary"
+              fullWidth
+              sx={{ mt: 3 }}
+            >
+              Submit
+            </Button>
+          </Box>
+        </Typography>
+      </Box>
+    </Modal>
   );
 }

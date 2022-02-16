@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Chip, Box, Button } from "@mui/material";
 import { Typography } from "@mui/material";
+import UserContext from "../../Application";
 
 function Chips({
 	categories,
@@ -8,10 +9,12 @@ function Chips({
 	setSelected,
 	handleClearSelection,
 	emptySearch,
+	isLoggedIn,
 }) {
 	const elementSpacing = 1;
 
 	const handleChipClick = categoryId => {
+		window.scrollTo({ top: isLoggedIn ? 0 : 500 });
 		setSelected(categoryId);
 		emptySearch();
 	};
@@ -32,7 +35,7 @@ function Chips({
 									transition: "300ms ease",
 									"&:hover": {
 										backgroundColor: "white !important",
-										opacity: 1
+										opacity: 1,
 									},
 									"&:hover span": {
 										color: "black",
@@ -63,7 +66,7 @@ function Chips({
 				color='secondary'
 				sx={{
 					textTransform: "none",
-					m: elementSpacing,
+					mt: 4,
 					ml: 0,
 					display: "block",
 					transition: "300ms ease",

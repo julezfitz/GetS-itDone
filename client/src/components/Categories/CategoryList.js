@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -22,7 +21,7 @@ export default function CategoryList(props) {
 
   return (
     <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Category *</InputLabel>
+      {props.edit ? <InputLabel id="demo-simple-select-label">{props.label}</InputLabel> : <InputLabel id="demo-simple-select-label">Category *</InputLabel>}
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"

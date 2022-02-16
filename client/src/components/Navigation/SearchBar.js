@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
@@ -72,6 +72,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar({ onSearch, value }) {
+
+	const searchRef = useRef(null);
+
 	const navigate = useNavigate();
 
 	const handleSearchSubmit = e => {
@@ -79,10 +82,14 @@ function SearchBar({ onSearch, value }) {
 		navigate("/");
 	};
 
+	useEffect(() => {
+		console.log(searchRef)
+	}, [searchRef])
+
 	return (
 		<>
 			<Box component='form' onSubmit={handleSearchSubmit} method='POST'>
-				<Search sx={{ borderRadius: "50px", transition: "300ms ease" }}>
+				<Search sx={{ borderRadius: "50px", transition: "300ms ease" }} ref={searchRef}>
 					<SearchIconWrapper>
 						<SearchIcon />
 					</SearchIconWrapper>

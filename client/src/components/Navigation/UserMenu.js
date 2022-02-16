@@ -11,6 +11,7 @@ const MENULINKSTYLES = {
 	width: "100%",
 	textAlign: "left",
 	padding: "0.6rem 2rem",
+	transition: "300ms ease",
 };
 
 function UserMenu({
@@ -56,7 +57,11 @@ function UserMenu({
 				<MenuItem
 					key={i}
 					onClick={handleCloseUserMenu}
-					sx={{ padding: 0, "& p": { textAlign: "left" } }}
+					sx={{
+						padding: 0,
+						"& p": { textAlign: "left" },
+						transition: "300ms ease",
+					}}
 				>
 					<Link
 						key={i}

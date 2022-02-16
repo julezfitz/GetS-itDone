@@ -97,7 +97,7 @@ export default function ListingDetails(props) {
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
             PaperProps={{
-              style: { width: "500px", padding: "3rem" },
+              style: { width: "500px", padding: "3rem", justifyContent: "center" },
             }}
           >
             <Stack spacing={0.1}>

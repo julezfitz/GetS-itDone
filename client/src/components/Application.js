@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./Navigation/Navbar";
 import axios from "axios";
 import Routing from "./Routing";
@@ -7,11 +7,12 @@ import { createContext } from "react";
 import { GlobalStyles } from "../styles/globalStyles";
 import { Container } from "@mui/material";
 import RegisterModal from "./User/Registration/Register";
-import LoginModal from "./User/Login";
+import LoginModal from "./User/Login/Login";
 import LoadingScreen from "./Loading/LoadingScreen";
 import Footer from "./Footer/Footer";
 import { Box } from "@mui/material";
 import Rails from "./Rails/Rails";
+import locomotiveScroll from "locomotive-scroll";
 
 export const UserContext = createContext();
 
@@ -35,6 +36,22 @@ export default function Application() {
 		offers: [],
 	});
 
+	//For locomotive scroll
+	const scrollRef = useRef(null);
+
+	useEffect(() => {
+		if (scrollRef.current) {
+			setTimeout(() => {
+				const scroll = new locomotiveScroll({
+					el: scrollRef.current,
+					smooth: true,
+					getDirection: true,
+					smoothMobile: false,
+				});
+			}, 700);
+		}
+	}, [scrollRef]);
+
 	//function to update user details when the user updates their profile
 	const refreshUserDetails = id => {
 		const userId = id ?? globalState.user?.details?.id;
@@ -51,6 +68,8 @@ export default function Application() {
 	};
 
 	const toggleLoggedIn = userDetails => {
+		window.scrollTo({ top: 0 });
+
 		setGlobalState(prev => ({
 			...prev,
 			user: {
@@ -98,6 +117,7 @@ export default function Application() {
 	};
 
 	const userControls = {
+		userPending: globalState.user.pending,
 		toggleLoggedIn,
 		isLoggedIn: globalState.user.isLoggedIn,
 		userDetails: globalState.user.details,
@@ -110,6 +130,8 @@ export default function Application() {
 	};
 
 	useEffect(() => {
+		window.scrollTo({ top: 0 });
+
 		// setPending(globalSxtate.user.isLoggedIn ? false : true);
 
 		//Initial check to see if a cookie is set, change user state according to response
@@ -142,6 +164,7 @@ export default function Application() {
 		<UserContext.Provider value={userControls}>
 			<GlobalStyles isLoggedIn={globalState.user.isLoggedIn} />
 			<LoadingScreen isActive={globalState.user.pending} />
+
 			<div className='modals'>
 				<LoginModal
 					open={globalState.user.entries.currentModal === "logIn"}
@@ -153,27 +176,28 @@ export default function Application() {
 				/>
 			</div>
 			<Navbar onSearch={handleSearch} searchValue={search} />
-
-			<Box
-				component='main'
-				className={`content-wrapper ${
-					globalState.user.isLoggedIn ? "nav-offset" : ""
-				}`}
-			>
-				<Container maxWidth='xl' sx={{ height: "100%" }}>
-					<Routing
-						keywords={search}
-						search={search}
-						emptySearch={() => setSearch("")}
-					/>
-					{/* <p className='main__text'>All results for: Home</p>
+			<div className='scroller' ref={scrollRef}>
+				<Box
+					component='main'
+					className={`content-wrapper ${
+						globalState.user.isLoggedIn ? "nav-offset" : ""
+					}`}
+				>
+					<Container maxWidth='xl' sx={{ height: "100%" }}>
+						<Routing
+							keywords={search}
+							search={search}
+							emptySearch={() => setSearch("")}
+						/>
+						{/* <p className='main__text'>All results for: Home</p>
 						<div>
 							<span>Category:</span>
 							<span>Sort By: Date</span>
 						</div> */}
-				</Container>
-				<Rails />
-			</Box>
+					</Container>
+					<Rails />
+				</Box>
+			</div>
 			<Footer />
 		</UserContext.Provider>
 	);
