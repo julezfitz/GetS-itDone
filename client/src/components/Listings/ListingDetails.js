@@ -199,11 +199,11 @@ export default function ListingDetails(props) {
 											<Avatar
 												alt='Profile Image'
 												src={props.listing.image}
-												sx={{ width: "50px", height: "50px" }}
+												sx={{ width: "70px", height: "70px" }}
 											/>
 										}
 										title={
-											<Box sx={{ display: "flex", alignItems: "center" }}>
+											<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 												{/* <Grid
 													container={true}
 													direction='row'
@@ -231,32 +231,32 @@ export default function ListingDetails(props) {
 														value={parseInt(listingCreator.average)}
 														readOnly
 													/>
-
-													<Typography variant='string' component='div'>
-														&nbsp; (
-													</Typography>
-
-													<Typography variant='string' component='div'>
-														)
-													</Typography>
-													{/* </Grid> */}
-													<UserRatingsModal
-														open={userRatingsOpen}
-														handleClose={handleUserRatingsClose}
-														user={listingCreator}
-													/>
-													<Link
-														onClick={handleUserRatingsOpen}
-														color='inherit'
-														underline='hover'
-														variant='string'
-														component='button'
-													>
-														{listingCreator.ratingsCount}{" "}
-														{listingCreator.ratingsCount > 1
-															? "ratings"
-															: "rating"}
-													</Link>
+													<Box sx={{ display: "flex", position: "absolute" }}>
+														<Typography variant='string' component='div'>
+															&nbsp; (
+														</Typography>
+														{/* </Grid> */}
+														<UserRatingsModal
+															open={userRatingsOpen}
+															handleClose={handleUserRatingsClose}
+															user={listingCreator}
+														/>
+														<Link
+															onClick={handleUserRatingsOpen}
+															color='inherit'
+															underline='hover'
+															variant='string'
+															component='button'
+														>
+															{listingCreator.ratingsCount}{" "}
+															{listingCreator.ratingsCount > 1
+																? "ratings"
+																: "rating"}
+														</Link>
+														<Typography variant='string' component='div'>
+															)
+														</Typography>
+													</Box>
 												</Box>
 											</Box>
 										}
