@@ -19,6 +19,8 @@ import Link from "@mui/material/Link";
 import { Chip } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
 import Marquee from "react-fast-marquee";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function ListingDetails(props) {
 	const theme = useTheme();
@@ -123,6 +125,9 @@ export default function ListingDetails(props) {
 							},
 						}}
 					>
+						<IconButton onClick={toggleDrawer(anchor, false)} sx={{ position: 'absolute', right: 15, top: 15, }}>
+        	  	<CloseIcon />
+          	</IconButton>
 						<Stack spacing={0.4}>
 							<Box
 								className='padding-box'

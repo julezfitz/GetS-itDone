@@ -11,6 +11,8 @@ import Redirect from "../Redirect";
 import useTheme from "@mui/material/styles/useTheme";
 import { fieldStyles } from "../styles/styles";
 import LoginForm from "./LoginForm";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
 	position: "absolute",
@@ -124,6 +126,9 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 					aria-describedby='modal-modal-description'
 				>
 					<Box sx={style}>
+						<IconButton onClick={() => setModalOpen(null)} sx={{ position: 'absolute', right: 15, top: 15, }}>
+          		<CloseIcon />
+        		</IconButton>
 						<Typography
 							id='modal-modal-title'
 							variant='h6'
