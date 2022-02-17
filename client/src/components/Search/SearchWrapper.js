@@ -7,6 +7,7 @@ import { LinearProgress } from "@mui/material";
 import { UserContext } from "../Application";
 import TransitionWrapper from "../Transition/TransitionWrapper";
 import { useLocomotiveScroll } from "react-locomotive-scroll";
+import Typography from "@mui/material/Typography";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	const { isLoggedIn, userDetails } = useContext(UserContext);
@@ -167,6 +168,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 
 	return (
 		<TransitionWrapper>
+			<Typography style={{marginTop:-50, position: 'absolute'}} variant='subtitle1' component='div'>Showing search results for: {city}</Typography>
 			<Box className='search-view-wrapper' sx={wrapperStyle}>
 				{pending ? (
 					<LinearProgress color='primary' sx={{ width: "100%" }} />
