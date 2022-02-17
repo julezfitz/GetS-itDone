@@ -72,7 +72,20 @@ export default function MyListings() {
 		<TransitionWrapper>
 			<Box sx={{ flexGrow: 1, minHeight: "100vh" }}>
 				<Grid container spacing={2} columns={16}>
-					<Grid item xs={8}>
+					<Grid item xs={8}
+						sx={{
+							transition: "300ms ease",
+							"&:hover > .MuiGrid-item": {
+								opacity: 0.5,
+							},
+	
+							".MuiGrid-item:hover": {
+								opacity: 1,
+							},
+							".MuiGrid-item:hover .MuiTypography-root": {
+								color: "white !important",
+							},
+						}}>
 						{listings.length > 0 ?
 							<Item>
 								{listings.map(listing => {
