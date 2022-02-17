@@ -64,7 +64,7 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 						style={{
 							marginBottom: 0,
 							marginTop: "2rem",
-							
+
 							overflow: "hidden",
 						}}
 						ref={splitHeadingRef}
@@ -116,7 +116,16 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 											Browse listings
 										</Heading>
 									</div>
-									<SearchWrapper />
+									search ? (
+									<SearchWrapper
+										keywords={keywords}
+										emptySearch={emptySearch}
+									/>
+								) : (
+									<SearchWrapper
+										emptySearch={emptySearch}
+									/>
+								)
 								</>
 							)
 						}
