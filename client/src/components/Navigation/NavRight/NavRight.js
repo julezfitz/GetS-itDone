@@ -161,7 +161,7 @@ export default function NavRight({
 							autoClose={10000}
 							theme='dark'
 							type='success'
-							closeButton={false}
+							closeButton={true}
 						/>
 						<NotificationsIcon onClick={notify} />
 					</Badge>
