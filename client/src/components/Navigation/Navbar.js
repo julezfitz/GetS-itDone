@@ -66,8 +66,8 @@ export default function ResponsiveAppBar(props) {
 
   const navBubbleStyles = {
     display: "flex",
-    background: "rgba(28,28,28,.9)",
-    backdropFilter: "blur(20px)",
+    background: "rgba(28,28,28,.6)",
+    backdropFilter: "blur(10px)",
     width: `${isLoggedIn ? "100%" : "500px"}`,
     borderRadius: "60px",
     display: "flex",

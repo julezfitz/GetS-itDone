@@ -52,10 +52,11 @@ module.exports = db => {
 						const userObject = {
 							id: user[0].id,
 							email: user[0].email,
-							passLength: password.length,
+							password: user[0].password,
 							firstName: user[0]["first_name"],
 							lastName: user[0]["last_name"],
 							city: user[0]["city"],
+							postalCode: user[0]["postal_code"],
 							country: user[0]["country"],
 							province: user[0]["province"],
 							image: user[0].image,
@@ -203,21 +204,20 @@ module.exports = db => {
 						]
 					)
 					.then(success => {
-						console.log(success);
 						//If user has successfully been registered in db, send success msg to front end
-						console.log("succes", success);
 						req.session["user"] = {
 							id: success.rows[0].id,
 							email: success.rows[0].email,
 							firstName: success.rows[0]["first_name"],
 							lastName: success.rows[0]["last_name"],
 							city: success.rows[0]["city"],
+							postalCode: success.rows[0]["postal_code"],
 							country: success.rows[0]["country"],
 							province: success.rows[0]["province"],
 						};
 						response.registration.isRegistered = true;
 						response.registration.user = req.session.user;
-						console.log(response);
+
 						res.send(response);
 						return;
 					})
@@ -297,13 +297,27 @@ module.exports = db => {
 
 		let queryString = [];
 
-		const hashedPassword = bcrypt.hashSync(password, 12);
+		const hashedPassword =
+			password !== req.session.user.password
+				? bcrypt.hashSync(password, 12)
+				: null;
+
 		let values = Object.values(req.body);
 		const passwordIndex = values.indexOf(password);
-		values[passwordIndex] = hashedPassword;
+
+		if (hashedPassword) {
+			values[passwordIndex] = hashedPassword;
+		} else {
+			//If no password was updated, do not update in db
+			values.splice(3, 1);
+		}
+
 		const queryParams = values;
 
-		Object.keys(req.body).forEach((key, i) => {
+		const keys = Object.keys(req.body);
+		!hashedPassword && keys.splice(keys.indexOf("password"), 1);
+
+		keys.forEach((key, i) => {
 			key = key.replace(/([A-Z])/g, "_$1").toLowerCase();
 			queryString.push(`${key} = $${(i += 1)}`);
 		});
@@ -319,7 +333,19 @@ module.exports = db => {
 				return;
 			}
 
-			const updatedUser = user.rows[0];
+			const updatedUser = {
+				id: user.rows[0].id,
+				email: user.rows[0].email,
+				password: user.rows[0].password,
+				firstName: user.rows[0]["first_name"],
+				lastName: user.rows[0]["last_name"],
+				city: user.rows[0]["city"],
+				postalCode: user.rows[0]["postal_code"],
+				country: user.rows[0]["country"],
+				province: user.rows[0]["province"],
+				image: user.rows[0].image,
+			};
+
 			req.session.user = updatedUser;
 
 			res.send({

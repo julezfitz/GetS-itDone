@@ -18,7 +18,7 @@ import CurrencyFormat from "react-currency-format";
 import Link from "@mui/material/Link";
 import { Chip } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
-import LightLeak from "../Leaks/LightLeak";
+import Marquee from "react-fast-marquee";
 
 export default function ListingDetails(props) {
 	const theme = useTheme();
@@ -124,10 +124,64 @@ export default function ListingDetails(props) {
 							<Box className='padding-box' sx={{ padding: PADDING }}>
 								{/* <Grid container spacing={7} wrap='nowrap'> */}
 								{/* <Grid item xs={8}> */}
-								<Typography variant='h2' sx={{}}>
-									{props.listing.title}
-								</Typography>
-								<Divider color='white' style={{ marginBottom: "4rem" }} />
+								<Box
+									className='marquee-box-relative'
+									sx={{
+										position: "relative",
+										height: "6rem",
+										marginBottom: "4rem",
+										display: "flex",
+										alignItems: "center",
+										flexDirection: "column",
+										justifyContent: "space-between",
+									}}
+								>
+									<Divider
+										color='white'
+										sx={{
+											position: "absolute",
+											top: 0,
+											left: 0,
+
+											width: "100%",
+										}}
+									/>
+									<Box
+										className='marquee-box-absolute'
+										sx={{
+											position: "absolute",
+											top: "50%",
+											left: "50%",
+											transform: "translate(-50%, -50%)",
+											width: "100%",
+										}}
+									>
+										<Marquee gradient={false}>
+											<Typography variant='h2' sx={{ marginRight: "3rem" }}>
+												{props.listing.title}
+											</Typography>
+											<Typography variant='h2' sx={{ marginRight: "3rem" }}>
+												•
+											</Typography>
+											<Typography variant='h2' sx={{ marginRight: "3rem" }}>
+												{props.listing.title}
+											</Typography>
+											<Typography variant='h2' sx={{ marginRight: "3rem" }}>
+												•
+											</Typography>
+										</Marquee>
+									</Box>
+									<Divider
+										color='white'
+										sx={{
+											width: "100%",
+											position: "absolute",
+											bottom: 0,
+											left: 0,
+										}}
+									/>
+								</Box>
+
 								<Box
 									sx={{
 										display: "flex",

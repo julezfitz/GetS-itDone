@@ -27,8 +27,8 @@ const transition = "300ms ease";
 
 export const StyledHero = styled.section`
 	color: white;
-	height: 30vw;
-	max-height: 100vh;
+	height: 50vh;
+	
 	font-size: 10vw;
 	display: flex;
 	align-items: center;
@@ -39,18 +39,26 @@ export const StyledHero = styled.section`
 	z-index: 999;
 	width: 100%;
 
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 0;
+	}
+
 	.hero-inner {
-		height: 100%;
+		height: 100%;	
 		width: 100%;
 		position: relative;
+		z-index: 2;
 
 		.Typewriter {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			font-size: 7rem;
-			letter-spacing: -0.2rem;
+			font-size: 5.5rem;
+			letter-spacing: -0.1rem;
 			font-family: Inter;
 			z-index: 999;
 			width: 100%;

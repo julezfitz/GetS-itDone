@@ -27,7 +27,7 @@ export default function OffersListItem(props) {
   }), [props.offer])
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2}>
       <Grid item></Grid>
       <Grid item xs={6} sm container spacing={1}>
         <Grid item xs container direction="column">
@@ -73,7 +73,7 @@ export default function OffersListItem(props) {
                   type='submit'
                   color='error'
                   variant='contained'
-                  sx={{ marginTop: 2, marginRight:0 }}
+                  sx={{ marginTop: 2, marginRight:0, marginLeft: 2 }}
                   onClick={handleDecline}
                 >
                   Decline
