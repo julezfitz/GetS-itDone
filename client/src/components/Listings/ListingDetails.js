@@ -386,7 +386,7 @@ export default function ListingDetails(props) {
                   color='grey'
                   component='div'
                 >
-                 Create An Account To Place An Offer
+                 Log In Or Create An Account To Place An Offer
                 </Typography> }
 								</Box>
 							</Item>
