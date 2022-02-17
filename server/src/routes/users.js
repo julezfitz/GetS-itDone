@@ -56,6 +56,7 @@ module.exports = db => {
 							firstName: user[0]["first_name"],
 							lastName: user[0]["last_name"],
 							city: user[0]["city"],
+							postalCode: user[0]["postal_code"],
 							country: user[0]["country"],
 							province: user[0]["province"],
 							image: user[0].image,
@@ -203,15 +204,14 @@ module.exports = db => {
 						]
 					)
 					.then(success => {
-						console.log(success);
 						//If user has successfully been registered in db, send success msg to front end
-						console.log("succes", success);
 						req.session["user"] = {
 							id: success.rows[0].id,
 							email: success.rows[0].email,
 							firstName: success.rows[0]["first_name"],
 							lastName: success.rows[0]["last_name"],
 							city: success.rows[0]["city"],
+							postalCode: success.rows[0]["postal_code"],
 							country: success.rows[0]["country"],
 							province: success.rows[0]["province"],
 						};
