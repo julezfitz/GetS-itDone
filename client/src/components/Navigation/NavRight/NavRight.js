@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
 import useTheme from "@mui/material/styles/useTheme";
 
-
 export default function NavRight({
 	newListingOpen,
 	handleNewListingOpen,
@@ -133,7 +132,7 @@ export default function NavRight({
 						key='CreateNewListing'
 						onClick={handleNewListingOpen}
 						sx={{
-							background: theme.palette.secondary.mainGradient
+							background: theme.palette.secondary.mainGradient,
 						}}
 					>
 						<AddIcon /> New Listing
@@ -170,11 +169,7 @@ export default function NavRight({
 			</Box>
 			<Box sx={{ maxWidth: "150px" }}>
 				<Tooltip title='Menu'>
-					<IconButton
-						disableRipple
-						onClick={handleOpenUserMenu}
-						sx={{ p: 0 }}
-					>
+					<IconButton disableRipple onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 						<Avatar
 							alt={userDetails.firstName}
 							src={userDetails.image}
