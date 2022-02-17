@@ -348,7 +348,8 @@ export default function ListingDetails(props) {
 									<Box>
 										<p>{props.listing.description}</p>
 									</Box>
-									{props.listing.creator_id === userDetails.id ? (
+									{userDetails.id ? 
+                  (props.listing.creator_id === userDetails.id ? (
 										<Typography
 											variant='subtitle2'
 											color='grey'
@@ -365,7 +366,7 @@ export default function ListingDetails(props) {
 											color='grey'
 											component='div'
 										>
-											Application received
+											Application Received
 										</Typography>
 									) : (
 										<Button
@@ -379,7 +380,14 @@ export default function ListingDetails(props) {
 										>
 											Place Offer
 										</Button>
-									)}
+									)) :
+                  <Typography
+                  variant='subtitle2'
+                  color='grey'
+                  component='div'
+                >
+                 Create An Account To Place An Offer
+                </Typography> }
 								</Box>
 							</Item>
 						</Stack>
