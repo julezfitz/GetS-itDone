@@ -7,7 +7,7 @@ import { device } from "../../styles/devices/devices";
 import { useInView } from "react-intersection-observer";
 
 const StyledFooter = styled.footer`
-	height: 64vh;
+	height: 14vh;
 	background-color: white;
 	width: 100%;
 
@@ -52,11 +52,10 @@ const StyledFooter = styled.footer`
 		}
 
 		p {
-			font-size: 2vw;
 			word-break: keep-all;
 
-			@media ${device.desktop} {
-				font-size: 3vw;
+			@media ${device.laptop} {
+				font-size: 1.4rem;
 			}
 		}
 
@@ -68,7 +67,7 @@ const StyledFooter = styled.footer`
 				bottom: 0;
 				left: 0;
 				width: 100%;
-				height: 0.34vw;
+				height: 0.2vw;
 				content: "";
 				background: ${darkTheme.palette.secondary.main};
 				transition: 500ms ease;
