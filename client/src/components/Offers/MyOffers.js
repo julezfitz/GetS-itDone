@@ -69,7 +69,20 @@ export default function MyOffers() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} columns={16}>
-        <Grid item xs={8}>
+        <Grid item xs={8}
+        sx={{
+          transition: "300ms ease",
+          "&:hover > .MuiGrid-item": {
+            opacity: 0.5,
+          },
+
+          ".MuiGrid-item:hover": {
+            opacity: 1,
+          },
+          ".MuiGrid-item:hover .MuiTypography-root": {
+            color: "white !important",
+          },
+        }}>
           {offers.length > 0 ?
             <Item>
               {offers.map((offer) => {
