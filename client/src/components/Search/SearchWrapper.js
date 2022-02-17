@@ -184,6 +184,8 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 							handleCityChange={handleCityChange}
 							isLoggedIn={isLoggedIn}
 							city={city}
+							sort={sortByType}
+							sortOrder={sortOrder}
 						/>
 					</>
 				)}
