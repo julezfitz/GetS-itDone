@@ -58,8 +58,10 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
+	
 	color: "inherit",
 	"& .MuiInputBase-input": {
+		backgroundColor: "none",
 		padding: theme.spacing(1, 1, 1, 0),
 		// vertical padding + font size from searchIcon
 		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -72,7 +74,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar({ onSearch, value }) {
-
 	const searchRef = useRef(null);
 
 	const navigate = useNavigate();
@@ -82,18 +83,19 @@ function SearchBar({ onSearch, value }) {
 		navigate("/");
 	};
 
-	useEffect(() => {
-		console.log(searchRef)
-	}, [searchRef])
-
 	return (
 		<>
 			<Box component='form' onSubmit={handleSearchSubmit} method='POST'>
-				<Search sx={{ borderRadius: "50px", transition: "300ms ease" }} ref={searchRef}>
+				<Search
+					sx={{ borderRadius: "50px", transition: "300ms ease" }}
+					
+					ref={searchRef}
+				>
 					<SearchIconWrapper>
 						<SearchIcon />
 					</SearchIconWrapper>
 					<StyledInputBase
+					
 						autoFocus
 						placeholder='Search…'
 						inputProps={{ "aria-label": "search" }}

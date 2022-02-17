@@ -220,7 +220,6 @@ export const GlobalStyles = createGlobalStyle`
 	color: ${GREY};
 }
 
-
   .accent {
     color: #ED6E23;
   }
@@ -257,7 +256,7 @@ export const GlobalStyles = createGlobalStyle`
 		position: relative;
     min-height: 100vh;
     background-color: rgba(17,17,17, 1);
-    padding-top: 4.3rem;
+    padding-top: 5rem;
     width: 100%;
     height: 100%; 
     
