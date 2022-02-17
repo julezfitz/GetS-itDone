@@ -108,20 +108,32 @@ export default function ListingDetails(props) {
 						{props.children}
 					</div>
 					<Drawer
-						BackdropProps={{ style: { opacity: 0.98 } }}
+						BackdropProps={{
+							style: { opacity: 0.98, backdropFilter: "blur(3px)" },
+						}}
 						anchor={anchor}
 						variant='temporary'
 						open={state[anchor]}
 						onClose={toggleDrawer(anchor, false)}
 						PaperProps={{
 							style: {
+								overflow: "hidden",
 								width: "610px",
 								justifyContent: "center",
 							},
 						}}
 					>
 						<Stack spacing={0.4}>
-							<Box className='padding-box' sx={{ padding: PADDING }}>
+							<Box
+								className='padding-box'
+								sx={{
+									padding: PADDING,
+									height: "10rem",
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "space-between",
+								}}
+							>
 								{/* <Grid container spacing={7} wrap='nowrap'> */}
 								{/* <Grid item xs={8}> */}
 								<Box
@@ -129,7 +141,7 @@ export default function ListingDetails(props) {
 									sx={{
 										position: "relative",
 										height: "6rem",
-										marginBottom: "4rem",
+
 										display: "flex",
 										alignItems: "center",
 										flexDirection: "column",
@@ -153,7 +165,7 @@ export default function ListingDetails(props) {
 											top: "50%",
 											left: "50%",
 											transform: "translate(-50%, -50%)",
-											width: "100%",
+											width: "150%",
 										}}
 									>
 										<Marquee gradient={false}>

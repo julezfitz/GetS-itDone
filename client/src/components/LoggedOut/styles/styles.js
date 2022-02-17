@@ -27,15 +27,15 @@ const transition = "300ms ease";
 
 export const StyledHero = styled.section`
 	color: white;
-	height: 50vh;
-	
+	height: 30vh;
+
 	font-size: 10vw;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	overflow: hidden;
-	margin-bottom: 10rem;
+	
 	z-index: 999;
 	width: 100%;
 
@@ -43,41 +43,39 @@ export const StyledHero = styled.section`
 		position: absolute;
 		top: 0;
 		left: 0;
-		z-index: 0;
+		z-index: -1;
 	}
 
-	.hero-inner {
-		height: 100%;	
+	height: 100%;
+	width: 100%;
+	position: relative;
+	z-index: 2;
+
+	.Typewriter {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 5.5rem;
+		letter-spacing: -0.1rem;
+		font-family: Inter;
+		z-index: 999;
 		width: 100%;
-		position: relative;
-		z-index: 2;
 
-		.Typewriter {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			font-size: 5.5rem;
-			letter-spacing: -0.1rem;
-			font-family: Inter;
-			z-index: 999;
-			width: 100%;
-
-			.Typewriter__cursor {
-				font-family: Helvetica;
-				font-weight: lighter;
-				opacity: 0.2;
-				overflow: hidden;
-			}
+		.Typewriter__cursor {
+			font-family: Helvetica;
+			font-weight: lighter;
+			opacity: 0.2;
+			overflow: hidden;
 		}
+	}
 
-		button {
-			position: absolute;
-			bottom: 0;
-			left: 50%;
-			transform: translateX(-50%);
-			margin-bottom: 4rem;
-		}
+	button {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		margin-bottom: 4rem;
 	}
 
 	.text-content-wrapper {
@@ -167,5 +165,10 @@ export const StyledHero = styled.section`
 `;
 
 export const StyledLoggedOutHome = styled.div`
-	height: 100%;
+	height: 80vh;
+
+	.hero-text {
+		height: 100%;
+		width: 100%;
+	}
 `;

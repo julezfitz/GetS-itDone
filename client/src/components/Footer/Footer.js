@@ -67,7 +67,7 @@ const StyledFooter = styled.footer`
 				bottom: 0;
 				left: 0;
 				width: 100%;
-				height: 0.34vw;
+				height: 0.2vw;
 				content: "";
 				background: ${darkTheme.palette.secondary.main};
 				transition: 500ms ease;
