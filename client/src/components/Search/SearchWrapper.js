@@ -183,7 +183,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			{city && <Typography style={{ marginTop: -50, position: 'absolute' }} variant='subtitle1' component='div'>Showing search results for: {city}</Typography>}
 			<Box className='search-view-wrapper' sx={wrapperStyle}>
 				{pending ? (
-					<LinearProgress color='primary' sx={{ width: "100%" }} />
+					""
 				) : (
 					<>
 						<SearchList keywords={keywords} listings={listings} />

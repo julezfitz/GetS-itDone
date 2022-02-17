@@ -12,6 +12,7 @@ function LoggedOutHome() {
 
 	return (
 		<StyledLoggedOutHome className='loggedOutHome-wrapper'>
+			
 			<RegisterModal open={isRegisterOpen} handleClose={toggleRegister} />
 			<HeroSection toggleRegister={toggleRegister} />
 		</StyledLoggedOutHome>
