@@ -18,7 +18,7 @@ import CurrencyFormat from "react-currency-format";
 import Link from "@mui/material/Link";
 import { Chip } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
-import LightLeak from "../Leaks/LightLeak";
+import Marquee from "react-fast-marquee";
 
 export default function ListingDetails(props) {
 	const theme = useTheme();
@@ -124,9 +124,15 @@ export default function ListingDetails(props) {
 							<Box className='padding-box' sx={{ padding: PADDING }}>
 								{/* <Grid container spacing={7} wrap='nowrap'> */}
 								{/* <Grid item xs={8}> */}
-								<Typography variant='h2' sx={{}}>
-									{props.listing.title}
-								</Typography>
+								<Divider color='white'  />
+								<Marquee gradient={false}>
+									<Typography variant='h2' sx={{marginRight: "3rem"}}>
+										{props.listing.title}
+									</Typography>
+									<Typography variant='h2' sx={{marginRight: "3rem"}}>
+										{props.listing.title}
+									</Typography>
+								</Marquee>
 								<Divider color='white' style={{ marginBottom: "4rem" }} />
 								<Box
 									sx={{
