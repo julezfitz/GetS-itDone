@@ -112,7 +112,16 @@ function Routing({ keywords, search, emptySearch, location }) {
 											Browse listings
 										</Heading>
 									</div>
-									<SearchWrapper />
+									search ? (
+									<SearchWrapper
+										keywords={keywords}
+										emptySearch={emptySearch}
+									/>
+								) : (
+									<SearchWrapper
+										emptySearch={emptySearch}
+									/>
+								)
 								</>
 							)
 						}

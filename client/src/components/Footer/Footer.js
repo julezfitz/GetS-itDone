@@ -52,11 +52,10 @@ const StyledFooter = styled.footer`
 		}
 
 		p {
-			font-size: 2vw;
 			word-break: keep-all;
 
-			@media ${device.desktop} {
-				font-size: 3vw;
+			@media ${device.laptop} {
+				font-size: 1.4rem;
 			}
 		}
 
