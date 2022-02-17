@@ -68,6 +68,22 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					// signal: controller.signal
 				})
 				.then(result => {
+					if (city) {
+						let cityListings = [];
+						result.data.map(listing => {
+							if (listing.city === city) {
+								cityListings.push(listing);
+							}
+							return cityListings;
+						});
+						setListings(cityListings);
+					} else {
+						setListings(result.data);
+					}
+				});
+		} else {
+			axios.get(`http://localhost:8001/listings/`).then(result => {
+				if (city) {
 					let cityListings = [];
 					result.data.map(listing => {
 						if (listing.city === city) {
@@ -76,17 +92,9 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 						return cityListings;
 					});
 					setListings(cityListings);
-				});
-		} else {
-			axios.get(`http://localhost:8001/listings/`).then(result => {
-				let cityListings = [];
-				result.data.map(listing => {
-					if (listing.city === city) {
-						cityListings.push(listing);
-					}
-					return cityListings;
-				});
-				setListings(cityListings);
+				} else {
+					setListings(result.data);
+				}
 			});
 		}
 	}, [sortByType, sortOrder, city]);
@@ -114,7 +122,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					setPending(false);
 					// }, 900);
 				})
-				.catch(err => {});
+				.catch(err => { });
 		}
 		return () => controller.abort();
 	}, [keywords, selectedChip]);
@@ -122,9 +130,9 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	useEffect(() => {
 		const controller = new AbortController();
 		//Call for categories
-
 		//Only display all categories if no chip is selected
 		if (!selectedChip.id) {
+
 			axios
 				.get("http://localhost:8001/categories", { signal: controller.signal })
 				.then(res => {
@@ -143,14 +151,18 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					signal: controller.signal,
 				})
 				.then(res => {
-					let cityListings = [];
-					res.data.map(listing => {
-						if (listing.city === city) {
-							cityListings.push(listing);
-						}
-						return cityListings;
-					});
-					setListings(cityListings);
+					if (city) {
+						let cityListings = [];
+						res.data.map(listing => {
+							if (listing.city === city) {
+								cityListings.push(listing);
+							}
+							return cityListings;
+						});
+						setListings(cityListings);
+					} else {
+						setListings(res.data);
+					}
 				})
 				.catch(err => console.log(err));
 		}
@@ -168,7 +180,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 
 	return (
 		<TransitionWrapper>
-			{city && <Typography style={{marginTop:-50, position: 'absolute'}} variant='subtitle1' component='div'>Showing search results for: {city}</Typography>}
+			{city && <Typography style={{ marginTop: -50, position: 'absolute' }} variant='subtitle1' component='div'>Showing search results for: {city}</Typography>}
 			<Box className='search-view-wrapper' sx={wrapperStyle}>
 				{pending ? (
 					<LinearProgress color='primary' sx={{ width: "100%" }} />
