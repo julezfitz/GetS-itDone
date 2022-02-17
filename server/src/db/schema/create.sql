@@ -31,7 +31,7 @@ CREATE TABLE listings (
     id SERIAL PRIMARY KEY NOT NULL,
     creator_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     title VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(500) NOT NULL,
     image_1 VARCHAR(255),
     image_2 VARCHAR(255),
     image_3 VARCHAR(255),
