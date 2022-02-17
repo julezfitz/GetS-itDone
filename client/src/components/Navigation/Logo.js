@@ -11,7 +11,7 @@ function Logo() {
       </Box>
       <Box sx={{ maxWidth: "250px" }}>
         <Link to={"/"} style={{ marginRight: "3rem", color: "white" }}>
-          Get S*it Done
+          GetS*itDone
         </Link>
       </Box>
     </>
