@@ -8,6 +8,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
+import useTheme from "@mui/material/styles/useTheme";
+
 
 export default function NavRight({
 	newListingOpen,
@@ -39,6 +41,7 @@ export default function NavRight({
 	}, [userDetails.id, notificationRead, handleCloseUserMenu]);
 
 	const navigate = useNavigate();
+	const theme = useTheme();
 
 	const routeChange = path => {
 		navigate(path);
@@ -127,14 +130,10 @@ export default function NavRight({
 					<Button
 						variant='contained'
 						color='secondary'
-						size='large'
 						key='CreateNewListing'
 						onClick={handleNewListingOpen}
 						sx={{
-							my: 2,
-							color: "white",
-							display: "flex",
-							alignItems: "center",
+							background: theme.palette.secondary.mainGradient
 						}}
 					>
 						<AddIcon /> New Listing

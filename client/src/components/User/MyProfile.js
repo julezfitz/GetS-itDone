@@ -165,8 +165,9 @@ export default function MyProfile() {
 									<Grid
 										container
 										direction='row'
-										justifyContent='center'
+										justifyContent='start'
 										alignItems='center'
+										sx={{marginTop: 3}}
 									>
 										<Grid item sx={{ m: 1 }}>
 											<Button

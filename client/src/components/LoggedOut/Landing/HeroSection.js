@@ -15,7 +15,7 @@ function HeroSection({ toggleRegister }) {
 					onInit={typewriter => {
 						typewriter
 
-							.typeString("Get shit accomplished.")
+							.typeString("Gets it accomplished.")
 							.pauseFor(1500)
 							.deleteChars(13)
 							.typeString("managed.")
@@ -24,12 +24,17 @@ function HeroSection({ toggleRegister }) {
 							.typeString("delivered.")
 							.pauseFor(1500)
 							.deleteChars(10)
+							.typeString("fixed.")
+							.pauseFor(1500)
+							.deleteChars(6)
 							.typeString("done.")
+							.pauseFor(1500)
 							.start();
 					}}
 					options={{
 						autoStart: true,
 						deleteSpeed: 4,
+						loop: true
 					}}
 				/>
 			</div>
