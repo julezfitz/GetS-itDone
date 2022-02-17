@@ -9,6 +9,8 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../Application.js";
 import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -79,6 +81,9 @@ export default function NewRatingModal({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
+        <IconButton onClick={handleClose} sx={{ position: 'absolute', right: 15, top: 15, }}>
+        	<CloseIcon />
+        </IconButton>
         <Typography
           id="modal-modal-title"
           variant="h6"

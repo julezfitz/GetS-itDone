@@ -8,6 +8,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SingleRating from "./SingleRating";
 import { Controller } from "swiper";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 
 const style = {
@@ -54,6 +56,9 @@ export default function UserRatingsModal({ open, handleClose, user }) {
                 aria-describedby='modal-modal-description'
             >
                 <Box sx={style}>
+                    <IconButton onClick={handleClose} sx={{ position: 'absolute', right: 15, top: 15, }}>
+        	            <CloseIcon />
+                    </IconButton>
                     <Typography id='modal-modal-title' variant='h6' component='h2'>
                         {user.firstName} {user.lastName}
                     </Typography>
