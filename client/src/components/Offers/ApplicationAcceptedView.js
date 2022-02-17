@@ -38,7 +38,7 @@ export default function ApplicationAcceptedView(props) {
                     type='submit'
                     color='secondary'
                     variant="outlined"
-                    sx={{ marginLeft: 16,  marginTop: 1 }}
+                    sx={{ marginLeft: '38%',  marginTop: 1 }}
                   >
                     Leave A Review
                   </Button>
