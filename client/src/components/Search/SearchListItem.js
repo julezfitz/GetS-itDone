@@ -58,7 +58,14 @@ function SearchListItem(props, ref) {
 							<Typography gutterBottom variant='subtitle1' component='div'>
 								{props.listing.title}
 							</Typography>
-							<Typography variant='body2' gutterBottom>
+							<Typography style={{
+								    maxWidth: '100%',
+									display: '-webkit-box',
+									WebkitBoxOrient: 'vertical',
+									WebkitLineClamp: 2,
+									overflow: 'hidden',
+									textOverflow: 'ellipsis'
+								}} variant='body2' gutterBottom>
 								{props.listing.description}
 							</Typography>
 						</Grid>
