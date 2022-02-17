@@ -7,7 +7,7 @@ import { device } from "../../styles/devices/devices";
 import { useInView } from "react-intersection-observer";
 
 const StyledFooter = styled.footer`
-	height: 64vh;
+	height: 14vh;
 	background-color: white;
 	width: 100%;
 

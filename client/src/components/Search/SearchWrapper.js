@@ -168,7 +168,15 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 
 	return (
 		<TransitionWrapper>
-			{city && <Typography style={{marginTop:-50, position: 'absolute'}} variant='subtitle1' component='div'>Showing search results for: {city}</Typography>}
+			{city && (
+				<Typography
+					style={{ marginTop: -50, position: "absolute" }}
+					variant='subtitle1'
+					component='div'
+				>
+					Showing search results for: {city}
+				</Typography>
+			)}
 			<Box className='search-view-wrapper' sx={wrapperStyle}>
 				{pending ? (
 					<LinearProgress color='primary' sx={{ width: "100%" }} />
