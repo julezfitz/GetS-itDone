@@ -15,7 +15,7 @@ import useSplit from "../helpers/hooks/useSplit";
 import { headingAnimation } from "../helpers/animations/animations";
 import gsap from "gsap";
 
-function Routing({ keywords, search, togglePending, emptySearch, location }) {
+function Routing({ keywords, search, emptySearch, location }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
 	const { isLoggedIn, userPending } = useContext(UserContext);
 	const searchListRefs = useRef([]);
@@ -86,14 +86,10 @@ function Routing({ keywords, search, togglePending, emptySearch, location }) {
 								search ? (
 									<SearchWrapper
 										keywords={keywords}
-										togglePending={togglePending}
 										emptySearch={emptySearch}
 									/>
 								) : (
-									<SearchWrapper
-										togglePending={togglePending}
-										emptySearch={emptySearch}
-									/>
+									<SearchWrapper emptySearch={emptySearch} />
 								)
 							) : (
 								<>

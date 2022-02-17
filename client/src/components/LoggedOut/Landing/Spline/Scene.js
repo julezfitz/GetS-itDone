@@ -7,6 +7,7 @@ function Scene() {
 			frameborder='0'
 			width='100%'
 			height='100%'
+			scrolling="no"
 		></iframe>
 	);
 }

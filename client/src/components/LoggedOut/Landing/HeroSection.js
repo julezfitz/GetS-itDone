@@ -10,11 +10,10 @@ function HeroSection({ toggleRegister }) {
 
 	return (
 		<StyledHero className='heroSection'>
-			<div className='hero-inner'>
+			<div className='hero-text'>
 				<Typewriter
 					onInit={typewriter => {
 						typewriter
-
 							.typeString("Gets it accomplished.")
 							.pauseFor(1500)
 							.deleteChars(13)
@@ -34,7 +33,7 @@ function HeroSection({ toggleRegister }) {
 					options={{
 						autoStart: true,
 						deleteSpeed: 4,
-						loop: true
+						loop: true,
 					}}
 				/>
 			</div>

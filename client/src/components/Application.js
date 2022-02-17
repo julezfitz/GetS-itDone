@@ -58,7 +58,7 @@ export default function Application() {
 	};
 
 	const toggleLoggedIn = userDetails => {
-		console.log(userDetails)
+		console.log(userDetails);
 		window.scrollTo({ top: 0 });
 
 		setGlobalState(prev => ({
@@ -194,11 +194,6 @@ export default function Application() {
 								emptySearch={() => setSearch("")}
 								location={location}
 							/>
-							{/* <p className='main__text'>All results for: Home</p>
-						<div>
-							<span>Category:</span>
-							<span>Sort By: Date</span>
-						</div> */}
 						</Container>
 						<Rails />
 					</Box>
