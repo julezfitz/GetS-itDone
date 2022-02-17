@@ -13,6 +13,19 @@ import { UserContext } from "../../Application";
 import TextField from "@mui/material/TextField";
 import { withStyles } from "@mui/styles";
 
+const CustomTextField = withStyles({
+	root: {
+		width: "100%",
+		"& .MuiOutlinedInput-root": {
+			height: "2.5rem",
+			width: "100%",
+			"& fieldset": {
+				borderRadius: "50px",
+			},
+		},
+	},
+})(TextField);
+
 function CategoriesBar({
 	categories,
 	selectedChip,
@@ -24,36 +37,15 @@ function CategoriesBar({
 	handleCityChange,
 	isLoggedIn,
 	city,
+	sort,
+	sortOrder,
 }) {
 	const barStyle = {
 		width: "500px",
 		height: "100vh",
 		padding: "0rem 3rem 0 3rem",
 		display: "flex",
-
 		justifyContent: "center",
-	};
-
-	const CustomTextField = withStyles({
-		root: {
-			width: "100%",
-			"& .MuiOutlinedInput-root": {
-				height: "2.5rem",
-				width: "100%",
-				"& fieldset": {
-					borderRadius: "50px",
-				},
-			},
-		},
-	})(TextField);
-
-	const [sort, setSort] = useState("");
-	const [order, setOrder] = useState("");
-
-	const _handleClearSelection = () => {
-		setSort("");
-		setOrder("");
-		handleClearSelection();
 	};
 
 	return (
@@ -87,19 +79,14 @@ function CategoriesBar({
 									}}
 									label='Search Filters'
 									value={sort}
-									onChange={e => {
-										setSort(e.target.value);
-										handleSortChange(e);
-									}}
+									onChange={handleSortChange}
 								>
 									<MenuItem
-										key={Math.random().toString(36).substr(2, 9)}
 										value='price'
 									>
 										Price
 									</MenuItem>
 									<MenuItem
-										key={Math.random().toString(36).substr(2, 9)}
 										value='created'
 									>
 										Date Listed
@@ -126,14 +113,10 @@ function CategoriesBar({
 										height: "2.3rem",
 									}}
 									label='Search Filters'
-									value={order}
-									onChange={e => {
-										setOrder(e.target.value);
-										handleOrderChange(e);
-									}}
+									value={sortOrder}
+									onChange={handleOrderChange}
 								>
 									<MenuItem
-										key={Math.random().toString(36).substr(2, 9)}
 										value='asc'
 									>
 										{sort === "price"
@@ -143,7 +126,6 @@ function CategoriesBar({
 											: "Ascending"}
 									</MenuItem>
 									<MenuItem
-										key={Math.random().toString(36).substr(2, 9)}
 										value='desc'
 									>
 										{sort === "price"
@@ -157,16 +139,11 @@ function CategoriesBar({
 							<Box sx={{marginTop: "1.3rem"}}>
 								<CustomTextField
 									id='1p'
-									sx={{
-										borderRadius: "50%",
-										height: "2rem",
-									}}
+									sx={{height: "2rem"}}
 									label='City'
 									name='city'
 									value={city}
-									onChange={e => {
-										handleCityChange(e);
-									}}
+									onChange={handleCityChange}
 								/>
 							</Box>
 						</Box>
@@ -183,7 +160,7 @@ function CategoriesBar({
 									categories={categories}
 									selected={selectedChip}
 									setSelected={handleSelectedChip}
-									handleClearSelection={_handleClearSelection}
+									handleClearSelection={handleClearSelection}
 									emptySearch={emptySearch}
 								/>
 							</Box>
