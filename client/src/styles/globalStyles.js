@@ -84,12 +84,6 @@ export const darkTheme = createTheme({
 	},
 
 	components: {
-		MuiInputLabel: {
-			root: {
-				color: "white",
-			},
-		},
-
 		MuiBadge: {
 			styleOverrides: {
 				root: {
