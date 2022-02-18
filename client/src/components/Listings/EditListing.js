@@ -28,21 +28,27 @@ const formGroupStyle = {
   "& .MuiTextField-root": { flexGrow: 1 },
 };
 
-export default function EditListingModal({ open, handleClose, listing, handleUpdatedChange, edit }) {
+export default function EditListingModal({
+  open,
+  handleClose,
+  listing,
+  handleUpdatedChange,
+  edit,
+}) {
   const { userDetails } = useContext(UserContext);
 
   const [editListing, setEditListing] = useState({
-      creatorId: userDetails.id,
-      listingId: listing.id,
-      title: listing.title,
-      description: listing.description,
-      category: listing.category,
-      price: listing.price,
-      city: listing.city,
-      postalCode: listing.postal_code,
-      image_1: listing.image_1,
-      image_2: listing.image_2,
-      image_3: listing.image_3,
+    creatorId: userDetails.id,
+    listingId: listing.id,
+    title: listing.title,
+    description: listing.description,
+    category: listing.category,
+    price: listing.price,
+    city: listing.city,
+    postalCode: listing.postal_code,
+    image_1: listing.image_1,
+    image_2: listing.image_2,
+    image_3: listing.image_3,
   });
 
   let editListingDetails;
@@ -74,20 +80,30 @@ export default function EditListingModal({ open, handleClose, listing, handleUpd
     };
 
     let listingId = editListing.listingId;
+
     axios
-      .put(`${process.env.REACT_APP_SERVER_URL}/listings/${listingId}`, editListingDetails)
+      .put(
+        `${process.env.REACT_APP_SERVER_URL}/listings/${listingId}`,
+        editListingDetails
+      )
       .then((result) => {
-        let categoryForListing = {
-          categoryId: newCategory,
-          listingId: result.data.id,
-        };
-        return axios.put(
-          `${process.env.REACT_APP_SERVER_URL}/categories/listings`,
-          categoryForListing
-        );
-      })
-      .then((result) => {
-        handleUpdatedChange();
+        if (newCategory) {
+          let categoryForListing = {
+            categoryId: newCategory,
+            listingId: result.data.id,
+          };
+
+          axios
+            .put(
+              `${process.env.REACT_APP_SERVER_URL}/categories/listings`,
+              categoryForListing
+            )
+            .then((result) => {
+              handleUpdatedChange();
+            });
+        } else {
+          handleUpdatedChange();
+        }
       });
   };
 
@@ -100,8 +116,11 @@ export default function EditListingModal({ open, handleClose, listing, handleUpd
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <IconButton onClick={handleClose} sx={{ position: 'absolute', right: 15, top: 15, }}>
-        	  <CloseIcon />
+          <IconButton
+            onClick={handleClose}
+            sx={{ position: "absolute", right: 15, top: 15 }}
+          >
+            <CloseIcon />
           </IconButton>
           <Typography
             id="modal-modal-title"
@@ -129,7 +148,11 @@ export default function EditListingModal({ open, handleClose, listing, handleUpd
               />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <CategoryList onSelect={handleCategoryChange} label={editListing.category} edit={edit} />
+              <CategoryList
+                onSelect={handleCategoryChange}
+                label={editListing.category}
+                edit={edit}
+              />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
               <TextField
@@ -143,7 +166,13 @@ export default function EditListingModal({ open, handleClose, listing, handleUpd
               />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField required id="2c" name="city" label="City" defaultValue={editListing.city}/>
+              <TextField
+                required
+                id="2c"
+                name="city"
+                label="City"
+                defaultValue={editListing.city}
+              />
               <TextField
                 required
                 id="3c"
@@ -153,14 +182,35 @@ export default function EditListingModal({ open, handleClose, listing, handleUpd
               />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField required id="4c" label="Price" name="price" defaultValue={editListing.price} />
+              <TextField
+                required
+                id="4c"
+                label="Price"
+                name="price"
+                defaultValue={editListing.price}
+              />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField id="5c" name="image_1" label="Image URL" defaultValue={editListing.image_1}/>
+              <TextField
+                id="5c"
+                name="image_1"
+                label="Image URL"
+                defaultValue={editListing.image_1}
+              />
             </FormGroup>
             <FormGroup row sx={formGroupStyle}>
-              <TextField id="6c" name="image_2" label="Image URL 2" defaultValue={editListing.image_2}/>
-              <TextField id="7c" name="image_3" label="Image URL 3" defaultValue={editListing.image_3}/>
+              <TextField
+                id="6c"
+                name="image_2"
+                label="Image URL 2"
+                defaultValue={editListing.image_2}
+              />
+              <TextField
+                id="7c"
+                name="image_3"
+                label="Image URL 3"
+                defaultValue={editListing.image_3}
+              />
             </FormGroup>
 
             <Button
