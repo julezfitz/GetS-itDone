@@ -31,7 +31,7 @@ export default function MyListings() {
 	useEffect(() => {
 		if (userDetails) {
 			axios
-				.get(`http://localhost:8001/listings?creatorId=${userDetails.id}`)
+				.get(`${process.env.REACT_APP_SERVER_URL}/listings?creatorId=${userDetails.id}`)
 				.then(result => {
 					setListings(result.data);
 
@@ -56,7 +56,7 @@ export default function MyListings() {
 
 	const handleDelete = (listing) => {
 		console.log(listing.id);
-		axios.delete(`http://localhost:8001/listings/${listing.id}`)
+		axios.delete(`${process.env.REACT_APP_SERVER_URL}/listings/${listing.id}`)
 			.then(result => {
 				console.log(result.data);
 				setDeletedItem(listing);

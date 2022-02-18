@@ -110,7 +110,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 				fieldValues[key] = registerState[key].value;
 			}
 			axios
-				.post(`http://localhost:8001/user/register`, fieldValues)
+				.post(`${process.env.REACT_APP_SERVER_URL}/user/register`, fieldValues)
 				.then(res => {
 					res.data.registration.errors.fields &&
 						res.data.registration.errors.fields.forEach(field => {

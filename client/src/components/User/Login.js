@@ -5,14 +5,12 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button, Alert } from "@mui/material";
 import axios from "axios";
-import { UserContext } from "../../Application";
+import { UserContext } from "../Application";
+import { FormControl } from "@mui/material";
 import { keyframes } from "styled-components";
-import Redirect from "../Redirect";
-import useTheme from "@mui/material/styles/useTheme";
-import { fieldStyles } from "../styles/styles";
-import LoginForm from "./LoginForm";
-import { IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import Redirect from "./Redirect";
+import RegisterModal from "./Registration/Register";
+import GoogleLogIn from "./GoogleLogin/GoogleLogIn";
 
 const style = {
 	position: "absolute",
@@ -32,17 +30,34 @@ const style = {
 	borderRadius: "10px",
 };
 
+const blurAnim = keyframes`
+	0% {
+		top: 0;
+		left: 0
+	}
+
+	100% {
+		bottom: 0;
+		right: 0
+	}
+`;
+
+const blurCircleStyle = {
+	width: "17rem",
+	height: "17rem",
+	backgroundColor: "orange",
+	position: "absolute",
+	borderRadius: "50%",
+	filter: "blur(60px)",
+	zIndex: "-2",
+};
+
 const ELEMENTSPACING = "1rem";
 
 export default function LoginModal({ open, handleClose, setModalOpen }) {
-	const theme = useTheme();
-
-	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } =
-		useContext(UserContext);
+	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } = useContext(UserContext);
 
 	const [loginState, setLoginState] = useState({
-		success: false,
-		successAnimationComplete: false,
 		email: {
 			value: "",
 			error: false,
@@ -83,19 +98,14 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 
 					const isAuthenticated = response.data.authentication.isAuthenticated;
 					if (errors && errors.length >= 0) setErrors(errors);
-					if (isAuthenticated) {
-						setLoginState(prev => ({ ...prev, success: true }));
-						refreshUserDetails(response.data.authentication.user.id).then(() =>
-							toggleLoggedIn(response.data.authentication.user)
-						);
-					}
+					if (isAuthenticated) return refreshUserDetails(response.data.authentication.user.id).then(toggleLoggedIn)
 				})
 				.catch(err => {
 					console.log("err", err);
 				})
 				.finally(setLoading(false));
 		}
-	}, [loading, isLoggedIn, errors, loginState.successAnimationComplete]);
+	}, [loading, isLoggedIn, errors]);
 
 	const handleChange = e => {
 		setErrors(false);
@@ -126,30 +136,79 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 					aria-describedby='modal-modal-description'
 				>
 					<Box sx={style}>
-						<IconButton onClick={() => setModalOpen(null)} sx={{ position: 'absolute', right: 15, top: 15, }}>
-          		<CloseIcon />
-        		</IconButton>
 						<Typography
 							id='modal-modal-title'
 							variant='h6'
 							component='h2'
 							sx={{ mb: 5, textAlign: "center", fontFamily: "Inter" }}
 						>
-							Welcome to GSD
+							Log in to GSD
 						</Typography>
-						<Typography
-							component='span'
-							id='modal-modal-description'
-							sx={{ mt: 2 }}
-						>
-							<LoginForm
-								handleSubmit={handleSubmit}
-								handleChange={handleChange}
-								loading={loading}
-								errors={errors}
-								fieldStyles={fieldStyles}
-								loginState={loginState}
-							/>
+						<Typography component='span'id='modal-modal-description' sx={{ mt: 2 }}>
+							<Box
+								component='form'
+								sx={{ "& .MuiTextField-root": { m: 1 }, padding: "30px" }}
+								noValidate
+								autoComplete='off'
+								onSubmit={handleSubmit}
+							>
+								<TextField
+								sx={{input: {
+									"& fieldset": {
+										borderColor: "grey"
+									}
+								}}}
+									placeholder='justine@example.com'
+									fullWidth
+									required
+									id='outlined-required'
+									label='Email'
+									name='email'
+									value={loginState.email.value}
+									onChange={handleChange}
+									error={loginState.email.error}
+									label={
+										loginState.email.error
+											? loginState.email.errorMessage
+											: "Email"
+									}
+								/>
+								<TextField
+									placeholder='Password'
+									fullWidth
+									required
+									id='outlined-password-input'
+									label='Password'
+									type='password'
+									autoComplete='current-password'
+									name='password'
+									value={loginState.password.value}
+									onChange={handleChange}
+									error={loginState.password.error}
+									label={
+										loginState.password.error
+											? loginState.password.errorMessage
+											: "Password"
+									}
+								/>
+
+								<Button
+									size={"large"}
+									type='submit'
+									color='secondary'
+									fullWidth
+									variant='contained'
+									sx={{ marginTop: 5 }}
+								>
+									{loading ? "Loading..." : "Log in"}
+								</Button>
+								{/* <GoogleLogIn /> */}
+								{errors && (
+									<Alert severity='error' sx={{ marginTop: ELEMENTSPACING }}>
+										{errors}
+									</Alert>
+								)}
+							</Box>
 						</Typography>
 						<Redirect to={"register"} setModalOpen={setModalOpen} />
 					</Box>

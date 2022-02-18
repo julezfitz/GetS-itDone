@@ -20,7 +20,7 @@ export default function OffersList(props) {
 
   useEffect((() => {
     if (props.listingId) {
-      axios.get(`http://localhost:8001/listings/${props.listingId}/offers`).then((result) => {
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/listings/${props.listingId}/offers`).then((result) => {
         setListingOffers(result.data.offers);
 
         //check if any offers have been accepted and set state for acceptedOffer
@@ -34,14 +34,14 @@ export default function OffersList(props) {
 
   const handleAccept = function (offer) {
     acceptOffer(offer);
-    axios.put(`http://localhost:8001/offers/${offer.offerId}`, { "accepted": true })
+    axios.put(`${process.env.REACT_APP_SERVER_URL}/offers/${offer.offerId}`, { "accepted": true })
       .then((result) => {
         console.log(result.data);
       })
   }
 
   const handleDecline = function (offer) {
-    axios.put(`http://localhost:8001/offers/${offer.offerId}`, { "accepted": false })
+    axios.put(`${process.env.REACT_APP_SERVER_URL}/offers/${offer.offerId}`, { "accepted": false })
       .then((result) => {
         setDeclinedOffer(offer);
       })

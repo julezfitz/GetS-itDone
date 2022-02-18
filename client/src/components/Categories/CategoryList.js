@@ -9,7 +9,7 @@ export default function CategoryList(props) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8001/categories`).then((result) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/categories`).then((result) => {
       return setCategories(result.data);
     });
   }, []);

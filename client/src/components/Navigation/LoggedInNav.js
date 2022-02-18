@@ -25,7 +25,7 @@ function LoggedInNav({
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:8001/notifications`, {
+			.get(`${process.env.REACT_APP_SERVER_URL}/notifications`, {
 				params: { userId: userDetails.id },
 			})
 			.then(results => {

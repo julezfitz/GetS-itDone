@@ -27,7 +27,7 @@ function UserMenu({
 		if (loading) {
 			console.log("in here!");
 			axios
-				.post("http://localhost:8001/user/logout", {})
+				.post(`${process.env.REACT_APP_SERVER_URL}/user/logout`, {})
 				.then(
 					res => res.data.authentication.isLoggedOut && toggleLoggedIn(null)
 				)
