@@ -60,7 +60,6 @@ export default function MyOffers() {
 
   const handleDelete = (offer) => {
     axios.delete(`${process.env.REACT_APP_SERVER_URL}/offers/${offer.offerId}`).then((result) => {
-      console.log(result.data);
       setDeletedItem(offer);
       setOffer("");
     });

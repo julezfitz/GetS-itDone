@@ -35,7 +35,6 @@ export default function NavRight({
 				}
 			})
 			.catch(() => {
-				// console.log('There are no notifications for this user')
 			});
 	}, [userDetails.id, notificationRead, handleCloseUserMenu]);
 

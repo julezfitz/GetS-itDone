@@ -15,7 +15,6 @@ module.exports = db => {
 			[categoryId, listingId]
 		)
 			.then(result => {
-				console.log(result);
 				response.status(201).json(result.rows[0]);
 			})
 			.catch(e => console.log(e));

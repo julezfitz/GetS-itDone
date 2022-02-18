@@ -98,7 +98,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 					if (isAuthenticated) return refreshUserDetails(response.data.authentication.user.id).then(toggleLoggedIn)
 				})
 				.catch(err => {
-					console.log("err", err);
 				})
 				.finally(setLoading(false));
 		}

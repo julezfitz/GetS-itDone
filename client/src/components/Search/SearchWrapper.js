@@ -40,7 +40,6 @@ function SearchWrapper({ keywords, emptySearch }) {
 			name: null,
 		});
 	};
-console.log(userDetails);
 	const handleSortChange = e => {
 		setSortByType(e.target.value);
 	};
