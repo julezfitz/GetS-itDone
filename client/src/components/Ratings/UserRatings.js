@@ -32,7 +32,7 @@ export default function UserRatingsModal({ open, handleClose, user }) {
         const controller = new AbortController();
 
         if (user.bidderId) {
-            axios.get(`http://localhost:8001/ratings`, {
+            axios.get(`${process.env.REACT_APP_SERVER_URL}/ratings`, {
                 params: { rateeId: user.bidderId},
                 signal: controller.signal
             })

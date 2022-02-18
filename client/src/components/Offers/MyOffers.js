@@ -33,7 +33,7 @@ export default function MyOffers() {
     const controller = new AbortController();
 
     axios
-      .get(`http://localhost:8001/offers?bidderId=${userDetails.id}`, {
+      .get(`${process.env.REACT_APP_SERVER_URL}/offers?bidderId=${userDetails.id}`, {
         signal: controller.signal,
       })
       .then((result) => {
@@ -59,7 +59,7 @@ export default function MyOffers() {
   };
 
   const handleDelete = (offer) => {
-    axios.delete(`http://localhost:8001/offers/${offer.offerId}`).then((result) => {
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}/offers/${offer.offerId}`).then((result) => {
       console.log(result.data);
       setDeletedItem(offer);
       setOffer("");

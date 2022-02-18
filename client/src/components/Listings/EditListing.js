@@ -31,6 +31,8 @@ const formGroupStyle = {
 export default function EditListingModal({ open, handleClose, listing, handleUpdatedChange, edit }) {
   const { userDetails } = useContext(UserContext);
 
+  console.log(listing)
+
   const [editListing, setEditListing] = useState({
       creatorId: userDetails.id,
       listingId: listing.id,
@@ -74,16 +76,15 @@ export default function EditListingModal({ open, handleClose, listing, handleUpd
     };
 
     let listingId = editListing.listingId;
-
     axios
-      .put(`http://localhost:8001/listings/${listingId}`, editListingDetails)
+      .put(`${process.env.REACT_APP_SERVER_URL}/listings/${listingId}`, editListingDetails)
       .then((result) => {
         let categoryForListing = {
           categoryId: newCategory,
           listingId: result.data.id,
         };
         return axios.put(
-          `http://localhost:8001/categories/listings`,
+          `${process.env.REACT_APP_SERVER_URL}/categories/listings`,
           categoryForListing
         );
       })
@@ -102,7 +103,7 @@ export default function EditListingModal({ open, handleClose, listing, handleUpd
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <IconButton onClick={handleClose} sx={{ position: 'absolute', right: 15, top: 15, }}>
+        <IconButton onClick={handleClose} sx={{ position: 'absolute', right: 15, top: 15, }}>
         	  <CloseIcon />
           </IconButton>
           <Typography

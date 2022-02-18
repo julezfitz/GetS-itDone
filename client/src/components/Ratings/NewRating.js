@@ -61,7 +61,7 @@ export default function NewRatingModal({
     };
 
     axios
-      .post(`http://localhost:8001/ratings`, newRatingDetails)
+      .post(`${process.env.REACT_APP_SERVER_URL}/ratings`, newRatingDetails)
       .then((results) => {
         handleClose();
       });

@@ -63,14 +63,14 @@ export default function NewListingModal({ open, handleClose }) {
 		};
 
     axios
-      .post(`http://localhost:8001/listings`, newListingDetails)
+      .post(`${process.env.REACT_APP_SERVER_URL}/listings`, newListingDetails)
       .then((result) => {
         let categoryForListing = {
           categoryId: category,
           listingId: result.data.id,
         };
         return axios.post(
-          `http://localhost:8001/categories/listings`,
+          `${process.env.REACT_APP_SERVER_URL}/categories/listings`,
           categoryForListing
         );
       })

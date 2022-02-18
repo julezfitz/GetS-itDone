@@ -26,7 +26,7 @@ export default function NavRight({
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:8001/notifications`, {
+			.get(`${process.env.REACT_APP_SERVER_URL}/notifications`, {
 				params: { userId: userDetails.id },
 			})
 			.then(results => {
@@ -112,7 +112,7 @@ export default function NavRight({
 
 		//axios call here to set read status of notification to true
 		axios
-			.put(`http://localhost:8001/notifications/${notificationId}`)
+			.put(`${process.env.REACT_APP_SERVER_URL}/notifications/${notificationId}`)
 			.then(() => {
 				setNotifications([]);
 				setNotificationRead(notificationId);

@@ -63,7 +63,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			}
 
 			axios
-				.get(`http://localhost:8001/listings/`, {
+				.get(`${process.env.REACT_APP_SERVER_URL}/listings/`, {
 					params: paramObj,
 					// signal: controller.signal
 				})
@@ -82,7 +82,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 					}
 				});
 		} else {
-			axios.get(`http://localhost:8001/listings/`).then(result => {
+			axios.get(`${process.env.REACT_APP_SERVER_URL}/listings/`).then(result => {
 				if (city) {
 					let cityListings = [];
 					result.data.map(listing => {
@@ -104,7 +104,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		//If no chip is selected we can fetch all listings
 		if (!selectedChip.id) {
 			axios
-				.get(`http://localhost:8001/listings/`, {
+				.get(`${process.env.REACT_APP_SERVER_URL}/listings/`, {
 					params: { keywords },
 					signal: controller.signal,
 				})
@@ -134,7 +134,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		if (!selectedChip.id) {
 
 			axios
-				.get("http://localhost:8001/categories", { signal: controller.signal })
+				.get(`${process.env.REACT_APP_SERVER_URL}/categories`, { signal: controller.signal })
 				.then(res => {
 					// setCategories(res.data);
 					setCurrentCategories(res.data);
@@ -147,7 +147,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 			const categoryId = selectedChip.id;
 
 			axios
-				.get(`http://localhost:8001/listings/?category=${categoryId}`, {
+				.get(`${process.env.REACT_APP_SERVER_URL}/listings/?category=${categoryId}`, {
 					signal: controller.signal,
 				})
 				.then(res => {

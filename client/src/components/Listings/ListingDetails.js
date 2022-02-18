@@ -61,7 +61,7 @@ export default function ListingDetails(props) {
 	React.useEffect(() => {
 		if (props.listing.creator_id) {
 			axios
-				.get(`http://localhost:8001/ratings/`, {
+				.get(`${process.env.REACT_APP_SERVER_URL}/ratings/`, {
 					params: { rateeId: props.listing.creator_id },
 				})
 				.then(result => {
@@ -89,7 +89,7 @@ export default function ListingDetails(props) {
 
 	const handleOffer = listingId => {
 		axios
-			.post(`http://localhost:8001/offers`, {
+			.post(`${process.env.REACT_APP_SERVER_URL}/offers`, {
 				listingId: parseInt(listingId.target.value),
 				bidderId: parseInt(userDetails.id),
 			})

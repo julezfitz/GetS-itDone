@@ -46,7 +46,7 @@ export default function Application() {
 	//function to update user details when the user updates their profile
 	const refreshUserDetails = id => {
 		const userId = id ?? globalState.user?.details?.id;
-		return axios.get(`http://localhost:8001/user/${userId}`).then(results => {
+		return axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${userId}`).then(results => {
 			setGlobalState(prev => ({
 				...prev,
 				user: {
@@ -77,7 +77,7 @@ export default function Application() {
 	const getUserOffers = () => {
 		axios
 			.get(
-				`http://localhost:8001/offers?bidderId=${globalState.user.details.id}`
+				`${process.env.REACT_APP_SERVER_URL}/offers?bidderId=${globalState.user.details.id}`
 			)
 			.then(results => {
 				setGlobalState(prev => ({
@@ -126,7 +126,7 @@ export default function Application() {
 		//Initial check to see if a cookie is set, change user state according to response
 		if (!globalState.user.isLoggedIn) {
 			axios
-				.get(`http://localhost:8001/user/session`)
+				.get(`${process.env.REACT_APP_SERVER_URL}/user/session`)
 				.then(res =>
 					res.data.isAuthenticated
 						? refreshUserDetails(res.data.user.id).then(() =>

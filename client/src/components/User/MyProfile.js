@@ -54,7 +54,7 @@ export default function MyProfile() {
 		e.preventDefault();
 		setLoading(true);
 		axios
-			.put(`http://localhost:8001/user/${userDetails.id}`, {
+			.put(`${process.env.REACT_APP_SERVER_URL}/user/${userDetails.id}`, {
 				firstName: e.target.elements.firstName.value,
 				lastName: e.target.elements.lastName.value,
 				email: e.target.elements.email.value,
