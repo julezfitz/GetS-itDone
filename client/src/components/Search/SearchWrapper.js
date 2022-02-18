@@ -3,10 +3,10 @@ import SearchList from "./SearchList";
 import CategoriesBar from "./Categories/CategoriesBar";
 import { Box } from "@mui/material";
 import axios from "axios";
-import { LinearProgress } from "@mui/material";
+// import { LinearProgress } from "@mui/material";
 import { UserContext } from "../Application";
 import TransitionWrapper from "../Transition/TransitionWrapper";
-import { useLocomotiveScroll } from "react-locomotive-scroll";
+// import { useLocomotiveScroll } from "react-locomotive-scroll";
 import Typography from "@mui/material/Typography";
 
 function SearchWrapper({ keywords, emptySearch, setCleared }) {

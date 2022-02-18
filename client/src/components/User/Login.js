@@ -6,11 +6,8 @@ import Modal from "@mui/material/Modal";
 import { Button, Alert } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "../Application";
-import { FormControl } from "@mui/material";
-import { keyframes } from "styled-components";
+// import { keyframes } from "styled-components";
 import Redirect from "./Redirect";
-import RegisterModal from "./Registration/Register";
-import GoogleLogIn from "./GoogleLogin/GoogleLogIn";
 
 const style = {
 	position: "absolute",
@@ -162,7 +159,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 									fullWidth
 									required
 									id='outlined-required'
-									label='Email'
 									name='email'
 									value={loginState.email.value}
 									onChange={handleChange}
@@ -178,7 +174,6 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 									fullWidth
 									required
 									id='outlined-password-input'
-									label='Password'
 									type='password'
 									autoComplete='current-password'
 									name='password'

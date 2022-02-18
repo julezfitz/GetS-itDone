@@ -7,9 +7,6 @@ import CurrencyFormat from 'react-currency-format';
 import Grid from "@mui/material/Grid";
 
 export default function ListingQuickView(props) {
-  const [state, setState] = React.useState({
-    right: false,
-  });
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,

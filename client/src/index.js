@@ -4,7 +4,7 @@ import "./index.css";
 import Application from "./components/Application";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { darkTheme } from "./styles/globalStyles";
 
 ReactDOM.render(

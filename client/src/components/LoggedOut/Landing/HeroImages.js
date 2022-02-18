@@ -1,7 +1,6 @@
 import React from "react";
 import HeroImage from "./HeroImage";
 import { items } from "../../../assets/images/characters/index";
-import Marquee from "react-fast-marquee";
 
 function HeroImages() {
 	return (

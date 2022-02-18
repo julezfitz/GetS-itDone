@@ -10,7 +10,7 @@ export const GRADIENT = "linear-gradient(45deg, #ED6E23, #EDA224)";
 export const ORANGE = "#ED6E23";
 
 //Constants
-const GUTTER = "10vw";
+// const GUTTER = "10vw";
 export const FOOTERHEIGHT = "64vh";
 export const TRANSITION = "300ms ease";
 

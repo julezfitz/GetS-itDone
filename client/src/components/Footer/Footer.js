@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Marquee from "react-fast-marquee";
 import { Typography } from "@mui/material";
 import { darkTheme } from "../../styles/globalStyles";
 import { device } from "../../styles/devices/devices";
@@ -86,9 +85,9 @@ const StyledFooter = styled.footer`
 	}
 `;
 
-const lineStyle = {
-	margin: "0 10rem",
-};
+// const lineStyle = {
+// 	margin: "0 10rem",
+// };
 
 function Footer() {
 	const [inViewRef, inView] = useInView();

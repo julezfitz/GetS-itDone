@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledHero, StyledHeroImage } from "../styles/styles";
+import { StyledHeroImage } from "../styles/styles";
 
 function HeroImage({ src }) {
 	return (

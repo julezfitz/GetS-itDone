@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import LoggedOutHome from "./LoggedOut/Landing/LoggedOut";
 import { UserContext } from "./Application";
 
@@ -9,22 +9,22 @@ import OffersList from "./Offers/OffersList";
 import MyProfile from "./User/MyProfile";
 import SearchWrapper from "./Search/SearchWrapper";
 import Heading from "./Heading/Heading";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Divider } from "@mui/material";
-import useSplit from "../helpers/hooks/useSplit";
-import { headingAnimation } from "../helpers/animations/animations";
-import gsap from "gsap";
+// import useSplit from "../helpers/hooks/useSplit";
+// import { headingAnimation } from "../helpers/animations/animations";
+// import gsap from "gsap";
 
 function Routing({ keywords, search, emptySearch, location }) {
 	const [headingTitle, setHeadingTitle] = useState(null);
 	const { isLoggedIn, userPending } = useContext(UserContext);
-	const searchListRefs = useRef([]);
+	// const searchListRefs = useRef([]);
 	const splitHeadingRef = useRef(null);
-	const timelineRef = useRef(gsap.timeline());
-	const [isSplit, words, chars, splitCount] = useSplit(
-		[splitHeadingRef.current],
-		{ type: "chars", charsClass: "char" }
-	);
+	// const timelineRef = useRef(gsap.timeline());
+	// const [isSplit, words, chars, splitCount] = useSplit(
+	// 	[splitHeadingRef.current],
+	// 	{ type: "chars", charsClass: "char" }
+	// );
 
 	const pageInfo = [
 		{
