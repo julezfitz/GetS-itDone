@@ -25,7 +25,6 @@ function UserMenu({
 
 	useEffect(() => {
 		if (loading) {
-			console.log("in here!");
 			axios
 				.post(`${process.env.REACT_APP_SERVER_URL}/user/logout`, {})
 				.then(

@@ -10,7 +10,6 @@ checkIfEmpty = object => {
 			});
 		}
 	}
-	console.log(emptyFields)
 	return emptyFields
 };
 

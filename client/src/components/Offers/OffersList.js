@@ -36,7 +36,6 @@ export default function OffersList(props) {
     acceptOffer(offer);
     axios.put(`${process.env.REACT_APP_SERVER_URL}/offers/${offer.offerId}`, { "accepted": true })
       .then((result) => {
-        console.log(result.data);
       })
   }
 

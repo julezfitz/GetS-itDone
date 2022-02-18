@@ -3,10 +3,6 @@ const toCamel = object => {
 	keys.forEach(key => {
 		key = key.split("")
 	})
-
-	
-
-  console.log(keys)
 };
 
 module.exports = toCamel;

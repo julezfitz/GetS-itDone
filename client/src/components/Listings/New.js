@@ -75,7 +75,6 @@ export default function NewListingModal({ open, handleClose }) {
         );
       })
       .then((result) => {
-        console.log(result.data);
         handleClose();
         notifyPost();
       });

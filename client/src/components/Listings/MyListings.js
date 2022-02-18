@@ -55,10 +55,8 @@ export default function MyListings() {
 	};
 
 	const handleDelete = (listing) => {
-		console.log(listing.id);
 		axios.delete(`${process.env.REACT_APP_SERVER_URL}/listings/${listing.id}`)
 			.then(result => {
-				console.log(result.data);
 				setDeletedItem(listing);
 				setListing("");
 			});
