@@ -17,13 +17,7 @@ module.exports = function application(ENV) {
 
 	app.use(
 		cors({
-			origin: [
-				"http://localhost:3000",
-				"http://localhost:3001",
-				"http://localhost:3002",
-				"http://localhost:3003",
-				"http://localhost:3004",
-			],
+			origin: process.env.CORS_WHITELIST.split(','),
 			credentials: true,
 		})
 	);
