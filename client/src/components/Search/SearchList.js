@@ -31,6 +31,7 @@ export default function SearchList({ keywords, listings, addToRefs }) {
 	// 	hidden: { x: -500 },
 	// 	show: { x: 0, transition: { type: "spring", stiffness: 120 } },
 	// };
+	console.log(listings);
 	return (
 		<Box className='search-results' sx={{ width: "100%" }}>
 			<ListingDetails listing={listing} className='search-results__item'>
@@ -52,7 +53,7 @@ export default function SearchList({ keywords, listings, addToRefs }) {
 					}}
 				>
 					{listings[0] &&
-						listings.map((listing, i) => {
+						listings.map((listing) => {
 							// let delayCounter = 0.1;
 							return (
 								<Grid

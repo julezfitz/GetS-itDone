@@ -9,7 +9,7 @@ import TransitionWrapper from "../Transition/TransitionWrapper";
 // import { useLocomotiveScroll } from "react-locomotive-scroll";
 import Typography from "@mui/material/Typography";
 
-function SearchWrapper({ keywords, emptySearch, setCleared }) {
+function SearchWrapper({ keywords, emptySearch }) {
 	const { isLoggedIn, userDetails } = useContext(UserContext);
 	const [pending, setPending] = useState(true);
 	const [listings, setListings] = useState([]);
@@ -21,7 +21,7 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 	});
 	const [sortByType, setSortByType] = useState([]);
 	const [sortOrder, setSortOrder] = useState([]);
-	const [city, setCity] = useState(userDetails.city);
+	const [city, setCity] = useState(userDetails ? userDetails.city : "");
 
 	const handleSelectedChip = (categoryId, categoryName) => {
 		setSelectedChip({
@@ -34,13 +34,13 @@ function SearchWrapper({ keywords, emptySearch, setCleared }) {
 		emptySearch();
 		setSortByType([]);
 		setSortOrder([]);
-		setCity(userDetails.city);
+		setCity(userDetails?.city ?? "");
 		setSelectedChip({
 			id: null,
 			name: null,
 		});
 	};
-
+console.log(userDetails);
 	const handleSortChange = e => {
 		setSortByType(e.target.value);
 	};
