@@ -13,7 +13,6 @@ function SearchWrapper({ keywords, emptySearch }) {
 	const { isLoggedIn, userDetails } = useContext(UserContext);
 	const [pending, setPending] = useState(true);
 	const [listings, setListings] = useState([]);
-	// const [categories, setCategories] = useState([]);
 	const [currentCategories, setCurrentCategories] = useState([]);
 	const [selectedChip, setSelectedChip] = useState({
 		id: null,
@@ -108,18 +107,19 @@ function SearchWrapper({ keywords, emptySearch }) {
 					signal: controller.signal,
 				})
 				.then(result => {
-					setListings(result.data);
-
-					// const categoryNames = result.data.map(listing => listing.category);
-
-					// const filteredCategories = categories.filter(category => {
-					// 	return categoryNames.includes(category.category);
-					// });
-
-					// setCurrentCategories(filteredCategories);
-					// setTimeout(() => {
+					if (city) {
+						let cityListings = [];
+						result.data.map(listing => {
+							if (listing.city === city) {
+								cityListings.push(listing);
+							}
+							return cityListings;
+						});
+						setListings(cityListings);
+					} else {
+						setListings(result.data);
+					}
 					setPending(false);
-					// }, 900);
 				})
 				.catch(err => { });
 		}
