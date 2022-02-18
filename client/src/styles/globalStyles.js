@@ -16,193 +16,193 @@ export const TRANSITION = "300ms ease";
 
 //Our custom theme
 export const darkTheme = createTheme({
-	transitions: {
-		easing: {
-			// This is the most common easing curve.
-			easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
-			// Objects enter the screen at full velocity from off-screen and
-			// slowly decelerate to a resting point.
-			easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
-			// Objects leave the screen at full velocity. They do not decelerate when off-screen.
-			easeIn: "cubic-bezier(0.4, 0, 1, 1)",
-			// The sharp curve is used by objects that may return to the screen at any time.
-			sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
-		},
-		duration: {
-			shortest: 150,
-			shorter: 200,
-			short: 250,
-			// most basic recommended timing
-			standard: 300,
-			// this is to be used in complex animations
-			complex: 375,
-			// recommended when something is entering screen
-			enteringScreen: 225,
-			// recommended when something is leaving screen
-			leavingScreen: 195,
-		},
-	},
-	typography: {
-		fontSize: 13,
-		fontWeight: 200,
-		fontFamily: [
-			"-apple-system",
-			"BlinkMacSystemFont",
-			'"Segoe UI"',
-			"Roboto",
-			'"Helvetica Neue"',
-			"Arial",
-			"sans-serif",
-			'"Apple Color Emoji"',
-			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"',
-		].join(","),
-		subtitle1: {
-			color: GREY,
-		},
-		h2: {
-			color: LIGHT,
-		},
-		body2: {
-			color: `${GREY} !important`,
-		},
-	},
-	palette: {
-		text: {
-			primary: LIGHT,
-			secondary: GREY,
-		},
-		mode: "dark",
-		primary: {
-			main: OFFBLACK,
-			grey: GREY,
-		},
-		secondary: {
-			main: "#ED6E23",
-			mainGradient: GRADIENT,
-		},
-	},
+  transitions: {
+    easing: {
+      // This is the most common easing curve.
+      easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
+      // Objects enter the screen at full velocity from off-screen and
+      // slowly decelerate to a resting point.
+      easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
+      // Objects leave the screen at full velocity. They do not decelerate when off-screen.
+      easeIn: "cubic-bezier(0.4, 0, 1, 1)",
+      // The sharp curve is used by objects that may return to the screen at any time.
+      sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
+    },
+    duration: {
+      shortest: 150,
+      shorter: 200,
+      short: 250,
+      // most basic recommended timing
+      standard: 300,
+      // this is to be used in complex animations
+      complex: 375,
+      // recommended when something is entering screen
+      enteringScreen: 225,
+      // recommended when something is leaving screen
+      leavingScreen: 195,
+    },
+  },
+  typography: {
+    fontSize: 13,
+    fontWeight: 200,
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    subtitle1: {
+      color: GREY,
+    },
+    h2: {
+      color: LIGHT,
+    },
+    body2: {
+      color: `${GREY} !important`,
+    },
+  },
+  palette: {
+    text: {
+      primary: LIGHT,
+      secondary: GREY,
+    },
+    mode: "dark",
+    primary: {
+      main: OFFBLACK,
+      grey: GREY,
+    },
+    secondary: {
+      main: "#ED6E23",
+      mainGradient: GRADIENT,
+    },
+  },
 
-	components: {
-		MuiBadge: {
-			styleOverrides: {
-				root: {
-					span: {
-						backgroundColor: ORANGE,
-					},
-				},
-			},
-		},
-		MuiOutlinedInput: {
-			styleOverrides: {
-				root: {
-					backgroundColor: OFFBLACK,
-					backgroundImage: "none",
-				},
-			},
-		},
-		MuiGrid: {
-			styleOverrides: {
-				root: {
-					transition: TRANSITION,
-				},
-			},
-		},
-		MuiPaper: {
-			styleOverrides: {
-				root: {
-					backgroundColor: OFFBLACK,
-					backgroundImage: "none",
-				},
-			},
-		},
-		MuiInputLabel: {
-			styleOverrides: {
-				root: {
-					"& .Mui-focused": {
-						color: "white",
-					},
-				},
-			},
-		},
-		MuiAlert: {
-			styleOverrides: {
-				root: {
-					background: "transparent",
-				},
-			},
-		},
-		MuiOutlinedInput: {
-			styleOverrides: {
-				root: {
-					transition: "300ms ease",
-				},
-			},
-		},
-		MuiButton: {
-			variants: [
-				{
-					props: { color: "secondary", size: "small" },
-					style: {
-						textTransform: "none",
-						background: GRADIENT,
-						borderRadius: "60px",
-						color: "white",
-						padding: "0.4rem 2.3rem",
-					},
-				},
-				{
-					props: { variant: "naked" },
-					style: {
-						color: "white",
-						backgroundColor: "none",
-						padding: "0px",
-					},
-				},
-				{
-					props: { color: "primary", size: "small" },
-					style: {
-						color: "hsla(0,0%,100%,0.4)",
-						background: "rgba(255,255,255,.05)",
-						padding: "0.4rem 2.3rem",
-					},
-				},
-				{
-					props: { color: "secondary", size: "large" },
-					style: {
-						color: LIGHT,
-						background: GRADIENT,
-						padding: "0.4rem 2.3rem",
-					},
-				},
-			],
-			styleOverrides: {
-				root: {
-					textTransform: "none",
-					display: "flex",
-					borderRadius: "60px",
-					boxShadow: "none",
-				},
-			},
-		},
-		MuiAppBar: {
-			variants: [
-				{
-					props: { color: "primary" },
-					style: {
-						textTransform: "none",
-						background: `transparent`,
-						boxShadow: "none",
-					},
-				},
-			],
-			styleOverrides: {
-				root: {
-					textTransform: "none",
-				},
-			},
-		},
-	},
+  components: {
+    MuiBadge: {
+      styleOverrides: {
+        root: {
+          span: {
+            backgroundColor: ORANGE,
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: OFFBLACK,
+          backgroundImage: "none",
+        },
+      },
+    },
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          transition: TRANSITION,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: OFFBLACK,
+          backgroundImage: "none",
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "& .Mui-focused": {
+            color: "white",
+          },
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          background: "transparent",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          transition: "300ms ease",
+        },
+      },
+    },
+    MuiButton: {
+      variants: [
+        {
+          props: { color: "secondary", size: "small" },
+          style: {
+            textTransform: "none",
+            background: GRADIENT,
+            borderRadius: "60px",
+            color: "white",
+            padding: "0.4rem 2.3rem",
+          },
+        },
+        {
+          props: { variant: "naked" },
+          style: {
+            color: "white",
+            backgroundColor: "none",
+            padding: "0px",
+          },
+        },
+        {
+          props: { color: "primary", size: "small" },
+          style: {
+            color: "hsla(0,0%,100%,0.4)",
+            background: "rgba(255,255,255,.05)",
+            padding: "0.4rem 2.3rem",
+          },
+        },
+        {
+          props: { color: "secondary", size: "large" },
+          style: {
+            color: LIGHT,
+            background: GRADIENT,
+            padding: "0.4rem 2.3rem",
+          },
+        },
+      ],
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          display: "flex",
+          borderRadius: "60px",
+          boxShadow: "none",
+        },
+      },
+    },
+    MuiAppBar: {
+      variants: [
+        {
+          props: { color: "primary" },
+          style: {
+            textTransform: "none",
+            background: `transparent`,
+            boxShadow: "none",
+          },
+        },
+      ],
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+  },
 });
 
 export const GlobalStyles = createGlobalStyle`
@@ -254,7 +254,7 @@ export const GlobalStyles = createGlobalStyle`
     width: 100%;
     height: 100%; 
     
-    padding-bottom: 50vw;
+    padding-bottom: 30vw;
     box-shadow: -3px -5px 48px 4px rgba(0,0,0,.5);
   }
 
