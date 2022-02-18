@@ -1,7 +1,6 @@
 INSERT INTO offers (listing_id, bidder_id)
 VALUES
  (20, 2),
- (2, 1),
  (3, 14),
  (17, 4),
  (5, 5),
@@ -27,4 +26,15 @@ VALUES
  (23, 3),
  (24, 4),
  (25, 5),
- (26, 6);
+ (26, 6),
+ (1, 13),
+ (3, 12),
+ (3, 11),
+ (3, 10),
+ (3, 8);
+
+INSERT INTO offers (listing_id, bidder_id, accepted, pending)
+VALUES
+ (4, 1, 'true', 'false'),
+ (10, 1, 'false', 'false'),
+ (22, 1, 'false', 'false');
