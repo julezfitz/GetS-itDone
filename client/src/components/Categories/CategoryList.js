@@ -23,7 +23,7 @@ export default function CategoryList(props) {
 
   //loop through categories to create category list
   return (
-    <FormControl fullWidth>
+    <FormControl sx={{marginLeft: 1, width:'calc(100% - 16px)'}}>
       {props.edit ? <InputLabel id="demo-simple-select-label">{props.label}</InputLabel> : <InputLabel id="demo-simple-select-label">Category *</InputLabel>}
       <Select
         labelId="demo-simple-select-label"

@@ -1,8 +1,6 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-// import { Chip, Paper } from "@mui/material";
 import Chips from "./Chips";
-// import { Divider } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -13,15 +11,11 @@ import { withStyles } from "@mui/styles";
 
 const CustomTextField = withStyles({
 	root: {
-		width: "100%",
-		"& .MuiOutlinedInput-root": {
 			height: "2.5rem",
-			width: "100%",
 			"& fieldset": {
 				borderRadius: "50px",
 			},
 		},
-	},
 })(TextField);
 
 function CategoriesBar({
@@ -137,7 +131,6 @@ function CategoriesBar({
 							<Box sx={{marginTop: "1.3rem"}}>
 								<CustomTextField
 									id='1p'
-									sx={{height: "2rem"}}
 									label='City'
 									name='city'
 									value={city}
