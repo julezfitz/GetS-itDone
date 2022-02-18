@@ -7,7 +7,6 @@ import List from '@mui/material/List';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SingleRating from "./SingleRating";
-import { Controller } from "swiper";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 

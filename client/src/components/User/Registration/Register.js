@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import { UserContext } from "../../Application";
 import Error from "../Error";
 import axios from "axios";
-import { FormGroup, FormControl } from "@mui/material";
+import { FormGroup } from "@mui/material";
 import Redirect from "../Redirect";
 import { fieldStyles } from "../styles/styles";
 import { IconButton } from "@mui/material";
@@ -168,7 +168,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='First Name'
 							required
 							id='r1outlined-required'
-							label='First Name'
 							value={registerState.firstName.value}
 							onChange={handleChange}
 							name='firstName'
@@ -184,7 +183,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							required
 							placeholder='Last Name'
 							id='r2outlined-required'
-							label='Last Name'
 							name='lastName'
 							value={registerState.lastName.value}
 							onChange={handleChange}
@@ -203,7 +201,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							fullWidth
 							required
 							id='r3outlined-required'
-							label='Email'
 							name='email'
 							value={registerState.email.value}
 							onChange={handleChange}
@@ -221,7 +218,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='Password'
 							required
 							id='outlined-password-input3'
-							label='Password'
 							type='password'
 							autoComplete='current-password'
 							name='password'
@@ -239,7 +235,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='Confirm Password'
 							required
 							id='outlined-password-input4'
-							label='Password Confirmation'
 							type='password'
 							autoComplete='current-password'
 							name='passwordConfirmation'
@@ -259,7 +254,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='City'
 							required
 							id='r5outlined-required'
-							label='City/Town'
 							name='city'
 							value={registerState.city.value}
 							onChange={handleChange}
@@ -275,7 +269,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='Province'
 							required
 							id='r6outlined-required'
-							label='Province'
 							name='province'
 							value={registerState.province.value}
 							onChange={handleChange}
@@ -293,7 +286,6 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='Postal Code'
 							required
 							id='r7outlined-required'
-							label='Postal Code'
 							name='postalCode'
 							value={registerState.postalCode.value}
 							onChange={handleChange}
@@ -309,12 +301,10 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							placeholder='Country'
 							required
 							id='r8outlined-required'
-							label='Country'
 							name='country'
 							value={registerState.country.value}
 							onChange={handleChange}
 							error={registerState.country.error}
-							label={registerState.country.errorMessage}
 							label={
 								registerState.country.errorMessage
 									? registerState.country.errorMessage

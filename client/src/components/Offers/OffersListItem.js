@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Rating from "@mui/material/Rating";
-import { Button, Alert } from "@mui/material";
+import { Button } from "@mui/material";
 import UserRatingsModal from "../Ratings/UserRatings";
 
 export default function OffersListItem(props) {

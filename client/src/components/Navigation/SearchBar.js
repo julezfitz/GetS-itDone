@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { useNavigate } from "react-router";
 
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+// import { Button } from "@mui/material";
 import { Box } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
@@ -24,28 +23,28 @@ const Search = styled("div")(({ theme }) => ({
 	},
 }));
 
-const SearchButton = styled(Button)(({ theme }) => ({
-	border: "1px solid white",
-	color: "white",
-	position: "relative",
-	height: "2.5rem",
-	alignItems: "center",
-	justifyContent: "center",
-	padding: "0",
+// const SearchButton = styled(Button)(({ theme }) => ({
+// 	border: "1px solid white",
+// 	color: "white",
+// 	position: "relative",
+// 	height: "2.5rem",
+// 	alignItems: "center",
+// 	justifyContent: "center",
+// 	padding: "0",
 
-	"& a": {
-		width: "100%",
-		height: "100%",
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
-	},
+// 	"& a": {
+// 		width: "100%",
+// 		height: "100%",
+// 		display: "flex",
+// 		alignItems: "center",
+// 		justifyContent: "center",
+// 	},
 
-	"&:hover": {
-		backgroundColor: "white",
-		color: "black",
-	},
-}));
+// 	"&:hover": {
+// 		backgroundColor: "white",
+// 		color: "black",
+// 	},
+// }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
 	padding: theme.spacing(0, 2),

@@ -6,7 +6,6 @@ import { device } from "../../styles/devices/devices";
 import { darkTheme } from "../../styles/globalStyles";
 import LightLeak from "../Leaks/LightLeak";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
 
 const StyledRails = styled.div`
 	position: absolute;

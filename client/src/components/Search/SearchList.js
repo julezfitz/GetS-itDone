@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useState } from "react";
 import SearchListItem from "./SearchListItem";
 import ListingDetails from "../Listings/ListingDetails";
 import { Box } from "@mui/material";
-import { Grid, Item } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Typography } from "@mui/material";
 import useTheme from "@mui/material/styles/useTheme";
 
@@ -19,8 +18,8 @@ import useTheme from "@mui/material/styles/useTheme";
 export default function SearchList({ keywords, listings, addToRefs }) {
 	const theme = useTheme();
 
-	const listRefs = useRef([]);
-	const ref = useRef(null);
+	// const listRefs = useRef([]);
+	// const ref = useRef(null);
 
 	const [listing, setListing] = useState({});
 
@@ -28,10 +27,10 @@ export default function SearchList({ keywords, listings, addToRefs }) {
 		setListing(e);
 	};
 
-	const listItemVariant = {
-		hidden: { x: -500 },
-		show: { x: 0, transition: { type: "spring", stiffness: 120 } },
-	};
+	// const listItemVariant = {
+	// 	hidden: { x: -500 },
+	// 	show: { x: 0, transition: { type: "spring", stiffness: 120 } },
+	// };
 	return (
 		<Box className='search-results' sx={{ width: "100%" }}>
 			<ListingDetails listing={listing} className='search-results__item'>
@@ -54,7 +53,7 @@ export default function SearchList({ keywords, listings, addToRefs }) {
 				>
 					{listings[0] &&
 						listings.map((listing, i) => {
-							let delayCounter = 0.1;
+							// let delayCounter = 0.1;
 							return (
 								<Grid
 									item

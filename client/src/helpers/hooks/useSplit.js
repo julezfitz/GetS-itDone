@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect } from "react";
 import gsap from "gsap";
 import SplitText from "gsap/SplitText";
 import useResize from "./useResize";
-import { split } from "lodash";
+// import { split } from "lodash";
 import $ from "jquery";
 
 function useSplit(arrayOfElements, options) {

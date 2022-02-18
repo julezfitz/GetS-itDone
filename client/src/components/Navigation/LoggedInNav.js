@@ -5,7 +5,6 @@ import NewRatingModal from "../Ratings/NewRating";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import UserMenu from "./UserMenu";
 import axios from "axios";
-import { UserContext } from "../Application.js";
 
 function LoggedInNav({
 	newListingOpen,

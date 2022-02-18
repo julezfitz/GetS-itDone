@@ -32,7 +32,7 @@ const formGroupStyle = {
 export default function NewListingModal({ open, handleClose }) {
 	const { userDetails } = useContext(UserContext);
 
-	const [newListing, setNewListing] = useState({});
+	// const [newListing, setNewListing] = useState({});
 
 	let newListingDetails;
 

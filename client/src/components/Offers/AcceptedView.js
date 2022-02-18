@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import NewRatingModal from "../Ratings/NewRating";
 import { Box, Button } from "@mui/material";
 

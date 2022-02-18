@@ -1,14 +1,11 @@
 import { React, useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Button, Alert } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "../../Application";
-import { keyframes } from "styled-components";
 import Redirect from "../Redirect";
-import useTheme from "@mui/material/styles/useTheme";
+// import useTheme from "@mui/material/styles/useTheme";
 import { fieldStyles } from "../styles/styles";
 import LoginForm from "./LoginForm";
 import { IconButton } from "@mui/material";
@@ -32,10 +29,10 @@ const style = {
 	borderRadius: "10px",
 };
 
-const ELEMENTSPACING = "1rem";
+// const ELEMENTSPACING = "1rem";
 
 export default function LoginModal({ open, handleClose, setModalOpen }) {
-	const theme = useTheme();
+	// const theme = useTheme();
 
 	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } =
 		useContext(UserContext);

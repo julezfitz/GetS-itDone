@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -36,7 +36,7 @@ export default function MyProfile() {
 	//   image: "",
 	// });
 
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 	const [update, setUpdate] = useState(false);
 	const [errors, setErrors] = useState(null);
 
@@ -52,7 +52,7 @@ export default function MyProfile() {
 
 	const handleUpdateSubmit = e => {
 		e.preventDefault();
-		setLoading(true);
+		// setLoading(true);
 		axios
 			.put(`${process.env.REACT_APP_SERVER_URL}/user/${userDetails.id}`, {
 				firstName: e.target.elements.firstName.value,
@@ -69,7 +69,9 @@ export default function MyProfile() {
 				refreshUserDetails();
 			})
 			.catch(err => setErrors(err))
-			.finally(setLoading(false), setUpdate(false));
+			.finally(
+        // setLoading(false), 
+        setUpdate(false));
 	};
 
 	const imageStyle = {

@@ -33,7 +33,6 @@ function LoginForm({
 				fullWidth
 				required
 				id='outlined-required'
-				label='Email'
 				name='email'
 				value={loginState.email.value}
 				onChange={handleChange}
@@ -46,7 +45,6 @@ function LoginForm({
 				fullWidth
 				required
 				id='outlined-password-input'
-				label='Password'
 				type='password'
 				autoComplete='current-password'
 				name='password'
