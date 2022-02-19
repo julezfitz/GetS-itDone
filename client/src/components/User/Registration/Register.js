@@ -244,7 +244,7 @@ export default function RegisterModal({ open, handleClose, setModalOpen }) {
 							label={
 								registerState.passwordConfirmation.errorMessage
 									? registerState.passwordConfirmation.errorMessage
-									: "Password"
+									: "Confirm Password"
 							}
 						/>
 					</FormGroup>
