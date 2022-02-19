@@ -12,13 +12,13 @@ This site has been deployed - Visit: https://priceless-ptolemy-ba407f.netlify.ap
 !["Home View"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true)
 
 ### Registration
-!["Registration Form"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true)
+!["Registration Form"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/register.jpg?raw=true)
 
 ### Search
-!["Search"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true)
+!["Search"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/search.jpg?raw=true)
 
 ### Listing Details
-!["Listing Details"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true)
+!["Listing Details"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/listing-details.jpg?raw=true)
 
 ### Reviews
 !["Reviews"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/ratings.jpg?raw=true)
@@ -27,7 +27,7 @@ This site has been deployed - Visit: https://priceless-ptolemy-ba407f.netlify.ap
 !["Create Listing"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/new-listing.jpg?raw=true)
 
 ### My Profile
-!["Profile"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true)
+!["Profile"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-profile.jpg?raw=true)
 
 ### My Listings
 !["My Listings"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-listings.jpg?raw=true)
