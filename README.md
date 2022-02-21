@@ -9,7 +9,7 @@ This site has been deployed - Visit: https://priceless-ptolemy-ba407f.netlify.ap
 ## Views
 
 ### Home
-!["Home View"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true =100x200)
+!["Home View"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true)
 
 
 ### Registration
