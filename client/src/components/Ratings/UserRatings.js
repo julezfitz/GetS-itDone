@@ -10,7 +10,6 @@ import SingleRating from "./SingleRating";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-
 const style = {
     position: "absolute",
     top: "50%",

@@ -23,7 +23,6 @@ export default function MyOffers() {
   const { userDetails } = useContext(UserContext);
 
   const [offers, setOffers] = useState([]);
-  // const [listingOffers, setListingOffers] = useState([]);
   const [deletedItem, setDeletedItem] = useState("");
 
   const [offer, setOffer] = useState("");

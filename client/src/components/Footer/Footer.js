@@ -85,10 +85,6 @@ const StyledFooter = styled.footer`
 	}
 `;
 
-// const lineStyle = {
-// 	margin: "0 10rem",
-// };
-
 function Footer() {
 	const [inViewRef, inView] = useInView();
 
@@ -114,12 +110,6 @@ function Footer() {
 		<>
 			<StyledFooter inView={inView}>
 				<div className='footer-inner'>
-					{/* <iframe
-					src='https://my.spline.design/primitivescopy-c394739b6b3261b8319b0e09d72f5730/'
-					frameBorder='0'
-					width='100%'
-					height='60%'
-				></iframe> */}
 				</div>
 
 				<div className='dev-credits'>

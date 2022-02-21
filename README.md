@@ -9,31 +9,31 @@ This site has been deployed - Visit: https://priceless-ptolemy-ba407f.netlify.ap
 ## Views
 
 ### Home
-!["Home View"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true)
+<img alt="Home View" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/home.jpg?raw=true" width="600">
 
 ### Registration
-!["Registration Form"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/register.jpg?raw=true)
+<img alt="Registration Form" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/register.jpg?raw=true" width="600">
 
 ### Search
-!["Search"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/search.jpg?raw=true)
+<img alt="Search" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/search.jpg?raw=true" width="600">
 
 ### Listing Details
-!["Listing Details"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/listing-details.jpg?raw=true)
+<img alt="Listing Details" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/listing-details.jpg?raw=true" width="600">
 
 ### Reviews
-!["Reviews"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/ratings.jpg?raw=true)
+<img alt="Reviews" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/ratings.jpg?raw=true" width="600">
 
 ### Create Listing
-!["Create Listing"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/new-listing.jpg?raw=true)
+<img alt="Create Listing" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/new-listing.jpg?raw=true" width="600">
 
 ### My Profile
-!["Profile"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-profile.jpg?raw=true)
+<img alt="My Profile" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-profile.jpg" width="600">
 
 ### My Listings
-!["My Listings"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-listings.jpg?raw=true)
+<img alt="My Listings" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-listings.jpg?raw=true" width="600">
 
 ### My Offers
-!["My Offers"](https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-offers.jpg?raw=true)
+<img alt="My Offers" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-offers.jpg?raw=true" width="600">
 
 
 ## Server Side Setup

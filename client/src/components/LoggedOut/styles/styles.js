@@ -6,7 +6,6 @@ const heroBgColor = "#232323";
 const blobColor = "#7F7CD5";
 const blobGradientColors = ["#E2C227", "#F94999", "#5B76CE", "#3CE5D5"];
 const blobGradientStops = [0, 0.3, 0.6, 1];
-// const heropadding = "0 4rem";
 
 export const blobConfig = {
 	heroBgColor,
@@ -14,12 +13,6 @@ export const blobConfig = {
 	blobGradientColors,
 	blobGradientStops,
 };
-
-//Bubble button config
-// const ctaWidth = "10rem";
-// const ctaHeight = "10rem";
-// const accentColor = "#ED6E23";
-// const transition = "300ms ease";
 
 //Page styles
 

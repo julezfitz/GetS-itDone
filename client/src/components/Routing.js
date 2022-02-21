@@ -11,20 +11,11 @@ import SearchWrapper from "./Search/SearchWrapper";
 import Heading from "./Heading/Heading";
 import { AnimatePresence } from "framer-motion";
 import { Divider } from "@mui/material";
-// import useSplit from "../helpers/hooks/useSplit";
-// import { headingAnimation } from "../helpers/animations/animations";
-// import gsap from "gsap";
 
 export default function Routing({ keywords, search, emptySearch, location }) {
   const [headingTitle, setHeadingTitle] = useState(null);
   const { isLoggedIn, userPending } = useContext(UserContext);
-  // const searchListRefs = useRef([]);
   const splitHeadingRef = useRef(null);
-  // const timelineRef = useRef(gsap.timeline());
-  // const [isSplit, words, chars, splitCount] = useSplit(
-  // 	[splitHeadingRef.current],
-  // 	{ type: "chars", charsClass: "char" }
-  // );
 
   const pageInfo = [
     {
