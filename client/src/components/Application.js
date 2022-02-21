@@ -46,15 +46,17 @@ export default function Application() {
 	//function to update user details when the user updates their profile
 	const refreshUserDetails = id => {
 		const userId = id ?? globalState.user?.details?.id;
-		return axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${userId}`).then(results => {
-			setGlobalState(prev => ({
-				...prev,
-				user: {
-					...prev.user,
-					details: results.data.user,
-				},
-			}));
-		});
+		return axios
+			.get(`${process.env.REACT_APP_SERVER_URL}/user/${userId}`)
+			.then(results => {
+				setGlobalState(prev => ({
+					...prev,
+					user: {
+						...prev.user,
+						details: results.data.user,
+					},
+				}));
+			});
 	};
 
 	const toggleLoggedIn = userDetails => {
@@ -154,7 +156,12 @@ export default function Application() {
 		<LocomotiveScrollProvider
 			options={{
 				smooth: true,
-				// ... all available Locomotive Scroll instance options
+				tablet: {
+					smooth: true,
+				},
+				smartphone: {
+					smooth: true,
+				},
 			}}
 			watch={[location.pathname]}
 			containerRef={scrollRef}
