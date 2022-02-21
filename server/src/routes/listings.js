@@ -97,8 +97,8 @@ module.exports = db => {
         let offersQueryString = `SELECT offers.id as offerId, offers.bidder_id as bidderid, offers.accepted, offers.pending, users.first_name as firstName,
         users.last_name as lastName, users.image, users.email, AVG(user_ratings.rating) as averageRating, COUNT(user_ratings.rating) as ratingCount
         FROM offers
-        JOIN users ON offers.bidder_id = users.id
-        JOIN user_ratings ON users.id = user_ratings.ratee_id
+        FULL OUTER JOIN users ON offers.bidder_id = users.id
+        FULL OUTER JOIN user_ratings ON users.id = user_ratings.ratee_id
         WHERE offers.listing_id = ${request.params.listingId}
         GROUP BY offers.id, users.first_name, users.last_name, users.email, users.image;`
 
@@ -108,11 +108,10 @@ module.exports = db => {
             listingObject = result.rows[0];
             return db.query(offersQueryString);
         }).then((result) => {
-
             let ratingsArray = [];
 
             (result.rows).forEach((ratingObj) => {
-                let averageRating = parseInt(ratingObj.averagerating);
+                let averageRating = ratingObj.averagerating ? parseInt(ratingObj.averagerating) : parseInt(0);
                 let ratingCount = parseInt(ratingObj.ratingcount);
 
                 ratingsArray.push(
