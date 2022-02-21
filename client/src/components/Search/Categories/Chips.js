@@ -10,8 +10,6 @@ function Chips({
 	emptySearch,
 	isLoggedIn,
 }) {
-	// const elementSpacing = 1;
-
 	const handleChipClick = categoryId => {
 		window.scrollTo({ top: isLoggedIn ? 0 : 500 });
 		setSelected(categoryId);

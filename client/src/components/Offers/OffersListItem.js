@@ -7,13 +7,8 @@ import { Button } from "@mui/material";
 import UserRatingsModal from "../Ratings/UserRatings";
 
 export default function OffersListItem(props) {
-  const handleAccept = () => {
-    props.accept(props.offer);
-  }
-
-  const handleDecline = () => {
-    props.decline(props.offer);
-  }
+  const handleAccept = () => {props.accept(props.offer)}
+  const handleDecline = () => {props.decline(props.offer)}
 
   const [userRatingsOpen, setUserRatingsOpen] = useState(false);
 

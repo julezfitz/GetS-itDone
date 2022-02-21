@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import { UserContext } from "../Application";
 
 const MENULINKSTYLES = {
 	textDecoration: "none",
@@ -20,7 +19,6 @@ function UserMenu({
 	handleCloseUserMenu,
 	toggleLoggedIn,
 }) {
-	// const { toggleUserPending } = useContext(UserContext);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
