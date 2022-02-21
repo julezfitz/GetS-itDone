@@ -26,8 +26,8 @@ This site has been deployed - Visit: https://priceless-ptolemy-ba407f.netlify.ap
 ### Create Listing
 <img alt="Create Listing" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/new-listing.jpg?raw=true" width="600">
 
-<!-- ### My Profile
-<img alt="My Profile" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-profile.jpg?raw=true" width="600"> -->
+### My Profile
+<img alt="My Profile" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-profile.jpg" width="600">
 
 ### My Listings
 <img alt="My Listings" src="https://github.com/julezfitz/LHL-Final/blob/main/app-imgs/my-listings.jpg?raw=true" width="600">
