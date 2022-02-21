@@ -8,10 +8,6 @@ import { UserContext } from "../Application";
 import Error from "./Error";
 import axios from "axios";
 import { FormGroup, FormControl } from "@mui/material";
-// import { InputAdornment } from "@mui/material";
-// import IconButton from "@mui/material/IconButton";
-// import Visibility from "@mui/icons-material/Visibility";
-// import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const style = {
 	position: "absolute",

@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Alert, TextField, Button } from "@mui/material";
 
-
 function LoginForm({
 	handleSubmit,
 	handleChange,

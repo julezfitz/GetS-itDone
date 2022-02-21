@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const StyledHeading = styled.div`
 	font-family: Inter;
 	-moz-osx-font-smoothing: grayscale;

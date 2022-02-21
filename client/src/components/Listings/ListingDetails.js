@@ -138,8 +138,6 @@ export default function ListingDetails(props) {
 									justifyContent: "space-between",
 								}}
 							>
-								{/* <Grid container spacing={7} wrap='nowrap'> */}
-								{/* <Grid item xs={8}> */}
 								<Box
 									className='marquee-box-relative'
 									sx={{
@@ -206,23 +204,12 @@ export default function ListingDetails(props) {
 										position: "relative",
 									}}
 								>
-									{/* <Box
-										sx={{
-											border: "1px solid white",
-											borderRadius: "30px",
-											padding: "0.3rem 0.7rem",
-										}}
-									> */}
-									{/* <Typography>Category</Typography> */}
 									<Chip
 										size='small'
 										label={props.listing.category}
 										sx={{ padding: "0.8rem 0.2rem" }}
 									/>
 
-									{/* <Typography>{props.listing.category}</Typography> */}
-
-									{/* </Box> */}
 									<Typography component='span' variant='h5'>
 										<CurrencyFormat
 											value={props.listing.price}
@@ -245,31 +232,12 @@ export default function ListingDetails(props) {
 									</Box>
 								</Box>
 							</Box>
-							{/* </Grid> */}
 
-							{/* <Grid item xs={4}> */}
-
-							{/* </Grid> */}
-							{/* </Grid> */}
 							<Item sx={{ height: "16rem" }}>
 								<ImageCarousel listing={props.listing} />
 							</Item>
 							<Item>
 								<Box className='padding-box' sx={{ padding: PADDING }}>
-									{/* <Typography>Category: {props.listing.category}</Typography> */}
-
-									{/* <Grid container spacing={0}> */}
-									{/* <Grid item xs={9}> */}
-
-									{/* </Grid> */}
-
-									{/* <Grid item xs={2}> */}
-									{/* <Box m={-5} pt={-5}> */}
-									{/* check to see if the user owns the job */}
-
-									{/* </Box> */}
-
-									{/* <h4 xs={3}>Posted By:</h4> */}
 
 									<CardHeader
 										sx={{ paddingLeft: 0 }}
@@ -288,25 +256,11 @@ export default function ListingDetails(props) {
 													justifyContent: "space-between",
 												}}
 											>
-												{/* <Grid
-													container={true}
-													direction='row'
-													spacing={1}
-													style={{ marginLeft: 0, marginBottom: 8 }}
-													wrap='nowrap'
-													onClick={handleUserRatingsOpen}
-												> */}
+
 												<Typography fontSize='medium'>
 													{props.listing.first_name} {props.listing.last_name}
 												</Typography>
-												{/* </Grid> */}
-												{/* <Grid
-													container={true}
-													direction='row'
-													spacing={1}
-													wrap='nowrap'
-													onClick={handleUserRatingsOpen}
-												> */}
+
 												<Box>
 													<Rating
 														name='user-rating'
@@ -323,7 +277,7 @@ export default function ListingDetails(props) {
 														<Typography variant='string' component='div'>
 															&nbsp; (
 														</Typography>
-														{/* </Grid> */}
+                            
 														<UserRatingsModal
 															open={userRatingsOpen}
 															handleClose={handleUserRatingsClose}

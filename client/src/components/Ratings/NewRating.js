@@ -29,14 +29,8 @@ export default function NewRatingModal({
   open,
   handleClose,
 }) {
-  // const [rating, setRating] = useState("");
 
   const { userDetails } = useContext(UserContext);
-
-  // const handleChange = (event) => {
-  //   setRating(event.target.value);
-  // };
-
   const [starRating, setStarRating] = useState(0);
   const [starRatingHover, setStarRatingHover] = useState(-1);
 

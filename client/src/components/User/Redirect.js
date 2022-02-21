@@ -1,10 +1,8 @@
 import React from "react";
 import { Button } from "@mui/material";
-// import useTheme from "@mui/material/styles/useTheme";
 import { Typography } from "@mui/material";
 
 function Redirect({ to, closeLogIn, openRegister, setModalOpen }) {
-	// const theme = useTheme();
 	const buttonStyle = {
 		fontFamily: "inherit",
 		fontSize: "inherit",

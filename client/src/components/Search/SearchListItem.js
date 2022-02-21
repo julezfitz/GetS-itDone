@@ -1,16 +1,12 @@
 import React, { forwardRef } from "react";
-// import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { format } from "date-fns";
 import CurrencyFormat from "react-currency-format";
-// import useTheme from "@mui/material/styles/useTheme";
-// import { motion, AnimatePresence } from "framer-motion";
 
 function SearchListItem(props, ref) {
-	// const theme = useTheme();
 
 	const handleListingChange = () => {
 		let listing = props.listing;

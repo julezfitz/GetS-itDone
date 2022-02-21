@@ -27,7 +27,6 @@ const settings = [
 ];
 
 export default function ResponsiveAppBar(props) {
-  // const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -49,16 +48,9 @@ export default function ResponsiveAppBar(props) {
   const handleNewRatingOpen = () => setNewRatingOpen(true);
   const handleNewRatingClose = () => setNewRatingOpen(false);
 
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);

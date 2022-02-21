@@ -24,26 +24,8 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function MyProfile() {
 	const { userDetails, refreshUserDetails } = useContext(UserContext);
 
-	// const [updateState, setUpdateState] = useState({
-	//   firstName: userDetails.firstName,
-	//   lastName: userDetails.lastName,
-	//   email: userDetails.email,
-	//   city: userDetails.city,
-	//   province: userDetails.province,
-	//   postalCode: userDetails.postalCode,
-	//   country: userDetails.country,
-	//   password: "",
-	//   image: "",
-	// });
-
-	// const [loading, setLoading] = useState(false);
 	const [update, setUpdate] = useState(false);
 	const [errors, setErrors] = useState(null);
-
-	// const handleChange = (e) => {
-	//   setErrors(null);
-	//   setUpdateState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-	// };
 
 	const handleEditSubmit = e => {
 		e.preventDefault();
@@ -52,13 +34,13 @@ export default function MyProfile() {
 
 	const handleUpdateSubmit = e => {
 		e.preventDefault();
-		// setLoading(true);
-		axios
+
+    axios
 			.put(`${process.env.REACT_APP_SERVER_URL}/user/${userDetails.id}`, {
 				firstName: e.target.elements.firstName.value,
 				lastName: e.target.elements.lastName.value,
 				email: e.target.elements.email.value,
-				password: e.target.elements.password.value, //needs to add in password hashing for this to work
+				password: e.target.elements.password.value,
 				city: e.target.elements.city.value,
 				province: e.target.elements.province.value,
 				postalCode: e.target.elements.postalCode.value,
@@ -70,7 +52,6 @@ export default function MyProfile() {
 			})
 			.catch(err => setErrors(err))
 			.finally(
-        // setLoading(false), 
         setUpdate(false));
 	};
 
