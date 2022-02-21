@@ -1,12 +1,11 @@
-import { React, useState, useEffect, useContext } from "react";
+import { Alert, Button } from "@mui/material";
 import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { Button, Alert } from "@mui/material";
 import axios from "axios";
+import { React, useContext, useEffect, useState } from "react";
 import { UserContext } from "../Application";
-// import { keyframes } from "styled-components";
 import Redirect from "./Redirect";
 
 const style = {
@@ -27,32 +26,11 @@ const style = {
 	borderRadius: "10px",
 };
 
-const blurAnim = keyframes`
-	0% {
-		top: 0;
-		left: 0
-	}
-
-	100% {
-		bottom: 0;
-		right: 0
-	}
-`;
-
-const blurCircleStyle = {
-	width: "17rem",
-	height: "17rem",
-	backgroundColor: "orange",
-	position: "absolute",
-	borderRadius: "50%",
-	filter: "blur(60px)",
-	zIndex: "-2",
-};
-
 const ELEMENTSPACING = "1rem";
 
 export default function LoginModal({ open, handleClose, setModalOpen }) {
-	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } = useContext(UserContext);
+	const { toggleLoggedIn, isLoggedIn, refreshUserDetails } =
+		useContext(UserContext);
 
 	const [loginState, setLoginState] = useState({
 		email: {
@@ -95,10 +73,12 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 
 					const isAuthenticated = response.data.authentication.isAuthenticated;
 					if (errors && errors.length >= 0) setErrors(errors);
-					if (isAuthenticated) return refreshUserDetails(response.data.authentication.user.id).then(toggleLoggedIn)
+					if (isAuthenticated)
+						return refreshUserDetails(
+							response.data.authentication.user.id
+						).then(toggleLoggedIn);
 				})
-				.catch(err => {
-				})
+				.catch(err => {})
 				.finally(setLoading(false));
 		}
 	}, [loading, isLoggedIn, errors]);
@@ -140,7 +120,11 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 						>
 							Log in to GSD
 						</Typography>
-						<Typography component='span'id='modal-modal-description' sx={{ mt: 2 }}>
+						<Typography
+							component='span'
+							id='modal-modal-description'
+							sx={{ mt: 2 }}
+						>
 							<Box
 								component='form'
 								sx={{ "& .MuiTextField-root": { m: 1 }, padding: "30px" }}
@@ -149,11 +133,13 @@ export default function LoginModal({ open, handleClose, setModalOpen }) {
 								onSubmit={handleSubmit}
 							>
 								<TextField
-								sx={{input: {
-									"& fieldset": {
-										borderColor: "grey"
-									}
-								}}}
+									sx={{
+										input: {
+											"& fieldset": {
+												borderColor: "grey",
+											},
+										},
+									}}
 									placeholder='justine@example.com'
 									fullWidth
 									required
