@@ -6,10 +6,6 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { React, useContext, useEffect, useState } from "react";
 import { UserContext } from "../Application";
-<<<<<<< HEAD
-=======
-import { keyframes } from "styled-components";
->>>>>>> af419bbf5d066936fabdc693dee79d8d5ccb5a3b
 import Redirect from "./Redirect";
 
 const style = {
