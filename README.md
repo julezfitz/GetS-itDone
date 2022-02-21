@@ -2,7 +2,7 @@
 
 An app to view and post once-off odd job listings. Need your lawn mowed, gutters cleaned, help moving? This app is for you! Post details of a job you need done, photos and a price you are willing to pay. View and manage your personal listings. Accept or decline offers and connect with successful applicants. Search for, view and offer to do jobs that need doing in your area. 
 
-This project was built by Julie Fitzpatrick, Matt Parisien and Brad Sawyer using React, PostgreSQL, Material UI and OpenAPI. 
+This project was built by [Julie Fitzpatrick](https://github.com/julezfitz), [Matt Parisien](https://github.com/mattparisien) and [Brad Sawyer](https://github.com/BMWSawyer) using React, PostgreSQL, Material UI and OpenAPI. 
 
 This site has been deployed - Visit: https://priceless-ptolemy-ba407f.netlify.app/
 
