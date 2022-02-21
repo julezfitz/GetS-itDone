@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../Application";
 
 const MENULINKSTYLES = {
 	textDecoration: "none",

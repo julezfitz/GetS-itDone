@@ -34,8 +34,7 @@ export default function NavRight({
 					setNotifications(results.data);
 				}
 			})
-			.catch(() => {
-			});
+			.catch(() => {});
 	}, [userDetails.id, notificationRead, handleCloseUserMenu]);
 
 	const navigate = useNavigate();
@@ -111,7 +110,9 @@ export default function NavRight({
 
 		//axios call here to set read status of notification to true
 		axios
-			.put(`${process.env.REACT_APP_SERVER_URL}/notifications/${notificationId}`)
+			.put(
+				`${process.env.REACT_APP_SERVER_URL}/notifications/${notificationId}`
+			)
 			.then(() => {
 				setNotifications([]);
 				setNotificationRead(notificationId);

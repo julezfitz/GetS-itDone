@@ -61,6 +61,7 @@ export default function Application() {
 
 	const toggleLoggedIn = userDetails => {
 		window.scrollTo({ top: 0 });
+		setSearch("");
 
 		setGlobalState(prev => ({
 			...prev,
